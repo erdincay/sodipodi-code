@@ -18,28 +18,18 @@ testing and learning is needed, before we get it right.
 Installing preview binary
 </h3>
 <p>
-You need
-Gtk+, libxml2
-and
-freetype2
-runtime libraries. There
-are certainly many sources for these - I personally used
-<a href="http://www.bloodshed.net/dev/packages/index.html">
-Dev-C++ packages
-</a>
-for Gtk+ and libxml2, freetype binary can
-be obtained from
-<a href="http://gnuwin32.sourceforge.net/packages/freetype.htm">
-GNUWin32 project</a>.
+It is just self-extracting snapshot of working sodipodi
+installation, glib, gdk, gtk and other dll libraries included.
+There seems to be some problem with Pango I was not able to
+track down, so all Gtk+ widgets render text painfully
+slowly. Sodipodi own rendering is quite snappy.
 </p>
 <p>
-It is somewhat slower than Linux version because of Gtk+
-totally lagging screen update.
-</p>
-<p>
-Just unpack archive somewhere and start Sodipodi.exe. The only
-requirement is 'glade' subdirectory being at the same place
-as binary.
+Just unpack archive somewhere and start Sodipodi.exe (from
+under bin subdirectory). The only
+requirement is 'glade' subdirectori being in current directory.
+I.e. if you create shortcut, be sure that working directory is
+set to bin.
 </p>
 <h3>
 Compiling sodipodi under windows
