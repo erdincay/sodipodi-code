@@ -1,2 +1,0 @@
-$title="Dominican Republic (2:1)";
-$author="Luis M";
