@@ -9,13 +9,13 @@
 <svg
    id="svg153"
    sodipodi:version="0.28pre2"
-   width="247"
-   height="130"
-   sodipodi:docname="/home/bryce/us_betsy_ross.svg"
+   width="850pt"
+   height="566.93pt"
+   sodipodi:docname="/home/bryce/usa_betsy_ross.svg"
+   sodipodi:docbase="/home/bryce/"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   sodipodi:docbase="/home/bryce/">
+   xmlns:xlink="http://www.w3.org/1999/xlink">
   <desc
      id="desc2">
 The United States of America flag, produced by Daniel McRae</desc>
@@ -25,7 +25,8 @@ The United States of America flag, produced by Daniel McRae</desc>
      id="base" />
   <g
      id="g169"
-     style="font-size:12;fill:#bd3d44;">
+     style="font-size:12;fill:#bd3d44;"
+     transform="matrix(4.30358,0,0,5.42541,0,6.75264e-05)">
     <rect
        style="font-size:12;fill:#bd3d44;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
        id="rect156"
@@ -78,7 +79,8 @@ The United States of America flag, produced by Daniel McRae</desc>
   </g>
   <g
      id="g177"
-     style="font-size:12;fill:#ffffff;">
+     style="font-size:12;fill:#ffffff;"
+     transform="matrix(5.42541,0,0,5.42541,0,6.75264e-05)">
     <rect
        style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
        id="rect157"
@@ -125,10 +127,12 @@ The United States of America flag, produced by Daniel McRae</desc>
   <rect
      style="font-size:12;fill:#192f5d;fill-rule:evenodd;stroke-width:1pt;"
      id="rect200"
-     width="98.8"
-     height="70"
-     x="0"
-     y="0" />
+     width="425.193990"
+     height="379.778503"
+     x="0.000000"
+     y="0.000068"
+     rx="0.000000"
+     ry="0.000000" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -141,7 +145,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(47.6443,9.57462)" />
+     transform="matrix(5.42541,0,0,5.42541,206.894,63.4121)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -154,7 +158,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(35.1673,12.7807)" />
+     transform="matrix(5.42541,0,0,5.42541,139.201,80.8064)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -167,7 +171,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(64.1255,51.0097)" />
+     transform="matrix(5.42541,0,0,5.42541,296.311,288.214)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -180,7 +184,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(26.8141,20.509)" />
+     transform="matrix(5.42541,0,0,5.42541,93.8808,122.736)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -193,7 +197,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(23.2758,32.6531)" />
+     transform="matrix(5.42541,0,0,5.42541,74.6848,188.622)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -206,7 +210,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(25.5367,43.4708)" />
+     transform="matrix(5.42541,0,0,5.42541,86.9508,247.313)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -219,7 +223,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(33.1184,52.6889)" />
+     transform="matrix(5.42541,0,0,5.42541,128.085,297.325)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -232,7 +236,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(43.7197,57.2783)" />
+     transform="matrix(5.42541,0,0,5.42541,185.601,322.224)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -245,7 +249,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(54.8007,56.4273)" />
+     transform="matrix(5.42541,0,0,5.42541,245.72,317.607)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -258,7 +262,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(69.8586,41.8916)" />
+     transform="matrix(5.42541,0,0,5.42541,327.415,238.745)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -271,7 +275,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(70.9494,30.5729)" />
+     transform="matrix(5.42541,0,0,5.42541,333.333,177.336)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -284,7 +288,7 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(67.1315,20.3565)" />
+     transform="matrix(5.42541,0,0,5.42541,312.62,121.908)" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.125;"
@@ -297,5 +301,5 @@ The United States of America flag, produced by Daniel McRae</desc>
      sodipodi:cx="0.000000"
      sodipodi:cy="0.000000"
      sodipodi:r2="1.529391909"
-     transform="translate(58.7379,12.7347)" />
+     transform="matrix(5.42541,0,0,5.42541,267.081,80.5568)" />
 </svg>
