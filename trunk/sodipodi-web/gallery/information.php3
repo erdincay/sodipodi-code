@@ -26,7 +26,7 @@ We ask that you follow the open-source model for redistributing the
 images you list here.  Any of the licenses listed at
 <a href="http://www.opensource.org/licenses/">http://www.opensource.org/licenses/</a>
 is automatically acceptable; others would require review first.
-For any flags submitted we ask that you let them be public domain as per the <A HREF="http://creativecommons.org/licenses/publicdomain/">Creative Commons Public domain dedication</A>.</p>
+For any flags submitted we ask that you let them be public domain as per the <A HREF="http://creativecommons.org/licenses/publicdomain/">Creative Commons Public domain dedication</A>. To put something in the public domain you need to follow the procedure outlined <a href="http://creativecommons.org/license/publicdomain-2">here</A>.</p>
 
 <p>
 Also, be <b><i>DOUBLY</i></b> sure that you have the IP rights to
