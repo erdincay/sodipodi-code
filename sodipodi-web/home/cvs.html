@@ -1,0 +1,91 @@
+<p>
+The freshest Sodipodi can always be found at
+<a href="http://cvs.gnome.org/">Gnome CVS</a>, module
+
+<a href="http://cvs.gnome.org/lxr/source/sodipodi/">sodipodi</a>.
+Well, strictly
+speaking the absolute up to date version is in my computer, but I usually
+keep the main CVS quite synchronized. What, of course, means, that
+the code in CVS can be totally out of order. If it compiles, it is good,
+if it runs, it is even better, but do not expect it to do the work!
+</p>
+<p>
+Still, even if you are occasionally compiling programs yourself, 
+using CVS pays back the little extra work.
+</p>
+<ul>
+<li>You can get hands on new and cool features before the rest
+<li>Bugs are fixed in CVS initially, until they find a way to release
+<li>You can test new features and give feedback, before releases are done
+</ul>
+<p>
+If you are unfamiliar with CVS, here is simple overview to get
+started. This is shamelessly copied (and abbreviated) from
+<a href="http://developer.gnome.org/tools/cvs.html">http://developer.gnome.org/tools/cvs.html</a>,
+so look there, if you want to get more information.
+</p>
+<p>
+First set up CVSROOT environment variable:
+<p>
+<pre>
+$ export CVSROOT=':pserver:anonymous@anoncvs.gnome.org:/cvs/gnome'
+</pre>
+<p>
+Assuming you are running bash. If not, you probably know yourself, what
+to do. Given CVSROOT points to readonly copy of Gnome CVS.
+</p>
+<p>
+Then run the command:
+</p>
+<pre>
+$ cvs login
+</pre>
+<p>
+If asked for password, just press [Return]. You only need to run this
+command once. All later accesses to the same CVSROOT will do login
+automatically.
+</p>
+<p>
+Now check out initial copy of sodipodi module:
+</p>
+<pre>
+$ cvs -z3 checkout sodipodi
+</pre>
+<p>
+The initial checkout may take some time, as all files have to be
+downloaded to local computer. Updating local copy later is usually
+much faster, as CVS download only differences between local copy
+and server version.
+</p>
+<p>
+CVS copy does not include all autoconf, automake and gettext
+files, that are usually in released tarball. Most importantly
+the configure script has yet to be generated. Just chdir into
+base directory, and run:
+<p>
+<pre>
+./autogen.sh [options]
+</pre>
+<p>
+Where [options] are the same options you normally use for
+configure.
+</p>
+<p>
+If autogen.sh succeeds, just continue, as usual:
+</p>
+<pre>
+make
+make install
+</pre>
+<p>
+If you want later to update your local copy to the latest
+version in server, just chdir into source tree root, and run:
+</p>
+<pre>
+cvs update -d
+</pre>
+<p>
+Thats all. More information and link to general CVS documentation
+can be found at
+<a href="http://developer.gnome.org/tools/cvs.html">http://developer.gnome.org/tools/cvs.html</a>.
+</p>

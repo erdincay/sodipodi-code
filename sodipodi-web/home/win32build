@@ -1,0 +1,129 @@
+<h2>
+Sodipodi under Windows
+</h2>
+<p>
+Starting from version 0.29 sodipodi can be built under Windows 95+
+environment. This is still in early development, but most original
+features and original rendering engine work. Most notably
+printing is not supported yet.
+</p>
+<p>
+There is experimental binary available at
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Sodipodi download site</a>. Do not
+expect it to be as stable as Linux/Unix version yet - some
+testing and learning is needed, before we get it right.
+</p>
+<h3>
+Installing preview binary
+</h3>
+<p>
+You need
+Gtk+, libxml2
+and
+freetype2
+runtime libraries. There
+are certainly many sources for these - I personally used
+<a href="http://www.bloodshed.net/dev/packages/index.html">
+Dev-C++ packages
+</a>
+for Gtk+ and libxml2, freetype binary can
+be obtained from
+<a href="http://gnuwin32.sourceforge.net/packages/freetype.htm">
+GNUWin32 project</a>.
+</p>
+<p>
+It is somewhat slower than Linux version because I have not got
+assembler MMX optimizations compiling with Dev-cpp. If you know
+how to do that, help is welcome.
+</p>
+<p>
+Just unpack archive somewhere and start Sodipodi.exe. The only
+requirement is 'glade' subdirectory being at the same place
+as binary.
+</p>
+<h3>
+Compiling sodipodi under windows
+</h3>
+<p>
+Well, I can speak only about my experience. Certainly there
+are more ways to do that...
+</p>
+<ul>
+<li>
+Install
+<a href="http://www.bloodshed.net/dev/devcpp.html">Dev-C++</a>.
+I used version 5 beta 7 with MingW 2.95.
+<li>
+Download and install
+<a href="http://www.bloodshed.net/dev/packages/index.html">
+Gtk+, i18n and libxml2
+</a> development and runtime
+packages.
+<li>
+Install
+<a href="http://gnuwin32.sourceforge.net/packages/freetype.htm">
+freetype2</a>
+headers and libaries into applicable Dev-C++
+directories. Install freetype.dll into standard directory
+(windows/system or something like that).
+
+<li>Download sodipodi source. You do need version 0.29
+or later
+
+<li>Download sodipodi-codepages-1.0.zip from sodipodi
+download area and unpack it into src/libnrtype. This
+contains unicode to windows charset mappings and should
+be superseded by unicode layer for windows, but I have
+not got the latter to work under Win98.
+
+<li>
+Install
+<a href="http://gnuwin32.sourceforge.net/packages/libart.htm">
+libart_lgpl
+</a>
+into sodipodi source tree. Most probably
+you can install windows dll too, but libart is small and
+fast, so you can as well compile it in.
+<li>
+Create new Gtk+ project. Add all sodipodi sources to it.
+<li>
+Add empty config.h (or define whatever undefined variables there)
+<li>
+Compile
+</ul>
+<p>
+Ah, and of course, any help with Windows version is welcome.
+</p>
+<h3>My config.h for those interested</h3>
+<pre>
+/*
+ * Empty config.h
+ */
+
+#ifndef WIN32
+#define WIN32
+#endif
+ 
+#undef GTK_ENABLE_BROKEN
+
+#define M_SQRT1_2 0.707
+#define M_PI_2 1.57
+#define M_PI_4 0.785
+
+#define VERSION "0.29win"
+#define SODIPODI_VERSION VERSION
+
+#define SODIPODI_GLADEDIR "./glade"
+#define SODIPODI_PIXMAPDIR SODIPODI_GLADEDIR
+
+
+</pre>
+
+
+<p>
+29 Jaanuar 2003
+Tartu, Estonia
+Lauris Kaplinski
+</p>
+

@@ -1,0 +1,109 @@
+25/09/2002
+
+TODO for 0.27
+=============
+
+- Fix node dialog callbacks (DONE)
+- Fix text dialog (DONE)
+- Stamping (DONE) (Masatake)
+- Empty bbox of horizontal/vertical lines bug (DONE)
+- Toolbox scaling bug (DONE)
+- Update .spec.in file (DONE)
+- Ungroup forgetting font family bug (GONE)
+- Ungroup forgetting paintserver in group bug (DONE)
+- Fix places where bbox is not tested for emptyness (DONE)
+- Fix misplaced draws if viewBox present (DONE)
+
+Other tasks
+===========
+
+- Garbage collection on save
+- Make gradients to normalize transform
+- Tooltips for tools
+- Text does not update paint dynamically
+- Illustrator import/export
+- Patterns (Lauris) (90% DONE)
+- Radial gradients (Lauris) (DONE)
+- Interface for clipart collections (Lauris)
+
+Porting to GTK+-2.0
+===================
+
+ (go into SODIPODI_GTK2_BRANCH)
+
+- Reduce libgnome-2, libgnomeui-2 dependencies (Mitsuru)
+- GtkIMContext support for text-context?
+- More works for XML Editor
+- Fix unstable SPMenuButton/SPToolbox behavior
+- Merge into HEAD tree
+
+TODO for 0.26
+=============
+
+- fill-rule modification (DONE)
+- backwards compatibility for fill (DONE)
+- Cursor placement and Backspace in text context (DONE)
+- Save as plain SVG (DONE)
+- Recently opened file list (DONE)
+- Cleanups
+- Speedups
+- double click on pen bug (DONE)
+- dirty fill of open paths bug (DONE)
+- viewbox not applied bug (DONE)
+- fill style -> CMYK -> gradient bug (DONE)
+
+TODO for 0.25
+
+- SVG spec conforming text object (DONE)
+- Dynamic stroke dialog (DONE)
+- Replace static fill dialog with dynamic one (DONE)
+- Fix stack order undo (DONE)
+- Pen tool (DONE)
+- Tool options (DONE)
+- Fix style/font mess (DON)
+- Miscellaneous cleanups (DONE)
+- Make command-line arguments working (DONE)
+
+Miscellaneous ideas
+
+Tier 1 TODO items
+
+* CORBA based plugins
+* Accesible groups - i.e. instead of layers, we can edit different groups
+* Bonobo container - we can get rid of images and still be SVG :)
+
+Tier 2 TODO items
+
+* Intelligent curve editing
+* Show/hide/print/dontprint attributes
+* Agnostic DOM CORBA interface - i.e. repr tree
+* Gnostic DOM CORBA interface - i.e. document tree
+* Gnostic and agnostic object editors
+
+File formats
+
+* General plugin-based file format support
+* Disable xmlns:sodipodi if pure SVG is preferred (DONE)
+* Corel
+* AI
+* Sketch
+* Dia
+
+Interesting, but otherwise useless :)
+
+* Distributed agnostic documents
+* Edit SVG part of any document
+
+Done
+
+* Undo
+* Middle object level
+* Page size
+* Fonts - but we need some good library for reading outlines - and how to
+  do it portably?
+* NamedViews - i.e. saved views into document (preserving guides etc.)
+* Guidelines
+* Aligning
+
+Lauris Kaplinski
+<lauris@kaplinski.com>

@@ -1,0 +1,62 @@
+<style type="text/css">
+
+body {
+	a_background: #ff8f4f;
+}
+
+.navigation {
+	font-size: normal;
+	text-align: center;
+	font-weight: normal;
+	white-space: no-wrap;
+}
+
+table {
+	border: 0;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+
+div {
+	margin: 36 0 36 0;
+}
+
+td {
+	width: *;
+	height: *;
+}
+
+table, tr, td {
+	a_color: #df3f1f
+	font-family: Arial, Helvetica, Sans, sans-serif;
+}
+
+body,
+p,
+ul, ol, li,
+small,
+h1, h2, h3, h4, h5, h6,
+blockquote {
+	a_color: #df3f1f;
+	font-family: Arial, Helvetica, Sans, sans-serif;
+	text-align: justify;	
+}
+
+pre {
+	font-family: "Andale Mono", "Courier New", "Courier", monospace;
+	font-size: 10pt;
+}
+
+A {
+	font-family: "Arial", "Helvetica", "Sans", sans-serif;
+}
+
+A:link {a_color: #bf2f00; text-decoration: none;}
+A:visited {a_color: #bf2f00; text-decoration: none;}
+A:active {a_color: #ff7f7f; text-decoration: none;}
+A:hover {color: #ff7f7f; text-decoration: none;}
+
+HR {color: #ccccff;}
+
+</style>
+

@@ -1,0 +1,91 @@
+<? if (!$datalib) {$datalib = TRUE;
+
+include ("library/page.lib");
+
+function data_read_meta ($filename)
+{
+	if (!file_exists ("$filename")) {return NULL;}
+	$file = file ("$filename");
+	$len = sizeof ($file);
+	for ($i = 0; $i < $len; $i++) {
+		$line = $file[$i];
+		if ($line[0] != '#') {
+			$p = explode ("/", $line);
+			$np = sizeof ($p);
+			if ($np) {
+				$desc = NULL;
+				for ($j = 0; $j < $np; $j++) {
+					$kv = explode ("=", $p[$j]);
+					$key = trim ($kv[0]);
+					$val = trim ($kv[1]);
+					$desc[$key] = $val;
+				}
+				if (!$desc['title']) {$desc['title'] = $desc['name'];}
+				if ($desc['name']) {$meta[$desc['name']] = $desc;}
+			}
+		}
+	}
+
+	return $meta;
+}
+
+function data_show_page ($hierarchy)
+{
+	$hlist = explode ("/", $hierarchy);
+	$len = sizeof ($hlist);
+	$section = $hlist[0];
+	$page = $hlist[1];
+
+	for ($i = 2; $i < $len; $i++) {
+		$args[$i - 2] = $hlist[$i];
+	}
+
+	/* Read global metadata */
+	$globalmeta = data_read_meta ("meta");
+	if (!$globalmeta[$section]) $section = "home";
+
+	/* Read section metadata */
+	$sinfo = $globalmeta[$section];
+	if ($sinfo['meta']) {
+		$metaname = $sinfo['meta'];
+	} else {
+		$metaname = "meta";
+	}
+	if ($sinfo['directory']) {
+		$dirname = $sinfo['directory']."/";
+		$metaname = $dirname.$metaname;
+	}
+	if (!$page) {
+		$page = $sinfo['intro'];
+	}
+	$sm = data_read_meta ($metaname);
+
+	/* Find page info */
+	if ($sm[$page]) {
+		$pinfo = $sm[$page];
+	} else {
+		$pinfo = $sm[$sinfo['intro']];
+	}
+
+	/* Compose section list, page list, file */
+	/* $ga = array_keys ($gm); */
+	/* $sa = array_keys ($sm); */
+	$file = $pinfo['file'];
+
+	page_start ($pinfo[$title]);
+	page_show ($globalmeta, $sm, $section, $page, $dirname, $file, $args);
+	page_end ();
+}
+
+function data_quote_file ($filename)
+{
+	if (!file_exists ("$filename")) {return NULL;}
+	$file = file ("$filename");
+	$len = sizeof ($file);
+	for ($i = 0; $i < $len; $i++) {
+		$line = $file[$i];
+    		print htmlspecialchars ($line);
+	}
+}
+
+} ?>

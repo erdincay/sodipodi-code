@@ -1,0 +1,174 @@
+<h2>1. General questions</h2>
+<h3>What does Sodipodi mean?</h3>
+<p>
+The same thing as 'sigrimigri'. In English it should be 'mishmesh',
+'hotchapotcha', 'zigzag' ... you got the idea.
+</p>
+
+<h3>How do you pronounce it?</h3>
+<p>
+Like it is written in Estonian. If you happen to not to speak
+Estonian, then Finnish will do.
+</p>
+<p>
+Geez, you do not know Finnish too?! I think classical Latin
+should be close. But notice, that 'd' is not voiced in
+Estonian.
+</p>
+<p>
+Still clueless? German pronouncication will do, if all else
+fails.
+</p>
+
+<h3>Eee... does that means it is pronounced like 'soipoi'?</h3>
+<p>
+Geez, no!
+</p>
+<p>
+Unvoiced sound is not the same as silent sound. Being unvoiced means,
+that vocal chords are in rest, but otherwise sound is just normal.
+</p>
+<p>
+Take for example the following pairs:
+</p>
+<ul>
+<li> z and s
+<li> v and f
+</ul>
+<p>
+The first in pair is voiced, the second unvoiced variant of the same sound.
+Similarly 'd' is voiced counterpart of 't' in many europaean languages,
+but in Estonian it is just short and unstressed 't'. This is one of the few
+places, where Estonian usage differs from the canonical pronouncication
+of letters.
+</p>
+
+<h3>Stop joking. Is there tutorial or something?</h3>
+<p>
+Not yet. But why not to take it as excellent opportunity
+to become famous by writing one. We all developers will be
+very glad to help you.
+</p>
+
+<h3>Will there ever be version 1.0?</h3>
+<p>
+Quite improbable, unless somebody pays me for doing it. I am
+totally opposed to the recent trend of certain open source companies
+to name crappy beta products version 1 and marketing the hell
+out of them.
+</p>
+<p>
+In the current development model, Sodipodi will not be assigned
+version number 1, unless each source file is triple audited
+for clarity, speed and correctness, it implements the
+whole SVG (except DOM), and runs reasonably well on computers with
+32MB of RAM.
+</p>
+
+<h2>2. Architecture</h2>
+<h3>There seems to be big code overlap between Sodipodi and
+project X. Shouldn't you share more code?</h3>
+<p>
+Short answer: no.
+</p>
+<p>
+Longer answer: theoretically possible, if the functionality
+we are talking about is sufficently self-contained, we are
+able to settle sensible clean and small API, and there
+exist some serious framework for code sharing. But making
+random pieces of code into shared libary is not an option.
+</p>
+
+<h2>3. Compiling</h2>
+<h3>
+**Error**: You must have Automake' installed to compile Sodipodi
+</h3>
+<p>
+Sodipodi compiled just fine, but now trying to compile CVS,
+I get this message. I am sure, I have automake 1.4 installed!
+</p>
+<p>
+Masatake Yamato suggested the following trick:
+</p>
+<pre>
+Try following commands:
+$ sudo ln -s /usr/local/bin/automake /usr/local/bin/automake-1.4
+$ sudo ln -s /usr/local/bin/aclocal  /usr/local/bin/aclocal-1.4
+$ ./autogen.sh
+
+When running automake & autoconf manually, don't forget to run aclocal.
+
+BTW, I think the human race need autoauto that encapsulates the 
+difference of autotools versions;-P
+</pre>
+<p>
+Also, downloading latest autoconf 1.4 tarball and installing it
+manually has worked for some people.
+</p>
+
+<h2>4. Usage</h2>
+
+<h3>How resource-hungry is Sodipodi?</h3>
+<p>
+It is, although much less than gigants like Nautilus and
+Evolution.
+</p>
+<p>
+Sodipodi is currently developed on Celeron 500 with 128MB of RAM and
+runs well on it. Of course, for complex graphics and long
+bezier lines faster processor does better.
+</p>
+<p>
+I have used it on Pentium 166 with 32MB memory, and the
+user experience was still pleasant.
+</p>
+<p>
+Also, notice that its fine antialiased display is achieved
+by using XImage extensively. For networked X displays it means,
+that you do need at least 100Mbps network. But that does
+not matter, if X runs on your local computer.
+</p>
+
+<h3>I have hand-created SVG. Will everything be messed up, if I load
+and save it with Sodipodi?</h3>
+<p>
+It depends. Sodipodi tries to change as little as possible, unless
+explicitly or implicitly needed. But some things just happen.
+</p>
+<ul>
+<li>All objects will get unique "id" attributes. If already
+    existing and unique, they will be preserved, otherwise one
+    will be derived from node name.
+<li>Some sodipodi namespaced metadata will be added to the
+    beginning of document.
+<li>If you change anything in gradient, given gradient will be
+    moved to standardized place into &lt;defs&gt; node at the
+    beginning of document and broken up into 2 linked gradients
+    - one defining color vector, another one position.
+<li>Saving document as 'plain SVG' actually invokes exporter.
+    All objects will be reconstructed from parsed data, but
+    overall object hierarchy will be preserved.
+<li>Changing any style property forces reconstructing of the
+    whole 'style' attribute.
+</ul>
+<p>
+Everything else should be straightforward - changing any
+attribute makes sodipodi to write this into file in a way
+it likes best.
+</p>
+
+<h3>I have heard there are cool command-line arguments.
+Is this true?</h3>
+<p>
+There are some. Among other things you can use sodipodi to
+print or convert SVG file to bitmap from console, even on
+machines without running X (but you need Gtk+ and X libraries
+installed still).
+</p>
+<p>
+Try
+<pre>sodipodi --help</pre>
+for list of supported arguments.
+</p>
+
+
