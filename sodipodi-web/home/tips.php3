@@ -1,5 +1,28 @@
 <h2>Generic tricks and tips</h2>
 
+<h3>Manually Placing Text Along a Curve</h3>
+
+<ol>
+<li> Use 'Text Tool' to place text in font and size you want, you will
+  not be able to change the string later.</li>
+
+<li>Select text and 'Convert Object to Curve'. This creates a path for
+   each of the characters, but they are still grouped together.</li>
+
+<li>Use 'Break Selected Path to Subpaths' to seperate characters. This
+   has the side effect of losing the cutout centers of characters like
+   'e' and 'd'.</li>
+
+<li>Select the exterior and interior paths for each of the 'damaged'
+   characters in turn and 'Combine Mutiple Paths'.</li>
+</ol>
+
+<p. You now have a series of characters which can be individually moved,
+ rotated or scaled as desired. I sugest using a path as a template for
+ the curve and then removing (or making invisible by setting no stroke)
+ later.
+</p>
+
 <h3>Cleaning up document</h3>
 
 <p>
