@@ -1,2 +1,2 @@
-$title="Trinidag & Tobago";
+$title="Trinidad & Tobago";
 $author="Sigge Kotliar";
