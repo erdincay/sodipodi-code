@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg687"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="1000"
+   height="500"
+   sodipodi:docname="hungary_flag.svg">
+  <defs
+     id="defs689" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g694"
+     transform="scale(8.3333333333)">
+    <rect
+       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect690"
+       width="120"
+       height="20"
+       x="0"
+       y="0" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect691"
+       width="120"
+       height="20"
+       x="0"
+       y="20" />
+    <rect
+       style="font-size:12;fill:#008400;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect692"
+       width="120"
+       height="20"
+       x="0"
+       y="40" />
+  </g>
+</svg>

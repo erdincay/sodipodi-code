@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="990"
+   height="630"
+   sodipodi:docname="estonia_flag.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g555"
+     transform="scale(30)">
+    <rect
+       style="font-size:12;fill:#0066cc;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect551"
+       width="33"
+       height="7"
+       x="0"
+       y="0" />
+    <rect
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect552"
+       width="33.000000"
+       height="7.000000"
+       x="0.000000"
+       y="6.999999" />
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect553"
+       width="33.000000"
+       height="7.000000"
+       x="0.000000"
+       y="13.999999" />
+  </g>
+</svg>

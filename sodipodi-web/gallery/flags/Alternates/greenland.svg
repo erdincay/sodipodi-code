@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg660"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="999"
+   height="666"
+   sodipodi:docname="greenland_flag.svg">
+  <defs
+     id="defs662" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g671"
+     transform="scale(55.5)">
+    <rect
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect663"
+       width="18"
+       height="6"
+       x="0"
+       y="0" />
+    <rect
+       style="font-size:12;fill:#cc0033;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect664"
+       width="18"
+       height="6"
+       x="0"
+       y="6" />
+    <path
+       sodipodi:type="arc"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="path668"
+       d="M 11.000000,6.000000 A 4.000000,4.000000 0 0 1 3.000000,6.000000"
+       sodipodi:cx="7"
+       sodipodi:cy="6"
+       sodipodi:rx="4"
+       sodipodi:ry="4"
+       sodipodi:start="0"
+       sodipodi:end="3.14159265358979323844"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="font-size:12;fill:#cc0033;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="path669"
+       d="M 3.000000,6.000000 A 4.000000,4.000000 0 0 1 11.000000,6.000000"
+       sodipodi:cx="7"
+       sodipodi:cy="6"
+       sodipodi:rx="4"
+       sodipodi:ry="4"
+       sodipodi:start="3.14159265358979323844"
+       sodipodi:end="0"
+       sodipodi:open="true" />
+  </g>
+</svg>

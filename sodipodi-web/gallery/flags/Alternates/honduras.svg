@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   x="0"
+   y="0"
+   width="1000"
+   height="500"
+   id="svg698">
+  <defs
+     id="defs700" />
+  <g
+     transform="scale(13.88889,13.88889)"
+     style="font-size:12;"
+     id="g727">
+    <g
+       id="g723">
+      <rect
+         width="72.0000000"
+         height="12"
+         x="0"
+         y="0.00000200"
+         style="fill:#000099;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect701" />
+      <rect
+         width="72.0000000"
+         height="12"
+         x="0"
+         y="12"
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect702" />
+      <rect
+         width="72.0000000"
+         height="12"
+         x="0"
+         y="24.0000019"
+         style="fill:#000099;fill-rule:evenodd;stroke-width:1pt;"
+         id="rect703" />
+    </g>
+    <g
+       style="fill:#000099;"
+       id="g714">
+      <polygon
+         points="36,16 36.449,17.382 37.9021,17.382 36.7265,18.2361 37.1756,19.618 36,18.7639 34.8244,19.618 35.2735,18.2361 34.0979,17.382 35.551,17.382 36,16 "
+         style="fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon704" />
+      <polygon
+         points="48,19 48.449,20.382 49.9021,20.382 48.7265,21.2361 49.1756,22.618 48,21.7639 46.8244,22.618 47.2735,21.2361 46.0979,20.382 47.551,20.382 48,19 "
+         style="fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon705" />
+      <polygon
+         points="48,13 48.449,14.382 49.9021,14.382 48.7265,15.2361 49.1756,16.618 48,15.7639 46.8244,16.618 47.2735,15.2361 46.0979,14.382 47.551,14.382 48,13 "
+         style="fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon706" />
+      <polygon
+         points="24,19 24.449,20.382 25.9021,20.382 24.7265,21.2361 25.1756,22.618 24,21.7639 22.8244,22.618 23.2735,21.2361 22.0979,20.382 23.551,20.382 24,19 "
+         style="fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon707" />
+      <polygon
+         points="24,13 24.449,14.382 25.9021,14.382 24.7265,15.2361 25.1756,16.618 24,15.7639 22.8244,16.618 23.2735,15.2361 22.0979,14.382 23.551,14.382 24,13 "
+         style="fill-rule:evenodd;stroke-width:1pt;"
+         id="polygon708" />
+    </g>
+  </g>
+</svg>
