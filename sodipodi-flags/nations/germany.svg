@@ -10,7 +10,7 @@
 <Work rdf:about="">
    <dc:title>SVG graphic of German flags</dc:title>
    <dc:rights><Agent>
-      <dc:title>myself</dc:title>
+      <dc:title>Philipp Sadleder</dc:title>
    </Agent></dc:rights>
    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
 </Work>
