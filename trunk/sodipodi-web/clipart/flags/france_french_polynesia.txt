@@ -1,0 +1,2 @@
+$title="France, French Polynesia";
+$author="Tobias Jakobs";

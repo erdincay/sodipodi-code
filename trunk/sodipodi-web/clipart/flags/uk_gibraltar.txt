@@ -1,2 +1,2 @@
-$title="Gibraltar, United Kingdom";
+$title="United Kingdom, Gibraltar";
 $author="Christian Schaller";
