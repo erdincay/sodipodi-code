@@ -1,2 +1,2 @@
-$title="Indonedia";
-$author="Anonymous";
+$title="Indonesia";
+$author="Kuswanto";
