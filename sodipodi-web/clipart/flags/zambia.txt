@@ -1,0 +1,2 @@
+$title="Zambia";
+$author="Tobias Jacobs";
