@@ -20,7 +20,17 @@ closedir($dir);
 sort($filelist);
 $total = count($filelist);
 
+// Generate 'Previous' and 'Next' navigation links
+$left = $n - $perpage;
+if ($left > 0) $previous = "<A HREF='$PHP_SELF?section=$section/$area&area=$area&n=$left'><<< Previous</A>\n";
+
+$right = $n + $perpage;
+if ($right < $total) $next = "<A HREF='$PHP_SELF?section=$section/$area&area=$area&n=$right'>Next >>>></A>\n";
+
+// Generate drop-down with page numbers
 print "<CENTER><FORM ACTION='$PHP_SELF' METHOD='POST'>\n";
+print "<TABLE WIDTH='90%'><TR><TD WIDTH='33%' ALIGN='left'>$previous</TD>\n";
+print "<TD WIDTH='33%' ALIGN='center'>\n";
 print "<INPUT TYPE='hidden' NAME='section' VALUE='$section/$area'>\n";
 print "<INPUT TYPE='hidden' NAME='area' VALUE='$area'>\n";
 print "<SELECT NAME='n'>\n";
@@ -34,7 +44,8 @@ for ($i=0; $i<($total / $perpage); $i++) {
 
 	print "<OPTION VALUE='$first'$def>$first - $last</OPTION>\n";
 }
-print "</SELECT><INPUT TYPE='SUBMIT' VALUE='Go'></FORM></CENTER>\n";
+print "</SELECT><INPUT TYPE='SUBMIT' VALUE='Go'></TD>\n";
+print "<TD WIDTH='33%' ALIGN='right'>$next</TD></TR></TABLE></FORM></CENTER>\n";
 
 print "<BR><BR><TABLE WIDTH='100%' BORDER='0'>\n";
 
@@ -68,14 +79,10 @@ if ($count % $cols != 0) print "</TR>\n";
 <BR><BR>
 <CENTER>
 
-<?php
-$left = $n - $perpage;
-if ($left > 0) print "<A HREF='$PHP_SELF?section=$section/$area&area=$area&n=$left'><<< Previous |</A>\n";
-
-$right = $n + $perpage;
-if ($right < $total) print "<A HREF='$PHP_SELF?section=$section/$area&area=$area&n=$right'>| Next >>>></A>\n";
-?>
-
-<BR><BR>Total: <B><?php echo $total?></B>
+<TABLE WIDTH='90%'><TR>
+<TD WIDTH='33%' ALIGN='left'><?php echo $previous?></TD>
+<TD WIDTH='33%' ALIGN='center'>Total: <B><?php echo $total?></B></TD>
+<TD WIDTH='33%' ALIGN='right'><?php echo $next?></TD>
+</TR></TABLE>
 
 </CENTER>
