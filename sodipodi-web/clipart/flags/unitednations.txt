@@ -1,2 +1,3 @@
 $title="United Nations";
-$author="Tobias Jakobs";
+$author="Wilfried Huss";
+
