@@ -1,2 +1,2 @@
-$title="Wales, United Kingdom";
+$title="United Kingdom, Wales";
 $author="Tobias Jakobs";
