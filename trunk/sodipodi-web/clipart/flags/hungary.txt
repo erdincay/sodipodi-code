@@ -1,2 +1,2 @@
-$title="Hungary (3:2)";
+$title="Hungary";
 $author="Laszlo Dvornik";
