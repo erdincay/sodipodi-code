@@ -6,51 +6,52 @@
    version="1"
    x="0"
    y="0"
-   width="299.999mm"
-   height="210mm"
+   width="280mm"
+   height="140mm"
    id="svg378"
-   sodipodi:version="0.32-hydra1"
-   sodipodi:docname="/home/yemu/north-korea.svg"
-   sodipodi:docbase="/home/yemu"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/north-korea.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
   <sodipodi:namedview
-     id="base" />
+     id="base"
+     showgrid="true" />
   <defs
      id="defs380" />
   <rect
-     width="1062.989990"
-     height="744.094421"
-     x="-1062.989990"
-     y="-708.660965"
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.0247pt;"
+     width="987.625243"
+     height="484.504700"
+     x="-991.811400"
+     y="-492.878582"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.797009pt;"
      id="rect149"
-     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,-7.629395e-4,35.43352)" />
+     transform="scale(-1.000000,-1.000000)" />
   <rect
-     width="1062.989990"
-     height="134.645650"
-     x="-1062.989258"
-     y="2.015963"
+     width="987.625243"
+     height="87.672271"
+     x="-991.811400"
+     y="405.206361"
      style="font-size:12;fill:#3e5698;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect148"
-     transform="matrix(-1.000000,0.000000,0.000000,1.000000,0.000000,607.4329)" />
+     transform="scale(-1.000000,1.000000)" />
   <rect
-     width="1062.989990"
-     height="412.434690"
-     x="-1062.989258"
-     y="-580.302835"
+     width="987.625243"
+     height="268.549986"
+     x="-991.811400"
+     y="-384.901246"
      style="font-size:12;fill:#c60000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect605"
-     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,0.000000,-2.038254)" />
+     transform="scale(-1.000000,-1.000000)" />
   <rect
-     width="1062.989990"
-     height="134.645650"
-     x="-1062.989258"
-     y="2.015963"
+     width="987.625243"
+     height="87.672271"
+     x="-991.811400"
+     y="8.373883"
      style="font-size:12;fill:#3e5698;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect606"
-     transform="matrix(-1.000000,0.000000,0.000000,1.000000,0.000000,-2.015976)" />
+     transform="scale(-1.000000,1.000000)" />
   <path
      sodipodi:type="arc"
      style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
@@ -60,10 +61,10 @@
      sodipodi:cy="1147.964233"
      sodipodi:rx="163.791611"
      sodipodi:ry="163.791626"
-     transform="translate(44.87442,-775.9170)" />
+     transform="matrix(0.839632,0.000000,0.000000,0.665119,56.74857,-512.9069)" />
   <polygon
      points="591.041,433.161 533.774,391.476 476.501,433.151 498.449,365.806 441.115,324.214 511.946,324.278 533.785,256.897 555.613,324.281 626.445,324.23 569.104,365.812 591.041,433.161 "
      style="font-size:12;fill:#c40000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;stroke:none;stroke-opacity:1;"
      id="polygon136"
-     transform="matrix(1.349042,-6.565291e-3,-1.468867e-2,1.278984,-338.3839,-68.16016)" />
+     transform="matrix(1.163030,-4.786459e-3,-1.266332e-2,0.932450,-279.0365,-74.32138)" />
 </svg>

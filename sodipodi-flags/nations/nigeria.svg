@@ -2,75 +2,46 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
 "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
-<!--
-On October 30, 2003, Brett Roper dedicated to the public domain the
-work "SVG graphic of Nigerian Flag." Before making the dedication,
-Brett Roper
-represented that Brett Roper owned all copyrights in the
-work. By making the dedication, Brett Roper made an overt act
-of relinquishment in perpetuity of all present and future rights under
-copyright law, whether vested or contingent, in "SVG graphic of Nigerian
-Flag."
-
-Brett Roper understands that such relinquishment of all rights
-includes the relinquishment of all rights to enforce (by lawsuit or
-otherwise) those copyrights in the Work.
-
-Brett Roper recognizes that, once placed in the public domain,
-"SVG graphic of Nigerian Flag." may be freely reproduced,
-distributed, transmitted, used,
-modified, built upon, or otherwise exploited by anyone for any
-purpose, commercial or non-commercial, and in any way, including by
-methods that have not yet been invented or conceived.
--->
 <svg
-   style="fill:#28ff09; fill-opacity:14.1176%; stroke:none; "
-   width="210mm"
+   version="1"
+   x="0"
+   y="0"
+   width="280mm"
    height="140mm"
-   id="canada"
-   sodipodi:docname="/home/brett/flags/ng-3x2.svg"
-   sodipodi:version="0.32"
-   sodipodi:docbase="/home/brett/flags"
+   id="svg378"
+   sodipodi:version="0.33pre"
+   sodipodi:docname="/home/yemu/clipart/newnewnew/nigeria.svg"
+   sodipodi:docbase="/home/yemu/clipart/newnewnew"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs
-     id="defs3" />
   <sodipodi:namedview
-     id="base"
-     gridoriginx="0.000000"
-     gridoriginy="0.000000"
-     gridspacingx="52.5mm"
-     gridspacingy="17.5mm"
-     gridtolerance="10px"
-     gridcolor="#000aff"
-     gridopacity="1.000000"
-     guidetolerance="5.000000"
-     guidecolor="#0000ff"
-     guideopacity="0.494118"
-     guidehicolor="#ff0000"
-     guidehiopacity="0.494118"
-     showgrid="true"
-     snaptogrid="true" />
-  <rect
-     style="font-size:12;fill:#009a00;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;stroke:none;"
-     id="rect555"
-     width="246.594483"
-     height="496.062988"
-     x="0.000000"
-     y="-0.000015" />
-  <rect
-     style="font-size:12;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect553"
-     width="248.750000"
-     height="496.062988"
-     x="247.500000"
-     y="-0.00001526" />
-  <rect
-     style="font-size:12;fill:#009a00;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect554"
-     width="247.844483"
-     height="496.062988"
-     x="496.250001"
-     y="-0.000061" />
+     id="base" />
+  <defs
+     id="defs380" />
+  <g
+     id="g2479"
+     transform="matrix(1.333333,0.000000,0.000000,1.000000,0.000000,-212.5981)">
+    <rect
+       width="744.093044"
+       height="496.062958"
+       x="0.000000"
+       y="212.598022"
+       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect171" />
+    <rect
+       width="248.031712"
+       height="496.062958"
+       x="496.062741"
+       y="212.598038"
+       style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect135" />
+    <rect
+       width="248.031712"
+       height="496.062958"
+       x="0.000000"
+       y="212.598038"
+       style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect403" />
+  </g>
 </svg>
