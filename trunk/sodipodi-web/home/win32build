@@ -3,9 +3,8 @@ Sodipodi under Windows
 </h2>
 <p>
 Starting from version 0.29 sodipodi can be built under Windows 95+
-environment. This is still in early development, but most original
-features and original rendering engine work. Most notably
-printing is not supported yet.
+environment. This is still in development, but most original
+features and original rendering engine work.
 </p>
 <p>
 There is experimental binary available at
