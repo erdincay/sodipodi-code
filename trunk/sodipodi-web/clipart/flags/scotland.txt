@@ -1,2 +1,0 @@
-$title="Scotland";
-$author="Jesse Andrews";
