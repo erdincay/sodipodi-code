@@ -47,7 +47,7 @@ for ($i=0; $i<($total / $perpage); $i++) {
 print "</SELECT><INPUT TYPE='SUBMIT' VALUE='Go'></TD>\n";
 print "<TD WIDTH='33%' ALIGN='right'>$next</TD></TR></TABLE></FORM></CENTER>\n";
 
-print "<BR><BR><TABLE WIDTH='100%' BORDER='0'>\n";
+print "<BR><BR><TABLE WIDTH='90%' BORDER='0'>\n";
 
 for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
 	$svgfile = $filelist[$i];
