@@ -1,2 +1,2 @@
-$title="Antigua";
+$title="Antigua and Barbuda";
 $author="Sigge Kotliar";
