@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Hong Kong's Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Andrew Duhan</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+<svg
+   id="svg689"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="500pt"
+   height="333pt"
+   sodipodi:docbase="/home/andrew/sodipodi-flags/work"
+   sodipodi:docname="/home/andrew/sodipodi-flags/work/hong_kong.svg">
+  <defs
+     id="defs691" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect693"
+     width="625.000000"
+     height="416.250000"
+     x="0.000000"
+     y="0.000010" />
+  <g
+     id="g699"
+     transform="translate(1.173706,-0.293427)">
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 202.09 146.52 C 205.41 158.762 216.942 160.209 225.536 158.346 C 239.853 155.036 252.746 160.862 261.846 169.965 C 277.096 185.221 264.341 196.118 280.519 209.18 C 288.476 215.771 298.64 216.165 309.568 210.632 C 281.281 243.83 238.842 233.592 220.764 218.724 C 206.019 206.456 191.093 181.861 202.09 146.52 z "
+       id="path695"
+       sodipodi:nodetypes="cssscsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#be0027;stroke-opacity:1;stroke-width:1.25;stroke-linejoin:miter;stroke-linecap:round;fill-opacity:1;stroke-dasharray:none;"
+       d="M 240.683 197.976 C 254.515 221.283 281.834 224.672 298.986 216.857 "
+       id="path697"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="polygon698"
+       sodipodi:sides="5"
+       sodipodi:cx="235.916260"
+       sodipodi:cy="187.889542"
+       sodipodi:r1="6.93173170"
+       sodipodi:r2="2.59917498"
+       sodipodi:arg1="0.68796432"
+       sodipodi:arg2="1.31847918"
+       points="241.271,192.291 236.565,190.406 233.385,194.343 233.723,189.284 228.997,187.476 233.912,186.235 234.171,181.181 236.871,185.472 241.757,184.157 238.51,188.05 241.271,192.291 "
+       transform="matrix(1.117414,-0.191883,0.191883,1.117414,-63.51814,23.55930)" />
+  </g>
+  <g
+     id="g703"
+     transform="matrix(0.307066,0.951688,-0.951688,0.307066,415.9590,-151.6787)">
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 202.09 146.52 C 205.41 158.762 216.942 160.209 225.536 158.346 C 239.853 155.036 252.746 160.862 261.846 169.965 C 277.096 185.221 264.341 196.118 280.519 209.18 C 288.476 215.771 298.64 216.165 309.568 210.632 C 281.281 243.83 238.842 233.592 220.764 218.724 C 206.019 206.456 191.093 181.861 202.09 146.52 z "
+       id="path704"
+       sodipodi:nodetypes="cssscsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#be0027;stroke-opacity:1;stroke-width:1.25;stroke-linejoin:miter;stroke-linecap:round;fill-opacity:1;stroke-dasharray:none;"
+       d="M 240.683 197.976 C 254.515 221.283 281.834 224.672 298.986 216.857 "
+       id="path705"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="polygon706"
+       sodipodi:sides="5"
+       sodipodi:cx="235.916260"
+       sodipodi:cy="187.889542"
+       sodipodi:r1="6.93173170"
+       sodipodi:r2="2.59917498"
+       sodipodi:arg1="0.68796432"
+       sodipodi:arg2="1.31847918"
+       points="241.271,192.291 236.565,190.406 233.385,194.343 233.723,189.284 228.997,187.476 233.912,186.235 234.171,181.181 236.871,185.472 241.757,184.157 238.51,188.05 241.271,192.291 "
+       transform="matrix(1.117414,-0.191883,0.191883,1.117414,-63.51814,23.55930)" />
+  </g>
+  <g
+     id="g707"
+     transform="matrix(-0.804825,0.593512,-0.593512,-0.804825,687.4205,192.6503)">
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 202.09 146.52 C 205.41 158.762 216.942 160.209 225.536 158.346 C 239.853 155.036 252.746 160.862 261.846 169.965 C 277.096 185.221 264.341 196.118 280.519 209.18 C 288.476 215.771 298.64 216.165 309.568 210.632 C 281.281 243.83 238.842 233.592 220.764 218.724 C 206.019 206.456 191.093 181.861 202.09 146.52 z "
+       id="path708"
+       sodipodi:nodetypes="cssscsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#be0027;stroke-opacity:1;stroke-width:1.25;stroke-linejoin:miter;stroke-linecap:round;fill-opacity:1;stroke-dasharray:none;"
+       d="M 240.683 197.976 C 254.515 221.283 281.834 224.672 298.986 216.857 "
+       id="path709"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="polygon710"
+       sodipodi:sides="5"
+       sodipodi:cx="235.916260"
+       sodipodi:cy="187.889542"
+       sodipodi:r1="6.93173170"
+       sodipodi:r2="2.59917498"
+       sodipodi:arg1="0.68796432"
+       sodipodi:arg2="1.31847918"
+       points="241.271,192.291 236.565,190.406 233.385,194.343 233.723,189.284 228.997,187.476 233.912,186.235 234.171,181.181 236.871,185.472 241.757,184.157 238.51,188.05 241.271,192.291 "
+       transform="matrix(1.117414,-0.191883,0.191883,1.117414,-63.51814,23.55930)" />
+  </g>
+  <g
+     id="g711"
+     transform="matrix(-0.803870,-0.594807,0.594807,-0.803870,439.5853,562.0117)">
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 202.09 146.52 C 205.41 158.762 216.942 160.209 225.536 158.346 C 239.853 155.036 252.746 160.862 261.846 169.965 C 277.096 185.221 264.341 196.118 280.519 209.18 C 288.476 215.771 298.64 216.165 309.568 210.632 C 281.281 243.83 238.842 233.592 220.764 218.724 C 206.019 206.456 191.093 181.861 202.09 146.52 z "
+       id="path712"
+       sodipodi:nodetypes="cssscsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#be0027;stroke-opacity:1;stroke-width:1.25;stroke-linejoin:miter;stroke-linecap:round;fill-opacity:1;stroke-dasharray:none;"
+       d="M 240.683 197.976 C 254.515 221.283 281.834 224.672 298.986 216.857 "
+       id="path713"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="polygon714"
+       sodipodi:sides="5"
+       sodipodi:cx="235.916260"
+       sodipodi:cy="187.889542"
+       sodipodi:r1="6.93173170"
+       sodipodi:r2="2.59917498"
+       sodipodi:arg1="0.68796432"
+       sodipodi:arg2="1.31847918"
+       points="241.271,192.291 236.565,190.406 233.385,194.343 233.723,189.284 228.997,187.476 233.912,186.235 234.171,181.181 236.871,185.472 241.757,184.157 238.51,188.05 241.271,192.291 "
+       transform="matrix(1.117414,-0.191883,0.191883,1.117414,-63.51814,23.55930)" />
+  </g>
+  <g
+     id="g715"
+     transform="matrix(0.307671,-0.951494,0.951494,0.307671,18.27153,441.1418)">
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 202.09 146.52 C 205.41 158.762 216.942 160.209 225.536 158.346 C 239.853 155.036 252.746 160.862 261.846 169.965 C 277.096 185.221 264.341 196.118 280.519 209.18 C 288.476 215.771 298.64 216.165 309.568 210.632 C 281.281 243.83 238.842 233.592 220.764 218.724 C 206.019 206.456 191.093 181.861 202.09 146.52 z "
+       id="path716"
+       sodipodi:nodetypes="cssscsc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#be0027;stroke-opacity:1;stroke-width:1.25;stroke-linejoin:miter;stroke-linecap:round;fill-opacity:1;stroke-dasharray:none;"
+       d="M 240.683 197.976 C 254.515 221.283 281.834 224.672 298.986 216.857 "
+       id="path717"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       sodipodi:type="star"
+       style="font-size:12;fill:#be0027;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="polygon718"
+       sodipodi:sides="5"
+       sodipodi:cx="235.916260"
+       sodipodi:cy="187.889542"
+       sodipodi:r1="6.93173170"
+       sodipodi:r2="2.59917498"
+       sodipodi:arg1="0.68796432"
+       sodipodi:arg2="1.31847918"
+       points="241.271,192.291 236.565,190.406 233.385,194.343 233.723,189.284 228.997,187.476 233.912,186.235 234.171,181.181 236.871,185.472 241.757,184.157 238.51,188.05 241.271,192.291 "
+       transform="matrix(1.117414,-0.191883,0.191883,1.117414,-63.51814,23.55930)" />
+  </g>
+</svg>
