@@ -1,12 +1,10 @@
 <h3>Image galleries</h3>
 
 <p>
-Due to it's nature as a drawing program, we get the side effetc -
-images. After thinking for a while, we thought the best thing to do
-would be to encourage people to use Sodipodi for creating both random
-sketches (pun intended) and more artistic  drawings. To further
-encourage this, we decided to set up different galleries as well 
-as building and maintaining a clipart/image collection of our own.
+Due to it's nature as a drawing program, we get the side effect -
+images.  We encourage submission of your artwork to show off and share
+with other users, and to provide examples of the cool things Sodipodi is
+able to do.
 </p>
 <p>
 Unless stated otherwise, all images are the intellectual property
@@ -52,3 +50,7 @@ each image you'd like listed in a gallery:
   <li>The name of the gallery to put the image in.
 </ol>
 
+<p>
+You should send your submission to the Sodipodi mailing list
+(sodipodi-list@lists.sourceforge.net).  
+</p>
