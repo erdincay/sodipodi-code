@@ -1,17 +1,14 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
-[
- <!ATTLIST svg
-  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
-]>
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
    id="svg548"
-   sodipodi:version="0.28pre2"
-   width="210mm"
-   height="297mm"
-   sodipodi:docname="dannebrog-split.svg"
+   sodipodi:version="0.32"
+   width="700pt"
+   height="398.85pt"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/dannebrog-split.svg"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,7 +30,8 @@
      width="480.234009"
      height="248.031494" />
   <g
-     id="g598">
+     id="g598"
+     transform="matrix(1.983868,0.000000,0.000000,1.983868,4.759624,-1588.643)">
     <path
        style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
        d="M 0.00063446 -931.892 L 0.00063446 1052.36 L 3791.34 1052.36 L 2196.85 201.969 L 2196.85 -81.496 L 3791.34 -931.892 L 0.00063446 -931.892 z "
