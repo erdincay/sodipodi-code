@@ -14,7 +14,7 @@
 	for ($i = 0; $i < $len; $i++) {
 	    $data = $meta[$keys[$i]];
 	    print "<li>";
-	    print "<a href=\"index.php3?section=development/tasks/${data['name']}\">${data['title']}</a></li>\n";
+	    print "<a href=\"index.php3?section=development/tasks/${data['name']}\">${data['title']}</a>  ${data['status']}</li>\n";
 	}
 	print "</ul></p>\n";
     }
