@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/mapsymbols-svg"
+   sodipodi:docname="/home/aki/myndir_ymisl/mapsymbols-svg/foodstore.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g591"
+     transform="matrix(0.259471,0.000000,0.000000,0.248634,-38.48717,-129.6122)">
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:black;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 160.824 823.188 L 160.824 833.24 L 301.544 833.24 L 301.544 823.188 L 160.824 823.188 z "
+       id="path585" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke:black;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+       d="M 428.596 822.047 L 428.596 832.099 L 569.316 832.099 L 569.316 822.047 L 428.596 822.047 z "
+       id="path586" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 265.748 644.882 C 318.898 609.449 407.48 609.449 460.63 644.882 L 407.48 857.48 L 478.346 857.48 L 478.346 839.764 L 513.78 839.764 L 513.78 857.48 L 549.213 857.48 L 549.213 892.913 L 176.248 892.913 L 176.248 857.48 L 211.681 857.48 L 211.681 839.764 L 248.031 839.764 L 247.115 857.48 L 318.898 857.48 L 265.748 644.882 z M 291.493 662.598 L 303.555 716.643 L 426.183 716.643 L 436.235 662.598 C 381.723 636.841 340.635 637.074 291.493 662.598 z "
+       id="path590"
+       sodipodi:nodetypes="cccccccccccccccccccccc" />
+  </g>
+</svg>

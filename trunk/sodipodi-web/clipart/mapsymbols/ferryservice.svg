@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/mapsymbols-svg"
+   sodipodi:docname="/home/aki/myndir_ymisl/mapsymbols-svg/ferryservice.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g657"
+     transform="matrix(0.662085,0.000000,0.000000,0.661720,-339.1145,-306.0100)">
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 522.797 580.944 C 523.001 588.336 529.623 598.67 534.641 602.317 L 678.452 602.317 C 679.671 585.625 678.75 584.979 675.69 580.322 L 522.797 580.944 z "
+       id="path646" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 549.868 571.42 L 549.868 577.74 L 658.062 577.653 L 657.975 571.42 L 549.868 571.42 z "
+       id="path648" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 595.915 545.867 C 591.903 547.111 587.543 555.025 587.543 568.129 L 613.101 568.31 L 610.875 551.21 C 610.345 547.111 603.933 545.687 595.915 545.867 z "
+       id="path649" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 568.577 537.314 L 560.384 568.31 L 569.286 568.31 L 574.629 537.669 L 568.577 537.314 z "
+       id="path655" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;fill-opacity:1;"
+       d="M 636.776 537.314 L 628.583 568.31 L 637.485 568.31 L 642.828 537.669 L 636.776 537.314 z "
+       id="path656" />
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl"
+   sodipodi:docname="/home/aki/myndir_ymisl/latrine.svg">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g799"
+     transform="translate(-256.2500,-266.2500)">
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+       d="M 287.392 294.693 L 288.098 314.464 L 278.977 286.926 L 350.884 286.926 L 341.763 315.171 L 341.763 294.693 L 287.392 294.693 z "
+       id="path633"
+       sodipodi:nodetypes="ccccccc"
+       transform="matrix(0.695187,0.000000,0.000000,0.639343,93.41182,100.8935)" />
+    <rect
+       style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect635"
+       width="91.795867"
+       height="4.514521"
+       x="291.628479"
+       y="412.387980"
+       transform="translate(-23.46088,-49.19226)" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       d="M 305.845 306.008 C 307.866 302.997 312.154 307.813 312.298 307.813 C 312.298 307.663 317.404 303.246 319.181 305.556 C 324.646 312.1 314.592 315.338 312.727 320.454 C 311.007 315.488 301.442 312.118 305.845 306.008 z M 295.432 290.963 L 295.432 361.536 L 329.263 361.536 L 329.263 290.963 L 295.432 290.963 z "
+       id="path798" />
+  </g>
+</svg>
