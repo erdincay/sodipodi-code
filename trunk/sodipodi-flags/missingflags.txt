@@ -1,7 +1,1 @@
-Missing international flags ISO 3166 (alphabetical order):
-bm, BERMUDA
-ky, CAYMAN ISLANDS
-fk, FALKLAND ISLANDS (MALVINAS)
-sh, SAINT HELENA
-tc, TURKS AND CAICOS ISLANDS
-vg, VIRGIN ISLANDS, BRITISH
+ISO 3166 flag set is complete!
