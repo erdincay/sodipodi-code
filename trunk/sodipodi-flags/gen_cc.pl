@@ -5,13 +5,14 @@ use strict;
 my $nations_dir = 'nations';
 my $codes_dir = 'cc';
 my $hard_link = 1;
-my $debug = 0;
+my $debug = 1;
 
 # Non-standart or not in $nations_dir flags
 my %extra = (
+    'eu' => 'Organizations/europeanunion.svg',
+    'su' => 'historic/ussr_historic.svg',
     'aq' => 'Regional/antarctica.svg',
     'fo' => 'Regional/denmark_faroe_islands.svg',
-    'eu' => 'Organizations/europeanunion.svg',
     'gi' => 'Regional/uk_gibraltar.svg',
     'gl' => 'Regional/denmark_grenland.svg',
     'hk' => 'Regional/china_hong_kong.svg',
@@ -21,37 +22,40 @@ my %extra = (
     'nf' => 'Regional/australia_norfolk_island_australia.svg',
     'pf' => 'Regional/france_french_polynesia.svg',
     'tw' => 'Regional/taiwan.svg',
-    'su' => 'historic/ussr_historic.svg',
     'ps' => 'Organizations/palestine.svg',
 # !   'wf' => 'Regional/france_wallis_and_futuna.svg',
+    'vi' => 'Regional/usa_virgin_islands.svg',
 );
 
 # Hardcode some of the names
 my %cc = (
     'bv' => 'norway',
-    'cd' => 'congo_kinshasa',
+    'cd' => 'congo_kinshasa',	# congo
     'cg' => 'congo-brazzaville',# congo_brazzaville
     'cc' => 'australia',
     'ch' => 'suisse',		# switzerland
     'gf' => 'france',
     'gp' => 'france',
+    'gs' => 'south_georgia_and_south_sandwich_islands',	# south_georgia_and_the_south_sandwich_islands
     'gw' => 'guineabissau',	# guinea_bissau
     'hm' => 'australia',
     'im' => 'isle_of_man',	# Unofficial!
     'kp' => 'north_korea',
     'kr' => 'south_korea',
-    'la' => 'laos',
+    'la' => 'laos',		# lao_peoples_democratic_republic
+    'mp' => 'northern_mariana',	# northern_mariana_islands
     'mq' => 'france',		# !
     'nc' => 'france',
     'pm' => 'france',		# !
+    'pn' => 'pitcairn_islands',	# pitcairn
     're' => 'france',
-    'tf' => 'france',
     'sj' => 'norway',
+    'tc' => 'turks_and_caicos',	# turks_and_caicos_islands
+    'tf' => 'france',
     'um' => 'united_states',
     'va' => 'vatican',
-    'vg' => 'virgin_islands_gb',
-    'vi' => 'virgin_islands_us',
-    'wf' => 'france',
+    'vg' => 'british_virgin_islands',
+    'wf' => 'france',		# !
     'yt' => 'france',
 );
 
