@@ -1,0 +1,2 @@
+$title="Haifa, Israel";
+$author="Maxim Iorsh";
