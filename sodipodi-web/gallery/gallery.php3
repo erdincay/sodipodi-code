@@ -88,7 +88,11 @@ if (0 && $argv[0] && file_exists ("$directory".$argv[0].".svg")) {
 		include ("${directory}description.html");
 	}
 
-	print "<table cellspacing=\"16\" cellpadding=\"0\" border=\"0\">\n";
+        if ("${directory}" == "gallery/flags") {
+        	print "<table cellspacing=\"16\" cellpadding=\"1\" border=\"0\">\n";
+        } else {
+               	print "<table cellspacing=\"16\" cellpadding=\"0\" border=\"0\">\n";
+        }
 	if ($pagedata['mode'] == "matrix") {
 		for ($i = $start; $i < $end; $i += 4) {
 			print "<tr>\n";
