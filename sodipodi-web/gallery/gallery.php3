@@ -88,7 +88,7 @@ if (0 && $argv[0] && file_exists ("$directory".$argv[0].".svg")) {
 		include ("${directory}description.html");
 	}
 
-        if ("${directory}" == "gallery/flags") {
+        if ("${directory}" == "gallery/flags/") {
         	print "<table cellspacing=\"16\" cellpadding=\"1\" border=\"1\">\n";
         } else {
                	print "<table cellspacing=\"16\" cellpadding=\"0\" border=\"0\">\n";
