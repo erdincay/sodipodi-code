@@ -1,0 +1,2 @@
+$title="Egypt";
+$author="Caleb Moore";
