@@ -86,14 +86,6 @@ implementing 'repeat action', allowing customization of keys, etc.</p>
  </tr>
 
  <tr>
-  <td valign="top">  <i>unknown (space? f10?)</i>     </td>
-  <td valign="top">    Currently, space calls the menu in all other
-          tools but not in selector.  A standard key is needed to always
-          display the menu. 
-  </td>
- </tr>
-
- <tr>
   <td valign="top">  arrows:  </td>
 
   <td valign="top">    <p>Now both arrows and shift-arrows move selection in pixel
@@ -281,11 +273,19 @@ on or off):</p>
  </tr>
 
  <tr>
+  <td valign="top" width="100">  Shift-F10 </td>
+  <td valign="top">    Open the "Right Mouse Menu".  See 
+   <A HREF="http://developer.gnome.org/projects/gup/hig/1.0/menus.html#menu-type-popup">GNOME
+    HIG for menu-type-popup</A>
+  </td>
+ </tr>
+
+ <tr>
   <td valign="top" width="100">  F12 </td>
   <td valign="top">    make all dialogs temporarily disappear;
          another Tab restores them.  This will provide sort of a "full
          screen mode" - an unobstructed view of your drawing.
-</td>
+  </td>
  </tr>
 
  <tr>
