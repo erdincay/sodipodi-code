@@ -1,1 +1,1 @@
-for i in georgia_stgeorge; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
+for i in georgia_stgeorge spain_spanish_royal_navy_historic uk_english_royal_navy_historic france_french_royal_navy_historic netherland_dutch_royal_navy_historic pirate_henry_every pirate_thomas_tew pirate_jack_rackham pirate_emanuel_wynne pirate_stede_bonnet USSR_historic; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done

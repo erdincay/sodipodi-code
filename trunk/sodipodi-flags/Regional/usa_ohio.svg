@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
-[
- <!ATTLIST svg
-  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
-]>
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
    id="svg619"
-   sodipodi:version="0.31.1win"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:version="0.32"
    width="412.28pt"
    height="295.89pt"
-   sodipodi:docbase="C:\Documents and Settings\rgdavenp.ASE-DOMAIN\Desktop"
-   sodipodi:docname="C:\Documents and Settings\rgdavenp.ASE-DOMAIN\Desktop\ohioflag">
+   sodipodi:docbase="/home/scarlet/sodipodi-flags/Regional/"
+   sodipodi:docname="/home/scarlet/sodipodi-flags/Regional/usa_ohio.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs
      id="defs621">
     <linearGradient
@@ -283,7 +279,7 @@
      points="395.582,370.977 386.024,371.489 381.027,379.654 377.586,370.721 368.277,368.492 375.708,362.459 374.952,352.917 382.986,358.121 391.828,354.452 389.361,363.701 395.582,370.977 "
      transform="matrix(-0.464822,-0.625979,0.601043,-0.545770,35.11251,719.0351)" />
   <path
-     style="fill:none;fill-rule:evenodd;stroke:black;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     style="fill:#ffffff;fill-rule:evenodd;stroke:black;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
      d="M 71.924 77.6022 L 558.358 151.419 L 448.434 247.294 L 548.894 348.263 L 75.7095 422.081 L 385.805 249.941 L 71.924 77.6022 L 71.924 77.6022 L 71.924 77.6022 L 71.924 77.6022 L 71.924 77.6022 z "
      id="path662"
      sodipodi:nodetypes="cccccccccc"

@@ -4,11 +4,11 @@
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
    id="svg3337"
-   sodipodi:version="0.33pre"
+   sodipodi:version="0.32"
    width="245mm"
    height="140mm"
-   sodipodi:docbase="/home/yemu/clipart/newnewnew/"
-   sodipodi:docname="/home/yemu/clipart/newnewnew/mexico.svg"
+   sodipodi:docbase="/home/scarlet/sodipodi-flags/nations/"
+   sodipodi:docname="/home/scarlet/sodipodi-flags/nations/mexico.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,9 +33,16 @@
      id="base"
      showgrid="true"
      snaptogrid="false" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect880"
+     width="868.110291"
+     height="496.063010"
+     x="0.000000"
+     y="-0.000061" />
   <g
      id="g877"
-     transform="matrix(0.375905,0.000000,0.000000,0.375905,182.6417,298.5789)">
+     transform="matrix(0.375905,0.000000,0.000000,0.375905,182.6418,298.5789)">
     <path
        style="fill:#9c4314;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
        d="M 398.396 -85.6576 C 398.59 -85.9096 407.158 -100.911 406.142 -98.4936 C 410.089 -95.4696 417.296 -98.3356 412.067 -105.138 C 413.339 -107.889 414.945 -109.986 416.219 -112.739 C 419.094 -118.124 412.936 -120.445 410.5 -116.721 C 409.011 -113.869 407.573 -112.173 406.083 -109.32 C 398.325 -113.003 397.815 -104.341 401.527 -102.828 C 399.88 -100.496 397.075 -96.6536 395.429 -94.3216 C 396.417 -91.4336 397.407 -88.5456 398.396 -85.6576 z "
@@ -1703,15 +1710,15 @@
   <rect
      style="font-size:12;fill:#0b7226;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect1200"
-     width="290.694222"
-     height="496.062988"
+     width="290.694244"
+     height="496.062836"
      x="0.000000"
-     y="-0.000152" />
+     y="-0.000188" />
   <rect
      style="font-size:12;fill:#bc0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect1201"
-     width="289.018479"
-     height="496.062988"
-     x="579.091700"
-     y="-0.000015" />
+     width="289.018494"
+     height="496.062836"
+     x="579.091736"
+     y="-0.000051" />
 </svg>
