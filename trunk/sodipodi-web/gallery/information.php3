@@ -1,7 +1,7 @@
 <h3>Image galleries</h3>
 
 <p>
-Due to it's nature as a drawing program, we get the side effect -
+Due to its nature as a drawing program, we get the side effect -
 images.  We encourage submission of your artwork to show off and share
 with other users, and to provide examples of the cool things Sodipodi is
 able to do.
