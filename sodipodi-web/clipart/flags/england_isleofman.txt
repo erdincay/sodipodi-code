@@ -1,2 +1,0 @@
-$title="England, Isle of Man";
-$author="Cezary Biele";
