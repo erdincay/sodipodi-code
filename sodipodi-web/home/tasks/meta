@@ -20,3 +20,4 @@ name=session_management/title=Session Management/file=session_management.php3
 name=extensions/title=Ideas for Extensions/file=extensions.php3
 name=gaussian_blur/title=Gaussian Blur/file=gaussian_blur.php3
 name=xml_editor/title=XML Editor/file=xml_editor.php3
+name=usability/title=Usability/file=usability.php3
