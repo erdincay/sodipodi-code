@@ -31,6 +31,14 @@ is automatically acceptable; others would require review first.
 </p>
 
 <p>
+Also, be <b><i>DOUBLY</i></b> sure that you have the IP rights to
+the images.  For example, do not submit art that looks like a company
+logo or a cartoon character, or too closely matches someone else's
+copyrighted work.  We don't want you or Sodipodi to get into trouble by
+the original authors or owners.
+</p>
+
+<p>
 Here are the things to send to the Sodipodi website maintainers, for
 each image you'd like listed in a gallery:  
 </p>
