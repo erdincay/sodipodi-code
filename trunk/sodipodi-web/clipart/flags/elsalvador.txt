@@ -1,2 +1,0 @@
-$title="El Salvador";
-$author="Brett Roper";
