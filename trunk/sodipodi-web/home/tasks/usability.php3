@@ -59,8 +59,6 @@ to the canvas.</p>
 
 <h4>Right mouse menu</h4>
 
-<p><i>Status:</i>  Proposed</p>
-
 <p>In reviewing the Gnome HIT and the Sodipodi menu, Tobias
 Jakobs [tobias.jakobs/web_de] makes the following recommendations: 
 
