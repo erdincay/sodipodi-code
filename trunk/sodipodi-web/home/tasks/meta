@@ -8,4 +8,5 @@ name=object_selection_usability/title=Object Selection Usability/file=object_sel
 name=text/title=Text Objects/file=text.php3
 name=alignment_snapping/title=Alignment and snapping/file=alignment_snapping.php3
 name=symbols_library/title=Symbols library/file=symbols_library.php3
+name=replace_libart/title=Replace libart/file=replace_libart.php3
 
