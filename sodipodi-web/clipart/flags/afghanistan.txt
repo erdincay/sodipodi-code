@@ -1,0 +1,2 @@
+$title="Afghanistan";
+$author="Andrew Duhan";

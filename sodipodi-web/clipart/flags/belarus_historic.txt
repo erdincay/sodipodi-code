@@ -1,0 +1,2 @@
+$title="Belarus (Historic)";
+$author="Vital Khilko";
