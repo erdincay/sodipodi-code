@@ -5,7 +5,7 @@ $b = ($d['yday'] + $d['hour']) % 19;
 $c = $b % 5;
 $r = rand (0, 5);
 
-if (1 || (($r > $c)) {
+if (0 && (($r > $c))) {
     print "<html>\n";
     print "<head><title>Darkness</title></title>\n";
     print "<body bgcolor=\"black\">\n";
