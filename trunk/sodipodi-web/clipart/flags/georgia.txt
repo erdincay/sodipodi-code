@@ -1,2 +1,2 @@
-$title="Georgia";
-$author="Sigge Kotliar";
+$title="Georgia StGeorge (Historical)";
+$author="Christian Schaller";
