@@ -15,11 +15,7 @@ than the former, since people who become Sodipodi developer guru's will
 have a good idea of what's needed as a matter of course!
 </p>
 
-<dl>
- <dt><b></b>
-     <dd>
- <dt>
-</dl>
+<i>No tasks yet</i>
 
 <p> In general, nobody "assigns" tasks to anyone.  If you wish to do it,
 send a note to the mailing list and go ahead and start hacking (in case
