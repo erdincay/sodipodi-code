@@ -5,13 +5,13 @@
 <svg
    width="210mm"
    height="140mm"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    id="svg1747"
    sodipodi:version="0.32"
    sodipodi:docname="/home/cschalle/sodipodi-flags/Regional/usa_missisipi.svg"
-   sodipodi:docbase="/home/cschalle/sodipodi-flags/Regional">
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/Regional/"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs
      id="defs1772" />
   <sodipodi:namedview
@@ -22,6 +22,13 @@
      gridoriginx="0mm"
      gridoriginy="0mm" />
   <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect1937"
+     width="179.810160"
+     height="110.724773"
+     x="-102.660733"
+     y="-71.887139" />
+  <rect
      width="182.599696"
      height="209.993808"
      x="0.010207"
@@ -29,10 +36,10 @@
      style="font-size:12;fill:#f31830;fill-rule:evenodd;stroke-width:1pt;"
      id="rect1896"
      sodipodi:fill-cmyk="(0 0.9 0.8 0.05)"
-     transform="matrix(1.412736,0.000000,0.000000,1.412736,51.89259,34.43076)" />
+     transform="matrix(1.522178,0.000000,0.000000,1.522178,0.215806,-3.710307)" />
   <g
      id="g1915"
-     transform="matrix(0.944360,-0.960166,0.944360,0.960166,-22.63940,177.8461)"
+     transform="matrix(1.017518,-1.034548,1.017518,1.034548,-80.09003,150.8151)"
      style="font-size:12;">
     <rect
        style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
@@ -138,18 +145,10 @@
        id="polygon1866" />
   </g>
   <rect
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect1937"
-     width="675.994026"
-     height="78.376122"
-     x="-109.399998"
-     y="-75.256729"
-     transform="matrix(1.412736,0.000000,0.000000,1.412736,51.89259,34.43076)" />
-  <rect
-     width="423.547932"
-     height="159.181365"
-     x="324.091006"
-     y="39.044302"
+     width="456.359375"
+     height="171.512833"
+     x="288.789062"
+     y="1.260620"
      style="font-size:12;fill:#00267f;fill-rule:evenodd;stroke-width:1pt;"
      id="rect1894"
      sodipodi:fill-cmyk="(1 0.7 0 0.5)" />
@@ -159,37 +158,42 @@
      width="418.926560"
      height="140.712777"
      x="326.397759"
-     y="200.311246" />
+     y="200.311246"
+     transform="matrix(1.077468,0.000000,0.000000,1.077468,-55.69680,-40.80835)" />
   <rect
-     width="690.458889"
-     height="156.875538"
-     x="54.213820"
-     y="341.229642"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect1936"
+     width="19.883781"
+     height="356.544840"
+     x="278.588104"
+     y="-29.158837" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect1934"
+     width="115.338303"
+     height="689.723022"
+     x="-112.226028"
+     y="-87.863304" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect1935"
+     width="477.500549"
+     height="19.485179"
+     x="-116.304718"
+     y="316.827019" />
+  <rect
+     width="743.947327"
+     height="169.028381"
+     x="1.146234"
+     y="326.855667"
      style="font-size:12;fill:#f31830;fill-rule:evenodd;stroke-width:1pt;"
      id="rect135"
      sodipodi:fill-cmyk="(0 0.9 0.8 0.05)" />
   <rect
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect1935"
-     width="337.997009"
-     height="4.898517"
-     x="-125.728355"
-     y="212.122367"
-     transform="matrix(1.412736,0.000000,0.000000,1.412736,51.89259,34.43076)" />
-  <rect
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect1936"
-     width="13.062717"
-     height="209.469706"
-     x="182.877609"
-     y="2.886053"
-     transform="matrix(1.412736,0.000000,0.000000,1.412736,51.89259,34.43076)" />
-  <rect
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect1934"
-     width="81.641795"
-     height="488.217896"
-     x="-80.008960"
-     y="-83.420868"
-     transform="matrix(1.412736,0.000000,0.000000,1.412736,51.89259,34.43076)" />
+     id="rect627"
+     width="487.572815"
+     height="50.484772"
+     x="-52.542862"
+     y="-48.598106" />
 </svg>
