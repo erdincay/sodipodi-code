@@ -1,0 +1,2 @@
+$title="Pitcairn Islands";
+$author="Tobias Jakobs";
