@@ -6,9 +6,9 @@
    id="svg548"
    sodipodi:version="0.32"
    width="210mm"
-   height="297mm"
-   sodipodi:docbase="/home/shawn"
-   sodipodi:docname="/home/shawn/haiti.svg"
+   height="140mm"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/haiti.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -50,23 +50,15 @@
   <rect
      style="font-size:12;fill:#132c77;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect555"
-     x="0"
-     y="0"
-     width="453"
-     height="152" />
+     x="0.000000"
+     y="-0.000015"
+     width="750.334172"
+     height="251.767757" />
   <rect
      style="font-size:12;fill:#c00011;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect564"
-     x="0"
-     y="152"
-     width="453"
-     height="151" />
-  <image
-     xlink:href="/dump/HAITI.bmp"
-     sodipodi:absref="/dump/HAITI.bmp"
-     width="165.125214"
-     height="127.680458"
-     id="image571"
-     x="144.027699"
-     y="89.046043" />
+     x="0.000000"
+     y="251.767742"
+     width="750.334172"
+     height="250.111391" />
 </svg>
