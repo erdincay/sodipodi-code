@@ -43,11 +43,27 @@ places, where Estonian usage differs from the canonical pronouncication
 of letters.
 </p>
 
+<h3>Why is the webpage title written in cyrillic?</h3>
+<p>
+After all some script had to be used. And cyrillic is as good as
+any other.
+</p>
+
 <h3>Stop joking. Is there tutorial or something?</h3>
 <p>
-Not yet. But why not to take it as excellent opportunity
-to become famous by writing one. We all developers will be
-very glad to help you.
+Nathan Hurst has written excellent hands-on
+<a
+href="http://hawthorn.csse.monash.edu.au/~njh/programming/drawing-packages/sodipodi/">
+introduction to sodipodi</a>.
+</p>
+<p>
+For those understanding french (hmm - everone knows some french anyways)
+there is excellent intruductory article at
+<a href="http://www.linuxgraphic.org/section2d/articles/sodipodi/">
+www.linuxgraphic.org</a>.
+</p>
+<p>
+AFAIK there is nothing else. If you know something, tell me too ;-)
 </p>
 
 <h3>Will there ever be version 1.0?</h3>
@@ -81,29 +97,14 @@ random pieces of code into shared libary is not an option.
 
 <h2>3. Compiling</h2>
 <h3>
-**Error**: You must have Automake' installed to compile Sodipodi
+autogen.sh fails, complaining about...
 </h3>
 <p>
-Sodipodi compiled just fine, but now trying to compile CVS,
-I get this message. I am sure, I have automake 1.4 installed!
+You have to have automake 1.6 installed.
 </p>
 <p>
-Masatake Yamato suggested the following trick:
-</p>
-<pre>
-Try following commands:
-$ sudo ln -s /usr/local/bin/automake /usr/local/bin/automake-1.4
-$ sudo ln -s /usr/local/bin/aclocal  /usr/local/bin/aclocal-1.4
-$ ./autogen.sh
-
-When running automake & autoconf manually, don't forget to run aclocal.
-
-BTW, I think the human race need autoauto that encapsulates the 
-difference of autotools versions;-P
-</pre>
-<p>
-Also, downloading latest autoconf 1.4 tarball and installing it
-manually has worked for some people.
+Try removing intl/Makefil po/Makefile.in and m4/Makefile from
+configure.in, section AC_OUTPUT before running autogen.sh.
 </p>
 
 <h2>4. Usage</h2>
