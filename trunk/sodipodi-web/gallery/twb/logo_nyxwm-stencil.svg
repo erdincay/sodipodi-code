@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg101"
+   sodipodi:version="0.31"
+   width="800"
+   height="850"
+   sodipodi:docname="Nyx4.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs106" />
+  <sodipodi:namedview
+     id="base" />
+  <path
+     style="fill:none;stroke-width:45;fill-opacity:0;stroke:#000000;stroke-opacity:1;none;stroke-linejoin:miter;stroke-linecap:round;"
+     d="M 100 800 L 400 300 L 700 800 "
+     id="path104" />
+  <path
+     style="font-size:12;fill:none;fill-opacity:0;stroke:#000000;stroke-width:45;stroke-linecap:round;"
+     d="M 225 475 C 125 375 125 225 225 125 C 325 25 475 25 575 125 C 675 225 675 375 575 475 M 800 -30 L 0 -30 "
+     id="path112"
+     sodipodi:nodetypes="cccccc"
+     transform="" />
+  <text
+     style="fill:black;stroke:none;font-family:Arial;font-style:normal;font-weight:normal;font-size:48;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:middle;writing-mode:lr;"
+     x="400"
+     y="-222"
+     id="text106">
+    <tspan
+       x="400"
+       y="-222"
+       sodipodi:role="line"
+       id="tspan143">
+This line at the top has to be here,</tspan>
+    <tspan
+       x="400"
+       y="-174"
+       sodipodi:role="line"
+       id="tspan145">
+and combined with the circle,</tspan>
+    <tspan
+       x="400"
+       y="-126"
+       sodipodi:role="line"
+       id="tspan147">
+to trick sodipodi into rendering the </tspan>
+    <tspan
+       x="400"
+       y="-78"
+       sodipodi:role="line"
+       id="tspan149">
+circle properly when casting to a PNG.</tspan>
+  </text>
+</svg>
