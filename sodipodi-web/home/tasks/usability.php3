@@ -1,18 +1,14 @@
 
 <h3>Usability</h3>
 
-<h4>More keyboard shortcuts</h4>
+<h4>Forwarding unhandled key events from dialogs to canvas</h4>
 
 <p><i>Status:</i> Proposed</p>
 
-<p>Also, those shortcuts that exist must be made more consistently
-accessible. For example dialogs do not use F1..F10 keys, but they block
-them - when you have focus on e.g. object style dialog, you cannot use
-F1 to switch to selector. Those keys which are not handled by a dialog
-should be forwarded to the canvas window for handling.</p>
-
-<p>Another example: arrow keys. In node editor (F2), one expects them to
-move the currently selected node(s) but they do not.</p>
+<p>Dialogs do not use F1..F10 keys, but they block them - when you have
+focus on e.g. object style dialog, you cannot use F1 to switch to
+selector. Those keys which are not handled by a dialog should be
+forwarded to the canvas window for handling.</p>
 
 <h4>Configuring shortcuts</h4>
 
@@ -22,20 +18,20 @@ As a first step that can be implemented
 quickly, a GUI-less option would be really great, with a text (XML?)
 config file that lists keys and actions. Is this doable?
 
-<h4>Modal Dialog Windows</h4>
+<h4>Always on Top Dialog Windows</h4>
 
 <p><i>Status:</i> Proposed</p>
 
-<p>When using the app in maximized mode, dialogs "disappear" behind
-the canvas.  The main toolbox can be docked which removes this problem for
+<p>When using the app in maximized mode, dialogs "disappear" behind the
+canvas.  The main toolbox can be docked which removes this problem for
 it, but not the others.  It can be possible to manually set the windows
-to be modal (like in KDE), but window status is not remembered from call
-to call.</p>
+to be always on top (like in KDE), but window status is not remembered
+from call to call.</p>
 
 <p>Make it possible to configure Sodipodi to allow appropriate dialog
-windows to be displayed modally.</p>
+windows to be displayed alwayus on top.</p>
 
-<h4>Focus problems</p>
+<h4>Focus Behavior</h4>
 
 <p><i>Status:</i> Proposed</p>
 
