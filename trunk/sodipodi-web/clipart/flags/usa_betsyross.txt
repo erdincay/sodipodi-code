@@ -1,2 +1,2 @@
-$title="USA, Betsy Ross";
+$title="USA, Betsy Ross (Historical)";
 $author="Bryce Harrington";
