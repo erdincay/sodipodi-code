@@ -1,2 +1,0 @@
-$title="Minas Gerais, Brazil";
-$author="Sebastien Biot";
