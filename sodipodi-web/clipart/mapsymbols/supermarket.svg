@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/mapsymbols-svg"
+   sodipodi:docname="/home/aki/myndir_ymisl/mapsymbols-svg/supermarket.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g573">
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+       d="M 373.953 504.671 C 373.953 520.198 361.352 532.8 345.824 532.8 C 330.297 532.8 317.695 520.198 317.695 504.671 C 317.695 489.144 330.297 476.542 345.824 476.542 C 361.352 476.542 373.953 489.144 373.953 504.671 z "
+       id="path556"
+       transform="matrix(0.317430,0.000000,0.000000,0.329621,-38.45949,-55.53410)" />
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
+       d="M 234.961 504.671 C 234.961 520.198 222.36 532.8 206.832 532.8 C 191.305 532.8 178.703 520.198 178.703 504.671 C 178.703 489.144 191.305 476.542 206.832 476.542 C 222.36 476.542 234.961 489.144 234.961 504.671 z "
+       id="path555"
+       transform="matrix(0.317430,0.000000,0.000000,0.329621,-38.45949,-55.53410)" />
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;"
+       d="M 138.991 271.364 L 158.847 393.808 L 344.168 393.809 L 344.169 450.067 L 194.521 450.129 C 184.347 450.133 175.393 453.852 175.393 463.075 C 175.393 473.003 186.844 476.912 195.745 476.893 L 367.334 476.541 L 367.334 397.118 C 367.334 397.118 390.499 284.601 416.974 238.271 C 443.449 191.941 466.613 221.724 466.613 198.559 C 466.613 178.703 420.283 191.94 400.427 218.415 C 380.571 244.889 373.952 271.364 373.952 271.364 L 138.991 271.364 z "
+       id="path557"
+       sodipodi:nodetypes="ccccsssccccccc"
+       transform="matrix(0.317430,0.000000,0.000000,0.329621,-38.45949,-55.53410)" />
+  </g>
+</svg>

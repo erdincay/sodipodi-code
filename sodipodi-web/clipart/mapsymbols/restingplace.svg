@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg637"
+   sodipodi:version="0.33pre"
+   width="100pt"
+   height="100pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/mapsymbols-svg"
+   sodipodi:docname="/home/aki/myndir_ymisl/mapsymbols-svg/restingplace.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs639" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="true"
+     snaptogrid="false" />
+  <g
+     id="g735"
+     transform="matrix(1.053375,0.000000,0.000000,1.098272,-8.574976,-18.29515)">
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:#000000;stroke-width:0.251089;"
+       d="M 74.4108 88.1856 C 71.4454 93.0768 66.96 98.8951 59.9718 102.514 L 85.9209 104.086 L 85.9209 115.078 L 92.731 115.078 L 92.3739 104.086 L 117.925 102.907 C 112.073 99.5946 108.13 91.7233 103.904 87.7925 L 114.16 87.7925 C 109.08 80.769 98.8934 77.4682 100.151 72.0947 C 102.981 71.4382 103.105 72.2467 108.031 71.0833 C 97.6275 63.2375 93.4211 42.0326 90.6009 34.1709 C 87.4563 49.8942 80.6443 64.5278 69.7122 69.3495 C 74.0266 71.4921 75.9432 70.008 79.4076 71.0409 C 76.1896 76.0047 69.4931 84.1992 63.908 86.6133 L 74.4108 88.1856 z "
+       id="path646"
+       sodipodi:nodetypes="cccccccccccccccc" />
+    <path
+       transform="matrix(0.540754,0.000000,0.000000,0.576454,-28.11920,-2.309608)"
+       style="font-size:12;fill-rule:evenodd;"
+       d="M 76.7151 203 L 76.7151 209 L 281 209 L 281 203 L 76.7151 203 z "
+       id="path734"
+       sodipodi:nodetypes="ccccc" />
+    <rect
+       style="font-size:12;fill:#808080;fill-rule:evenodd;stroke-width:1pt;"
+       id="rect727"
+       width="0"
+       height="4.71697998"
+       x="61.3207550"
+       y="81.3679276" />
+    <path
+       style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;stroke:none;stroke-opacity:1;fill-opacity:1;"
+       d="M 36.1635 86.0849 L 36.1635 114.78 L 42.0597 114.78 L 42.0597 86.0849 L 36.1635 86.0849 z M 16.9025 82.5472 L 16.9025 86.0849 L 61.7138 86.0849 L 61.7138 82.5472 L 16.9025 82.5472 z "
+       id="path733" />
+  </g>
+</svg>

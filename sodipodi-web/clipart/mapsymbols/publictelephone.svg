@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl"
+   sodipodi:docname="/home/aki/myndir_ymisl/publictelephone.svg">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g614"
+     transform="matrix(0.901414,0.000000,0.000000,0.805939,3.226864,-205.4614)">
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;"
+       d="M 290.092 308.614 C 243.177 347.353 244.254 560.214 285.145 596.636 C 320.275 608.812 341.553 605.345 364.165 591.031 C 362.055 566.26 348.868 527.133 337.456 522.57 C 331.897 522.763 325.05 522.835 320.409 527.016 C 298.921 508.344 300.508 422.062 315.108 373.59 C 327.113 377.528 331.6 378.766 341.89 373.441 C 349.632 361.989 367.801 323.243 362.995 303.946 C 347.884 288.098 308.03 294.813 290.092 308.614 z "
+       id="path581"
+       sodipodi:nodetypes="ccccccccc"
+       transform="matrix(0.298083,0.000000,0.000000,0.302903,-25.10290,192.5236)" />
+    <path
+       style="font-size:12;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;"
+       d="M 156.567 556.784 C 173.388 567.135 186.327 545.138 213.5 547.726 C 240.673 550.314 244.555 604.66 273.021 605.954 C 282.079 607.248 283.372 600.778 287.254 593.014 "
+       id="path582"
+       sodipodi:nodetypes="cccc"
+       transform="matrix(0.298083,0.000000,0.000000,0.302903,-25.10290,192.5236)" />
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl"
+   sodipodi:docname="/home/aki/myndir_ymisl/hotelguesthouse.svg">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g774"
+     transform="translate(-362.5000,-261.2500)">
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:#000000;stroke-width:0.379182pt;"
+       d="M 383.686 286.953 L 383.686 335.295 C 385.447 338.98 389.083 338.98 391.127 335.295 L 391.127 323.898 L 412.541 343.129 L 412.825 359.884 C 414.671 363.538 419.358 363.538 420.834 359.977 L 420.834 343.221 L 450.598 343.221 L 450.598 358.645 C 452.16 362.608 456.648 363.042 458.039 358.552 L 458.039 333.869 L 417.169 333.869 L 390.928 311.078 C 389.223 309.457 386.382 307.217 386.382 305.906 C 389.427 299.091 419.463 299.091 423.36 305.287 L 423.644 286.861 C 422.518 283.082 417.897 282.773 416.289 286.861 L 416.289 295.407 L 391.212 295.407 L 391.127 287.263 C 389.669 282.937 384.944 283.412 383.686 286.953 z "
+       id="path770"
+       sodipodi:nodetypes="cccccccccccccccccccccc" />
+    <path
+       style="font-size:12;fill-rule:evenodd;stroke:#000000;stroke-width:0.379182pt;"
+       d="M 393.17 312.492 C 395.916 305.884 424.231 305.781 427.83 310.014 L 457.092 332.627 C 451.505 324.676 417.791 325.709 417.886 333.866 L 393.17 312.492 z "
+       id="path771"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+</svg>

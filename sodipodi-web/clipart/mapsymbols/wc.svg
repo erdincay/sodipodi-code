@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl"
+   sodipodi:docname="/home/aki/myndir_ymisl/wc.svg">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g609"
+     transform="translate(-116.2500,-260.0000)">
+    <path
+       style="font-size:48;font-weight:normal;stroke-width:1pt;font-family:Pigiarniq Heavy;"
+       d="M 260.835 342.825 C 260.753 347.882 256.137 353.324 254.521 354.718 C 252.93 356.08 251.262 357.117 249.517 357.829 C 247.798 358.512 243.702 360.272 238.779 359.829 C 235.034 359.829 231.773 358.718 229.004 357.385 C 226.232 356.051 223.936 354.257 222.115 352.006 C 220.293 349.724 218.919 347.086 217.996 344.093 C 217.098 341.099 216.648 337.959 216.648 334.668 C 216.648 331.231 217.176 327.97 218.226 324.888 C 219.279 321.776 220.793 319.065 222.768 316.753 C 224.77 314.412 227.181 312.559 230.004 311.196 C 232.853 309.834 236.06 309.151 239.627 309.151 C 251.254 308.265 259.741 319.24 259.872 322.996 L 249.903 326.263 C 246.943 320.057 240.819 319.999 239.818 319.999 C 236.301 319.556 226.823 323.908 227.71 334.046 C 227.71 338.897 229.588 345.18 235.047 348.046 C 238.288 350.883 247.688 349.004 250.017 340.314 L 260.835 342.825 z "
+       id="path602"
+       sodipodi:nodetypes="ccccccccccccccccccc"
+       transform="translate(-32.34552,-5.760223)" />
+    <path
+       style="font-size:48;font-weight:normal;stroke-width:1pt;font-family:Pigiarniq Heavy;"
+       d="M 152.006 309.908 L 164.898 309.908 L 173.134 337.558 L 179.6 309.908 L 187.991 309.908 L 195.496 337.647 L 202.887 309.908 L 215.778 309.908 L 201.809 357.918 L 191.071 357.918 L 184.449 332.09 L 177.754 357.918 L 166.86 357.918 L 152.006 309.908 z "
+       id="path603"
+       sodipodi:nodetypes="cccccccccccccc"
+       transform="translate(-32.34552,-5.760223)" />
+  </g>
+</svg>

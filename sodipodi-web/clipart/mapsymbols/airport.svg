@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/mapsymbols-svg/"
+   sodipodi:docname="/home/aki/myndir_ymisl/mapsymbols-svg/airport.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <path
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:1pt;fill-opacity:1;"
+     d="M 98.0253 64.0416 L 101.511 55.925 L 98.3442 56.1292 C 95.5025 56.3125 93.0666 64.0116 85.8809 62.9784 C 76.1978 62.5794 78.378 61.802 67.726 61.802 C 55.556 57.899 77.271 16.663 77.271 16.663 L 71.946 17.461 L 44.005 61.802 C 42.553 63.398 14.341 59.806 10.953 65.793 C 14.341 72.579 43.036 68.588 44.489 70.184 L 72.43 113.998 L 77.755 114.797 C 77.755 114.797 55.963 74.867 68.211 69.659 C 78.862 69.659 76.4346 68.7558 86.1176 68.3558 C 93.5572 67.5842 95.4229 74.5358 98.0837 74.6495 L 101.15 74.7805 L 97.8586 66.7306 L 100.76 65.5319 L 98.0253 64.0416 z "
+     id="path701"
+     sodipodi:nodetypes="ccscccccccccccscccc" />
+</svg>
