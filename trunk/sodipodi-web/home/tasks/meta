@@ -10,9 +10,9 @@ name=alignment_snapping/title=Alignment and snapping/file=alignment_snapping.php
 name=symbols_library/title=Symbols library/file=symbols_library.php3
 name=replace_libart/title=Replace libart/file=replace_libart.php3
 name=atoi_atof/title=String - Number Converters/file=atoi_atof.php3
-name=appicon/title=Appicon/file=appicon.php3/status=DONE
+name=appicon/title=Appicon/file=appicon.php3/status=Done
 name=file_support/title=File Support/file=file_support.php3
-name=icon_themes/title=Icon Themes/file=icon_themes.php3/status=DONE
+name=icon_themes/title=Icon Themes/file=icon_themes.php3/status=Done
 name=interapplication/title=Interapplication/file=interapplication.php3
 name=object_style_font/title=Object Style Font/file=object_style_font.php3
 name=preview_renders/title=Preview Renders/file=preview_renders.php3
