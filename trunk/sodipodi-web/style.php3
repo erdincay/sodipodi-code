@@ -1,6 +1,6 @@
 <? if (!$style) {$style = TRUE;
 
-$bgcolor="#8f8f8f";
+$bgcolor="#e19b5b";
 $bgcolor_table="#ffffff";
 $bgcolor_navigation="#ffffff";
 $bgcolor_page="#ffffff";
