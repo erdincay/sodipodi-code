@@ -83,7 +83,10 @@ function page_show ($globalmeta, $sectionmeta, $section, $page, $directory, $fil
 
 	/* Topmost navigation row */
 	print "<tr>\n";
-	print "<td>&nbsp;</td>\n";
+	print "<td align=\"center\" valign=\"center\">\n";
+	print "<a href=\"http://sodipodi.sf.net/\">";
+	print "<img src=\"images/orav.png\" width=\"128\" height=\"128\" alt=\"ORAV\"/>";
+	print "</a></td>\n";
 
 	print "<td align=\"center\">\n";
 
