@@ -1,2 +1,4 @@
 The flags in this directory are made to conform to the 3x2 size specification.
-This might make them more usefull in certain circumstances, but it also means they do not conform to the official aspect specification of the flags. We recommend you only use these versions of the flags if the correct aspect ones are not possible.
+This might make them more usefull in certain circumstances, but it also means they do not conform to the official aspect specification of the flags. 
+We recommend you only use these versions of the flags if the correct aspect ones are not possible.
+These flags has not seen as much QA as the main ones, so be aware that colours and details have a higher chance of being wrong on these versions
