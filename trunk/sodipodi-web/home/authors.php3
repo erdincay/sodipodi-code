@@ -23,6 +23,14 @@ program, but here are some most notable ones:
 	print "<dt>Masatake Yamato</li>\n";
 	print "<dd>Frontline/Autotrace support, drag and drop\n";
 	print "</dl>\n";
+print "
+<p>
+Others (in no particular order): Raph Levien, MentalGuy, Bryce Harrington,
+John Stracke, Ted Gould, Yukihiro Nakai, Nathan Hurst, Zbigniew Chyla,
+F.J.Franklin
+</p>
+\n";
+
 }
 
 ?>

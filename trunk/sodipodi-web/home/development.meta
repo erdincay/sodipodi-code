@@ -1,4 +1,5 @@
 name=general/title=General&nbsp;information/file=development.html
+name=bugs/title=Report a Bug/file=bugs.php3
 name=todo/title=TODO&nbsp;snapshot/file=todo.php3
 name=architecture/title=Architecture/file=documents.php3/document=architecture.txt
 name=tasks/title=Programming Tasks/directory=tasks/file=index.php3
