@@ -1,0 +1,2 @@
+$title="Central African Republic";
+$author="Tobias Jakobs";
