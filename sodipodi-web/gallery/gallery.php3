@@ -16,7 +16,11 @@ function get_gallery ($dirname)
 
 function show_clipart_cell ($dirname, $image)
 {
-	print "<td align=\"right\" valign=\"bottom\">\n";
+        if ("${dirname}" == "gallery/flags/") {
+                print "<td align=\"right\" valign=\"bottom\" bgcolor=\"black\">\n";
+        } else {
+        	print "<td align=\"right\" valign=\"bottom\">\n";
+        }
 	print "<a href=\"showsvg.php3?file=${dirname}${image}.svg\">";
 	if (file_exists ("${dirname}${image}.png")) {
 		print "<img src=\"${dirname}${image}.png\">";
