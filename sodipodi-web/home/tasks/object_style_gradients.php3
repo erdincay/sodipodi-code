@@ -49,6 +49,28 @@ however they are implemented using a GIMP-specific gradient file format
 translate between this format and the SVG gradient format, and
 appropriate code added for loading/saving the GIMP-formatted files.</p>
 
+<h4>New Gradient Editing Tool</h4>
+
+<p>Implement a new tool for editing linear and elliptic gradients by
+dragging control points right on the canvas, instead of in a
+dialog. Switching to this tool should make control points of the
+selected object visible, otherwise they are hidden. There are at least
+two control points for a linear gradient (start and end of the gradient
+vector) and four for radial gradient (center, ends of the two axes,
+focus point). The tool must calculate the correct cx, cy, fx, fy, r,
+gradientTransform attributes for each position of control points, and it
+must parse these attributes and calculate the control points when the
+document is loaded. In case of multi-stop gradients, one control point
+for each stop is added to the vector (for linear gradients) or to the
+segment connecting the focal point with the end of one of the axes (for
+elliptic gradients). The axes of the elliptic gradient are always
+perpendicular; if the object is skewed, the gradient is automatically
+unskewed into a normal ellipse that is equal to the skewed one, by
+changing the axes ratio and rotation angle (contact Nathan Hurst for the
+unskewing formulas).</p>
+
+
+
 <h4>References</h4>
 
 <p><A HREF="http://lists.xcf.berkeley.edu/lists/gimp-developer/2002-May/007049.html">"Format of GIMP gradient files"</A>
