@@ -1,0 +1,2 @@
+$title="Ethiopia";
+$author="Lauris Kaplinski and Christian Schaller";
