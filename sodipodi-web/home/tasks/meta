@@ -1,12 +1,11 @@
-name=alignment_snapping/title=Alignment and snapping/file=alignment_snapping.php3
-name=symbols_library/title=Symbols library/file=symbols_library.php3
-
-name=drawing_units/title=Drawing Units/file=drawing_units.php3
 name=node_editing_interface/title=Node Editing Interface/file=node_editing_interface.php3
-name=object_grouping/title=Object Grouping/file=object_grouping.php3
-name=object_selection_usability/title=Object Selection Usability/file=object_selection_usability.php3
-name=text/title=Text Objects/file=text.php3
 name=object_style_gradients/title=Object Style - Gradients/file=object_style_gradients.php3
 name=object_style_naming/title=Object Style - Naming/file=object_style_naming.php3
 name=object_style_palette/title=Object Style - Palette/file=object_style_palette.php3
+name=drawing_units/title=Drawing Units/file=drawing_units.php3
+name=object_grouping/title=Object Grouping/file=object_grouping.php3
+name=object_selection_usability/title=Object Selection Usability/file=object_selection_usability.php3
+name=text/title=Text Objects/file=text.php3
+name=alignment_snapping/title=Alignment and snapping/file=alignment_snapping.php3
+name=symbols_library/title=Symbols library/file=symbols_library.php3
 

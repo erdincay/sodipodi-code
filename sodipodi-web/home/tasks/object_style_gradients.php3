@@ -34,8 +34,8 @@ format.
 
 <p><A HREF="http://lists.xcf.berkeley.edu/lists/gimp-developer/2002-May/007049.html">"Format of GIMP gradient files"</A>
 
-<p>[<A HREF="http://sourceforge.net/tracker/index.php?func=detail&aid=517402&group_id=4054&atid=354054">517402</A>]</p>
-- ""
+<p>[<A HREF="http://sourceforge.net/tracker/index.php?func=detail&aid=517402&group_id=4054&atid=354054">517402</A>]
+- "needed features"
 
 <p>[<A HREF="http://sourceforge.net/tracker/index.php?func=detail&aid=696242&group_id=4054&atid=354054">696242</A>]
 - "Import GIMP Gradients"
