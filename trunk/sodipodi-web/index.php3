@@ -2,8 +2,8 @@
 
 $d = getdate ();
 $b = ($d['yday'] + $d['hour']) % 19;
-$c = $d % 5;
-$r = rand (0, 3);
+$c = $b % 5;
+$r = rand (0, 5);
 
 if ($r > $c) {
     print "<html>\n";
