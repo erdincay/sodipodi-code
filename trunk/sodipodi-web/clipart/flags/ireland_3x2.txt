@@ -1,2 +1,0 @@
-$title="Ireland (3:2)";
-$author="Lauris Kaplinski";
