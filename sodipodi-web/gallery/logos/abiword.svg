@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="744.094"
+   height="744.094"
+   id="svg1">
+  <defs
+     id="defs3" />
+  <path
+     d="M 739.238 785.231 C 652.074 673.654 428.044 391.465 371.392 391.611 C 312.372 394.291 31.628 707.042 91.9129 725.463 C 135.492 740.534 418.116 661.424 579.592 629.865 C 502.477 688.127 63.9517 824.811 -9.44894 787.658 C -82.8495 752.933 223.555 292.43 363.06 292.429 C 506.235 292.428 728.227 636.409 739.238 785.231 z "
+     transform="matrix(0.887755,0,0,1.34211,54.6261,-351.744)"
+     style="font-size:12;fill:#5ab4d2;fill-rule:evenodd;stroke:#007195;stroke-width:11.5548;stroke-linecap:square;stroke-linejoin:round;"
+     id="path8" />
+</svg>
