@@ -1,2 +1,2 @@
 $title="Malawi";
-$author="Unknown";
+$author="Lauris Kaplinski";

@@ -1,2 +1,2 @@
 $title="European Union";
-$author="Anonymous";
+$author="Lauris Kaplinski";

@@ -1,2 +1,2 @@
 $title="Philippines";
-$author="Anonymous";
+$author="Lauris Kaplinski";
