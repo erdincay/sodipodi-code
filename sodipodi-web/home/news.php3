@@ -4,6 +4,32 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+<h3>06 December 2003</H3>
+<h4>Sodipodi-flag collection 1.4 released</h4>
+<p>We are happy to announce a new release of the Sodipodi flag collection. It now contains 275 different flags. You find a <A HREF="http://mail.gnome.org/archives/gnome-themes-list/2003-December/msg00003.html">release announcement here</A>. The flags can also be viewed in our clipart gallery.</P>
+<p>
+Latest additions include:<BR>
+<img border=1 src="clipart/flags/uk_wales.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_hamburg.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/tunisia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_north_rhine_westphalia.png" width="64" height="32">&nbsp;
+</p>
+<hr>
+
+<h3>30 November 2003</h3>
+<h4>Sodipodi 0.33 has been released</h4>
+<p>
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Download it</a>.
+</p>
+<p>
+Read the
+<a href="index.php3?section=download">
+release notes</a> for the overview of features.
+<br>
+<br>
+</p>
+<hr>
 
 
 <h3>26 November 2003</h3>
