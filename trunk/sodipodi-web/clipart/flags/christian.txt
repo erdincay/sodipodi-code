@@ -1,0 +1,2 @@
+$title="The Christian Flag";
+$author="Jeff Smith";
