@@ -47,3 +47,6 @@ When we get duplicates of flags we already have there are a few 'rules' we apply
 1. We always use the most correct flag
 2. We always use the best drawn version if they are both correct
 3. For flags that are an improved version of earlier flag we subjectivly assign the credit based on our evalution of who deserves it most. Sometime we even list the credit as shared.
+
+Converting filenames to ISO country codes
+This package also includes a perl script by Timur I. Bakeyev which let you convert the filenames of most of the flags to using the 'cc.svg' format for their names.
