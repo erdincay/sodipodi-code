@@ -1,51 +1,10 @@
 Missing international flags (alphabetical order):
 Afghanistan
 Andorra
-
-Belarus
-Belize
-Bhutan
-
-Cambodia
-Central African Republic
 Comoros
-Costa Rica
-
-Dominica
-
 Ecuador
-Egypt
-Equatorial Guinea
 Eritrea
-
-Fiji
-
-Grenada
 Guatemala
-
-Kazakhstan
-Kiribati
 Kyrgyzstan
-
-Liechtenstein
-
-Malta
 Marshall Islands
-Mozambique
-Myanmar
-
-Nicaragua
-
-Oman
-
-Paraguay
-
-Moldova
-
-Swaziland
-
-Turkmenistan
-
-Uganda
-
-Vanuatu
+Vatican State
