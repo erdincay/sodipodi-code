@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg596"
+   sodipodi:version="0.31.1win"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="1000"
+   height="500"
+   sodipodi:docname="armenia_flag.svg">
+  <defs
+     id="defs598" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g603"
+     transform="scale(8.33333333333)">
+    <rect
+       style="font-size:12;fill:#de2110;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect600"
+       width="120"
+       height="20"
+       x="0"
+       y="0" />
+    <rect
+       style="font-size:12;fill:#00319c;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect601"
+       width="120"
+       height="20"
+       x="0"
+       y="20" />
+    <rect
+       style="font-size:12;fill:#ef7300;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+       id="rect602"
+       width="120"
+       height="20"
+       x="0"
+       y="40" />
+  </g>
+</svg>
