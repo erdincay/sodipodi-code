@@ -51,7 +51,7 @@ for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
 
 	print "<TD>\n";
 	print "<A HREF='clipart/$area/$basefile.svg'>\n";
-	print "<IMG SRC='clipart/$area/$basefile.png' BORDER='1'><BR>\n";
+	print "<IMG SRC='clipart/$area/$basefile.png'><BR>\n";
 	print "<B>$title</B></A><BR>By: $author<BR>\n";
 	print "<BR>&nbsp;</TD>\n";
 
