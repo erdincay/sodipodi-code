@@ -1,2 +1,2 @@
 $title="Timor-Leste";
-$author="Cezary GAZETA";
+$author="Cezary Biele";
