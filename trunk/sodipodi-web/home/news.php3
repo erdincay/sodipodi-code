@@ -4,6 +4,8 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+                                                                                      
+                                                                                      
 <br>
 <h3>18 June 2003</h3>
 <h4>Emeza Gallery</h4>
