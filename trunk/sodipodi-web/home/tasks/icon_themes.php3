@@ -15,3 +15,6 @@ drawing' and 'zoom selection' from stock + custom layers?  Thus it could
 achieve better look under icon themes even for certain customized icons?
 -- lauris</i></p>
 
+
+<p><i>Owner:</i>  Pat Suwalski (2003/03/18) [pat/suwalski_net]</p>
+<p><i>Status:</i>  Checking how the file and copy/paste icons look</p>
