@@ -4,8 +4,71 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
-                                                                                      
-                                                                                      
+
+<h3>30 September 2003</h3>
+<h4>Knoppix 3.2 Includes Sodipodi</h4>
+
+<p>
+Manuel Bastioni reports that Sodipodi is included as an application in
+the Knoppix Linux distribution, version 3.2.  
+
+<h3>27 August 2003</h3>
+<h4>Sodipodi 64-bit Port</h4>
+
+<p>
+Mitsuru Oka is initiating work on a port of Sodipodi to IA-64 Linux,
+using 64-bit hardware resources from the 
+<a href="http://www.osdl.org">Open Source Development Labs</a>.
+</p>
+
+<p>UPDATE:  The work was a success!  Patch has been submitted and
+accepted.</p>
+
+<h3>10 July 2003</h3>
+<h4>Gatonegro Gallery</h4>
+
+<p>
+Gatonegro shares his art including an example of a unique kind of
+poster, in his <a
+href="http://sodipodi.sourceforge.net/index.php3?section=gallery/gatonegro">gallery</a>.
+</p>
+
+<h3>20 Juuni 2003</h3>
+<h4>Sodipodi 0.32 has been released</h4>
+
+<p>
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Download it</a>.
+</p>
+<p>
+Read the
+<a href="index.php3?section=download">
+release notes</a> for the overview of features.
+</p>
+<p>
+Binaries so far:
+</p>
+<ul>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Mandrake 9.1 binary and source rpm (vanilla installation)</a> (Lauris)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Red Hat Linux 7.3 binary and source rpm (with Ximian gnome)</a>
+(Richard)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Windows 95/98/2000/XP binary</a>
+<a href="index.php3?section=documentation/win32build">(README)</a>
+(Lauris, fabiochelly)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Red Hat Linux 8.0 and 9.0 binary and source rpms</a>
+(Dag Wieers)</li>
+
+</ul>
+<p>
+Well, the source RPM-s are probably almost identical, but it is
+nevertheless correct to have one for each customized spec file.
+</p>
+
+
 <br>
 <h3>18 June 2003</h3>
 <h4>Emeza Gallery</h4>
