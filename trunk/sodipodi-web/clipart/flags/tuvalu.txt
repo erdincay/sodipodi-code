@@ -1,2 +1,2 @@
 $title="Tuvalu";
-$author="Cezary Biel";
+$author="Cezary Biele";
