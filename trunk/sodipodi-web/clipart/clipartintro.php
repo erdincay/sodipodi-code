@@ -38,8 +38,9 @@ latter will be useful in situations, where all flags have to be
 identically shaped (for example list of buttons for different languages
 in user interface).
 </p>
-
+<P>Packaged releases of the Sodipodi flag collection can be downloaded from our <A HREF="http://prdownloads.sourceforge.net/sodipodi/">Sourceforge download site</A>. The package is available in both .tar.gz and zip formats. 
 <p>
 These images may be freely reused, limited only by the normal
 regulations of the nation in question.
 </p>
+<A HREF="http://creativecommons.org/licenses/publicdomain/"><IMG SRC="pd.gif"></A>
