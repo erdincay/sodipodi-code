@@ -1,0 +1,2 @@
+$title="Cote d'Ivoire /Ivory Coast";
+$author="Brett Roper";
