@@ -1,0 +1,2 @@
+$title="Burundi";
+$author="Cezary Biele";

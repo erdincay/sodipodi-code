@@ -1,0 +1,2 @@
+$title="Tokelau";
+$author="Cezary Biele";

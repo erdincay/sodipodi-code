@@ -1,0 +1,2 @@
+$title="Solomon Islands";
+$author="Cezary Biel";
