@@ -1,5 +1,13 @@
 <h2>Generic tricks and tips</h2>
 
+<h3>Aligning to center of page</h3>
+<p>
+To align something to the center or side of a page, select the object or
+group and then choose [page] from the align dialog.  Click on the middle
+button (for instance) in both rows.  The object should align to the page
+now (in the dead center).
+</p>
+
 <h3>Manually Placing Text Along a Curve</h3>
 
 <ol>
