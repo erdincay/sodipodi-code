@@ -2,6 +2,34 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
 "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<!--
+<!-- Creative Commons Public Domain -->
+<a href="http://creativecommons.org/licenses/publicdomain/"><img alt="Public 
+Domain Dedication" border="0"
+src="http://creativecommons.org/images/public/norights.gif" /></a><br />
+This work is dedicated to the
+<a href="http://creativecommons.org/licenses/publicdomain/">Public 
+Domain</a>.
+<!-- /Creative Commons Public Domain -->
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>dominican&#45;republic.svg</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Luis Mondesi</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
 <svg
    id="svg153"
    sodipodi:version="0.33pre"
