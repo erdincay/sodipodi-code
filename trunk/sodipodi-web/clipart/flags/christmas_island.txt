@@ -1,2 +1,2 @@
-$title="Christman Island";
+$title="Christmas Island";
 $author="Cezary Biel";
