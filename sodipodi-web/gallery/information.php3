@@ -17,11 +17,29 @@ of their authors... [insert usual legalese here]
 
 <p>
 If you have used Sodipodi to create something of your own and would like to
-share it, feel free to contact us. If you wish, we will set up your own 
+share it, feel free to contact us.  If you wish, we will set up your own 
 gallery, or just include your pictures (along with proper credits) in the 
-miscellaneous section.
+miscellaneous section.  Generally, it makes sense to have your own
+gallery if you have 6 or more images.
 </p>
 
-<p>Following the open-source model, we ask you only not to attach too
-many strings to redistributing your images.
+<p>
+We ask that you follow the open-source model for redistributing the
+images you list here.  Any of the licenses listed at
+<a href="http://www.opensource.org/licenses/">http://www.opensource.org/licenses/</a>
+is automatically acceptable; others would require review first.
 </p>
+
+<p>
+Here are the things to send to the Sodipodi website maintainers, for
+each image you'd like listed in a gallery:  
+</p>
+
+<ol>
+  <li>A thumbnail image 128px tall rendered to a white background
+  <li>The SVG file, that will work in Sodipodi
+  <li>The license that the SVG may be redistributed under, such as
+      Artistic, BSD, GPL, LGPL, or others.
+  <li>The name of the gallery to put the image in.
+</ol>
+
