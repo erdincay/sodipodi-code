@@ -1,0 +1,2 @@
+$title="Spain, Nationalist flag of Galiza";
+$author="Gatonegro";

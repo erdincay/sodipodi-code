@@ -1,2 +1,2 @@
-$title="Spain, Historic";
-$author="Celso Emilio Ferreiro";
+$title="Spain, 2nd Republic, Historic";
+$author="Pedro A. Gracia Fajardo";
