@@ -14,7 +14,7 @@ instead of one object containing two unconnected paths.
 <p>For a connected path (like a polygon), the knife operator would merely
 change the connected path into a non-connected path.
 
-<h4>Punch Tool</h4>
+<h4>Punch</h4>
 
 <p>Like Knife, this permits splitting one path entity into two, however
 this does it using another entity, called the 'punch entity'.
@@ -58,7 +58,7 @@ following:
      joined. 
 </ol>
 
-<h4>Intersection Tool</h4>
+<h4>Intersection</h4>
 
 <p>When two or more connected paths are selected, this command produces
 a new connected path is generated that corresponds to the intersection
