@@ -7,11 +7,17 @@ instead of moving the object itself, as desired.  A key combination
 should be added to put the user in 'grab' mode, which allows only
 select-and-drag type behavior.
 
+<p><b>Owner:</b>  Pat Suwalski (2003-03-16)</p>
+<p><b>Status:</b>  <i>new</i>
+
 <h4>Rotation Point</h4>
 
 <p>Currently, rotation occurs about a point opposite to where the user
 selects.  Instead, by default the rotation point should be the
 centerpoint of the object.
+
+<p><b>Owner:</b>  Pat Suwalski (2003-03-16)</p>
+<p><b>Status:</b>  <i>new</i>
 
 <h4>References</h4>
 
