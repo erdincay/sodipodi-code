@@ -1,0 +1,2 @@
+$title="France, St Pierre and Miquelon";
+$author="Patricia Fidi";

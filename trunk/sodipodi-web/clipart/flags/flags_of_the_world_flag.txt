@@ -1,0 +1,2 @@
+$title="Flags Of The World (flagspot.com)";
+$author="Tobias Jakobs";

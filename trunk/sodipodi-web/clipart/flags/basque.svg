@@ -3,55 +3,78 @@
 "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
-   version="1"
-   x="0.00000000"
-   y="0.00000000"
-   width="244.28pt"
-   height="135pt"
-   id="svg559"
+   version="1.0"
+   x="0"
+   y="0"
+   width="1062.98755"
+   height="708.661377"
+   id="svg578"
+   sodipodi:version="0.33beta"
+   sodipodi:docname="E:\sodipodi\france_basque.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   sodipodi:version="0.32"
-   sodipodi:docname="/home/cschalle/sodipodi-web/clipart/flags/basque.svg"
-   sodipodi:docbase="/home/cschalle/sodipodi-web/clipart/flags/">
+   sodipodi:docbase="E:\sodipodi">
   <sodipodi:namedview
      id="base" />
   <defs
-     id="defs561" />
-  <g
-     transform="matrix(0.782528,0.000000,0.000000,0.782528,-28.00317,-46.17680)"
-     style="font-size:12;"
-     id="g571">
-    <rect
-       width="388.498199"
-       height="214.789001"
-       x="37.0035095"
-       y="59.6430397"
-       style="fill:#ff0000;fill-rule:evenodd;"
-       id="rect564" />
-    <path
-       d="M 425.537 76.247 L 425.433 59.5067 L 388.53 59.6786 L 37.0391 257.413 L 37.0391 274.4 L 73.9753 274.156 L 425.537 76.247 z "
-       style="fill:#008d00;fill-rule:evenodd;"
-       id="path570" />
-    <path
-       d="M 37.1428 76.9732 L 37.1428 59.9218 L 72.8017 59.7826 L 425.33 257.621 L 425.33 274.296 L 387.252 274.157 L 37.1428 76.9732 z "
-       style="fill:#008d00;fill-rule:evenodd;"
-       id="path568" />
-    <rect
-       width="32.8639297"
-       height="215.618896"
-       x="213.060104"
-       y="59.6428490"
-       style="fill:#ffffff;fill-rule:evenodd;stroke-width:0.890612;"
-       id="rect565" />
-    <rect
-       width="32.8639297"
-       height="388.476501"
-       x="-183.574402"
-       y="36.7664490"
-       transform="matrix(-1.484370e-3,-0.999999,1.000000,-4.537714e-4,0.000000,0.000000)"
-       style="fill:#ffffff;fill-rule:evenodd;stroke-width:1.19775;"
-       id="rect566" />
-  </g>
+     id="defs580">
+    <linearGradient
+       id="linearGradient689">
+      <stop
+         style="stop-color:#000;stop-opacity:1;"
+         offset="0"
+         id="stop690" />
+      <stop
+         style="stop-color:#fff;stop-opacity:1;"
+         offset="1"
+         id="stop691" />
+    </linearGradient>
+    <defs
+       id="defs564" />
+    <radialGradient
+       xlink:href="#linearGradient689"
+       id="radialGradient692" />
+    <sodipodi:namedview
+       id="namedview629" />
+    <defs
+       id="defs561" />
+  </defs>
+  <rect
+     width="388.498199"
+     height="214.789001"
+     x="37.0035095"
+     y="59.6430397"
+     style="font-size:12.000;fill:#ca0000;fill-rule:evenodd;"
+     id="rect564"
+     transform="matrix(2.731721,0,0,3.266399,-99.26639,-188.8081)" />
+  <path
+     d="M -4.376468 821.4306 L -4.630068 792.3860 L -39.42677 792.7431 L -290.7014 994.3123 L -290.8304 1023.978 L -255.7717 1023.829 L -4.376468 821.4306 L -4.376468 821.4306 L -4.376468 821.4306 z "
+     style="font-size:12.000;fill:#007300;fill-rule:evenodd;"
+     id="path691"
+     sodipodi:nodetypes="cccccccc"
+     transform="matrix(3.705164,0,0,3.030187,1078.832,-2394.926)" />
+  <path
+     d="M 36.79882 86.63080 L 37.14279 59.68654 L 84.33922 60.01785 L 425.1551 247.0104 L 425.3300 274.5312 L 377.7783 274.3923 L 36.79882 86.63081 L 36.79882 86.63080 L 36.79882 86.63080 z "
+     style="font-size:12.000;fill:#007300;fill-rule:evenodd;"
+     id="path568"
+     transform="matrix(2.731721,0,0,3.266399,-99.26639,-188.8081)"
+     sodipodi:nodetypes="cccccccc" />
+  <rect
+     width="141.8075"
+     height="1061.712"
+     x="-431.5558"
+     y="1.547820"
+     transform="matrix(-9.401632e-4,-1,1,-7.164303e-4,0,0)"
+     style="font-size:12.000;fill:#ffffff;fill-rule:evenodd;stroke-width:1.197750;"
+     id="rect566"
+     ry="0" />
+  <rect
+     width="141.8073"
+     height="705.9228"
+     x="460.6210"
+     y="3.890969"
+     transform="matrix(1.000000,-6.251069e-4,1.077515e-3,0.999999,0,0)"
+     style="font-size:12.000;fill:#ffffff;fill-rule:evenodd;stroke-width:1.197750;"
+     id="rect1217" />
 </svg>
