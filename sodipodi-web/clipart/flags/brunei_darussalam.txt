@@ -1,0 +1,2 @@
+$title="Brunei";
+$author="Gustav Broberg";
