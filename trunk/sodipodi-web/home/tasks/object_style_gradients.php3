@@ -67,8 +67,8 @@ elliptic gradients). The axes of the elliptic gradient are always
 perpendicular; if the object is skewed, the gradient is automatically
 unskewed into a normal ellipse that is equal to the skewed one, by
 changing the axes ratio and rotation angle (contact Nathan Hurst for the
-unskewing formulas).</p>
-
+unskewing formulas - 
+Nathan Hurst [Nathan.Hurst/infotech_monash_edu_au]).</p>
 
 
 <h4>References</h4>
