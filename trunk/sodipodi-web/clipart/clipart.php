@@ -65,10 +65,14 @@ for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
 	print "<IMG SRC='clipart/$area/$pngfile' CLASS='clipart'>\n";
 
 	if (file_exists ("./clipart/$area/$txtfile")) {
+		$title = "";
+		$author = "";
 		$eval = file("./clipart/$area/$txtfile");
-		eval(join('', $eval));
+		eval (join('', $eval));
 		print "<BR>\n";
-		print "<B>$title</B></A><BR>By: $author<BR>\n";
+		if ($title) {print "<B>$title</B>";}
+		print "</A><BR>";
+		if ($author) { print "By: $author\n";}
 		print "<BR>&nbsp;</TD>\n";
 	}
 

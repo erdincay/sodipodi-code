@@ -1,0 +1,2 @@
+$title="Celtic cross";
+$author="Petr Vodicka";
