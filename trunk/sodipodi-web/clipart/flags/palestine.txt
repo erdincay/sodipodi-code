@@ -1,0 +1,2 @@
+$title="Palestine";
+$author="Samir M. Nassar";
