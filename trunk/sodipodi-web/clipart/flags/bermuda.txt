@@ -1,0 +1,2 @@
+$title="Bermuda";
+$author="Caleb Moore";
