@@ -48,7 +48,7 @@ pre {
 	font-size: 12px;
 }
 
-IMG.clipart { border: 1px solid black }
+A: IMG.clipart { border: 1px solid black }
 
 A {
 	font-family: Arial, Helvetica, Sans, sans-serif;
