@@ -43,4 +43,4 @@ in user interface).
 These images may be freely reused, limited only by the normal
 regulations of the nation in question.
 </p>
-<A HREF="http://creativecommons.org/licenses/publicdomain/"><IMG SRC="./pd.gif"></A>
+<A HREF="http://creativecommons.org/licenses/publicdomain/"><IMG SRC="http://www.sodipodi.com/clipart/pd.gif"></A>
