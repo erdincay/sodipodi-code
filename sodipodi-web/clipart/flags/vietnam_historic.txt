@@ -1,0 +1,2 @@
+$title="Vietnam, Historic";
+$author="Eric Brown";
