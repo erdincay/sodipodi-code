@@ -55,10 +55,10 @@ A {
 	font-size: 12px;
 }
 
-A:link {color: #bf2f00; text-decoration: none;}
+A:link {color: #003f7f; text-decoration: none;}
 A:link { border: none; }
-A:visited {color: #bf2f00; text-decoration: none;}
-A:active {color: #ff7f7f; text-decoration: none;}
+A:visited {color: #003f7f; text-decoration: none;}
+A:active {color: #5f5fff; text-decoration: none;}
 A:hover {color: #ff7f7f; text-decoration: none;}
 
 HR {color: #ccccff;}
