@@ -1,2 +1,0 @@
-$title="Congo";
-$author="Tobias Jakobs";
