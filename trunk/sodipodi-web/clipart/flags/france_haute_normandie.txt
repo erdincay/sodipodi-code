@@ -1,0 +1,2 @@
+$title="France, Haute Normandie";
+$author="Patricia Fidi";
