@@ -1,0 +1,2 @@
+$title="Denmark, Greenland";
+$author="Daniel McRae";

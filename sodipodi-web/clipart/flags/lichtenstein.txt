@@ -1,0 +1,2 @@
+$title="Lichtenstein";
+$author="Caleb Moore";

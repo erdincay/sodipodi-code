@@ -1,0 +1,2 @@
+$title="Vanuatu";
+$author="Caleb Moore";
