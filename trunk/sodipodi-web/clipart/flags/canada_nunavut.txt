@@ -1,0 +1,2 @@
+$title="Canada, Nunavut";
+$author="James Leigh";
