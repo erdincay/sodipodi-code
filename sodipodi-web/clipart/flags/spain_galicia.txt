@@ -1,0 +1,2 @@
+$title="Spain, Galicia";
+$author="Anonymous";

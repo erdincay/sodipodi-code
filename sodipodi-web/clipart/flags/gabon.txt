@@ -1,0 +1,2 @@
+$title="Gabon";
+$author="Daniel McRae";

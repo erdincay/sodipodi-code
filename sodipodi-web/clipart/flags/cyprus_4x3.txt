@@ -1,0 +1,2 @@
+$title="Cyprus";
+$author="Sigge Kotliar";

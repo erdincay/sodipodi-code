@@ -1,0 +1,2 @@
+$title="Finland, Aaland";
+$author="Anonymous";

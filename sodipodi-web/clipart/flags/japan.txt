@@ -1,0 +1,2 @@
+$title="Japan";
+$author="Anonymous";

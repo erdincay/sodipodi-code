@@ -1,0 +1,2 @@
+$title="Russia";
+$author="Oleg Krivosheev";

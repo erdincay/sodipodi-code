@@ -1,0 +1,2 @@
+$title="Saint Vincent and Grenadines";
+$author="Cezary Biele";

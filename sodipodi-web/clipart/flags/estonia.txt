@@ -1,0 +1,2 @@
+$title="Estonia";
+$author="Daniel McRae";

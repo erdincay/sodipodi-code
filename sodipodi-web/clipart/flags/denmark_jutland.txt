@@ -1,0 +1,2 @@
+$title="Denmark, Jutland";
+$author="Kenneth Christiansen";

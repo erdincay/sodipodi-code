@@ -1,0 +1,2 @@
+$title="Iraq";
+$author="Anonymous";

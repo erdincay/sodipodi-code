@@ -1,0 +1,2 @@
+$title="Mauritania";
+$author="Cezary Biele";

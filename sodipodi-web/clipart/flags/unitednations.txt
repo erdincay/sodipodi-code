@@ -1,0 +1,2 @@
+$title="United Nations";
+$author="Anonymous";

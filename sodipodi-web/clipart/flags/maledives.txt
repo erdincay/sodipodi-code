@@ -1,0 +1,2 @@
+$title="Maledives";
+$author="Cezary Biele";

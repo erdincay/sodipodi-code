@@ -1,0 +1,2 @@
+$title="Ghana";
+$author="Anonymous";

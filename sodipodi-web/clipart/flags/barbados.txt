@@ -1,0 +1,2 @@
+$title="Barbados";
+$author="Cezary Biele";

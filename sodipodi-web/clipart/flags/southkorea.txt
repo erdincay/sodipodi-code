@@ -1,0 +1,2 @@
+$title="South Korea";
+$author="Cezary Biele";

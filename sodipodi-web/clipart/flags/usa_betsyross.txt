@@ -1,0 +1,2 @@
+$title="USA, Betsy Ross";
+$author="Bryce Harrington";
