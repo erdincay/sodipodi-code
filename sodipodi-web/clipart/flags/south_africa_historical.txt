@@ -1,0 +1,2 @@
+$title="South Africa (historical)";
+$author="Caleb Moore";

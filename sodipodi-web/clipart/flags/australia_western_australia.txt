@@ -1,0 +1,2 @@
+$title="Australia, Western Australia";
+$author="Caleb Moore";
