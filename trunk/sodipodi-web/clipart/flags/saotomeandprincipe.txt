@@ -1,0 +1,2 @@
+$title="Sao Tome and Principe";
+$author="Cezary Biel";

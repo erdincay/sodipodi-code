@@ -1,0 +1,2 @@
+$title="Samoa";
+$author="Tobias Jacobs";
