@@ -1,0 +1,2 @@
+$title="Burkina Faso";
+$author="Cezary Biele";

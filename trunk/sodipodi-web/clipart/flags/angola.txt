@@ -1,0 +1,2 @@
+$title="Angola";
+$author="Cezary Biele";

@@ -1,0 +1,2 @@
+$title="USA";
+$author="Daniel";

@@ -1,0 +1,2 @@
+$title="Nigeria (3:2)";
+$author="Cezary Biele";

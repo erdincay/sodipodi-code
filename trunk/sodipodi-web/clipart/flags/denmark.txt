@@ -1,0 +1,2 @@
+$title="Denmark";
+$author="Jens Bech Madsen";

@@ -1,0 +1,2 @@
+$title="East-Frisia, Germany";
+$author="Stefan";

@@ -1,0 +1,2 @@
+$title="Germany, Swastika (Historic)";
+$author="Christian Schaller";

@@ -1,0 +1,2 @@
+$title="Austria";
+$author="Christoph Breitler";

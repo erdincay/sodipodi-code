@@ -1,0 +1,2 @@
+$title="France, Brittany";
+$author="Christophe Augier";
