@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="744.094482"
+   height="496.062988"
+   id="za">
+  <defs
+     id="defs557" />
+  <g
+     transform="matrix(9.186351e-2,0.000000,0.000000,9.186354e-2,0.000000,-1.678467e-4)"
+     style="font-size:12;"
+     id="all">
+    <rect
+       width="8100.00049"
+       height="5400.00000"
+       x="0.00000000"
+       y="-0.00016900"
+       style="fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+       id="whitebkg" />
+    <path
+       d="M 0 -4.9738e-14 L 973.499 -4.9738e-14 L 4213.6 2160 L 8100 2160 L 8100 3240 L 4213.59 3240 L 973.499 5400 L 0 5400 L 0 4751 L 3076.51 2700 L 0 648.999 L 0 -4.9738e-14 z "
+       style="fill:#009933;fill-rule:evenodd;stroke-width:1pt;"
+       id="green" />
+    <path
+       d="M 0 1080 L 2430 2700 L 0 4320 L 0 1080 z "
+       style="fill-rule:evenodd;stroke-width:1pt;"
+       id="black" />
+    <path
+       d="M 0 648.864 L 3076.36 2700 L 0 4750.95 L 0 4320 L 2430 2700 L 0 1080 L 0 648.864 z "
+       style="fill:#ffcc00;fill-rule:evenodd;stroke-width:1pt;"
+       id="gold" />
+    <path
+       d="M 1622.5 -4.9738e-14 L 8100 -4.9738e-14 L 8100 1800 L 4322.43 1800 L 1622.5 -4.9738e-14 z "
+       style="fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;"
+       id="red" />
+    <path
+       d="M 8100 3600 L 4322.5 3600 L 1622.5 5400 L 8100 5400 L 8100 3600 z "
+       style="fill:#0000cc;fill-rule:evenodd;stroke-width:1pt;"
+       id="blue" />
+  </g>
+</svg>
