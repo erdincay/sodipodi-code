@@ -1,2 +1,0 @@
-$title="Malaysia (3:2)";
-$author="Jalur Gemilang";

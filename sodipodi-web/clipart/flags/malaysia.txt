@@ -1,0 +1,2 @@
+$title="Malaysia, Jalur Gemilang";
+$author="Christian Schaller";
