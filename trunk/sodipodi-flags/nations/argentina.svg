@@ -5,20 +5,23 @@
 <svg
    id="svg548"
    sodipodi:version="0.32"
-   width="554.28pt"
-   height="371.89pt"
-   sodipodi:docbase="/home/sigge"
-   sodipodi:docname="/home/sigge/argentina.svg"
+   width="280mm"
+   height="140mm"
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/argentina.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs
      id="defs550" />
   <sodipodi:namedview
-     id="base" />
+     id="base"
+     showgrid="true"
+     gridspacingx="20mm"
+     gridspacingy="20mm" />
   <g
      id="g561"
-     transform="matrix(1.018306,0.000000,0.000000,1.025171,-36.41867,-234.2848)">
+     transform="matrix(1.460702,0.000000,0.000000,1.093819,-53.21603,-250.0599)">
     <rect
        style="font-size:12;fill:#00c4ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
        id="rect552"
@@ -43,7 +46,7 @@
   </g>
   <g
      id="g904"
-     transform="translate(7.238878,-8.273010)">
+     transform="translate(160.2863,4.136299)">
     <path
        sodipodi:type="arc"
        style="fill-rule:evenodd;stroke:#000000;fill:#ffd600;fill-opacity:1;stroke-opacity:0.386617;stroke-width:0.625;stroke-linejoin:miter;stroke-linecap:butt;stroke-dasharray:none;"
