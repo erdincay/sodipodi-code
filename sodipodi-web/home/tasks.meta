@@ -1,1 +1,11 @@
-name=tasks/title=Tasks/directory=tasks/file=index.php3
+#name=tasks/title=Tasks/directory=tasks/file=index.php3
+#name=alignment_snapping/title=Alignment&nbsp;Snapping/directory=tasks/file=alignment_snapping.php3
+#name=drawing_units/title=Drawing&nbsp;Units/directory=tasks/file=drawing_units.php3
+#name=node_editing_interface/title=Node&nbsp;Editing&nbsp;Interface/directory=tasks/file=node_editing_interface.php3
+#name=object_grouping/title=Object&nbsplGrouping/directory=tasks/file=object_grouping.php3
+#name=object_selection_usability/title=Object&nbsp;Selection&nbsp;Usability/directory=tasks/file=object_selection_usability.php3
+#name=object_style_gradients/title=Object&nbsp;Style&nbsp;Gradients/directory=tasks/file=object_style_gradients.php3
+#name=object_style_naming/title=Object&nbsp;Style&nbsp;Naming/directory=tasks/file=object_style_naming.php3
+#name=object_style_palette/title=Object&nbsp;Style&nbsp;Palette/directory=tasks/file=object_style_palette.php3
+#name=symbols_library/title=Symbols&nbsp;Library/directory=tasks/file=symbols_library.php3
+name=text/title=Text/directory=tasks/file=text.php3

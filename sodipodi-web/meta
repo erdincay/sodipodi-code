@@ -8,6 +8,7 @@ name=download/title=Download/directory=home/meta=download.meta/intro=stable
 name=development/title=Development/directory=home/meta=development.meta/intro=general
 name=documentation/title=Documentation/directory=home/meta=documentation.meta/intro=faq
 name=screenshots/title=Screenshots/directory=screenshots/meta=screenshots.meta/intro=current
+name=tasks/title=Tasks/directory=home/meta=tasks.meta/intro=index
 name=gallery/title=Galleries/directory=gallery/intro=information
 
 #name=documentation/directory=home/meta=documentation.meta/intro=readme

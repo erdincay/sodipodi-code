@@ -2,6 +2,7 @@
 
 <h4>Align Along Arbitrary Paths</h4>
 
+Description here...
 
 <h4>References</h4>
 
