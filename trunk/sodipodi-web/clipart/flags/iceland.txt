@@ -1,2 +1,2 @@
 $title="Iceland";
-$author="Aki";
+$author="Áki G. Karlsson";

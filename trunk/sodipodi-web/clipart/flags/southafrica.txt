@@ -1,2 +1,2 @@
 $title="South Africa";
-$author="Russell Cloran";
+$author="Farrel Lifson";

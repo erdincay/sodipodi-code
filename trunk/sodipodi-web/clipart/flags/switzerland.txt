@@ -1,2 +1,2 @@
 $title="Switzerland";
-$author="Frank Murphy";
+$author="Philipp Frauenfelder";

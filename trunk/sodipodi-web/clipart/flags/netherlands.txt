@@ -1,2 +1,2 @@
 $title="Netherlands";
-$author="Anonymous";
+$author="Marc Maurer";

@@ -1,2 +1,2 @@
 $title="Finland, Aaland";
-$author="Anonymous";
+$author="Christian Schaller";
