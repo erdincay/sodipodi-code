@@ -15,5 +15,10 @@ emitted if it tries to find intersection of two almost parallel lines.</p>
 <h3><i>warning: failed to load external entity "glade/icons.svg"</i></h3>
 
 <p>Many people see this warning, however it does not appear to be a
-fatal problem.</p>
+fatal problem.  It's a normal message that should be suppressed.
+Instead of glade/icons.svg, SVG icons probably will be loaded from
+$PREFIX/share/sodipodi/icons.svg.</p>
+
+
+
 
