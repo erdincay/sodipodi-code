@@ -65,6 +65,23 @@ and the color sliders in any color editor. That is, you can move the
 slider with a mouse but as soon as you release it the focus is returned
 to the canvas.</p>
 
+<h4>Right mouse menu</h4>
+
+<p>In reviewing the Gnome HIT and the Sodipodi menu, Tobias
+Jakobs [tobias.jakobs/web_de] makes the following recommendations: 
+
+<ul>
+<li> "View" should be above "Selection"
+<li> "Print Preview..." should be above "Print"
+<li> Revert function would be useful. (Reverts the document to the
+last saved state.)
+<li> In the File menu is the "About Sodipodi" the last item in the
+"Sodipodi" menu not View.
+<li> "New Docked Toolbox" and "Remove Docked Toolbox" should be a Checkbox
+Item
+</ul>
+
+
 <h4>References</h4>
 
 <p><a href="http://sourceforge.net/mailarchive/forum.php?thread_id=1799679&forum_id=3970">http://sourceforge.net/mailarchive/forum.php?thread_id=1799679&forum_id=3970</a>
