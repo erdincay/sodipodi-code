@@ -97,3 +97,32 @@ object and dragging the center point to where you want to pivot around.
 Then if you shift-drag on a corner point, it will rotate about that
 point.</p> 
 
+<h3>Landscape Printing</h3>
+
+<p>When printing documents in A4 landscape format to a postscript device,
+Sodipodi 0.28 generates code for A4 portrait format but doesn't rotate
+the graphics accordingly. To fix this problem, you need to change:</p>
+
+<PRE>
+    %%PageResources: (atend)
+    0 0 m
+    595.276 0 l
+    595.276 841.89 l
+    0 841.89 l
+</PRE>
+<p>into</p>
+
+<PRE>
+    %%PageResources: (atend)
+    596 0 translate
+    90 rotate
+    0 0 m
+    0 595.276 l
+    841.89 595.276 l
+    841.89 0 l
+</PRE>
+
+<p>in the postscript code.</p>
+
+
+
