@@ -1,0 +1,2 @@
+$title="pirate Blackbeard Edward Teach (historic)";
+$author="Tobias Jakobs";
