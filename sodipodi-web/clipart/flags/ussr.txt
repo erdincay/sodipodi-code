@@ -1,2 +1,2 @@
-$title="USSR, (Historic)";
+$title="USSR, (Historical)";
 $author="Sigge Kotliar";
