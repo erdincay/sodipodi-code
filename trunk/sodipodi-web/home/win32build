@@ -7,28 +7,30 @@ environment. This is still in development, but most original
 features and original rendering engine work.
 </p>
 <p>
-There is experimental binary available at
+There is experimental binary pacakges available at
 <a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
-Sodipodi download site</a> (look for Sodipodi-x.yz-Win32.zip). Do not
-expect it to be as stable as Linux/Unix version yet - some
-testing and learning is needed, before we get it right.
+Sodipodi download site</a>.
 </p>
 <h3>
-Installing preview binary
+Files
 </h3>
+<ul>
+<li>Sodipodi-0.32-Setup.exe - convenient setup program.</li>
+<li>Sodipodi-0.32-sfx-archive.exe - self extracting archive
+of sodipodi.</li>
+<li>Sodipodi-0.32-Win32.exe - another self extracting archive</li>
+</ul>
 <p>
-It is just self-extracting snapshot of working sodipodi
-installation, glib, gdk, gtk and other dll libraries included.
+Usually you need only setup program. Archives may become
+useful, if you already have Gtk and cousins installed.
+Also, binary REQUIRES 'glade' subdirectory being in current
+directory. I.e. if you create shortcut, be sure that working directory is
+set to 'bin' under installation tree.
+</p>
+<p>
 There seems to be some problem with Pango I was not able to
 track down, so all Gtk+ widgets render text painfully
 slowly. Sodipodi own rendering is quite snappy.
-</p>
-<p>
-Just unpack archive somewhere and start Sodipodi.exe (from
-under bin subdirectory). The only
-requirement is 'glade' subdirectori being in current directory.
-I.e. if you create shortcut, be sure that working directory is
-set to bin.
 </p>
 <h3>
 Compiling sodipodi under windows
