@@ -9,6 +9,7 @@ name=development/title=Development/directory=home/meta=development.meta/intro=ge
 name=documentation/title=Docs/directory=home/meta=documentation.meta/intro=faq
 name=screenshots/title=Screenshots/directory=screenshots/meta=screenshots.meta/intro=current
 name=gallery/title=Galleries/directory=gallery/intro=information
+name=clipart/title=Clipart/directory=clipart/meta=clipart.meta/intro=clipart
 
 #name=documentation/directory=home/meta=documentation.meta/intro=readme
 #name=developer/directory=home/meta=developer.meta/intro=starting
