@@ -1,2 +1,2 @@
-$title="Yugoslavia";
+$title="Yugoslavia, (Historical)";
 $author="Nikola Pizurica";
