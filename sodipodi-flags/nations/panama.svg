@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
-[
- <!ATTLIST svg
-  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
-]>
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
    id="svg1646"
    sodipodi:version="0.32"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    width="210mm"
    height="140mm"
-   sodipodi:docbase="/home/sigge"
-   sodipodi:docname="/home/sigge/panama.svg">
+   sodipodi:docbase="/home/cschalle/sodipodi-flags/nations/"
+   sodipodi:docname="/home/cschalle/sodipodi-flags/nations/panama.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs
      id="defs1648" />
   <sodipodi:namedview
      id="base" />
   <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect555"
+     width="744.094421"
+     height="493.101440"
+     x="2.22117758"
+     y="2.96156311" />
+  <rect
      style="font-size:12;fill:#db0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect1649"
-     width="372.023374"
-     height="247.695770"
-     x="372.425197"
-     y="0.667887" />
+     width="372.023376"
+     height="241.032209"
+     x="372.425201"
+     y="7.331423" />
   <rect
      style="font-size:12;fill:#0000ab;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect1650"
