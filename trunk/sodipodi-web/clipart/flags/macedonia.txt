@@ -1,0 +1,2 @@
+$title="Macedonia";
+$author="Sigge Kotliar";
