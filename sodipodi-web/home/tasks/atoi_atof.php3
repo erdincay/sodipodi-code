@@ -15,6 +15,9 @@ reliable solution than forcing the LC_NUMERIC workaround.</p>
 <p>This routine takes an unsigned char * as input and returns the
 corresponding integer.</p>
 
+<p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
+<p><i>Status:</i>  new</p>
+
 <h4>atof</h4>
 
 <p>This routine converts strings to floating point representations.  It
@@ -26,10 +29,16 @@ CSS.</p>
 <p>This routine takes an unsigned char * as input and returns the
 corresponding floating point number.</p>
 
+<p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
+<p><i>Status:</i>  new</p>
+
 <h4>itoa</h4>
 
 <p>This routine takes an integer and returns the string formatted
 version of it as an unsigned char *.</p>
+
+<p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
+<p><i>Status:</i>  new</p>
 
 <h4>ftoa</h4>
 
@@ -39,6 +48,9 @@ able to provide controls to force representation of numbers in either
 exponential or non-exponential formats.</p>
 
 <p>This would provide an alternate to strnprintf(s, "%g", num).</p>
+
+<p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
+<p><i>Status:</i>  new</p>
 
 
 <h4>References</h4>
