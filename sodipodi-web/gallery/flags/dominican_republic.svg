@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg153"
+   sodipodi:version="0.33pre"
+   width="247"
+   height="130"
+   sodipodi:docname="/home/luigi/Downloads/dominican-republic.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:docbase="/home/luigi/Downloads">
+  <desc
+     id="desc549">
+The United States of America flag, produced by Daniel McRae</desc>
+  <defs
+     id="defs155" />
+  <sodipodi:namedview
+     id="base" />
+  <g
+     id="g817">
+    <g
+       id="g785">
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect783"
+         width="247.000033"
+         height="24.492439"
+         x="0.415127"
+         y="53.201679" />
+      <rect
+         style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect784"
+         width="129.128425"
+         height="24.492428"
+         x="0.753016"
+         y="-135.585465"
+         transform="matrix(-3.890927e-3,0.999992,-0.999999,-1.063410e-3,0.000000,0.000000)" />
+    </g>
+    <g
+       id="g788"
+       style="font-size:12;">
+      <rect
+         style="font-size:12;fill:#192f5d;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect661"
+         width="110.423534"
+         height="52.721008"
+         x="0.415126"
+         y="0.895791" />
+      <rect
+         style="font-size:12;fill:#bd3d44;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect749"
+         width="110.838662"
+         height="52.721008"
+         x="0.415126"
+         y="77.278992" />
+      <rect
+         style="font-size:12;fill:#192f5d;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect750"
+         width="112.084033"
+         height="52.721008"
+         x="134.915984"
+         y="77.278976" />
+      <rect
+         style="font-size:12;fill:#bd3d44;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="rect751"
+         width="111.668899"
+         height="52.721008"
+         x="135.331096"
+         y="0.895791" />
+    </g>
+    <image
+       xlink:href="DORE003.bmp"
+       sodipodi:absref="/home/luigi/Downloads/DORE003.bmp"
+       width="23.499393"
+       height="23.081434"
+       id="image802"
+       x="111.385736"
+       y="53.816017"
+       style="font-size:12;" />
+  </g>
+</svg>
