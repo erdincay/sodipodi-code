@@ -4,6 +4,26 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+
+
+<h3>26 November 2003</h3>
+<h4>0.33beta2 for Windows</h4>
+<p>
+The second prerelease beta for windows is out.
+Go grab it from:<br>
+<a href="http://www.sodipodi.com/files/Sodipodi_0_33_beta2_Setup.exe">
+http://www.sodipodi.com/files/Sodipodi_0_33_beta2_Setup.exe</a><br>
+and report back all showstopper bugs.<br>
+This version uses Microsoft Layer for Unicode, so feedback from
+Win9X/ME users is especially welcome.<br>
+Reasonably recent Gtk+ runtime is required. Unfortunately
+the best available package from
+<a href="http://www.dropline.net/gtk/">http://www.dropline.net/gtk/</a>
+is broken for Japanese (most probably for Chinese too). We are working
+on a solution to that problem.
+</p>
+
+
 <h3>23 November 2003</h3>
 <h4>0.33beta for Win32</h4>
 <p>
