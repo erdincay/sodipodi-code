@@ -1,2 +1,2 @@
-$title="Togo (3:2)";
+$title="Togo";
 $author="Cezary Biele";
