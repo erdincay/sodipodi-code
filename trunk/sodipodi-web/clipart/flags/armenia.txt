@@ -1,2 +1,2 @@
-$title="Armenia (3:2)";
+$title="Armenia";
 $author="AnI AnI";
