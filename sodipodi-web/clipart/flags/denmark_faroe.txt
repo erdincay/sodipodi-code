@@ -1,2 +1,2 @@
 $title="Denmark, Faroe Islands";
-$author="Anonymous";
+$author="Christian Schaller";

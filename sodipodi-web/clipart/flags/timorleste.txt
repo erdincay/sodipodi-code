@@ -1,2 +1,2 @@
 $title="Timor-Leste";
-$author="Christian Schaller";
+$author="Cezary GAZETA";
