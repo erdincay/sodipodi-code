@@ -22,3 +22,4 @@ name=gaussian_blur/title=Gaussian Blur/file=gaussian_blur.php3
 name=xml_editor/title=XML Editor/file=xml_editor.php3
 name=usability/title=Usability/file=usability.php3
 name=align_distribute/title=Align and Distribute Dialog/file=align_distribute.php3
+name=keyboard_shortcuts/title=Keyboard Shortcuts/file=keyboard_shortcuts.php3
