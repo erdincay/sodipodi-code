@@ -1,2 +1,2 @@
-$title="Paoua New Guinea";
-$author="Tobias Jacobs";
+$title="Papua New Guinea";
+$author="Tobias Jakobs";

@@ -1,2 +1,2 @@
 $title="United Nations";
-$author="Tobias Jacobs";
+$author="Tobias Jakobs";
