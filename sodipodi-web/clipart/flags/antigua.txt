@@ -1,2 +1,2 @@
 $title="Antigua";
-$author="Anonymous";
+$author="Sigge Kotliar";
