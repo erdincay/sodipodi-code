@@ -11,7 +11,7 @@ $area = $pagedata['area'];
 $count = 0;
 $dir = opendir("./clipart/$area/");
 while ($file = readdir($dir)) {
-	if (ereg(".txt$", $file)) {
+	if (ereg(".svg$", $file)) {
 		$filelist[] = $file;
 	}
 }
@@ -50,21 +50,27 @@ print "<TD WIDTH='33%' ALIGN='right'>$next</TD></TR></TABLE></FORM></CENTER>\n";
 print "<BR><BR><TABLE WIDTH='100%' BORDER='0'>\n";
 
 for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
-	$file = $filelist[$i];
+	$svgfile = $filelist[$i];
+ 	$basefile = basename($svgfile, '.svg');
+ 	$txtfile = $basefile.".txt";
+ 	$pngfile = $basefile.".png";
 	if ($i >= $total) break;
 
 	if ($count % $cols == 0) print "<TR ALIGN='center' VALIGN='bottom'>\n";
 	
-	$eval = file("./clipart/$area/$file");
-	eval(join('', $eval));
-
-	$basefile = basename($file, '.txt');
+	/* $basefile = basename($file, '.txt'); */
 
 	print "<TD>\n";
-	print "<A HREF='clipart/$area/$basefile.svg' CLASS='clipart'>\n";
-	print "<IMG SRC='clipart/$area/$basefile.png' CLASS='clipart'><BR>\n";
-	print "<B>$title</B></A><BR>By: $author<BR>\n";
-	print "<BR>&nbsp;</TD>\n";
+	print "<A HREF='clipart/$area/$svgfile' CLASS='clipart'>\n";
+	print "<IMG SRC='clipart/$area/$pngfile' CLASS='clipart'>\n";
+
+	if (file_exists ($txtfile)) {
+		$eval = file("./clipart/$area/$txtfile");
+		eval(join('', $eval));
+		print "<BR>\n";
+		print "<B>$title</B></A><BR>By: $author<BR>\n";
+		print "<BR>&nbsp;</TD>\n";
+	}
 
 	$count++;
 	if ($count % $cols == 0) print "</TR>\n";
