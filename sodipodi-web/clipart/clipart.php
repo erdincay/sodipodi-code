@@ -50,8 +50,8 @@ for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
 	$basefile = basename($file, '.txt');
 
 	print "<TD>\n";
-	print "<A HREF='clipart/$area/$basefile.svg'>\n";
 	print "<IMG SRC='clipart/$area/$basefile.png' CLASS='clipart'><BR>\n";
+	print "<A HREF='clipart/$area/$basefile.svg'>\n";
 	print "<B>$title</B></A><BR>By: $author<BR>\n";
 	print "<BR>&nbsp;</TD>\n";
 
