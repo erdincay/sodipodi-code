@@ -1,0 +1,2 @@
+$title="Guinea Bissau";
+$author="Christian Schaller";
