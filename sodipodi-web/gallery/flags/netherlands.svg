@@ -1,59 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
-   id="svg548"
-   sodipodi:version="0.32"
-   width="300pt"
-   height="200pt"
-   sodipodi:docbase="/home/uwog/Documents/Graphics/"
-   sodipodi:docname="/home/uwog/Documents/Graphics/The_Netherlands.svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink">
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="1062.98999"
+   height="708.661011"
+   id="svg378">
   <defs
-     id="defs550">
-    <linearGradient
-       id="linearGradient557">
-      <stop
-         style="stop-color:#000;stop-opacity:1;"
-         offset="0"
-         id="stop558" />
-      <stop
-         style="stop-color:#fff;stop-opacity:1;"
-         offset="1"
-         id="stop559" />
-    </linearGradient>
-    <linearGradient
-       xlink:href="#linearGradient557"
-       id="linearGradient560" />
-  </defs>
-  <sodipodi:namedview
-     id="base" />
-  <g
-     id="g574"
-     transform="translate(0.000000,-802.3622)">
-    <rect
-       style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1pt;fill-opacity:1;"
-       id="rect552"
-       width="374.999969"
-       height="249.999969"
-       x="0.000000"
-       y="802.362213" />
-    <rect
-       style="font-size:12;fill:#0000ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-       id="rect555"
-       width="374.999969"
-       height="83.333328"
-       x="0.000000"
-       y="969.028870" />
-    <rect
-       style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-       id="rect556"
-       width="375.000000"
-       height="83.337471"
-       x="0.000000"
-       y="802.358017" />
-  </g>
+     id="defs380" />
+  <rect
+     width="1062.98999"
+     height="708.661011"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="0.00000000"
+     y="0.00000000"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     rx="0.00000000"
+     ry="0.00000000"
+     x="0.00000000"
+     y="475.558563"
+     style="font-size:12;fill:#21468b;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect256" />
+  <rect
+     width="1062.98999"
+     height="236.220001"
+     x="0.00000000"
+     y="0.00000000"
+     style="font-size:12;fill:#ae1c28;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect255" />
 </svg>
