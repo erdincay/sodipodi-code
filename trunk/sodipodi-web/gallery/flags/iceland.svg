@@ -6,33 +6,32 @@
    version="1"
    x="0"
    y="0"
-   width="1062.99"
-   height="708.661"
-   id="svg378"
+   width="675"
+   height="486"
+   id="islenskifaninn"
+   sodipodi:version="0.29win"
+   sodipodi:docname="F:\iceland.svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   sodipodi:version="0.32"
-   sodipodi:docname="/home/cschalle/iceland.svg"
-   sodipodi:docbase="/home/cschalle">
+   xmlns:xlink="http://www.w3.org/1999/xlink">
   <sodipodi:namedview
      id="base" />
   <defs
      id="defs380" />
   <rect
-     width="1062.99"
-     height="708.661"
+     width="675"
+     height="486"
      x="0"
      y="0"
-     style="font-size:12;fill:#00077a;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-     id="rect171" />
+     style="fill:#003897;fill-rule:evenodd;stroke-width:0pt;fill-opacity:1;"
+     id="blarfeldur" />
   <path
-     d="M 0.727081 262.234 L 0.727081 446.185 L 262.476 446.185 L 262.476 709.388 L 445.7 709.388 L 445.7 446.185 L 1062.99 446.185 L 1062.99 262.234 L 445.7 262.234 L 445.7 -0.969925 L 262.476 -0.969925 L 262.476 262.234 L 0.727081 262.234 z "
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
-     id="path178" />
+     d="M 0 189 L 189 189 L 189 0 L 297 0 L 297 189 L 675 189 L 675 297 L 297 297 L 297 486 L 189 486 L 189 297 L 0 297 L 0 189 z "
+     style="fill:#ffffff;fill-rule:evenodd;stroke-width:0pt;"
+     id="hviturkross"
+     fill-cmyk="(0 0 0 0)" />
   <path
-     d="M 0.727081 307.348 L 0.727081 396.744 L 305.374 396.744 L 305.374 709.388 L 399.894 709.388 L 399.894 396.744 L 1062.99 396.744 L 1062.99 307.348 L 399.894 307.348 L 399.894 -0.969925 L 305.374 -0.969925 L 305.374 307.348 L 0.727081 307.348 z "
-     style="font-size:12;fill:#ef0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-     id="path177"
-     transform="translate(0.000000,-3.051758e-5)" />
+     d="M 0 216 L 216 216 L 216 0 L 270 0 L 270 216 L 675 216 L 675 270 L 270 270 L 270 486 L 216 486 L 216 270 L 0 270 L 0 216 z "
+     style="fill:#d72828;fill-rule:evenodd;stroke-width:0pt;fill-opacity:1;"
+     id="raudurkross" />
 </svg>
