@@ -4,6 +4,75 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+<h3>16 January 2003</h3>
+<h4>More flags, only Saint Helena, Turks and Caicos Islands, Brittish Virgin Islands missing to complete ISO3166.</h4>
+<P>
+<img border=1 src="clipart/flags/falkland_islands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/bermuda.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/cayman_islands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/basque.png" width="64" height="32">
+
+<h3>10 January 2003</h3>
+<h4>4th release of the Sodipodi flags collection</h4>
+<p>
+We are proud to announce the 1.6 release of the Sodipodi flags collection. This is our fourth release and the package now consists of over 300 flags available in the Public Domain. You find a full <A HREF="http://mail.gnome.org/archives/gnome-announce-list/2004-January/msg00032.html">release note with download instructions here</A>.
+<P>
+Latest additions to the collection include:<P>
+<img border=1 src="clipart/flags/usa_virgin_islands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_baden-württemberg.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pitcairn_islands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_saxony.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_lower_saxony.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/germany_schleswig-holstein.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/germany_berlin.png" width="64" height="32">&nbsp;
+</p>
+<hr>
+<h3>21 Detsember 2003</h3>
+<h4>Geographic symbol gallery created</h4>
+<p>Aki G. Karlsson has generously contributed first set of
+<a href="index.php3?section=clipart/mapsymbols">
+geographic map symbols</a>. We hope to get more soon.
+</p>
+<hr>
+
+
+<h3>20 December 2003</h3>
+<h4>The regions arrive in Sodipodi flag gallery</h4>
+<p>
+<img border=1 src="clipart/flags/belgium_brussels.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/belgium_flanders.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/belgium_walloon.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_new_brunswick.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_northwest_territories.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_nova_scotia.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/spain_catalunya.png" width="64" height="32">&nbsp;
+</p>
+<hr>
+
+<h3>19 Detsember 2003</h3>
+<h4><a href="http://dot.kde.org/">KDE.news</a> Interview with
+Lauris</h4>
+<p>
+<a href="http://dot.kde.org/">KDE.news</a> has
+<a href="http://dot.kde.org/1071748404/">interview</a> with Sodipodi
+main developer Lauris Kaplinski. Of course, the main area of focus is
+the recent support for KDE file and print dialogs in sodipodi.
+</p>
+<hr>
+
+<h3>18 Detsember 2003</h3>
+<h4>Symbol gallery added</h4>
+<p>
+New clipart
+<a href="index.php3?section=clipart/symbols">
+gallery</a> for various widely used symbols
+has been added. Big thanks to
+Petr Vodi&ccaron;ka for sending us first images. New submissions
+are always welcome!
+</p>
+<hr>
+
+
 <h3>14 December 2003</h3>
 <h4>Har Har Har; Its pirate week in the Sodipodi flag collection</h4>
 <p>
