@@ -116,3 +116,8 @@ exactly specify where the guidelines lay.  This can be done with the XML
 editor but there should be an easier way to do this.</p>
 
 <p>Requested by Gilles Schintgen</p>
+
+<p><i>There was once such a guideline positioning dialog, written by
+frank Felfe - but it got lost sometimes during Gtk+2 porting :-( Anybody
+interested - the code should be either there, or if not, available from
+old releases.</i> -- lauris</p>
