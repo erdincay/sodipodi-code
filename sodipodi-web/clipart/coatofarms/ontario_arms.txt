@@ -1,0 +1,2 @@
+$title="Ontario, Canada";
+$author="Pat Suwalski";
