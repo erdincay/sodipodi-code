@@ -1,0 +1,2 @@
+$title="Macao, China";
+$author="Cezary Biele";
