@@ -1,2 +1,2 @@
 $title="USA";
-$author="Daniel";
+$author="Daniel McRae";

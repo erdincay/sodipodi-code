@@ -1,2 +1,2 @@
 $title="Solomon Islands";
-$author="Cezary Biel";
+$author="Cezary Biele";

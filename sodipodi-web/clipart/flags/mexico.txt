@@ -1,2 +1,2 @@
 $title="Mexico";
-$author="Cezary Biel";
+$author="Cezary Biele";
