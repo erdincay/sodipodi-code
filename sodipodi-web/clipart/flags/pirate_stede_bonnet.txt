@@ -1,0 +1,2 @@
+$title="pirate Stede Bonnet (historic)";
+$author="Tobias Jakobs";
