@@ -10,7 +10,7 @@ printing is not supported yet.
 <p>
 There is experimental binary available at
 <a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
-Sodipodi download site</a>. Do not
+Sodipodi download site</a> (look for Sodipodi-x.yz-Win32.zip). Do not
 expect it to be as stable as Linux/Unix version yet - some
 testing and learning is needed, before we get it right.
 </p>
@@ -33,9 +33,8 @@ be obtained from
 GNUWin32 project</a>.
 </p>
 <p>
-It is somewhat slower than Linux version because I have not got
-assembler MMX optimizations compiling with Dev-cpp. If you know
-how to do that, help is welcome.
+It is somewhat slower than Linux version because of Gtk+
+totally lagging screen update.
 </p>
 <p>
 Just unpack archive somewhere and start Sodipodi.exe. The only
