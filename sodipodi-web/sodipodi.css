@@ -59,7 +59,7 @@ A:visited {a_color: #bf2f00; text-decoration: none;}
 A:active {a_color: #ff7f7f; text-decoration: none;}
 A:hover {color: #ff7f7f; text-decoration: none;}
 
-IMG.clipart A:link { border: 2px solid black; }
+IMG.clipart A:link { border: 2px solid black ! important }
 
 HR {color: #ccccff;}
 
