@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
-[
- <!ATTLIST svg
-  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
-]>
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    version="1"
    x="0.00000000"
    y="0.00000000"
-   width="543.861023"
-   height="362.571014"
+   width="6.04in"
+   height="4.03in"
    viewBox="0 0 543.861 362.571"
-   id="svg548">
+   id="svg548"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/scarlet/sodipodi-flags/Regional/canada_quebec.svg"
+   sodipodi:docbase="/home/scarlet/sodipodi-flags/Regional/">
+  <sodipodi:namedview
+     id="base" />
   <defs
      id="defs555" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect556"
+     width="543.861084"
+     height="362.570984"
+     x="0.000000"
+     y="0.000520" />
   <g
      style="font-size:12;"
      id="Layer_1">
