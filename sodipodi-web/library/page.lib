@@ -84,7 +84,7 @@ function page_show ($globalmeta, $sectionmeta, $section, $page, $directory, $fil
 	/* Topmost navigation row */
 	print "<tr>\n";
 	print "<td align=\"center\" valign=\"center\">\n";
-	print "<a href=\"http://sodipodi.sf.net/\">";
+	print "<a href=\"http://www.sodipodi.com/\">";
 	print "<img src=\"images/orav.png\" width=\"128\" height=\"128\" alt=\"ORAV\" border=\"0\"/>";
 	print "</a></td>\n";
 
@@ -180,7 +180,7 @@ function page_show ($globalmeta, $sectionmeta, $section, $page, $directory, $fil
 
 	print "<br><br>\n";
 
-	print "<a href=\"http://sodipodi.sourceforge.net/\">";
+	print "<a href=\"http://www.sodipodi.com/\">";
 	print "<img src=\"images/bt_sodipodi.png\" width=\"140\" height=\"45\" border=\"0\" alt=\"Graphics by Sodipodi\">";
 	print "</a>";
 
