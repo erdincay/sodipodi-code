@@ -1,0 +1,28 @@
+Sodipodi flags 1.0
+
+This is the first release of the Sodipodi flag collection. This collection currently consist of over 200 different international and local flags. The flags are donated by their authors into the public domain.  The flags are in the scalable and free SVG format which today is supported by most major vector graphics programs. Most flags are done using the Sodipodi vector drawing application. In others words these are free flags in a free format made with a free application.
+
+The core collection of flags in this collection are meant to be as accurate as possible.  If you discover flags in here that have wrong proportions or wrong colors then please update the flag with the correct colors or sizes and send it to us with an explanation.
+
+New flags are of course also welcomed, but remember we need a clear statement from you that you dedicate the flag to the public domain,  preferably using the Creative Commons public domain dedication process found here:
+http://creativecommons.org/license/publicdomain-2 
+We do hope that many of you take some time to help us make this an even more complete collection.
+
+We hope that this collection can be useful to people in many different settings be that in relation to software, publishing, education and so on. 
+
+The assembly of this huge collection has been made possible thanks to the hard work of many people. We big thank you goes to all our contributors listed in the CREDITS file distributed with this package. We would especially like to thank Tobias Jacobs, Sigge Kotliar, Cezary Biel, Brett Roper, Daniel McRae and Lauris Kaplinski, whose contributions count for around half the collection. 
+
+You can see all of the currently contributed flags here:
+http://www.sodipodi.com/index.php3?section=clipart/flags
+
+The creation of these flags had not been possible without the hard work that free software coders have put into great tools like Sodipodi and librsvg. The projects have helped increase the viability of SVG in free and open source software a lot.
+
+Both these two tools and the new Inkscape project do need more coders in order to improve further. For instance you will notice that many of the SVG flags do not render correctly in Nautilus due to some problems with librsvg. People interested in working on these and other issues are highly encouraged to join the project mailing-lists. You find the projects here:
+http://www.sodipodi.org
+http://librsvg.sf.net
+http://www.inkscape.org
+
+
+You can download the package in either tar.gz or zip format from the sourceforge file area:
+http://prdownloads.sourceforge.net/sodipodi/sodipodi-flags-1.0.tar.gz?download
+http://prdownloads.sourceforge.net/sodipodi/sodipodi-flags-1.0.zip?download
