@@ -21,7 +21,8 @@ function show_clipart_cell ($dirname, $image)
         } else {
         	print "<td align=\"right\" valign=\"bottom\">\n";
         }
-	print "<a href=\"showsvg.php3?file=${dirname}${image}.svg\">";
+	/* print "<a href=\"showsvg.php3?file=${dirname}${image}.svg\">"; */
+	print "<a href=\"${dirname}${image}.svg\">";
 	if (file_exists ("${dirname}${image}.png")) {
 		print "<img src=\"${dirname}${image}.png\" border=\"0\">";
 	} else {
