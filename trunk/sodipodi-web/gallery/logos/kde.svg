@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0"
+   y="0"
+   width="500"
+   height="500"
+   id="svg1">
+  <defs
+     id="defs2">
+    <radialGradient
+       cx="170"
+       cy="160"
+       fx="170"
+       fy="160"
+       r="220"
+       id="grad1"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad">
+      <stop
+         style="stop-color:#fefef2;stop-opacity:1;"
+         offset="0"
+         id="stop4" />
+      <stop
+         style="stop-color:#fefef2;stop-opacity:1;"
+         offset="0.1"
+         id="stop5" />
+      <stop
+         style="stop-color:#fcfccd;stop-opacity:1;"
+         offset="0.3"
+         id="stop6" />
+      <stop
+         style="stop-color:#fcd99a;stop-opacity:1;"
+         offset="0.5"
+         id="stop7" />
+      <stop
+         style="stop-color:#e4b573;stop-opacity:1;"
+         offset="0.6"
+         id="stop8" />
+      <stop
+         style="stop-color:#cb9e60;stop-opacity:1;"
+         offset="0.75"
+         id="stop9" />
+      <stop
+         style="stop-color:#c19553;stop-opacity:1;"
+         offset="1"
+         id="stop10" />
+    </radialGradient>
+    <linearGradient
+       x1="10"
+       y1="10"
+       x2="300"
+       y2="400"
+       id="grad2"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad">
+      <stop
+         style="stop-color:#fffff2;stop-opacity:1;"
+         offset="0"
+         id="stop12" />
+      <stop
+         style="stop-color:#fffff2;stop-opacity:1;"
+         offset="0.4"
+         id="stop13" />
+      <stop
+         style="stop-color:#b1b3b2;stop-opacity:1;"
+         offset="1"
+         id="stop14" />
+    </linearGradient>
+    <linearGradient
+       x1="100"
+       y1="100"
+       x2="300"
+       y2="400"
+       id="grad3"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad">
+      <stop
+         style="stop-color:#6e6e6e;stop-opacity:1;"
+         offset="0"
+         id="stop16" />
+      <stop
+         style="stop-color:#373731;stop-opacity:1;"
+         offset="1"
+         id="stop17" />
+    </linearGradient>
+    <linearGradient
+       x1="200"
+       y1="200"
+       x2="250"
+       y2="350"
+       id="grad4"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad">
+      <stop
+         style="stop-color:#545450;stop-opacity:1;"
+         offset="0"
+         id="stop19" />
+      <stop
+         style="stop-color:#d9dade;stop-opacity:1;"
+         offset="1"
+         id="stop20" />
+    </linearGradient>
+    <linearGradient
+       x1="100"
+       y1="400"
+       x2="250"
+       y2="350"
+       id="grad5"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad">
+      <stop
+         style="stop-color:#c5b7aa;stop-opacity:1;"
+         offset="0"
+         id="stop22" />
+      <stop
+         style="stop-color:#fefdf9;stop-opacity:1;"
+         offset="1"
+         id="stop23" />
+    </linearGradient>
+    <filter
+       id="shadow"
+       filterUnits="objectBoundingBox"
+       x="-10%"
+       y="-10%"
+       width="120%"
+       height="120%">
+      <feGaussianBlur
+         in="SourceAlpha"
+         stdDeviation="10"
+         result="shadow" />
+      <feMerge>
+        <feMergeNode
+           in="shadow" />
+        <feMergeNode
+           in="shadow" />
+        <feMergeNode
+           in="shadow" />
+        <feMergeNode
+           in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <g
+     transform="translate(-0.881996,-6.65841)"
+     style="font-size:12;"
+     id="g160">
+    <g
+       transform="translate(7.76396,9.31674)"
+       style="fill:none;stroke:#757575;stroke-width:10;"
+       id="g190">
+      <path
+         d="M 200 144 L 100 73 L 65 108 L 130 203 L 12 228 L 12 278 L 132 300 L 60 401 L 96 439 L 196 366 L 216 491 L 268 491 L 288 365 L 389 439 L 424 400 L 380 340 L 380 292 L 469 278 L 469 226 L 369 209 L 200 144 z "
+         id="path191" />
+      <path
+         d="M 197 19 L 197 364 L 281 354 L 281 207 L 396 367 L 479 341 L 367 183 L 482 38 L 392 15 L 281 165 L 281 13 L 197 19 z "
+         id="path192" />
+    </g>
+    <g
+       transform="translate(3.10559,3.10557)"
+       style="fill:none;stroke:#000000;stroke-width:10;"
+       id="g187">
+      <path
+         d="M 200 144 L 100 73 L 65 108 L 130 203 L 12 228 L 12 278 L 132 300 L 60 401 L 96 439 L 196 366 L 216 491 L 268 491 L 288 365 L 389 439 L 424 400 L 380 340 L 380 292 L 469 278 L 469 226 L 369 209 L 200 144 z "
+         id="path185" />
+      <path
+         d="M 197 19 L 197 364 L 281 354 L 281 207 L 396 367 L 479 341 L 367 183 L 482 38 L 392 15 L 281 165 L 281 13 L 197 19 z "
+         id="path186" />
+    </g>
+    <path
+       d="M 200 144 L 100 73 L 65 108 L 130 203 L 12 228 L 12 278 L 132 300 L 60 401 L 96 439 L 196 366 L 216 491 L 268 491 L 288 365 L 389 439 L 424 400 L 380 340 L 380 292 L 469 278 L 469 226 L 369 209 L 200 144 z "
+       style="fill:url(#grad2);"
+       id="path26" />
+    <circle
+       cx="243.000000"
+       cy="254.000000"
+       r="165.000000"
+       style="fill:url(#grad3);"
+       id="circle27" />
+    <circle
+       cx="243.000000"
+       cy="254.000000"
+       r="158.000000"
+       style="fill:url(#grad2);"
+       id="circle28" />
+    <circle
+       cx="243.000000"
+       cy="254.000000"
+       r="135.000000"
+       style="fill:url(#grad4);"
+       id="circle29" />
+    <circle
+       cx="247.000000"
+       cy="269.000000"
+       r="120.000000"
+       style="fill:url(#grad5);"
+       id="sphere-reflection" />
+    <circle
+       cx="243.000000"
+       cy="254.000000"
+       r="123.000000"
+       style="fill:url(#grad1);"
+       id="sphere" />
+    <path
+       d="M 198.357 19.9566 L 198.357 364.956 L 282.357 354.956 L 282.357 207.956 L 397.357 367.956 L 480.357 341.956 L 368.357 183.956 L 483.357 38.9566 L 393.357 15.9566 L 282.357 165.956 L 282.357 13.9566 L 198.357 19.9566 z "
+       style="fill:none;stroke:#3a3a3a;stroke-width:10;"
+       id="path193" />
+    <path
+       d="M 197 19 L 197 364 L 281 354 L 281 207 L 396 367 L 479 341 L 367 183 L 482 38 L 392 15 L 281 165 L 281 13 L 197 19 z "
+       style="fill:#ffffff;"
+       id="k" />
+  </g>
+</svg>
