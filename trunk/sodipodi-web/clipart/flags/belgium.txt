@@ -1,2 +1,2 @@
 $title="Belgium";
-$author="Benja";
+$author="Daniel McRae";
