@@ -1,0 +1,2 @@
+$title="Haiti";
+$author="Shawn J. Stewart";

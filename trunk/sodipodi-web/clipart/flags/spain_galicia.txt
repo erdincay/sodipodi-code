@@ -1,2 +1,2 @@
 $title="Spain, Galicia";
-$author="Miguel Rodríguez";
+$author="Pedro A. Gracia Fajardo";
