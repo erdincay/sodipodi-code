@@ -1,6 +1,7 @@
 name=about/title=Introduction/file=about.php3
-name=news/title=News/file=news.php3
-name=donations/title=Donations/file=donations.html
-name=contacts/title=Contacts/file=contacts.html
+name=news/title=Project News/file=news.php3
+name=bugs/title=Report a Bug/file=bugs.php3
+name=contacts/title=Contact Info/file=contacts.html
 name=authors/title=Authors/file=authors.php3
+name=donations/title=Donations/file=donations.html
 #name=status/title=Oct 03 Status/file=2003_10_status.html

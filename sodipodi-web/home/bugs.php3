@@ -1,24 +1,69 @@
-<h2>Workarounds for known bugs</h2>
-
-<p>Please <a href="http://sourceforge.net/tracker/?group_id=4054&atid=104054">report
-new bugs</a> to the Sodipodi area of the SourceForge site, and check
-there for bugs not already listed here.</p>
-
-<h2>0.31 bugs and work arounds</h2>
-
-<h3><i>colinear!</i></h3>
-
-<p>This is a libart warning.  The original libart intersector has all
-kinds of numerical problems, and it is believed that this warning is
-emitted if it tries to find intersection of two almost parallel lines.</p>
-
-<h3><i>warning: failed to load external entity "glade/icons.svg"</i></h3>
-
-<p>Many people see this warning, however it does not appear to be a
-fatal problem.  It's a normal message that should be suppressed.
-Instead of glade/icons.svg, SVG icons probably will be loaded from
-$PREFIX/share/sodipodi/icons.svg.</p>
-
-
-
+<h2>Submitting bug reports</h2>
+<h3>Bug trackers</h3>
+<p>
+There are bug trakers in sodipodi
+<a href="http://sourceforge.net/projects/sodipodi/">Sourceforge</a>
+project. It is always good idea to submit bug using web-based tracker
+interface, so it will be archived in database and won't be forgotten.
+You can still write to sodipodi-list, if you want to create immediate
+awareness of given bug, or want to discuss workarounds or fixes
+for it.
+</p>
+<p>
+Tacker locations:
+<ul>
+<li><a
+href="http://sourceforge.net/tracker/?atid=104054&group_id=4054&func=browse">
+Bugs</a> - obvious errors in program intended behaviour</li>
+<li><a
+href="http://sourceforge.net/tracker/?atid=354054&group_id=4054&func=browse">
+Feature requests</a> - wishes about things that can be done better, but
+that are not obvious errors</li>
+<li><a
+href="http://sourceforge.net/tracker/?atid=304054&group_id=4054&func=browse">
+Patches</a> - if you already have a fix</li>
+<li><a
+href="http://sourceforge.net/tracker/?atid=204054&group_id=4054&func=browse">
+Support requests</a> - if you need specific help</li>
+</ul>
+</p>
+<h3>How to submit a but report</h3>
+<h4>Step 1 - browse existing bugs</h4>
+<p>
+If you find similar bug to yours already reported, do not submit new
+report. Instead add comment to existing report. You can also find, that
+there is known fix or workaround already submitted.
+</p>
+<h4>Write test case</h4>
+<p>
+Write repeatable scenario, how to get the bug in question to appear. The
+more precise you are, the faster we will be able to find a fix. Of course,
+there are bugs, that appear randomly, so if you cannot find
+repeatable scenario, submit report nevertheless.
+</p>
+<h4>Specify your system</h4>
+<p>
+Write down relevant information about your system.
+<ul>
+<li>The version of sodipodi used</li>
+<li>Whether you compiled it youslef, or installed from package</li>
+<li>Operating system used
+<li>The versions of support libraries used (Gtk+, libpng, freetype). If you
+do not know that information, no problem.
+</ul>
+</p>
+<h4>Attach test file</h4>
+<p>
+If there is specific file, that triggers erroneous behaviour, attach
+this to bug report.
+</p>
+<h4>Submit a report</h4>
+<p>
+If you are logged in and have submitted your email address, you will
+be notified by email about all activity on that bug. People may ask
+for more information, suggest workarounds, or just tell you, that
+this is/will be fixed :-)
+</p>
+<br>
+<br>
 
