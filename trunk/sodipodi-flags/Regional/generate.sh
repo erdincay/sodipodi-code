@@ -1,1 +1,1 @@
-for i in  france_martinique; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
+for i in british_indian_ocean_territory australian_capital_territory northern_territory australia_queensland australia_victoria  australia_western_australia antarctica; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
