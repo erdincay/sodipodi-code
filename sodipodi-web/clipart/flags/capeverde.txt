@@ -1,0 +1,2 @@
+$title="Cape Verde";
+$author="Christian Schaller";
