@@ -1,0 +1,2 @@
+$title="Georgia, Historical";
+$author="Sigge Kotliar";
