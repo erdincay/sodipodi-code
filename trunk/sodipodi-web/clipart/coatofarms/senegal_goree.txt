@@ -1,0 +1,2 @@
+$title="Goree, Senegal";
+$author="Patricia Fidi";
