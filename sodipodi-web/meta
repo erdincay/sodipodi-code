@@ -6,7 +6,7 @@
 name=home/title=About/directory=home/intro=about
 name=download/title=Download/directory=home/meta=download.meta/intro=stable
 name=development/title=Development/directory=home/meta=development.meta/intro=general
-name=documentation/title=Documentation/directory=home/meta=documentation.meta/intro=faq
+name=documentation/title=Docs/directory=home/meta=documentation.meta/intro=faq
 name=screenshots/title=Screenshots/directory=screenshots/meta=screenshots.meta/intro=current
 name=gallery/title=Galleries/directory=gallery/intro=information
 
