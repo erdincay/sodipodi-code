@@ -1,0 +1,255 @@
+<? if (!$pagelib) {$pagelib = TRUE;
+
+function page_textbox_start ($klass)
+{
+	/* Subtable */
+	print "<table class=\"$klass\" ";
+	print "width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+
+	print "<tr>\n";
+
+	print "<td width=\"4px\"><img width=\"4\" height=\"3\" src=\"images/l.png\"/></td>\n";
+
+	print "<td ";
+	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
+	print "background=\"images/t.png\" ";
+	print "colspan=\"2\" width=\"*\"/><img width=\"4\" height=\"3\" src=\"images/4x4t.png\"/></td>\n";
+
+	print "<td width=\"4px\"><img width=\"4\" height=\"3\" src=\"images/tr.png\"/></td>\n";
+
+	print "</tr>\n";
+
+	print "<tr>\n";
+	print "<td width=\"4px\" background=\"images/l.png\"/><img width=\"4\" height=\"4\" src=\"images/4x4t.png\"/></td>\n";
+
+	print "<td ";
+	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
+	if ($GLOBALS['background_table']) {print "background=\"${GLOBALS['background_table']}\" ";}
+	print "width=\"2px\"><img width=\"2\" height=\"4\" src=\"images/2x4t.png\"/></td>\n";
+
+	print "<td ";
+	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
+	if ($GLOBALS['background_table']) {print "background=\"${GLOBALS['background_table']}\" ";}
+	print "width=\"*\" align=\"center\">\n";
+}
+
+function page_textbox_end ()
+{
+	print "</td>\n";
+	print "<td background=\"images/r.png\" ";
+	if ($GLOBALS['bgcolor_border']) {print "bgcolor=\"${GLOBALS['bgcolor_border']}\" ";}
+	print "/><img src=\"images/4x4t.png\"/></td>\n";
+	print "</tr>\n";
+
+	print "<tr>\n";
+	print "<td width=\"4px\"><img width=\"4\" height=\"4\" src=\"images/bll.png\"/></td>\n";
+	print "<td width=\"2px\"><img width=\"2\" height=\"4\" src=\"images/bl.png\"/></td>\n";
+
+	print "<td colspan=\"2\" width=\"*\" background=\"images/b.png\" ";
+	if ($GLOBALS['bgcolor_border']) {print "bgcolor=\"${GLOBALS['bgcolor_border']}\" ";}
+	print "/>\n";
+	print "<img width=\"4\" height=\"4\" src=\"images/4x4t.png\"/>";
+	print "</td>\n";
+
+	print "</tr>\n";
+
+	print "</table>\n";
+}
+
+function page_ns4_hack ($width, $height)
+{
+	if ($width) {$ws = "width=\"$width\"";}
+	if ($height) {$hs = "height=\"$height\"";}
+	print "<!-- Netscape 4 empty cell pursh open trick -->\n";
+	print "<table $ws cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td $hs></td></tr></table>\n";
+}
+
+function page_start ($title)
+{
+	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
+
+	print "
+<html>
+<head>
+	<title>Sodipodi:$title</title>
+
+	<!-- Style sheets ... -->
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"sodipodi.css\" />
+	<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"favicon.ico\" />
+
+	<meta name=\"description\" content=\"Sodipodi Web Site\">
+	<meta name=\"keywords\" content=\"sodipodi, svg, vector graphics, linux, unix, gnome\">
+	<meta name=\"robots\" content=\"index, follow\">
+	<meta name=\"distribution\" content=\"Global\">
+	<meta name=\"copyright\" content=\"(c) 2001\">
+	<meta name=\"rating\" content=\"General\">
+	<meta name=\"author\" content=\"Lauris Kaplinski\">
+	<meta name=\"generator\" content=\"Zombie Draft\">
+
+</head>\n";
+
+	print "<body ";
+	if ($GLOBALS['bgcolor']) {print "bgcolor=\"${GLOBALS['bgcolor']}\" ";}
+	if ($GLOBALS['background']) {print "background=\"mpne\" ";}
+	if ($GLOBALS['textcolor']) {print "text=\"${GLOBALS['textcolor']}\" ";}
+	if ($GLOBALS['textcolor_link']) {print "link=\"${GLOBALS['textcolor_link']}\" ";}
+	if ($GLOBALS['textcolor_link']) {print "vlink=\"${GLOBALS['textcolor_link']}\" ";}
+	if ($GLOBALS['textcolor_active']) {print "alink=\"${GLOBALS['textcolor_active']}\" ";}
+	print "leftmargin=\"0\" rightmargin=\"0\" topmargin=\"0\">\n";
+}
+
+function page_end ()
+{
+	print "</body>\n</html>\n";
+}
+
+function page_show ($globalmeta, $sectionmeta, $section, $page, $directory, $filename, $argv)
+{
+	/* Start background table */
+	print "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n";
+	/* print "<tr><td height=\"64\" background=\"images/roses_128x64.png\"><img width=\"8\" height=\"64\" src=\"images/8x64t.png\"></td></tr>\n"; */
+	print "<tr><td>\n";
+
+	/* Start global table */
+	print "<table width=\"95%\" cellpadding=\"0\" cellspacing=\"16\" border=\"0\">\n";
+
+	/* Topmost navigation row */
+	print "<tr>\n";
+	print "<td>&nbsp;</td>\n";
+
+	print "<td align=\"center\">\n";
+
+	page_textbox_start ("none");
+
+	$ga = array_keys ($globalmeta);
+	$len = sizeof ($ga);
+	print "<table width=\"*\" class=\"navigation\" border=\"0\" cellspacing=\"8\" cellpadding=\"0\">\n";
+	print "<tr><td colspan=\"$len\" align=\"center\">\n";
+	print "<img src=\"images/sodipodi.png\" width=\"320\" height=\"96\"/>";
+	print "</td></tr>\n";
+	print "<tr>\n";
+	for ($i = 0; $i < $len; $i++) {
+		/* Section entry */
+		$sn = $ga[$i];
+		$sectiondata = $globalmeta[$sn];
+		$title = $sectiondata['title'];
+		print "<td align=\"center\">\n";
+		print "<a href=\"index.php3?section=$sn\">";
+		if ($sn == $section) {
+			print "<b>$title</b>";
+		} else {
+			print $title;
+		}
+		print "</a>&nbsp;\n";
+		print "</td>\n";
+	}
+	print "</tr>\n";
+	print "</table>\n";
+
+	page_textbox_end ();
+
+	print "</td></tr>\n";
+
+	/* Section and body row */
+	print "<tr>\n";
+
+	/* Section cell */
+	print "<td width=\"*\" align=\"center\" valign=\"top\" align=\"left\">\n";
+
+	page_textbox_start ("none");
+
+	print "<table class=\"navigation\" border=\"0\" cellspacing=\"8\" cellpadding=\"0\">\n";
+	$sa = array_keys ($sectionmeta);
+	$len = sizeof ($sa);
+	for ($i = 0; $i < $len; $i++) {
+		/* Page entry */
+		$pn = $sa[$i];
+		$pagedata = $sectionmeta[$pn];
+		$title = $pagedata['title'];
+		print "<tr>";
+		print "<td align=\"center\">\n";
+		print "<a href=\"index.php3?section=$section/$pn\">\n";
+		if ($pn == $page) {
+			print "<b>$title</b>";
+		} else {
+			print $title;
+		}
+		print "</a>\n";
+		print "</td>";
+		print "</tr>\n";
+	}
+	print "</table>\n";
+
+	page_textbox_end ();
+
+  	print "<br>\n";
+
+	print "<font size=\"-2\">";
+	print "<a href=\"index.php3?section=home/donations\">";
+	print "Support sodipodi development!";
+	print "</font></a>\n";
+
+  	print "<br>\n";
+
+	print "<A HREF=\"https://www.yaskifo.com/order.asp?ID=107090\">";
+	print "<IMG SRC=\"http://www.yaskifo.com/images/_common/buttons/visuals/medium/grey.gif\" BORDER=\"0\" WIDTH=\"150\" HEIGHT=\"80\" ALT=\"Donate\">";
+	print "</A>\n";
+
+	print "<br><br>\n";
+
+	print "<font size=\"-2\">";
+	print "Sodipodi is hosted at";
+	print "</font>\n";
+
+  	print "<br>\n";
+
+	print "<a href=\"http://sourceforge.net/projects/sodipodi\">";
+	print "<img src=\"http://sourceforge.net/sflogo.php?group_id=4054\" width=\"88\" height=\"31\" border=\"0\" alt=\"Sourceforge Logo\">";
+	print "</a>";
+
+	print "<br><br>\n";
+
+	print "<a href=\"http://sodipodi.sourceforge.net/\">";
+	print "<img src=\"images/bt_sodipodi.png\" width=\"140\" height=\"45\" border=\"0\" alt=\"Graphics by Sodipodi\">";
+	print "</a>";
+
+ 	print "<br><br>\n";
+
+	print "<a href=\"http://lauris.kaplinski.com/\">";
+	print "<font size=\"-2\">";
+	print "Lauris Kaplinski";
+	print "</font></a>\n";
+
+	print "</td>\n";
+
+	/* Main data cell */
+	print "<td width=\"*\" valign=\"top\" align=\"left\">\n";
+
+	page_textbox_start ("page");
+	print "<div><blockquote>\n";
+	$pagedata = $sectionmeta[$page];
+	if ($pagedata['directory']) {
+		$directory = $directory.$pagedata['directory']."/";
+	}
+	$filename = $directory.$filename;
+
+	if (file_exists ($filename)) {
+		include ($filename);
+	} else {
+		print "File '$filename' not found.";
+	}
+	print "</blockquote></div>\n";
+	page_textbox_end ();
+
+	print "</td></tr>\n";
+	/* Main data cell end */
+
+	print "</table>\n";
+	/* Global table end */
+
+	print "<tr><td>\n";
+	print "</table>\n";
+	/* Backround table end */
+}
+
+} ?>

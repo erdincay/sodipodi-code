@@ -1,0 +1,66 @@
+<h3>Autotrace and Frontline</h3>
+<p>
+Autotrace is vectorization program by Martin Weber. That means,
+you can convert bitmap images, like scans, to vector graphics. While
+not optimal for photos, it does good job on line art and poster
+like images.
+</p>
+<p>
+Frontline is GUI frontend to Autotrace by Masatake Yamato. Frontline
+can be run as standalone aplication, but it can also be directly accessed
+from sodipodi and GIMP.
+</p>
+<p>
+If you want to have tracing option, yo have to install both Autotrace
+and Frontline before compiling Sodipodi. Sodipodi automatically
+detects these programs, and adds inline raster to vector conversion
+option to image menu.
+</p>
+<p>
+Both autotrace and frontline can be downloaded from
+
+<a href="http://autotrace.sourceforge.net/">http://autotrace.sourceforge.net/</a>.
+</p>
+<p>
+At the time of writing this (Sodipodi 0.27), the required versions
+are:
+</p>
+<ul>
+<li><a href="http://autotrace.sourceforge.net/snapshots/autotrace-0.30.8.tar.gz">autotrace-0.30.8</a>
+<li><a href="http://autotrace.sourceforge.net/frontline/frontline-0.5.3.tar.gz">frontline-0.5.3</a>
+</ul>
+
+<h3>ill2svg</h3>
+
+<p>
+ill2svg (Illustrator to SVG) is a small script that helps turn Adobe 
+Illustrator .ai files into SVG. While it doesn't always do a perfect job,
+it can sometimes be of great help.
+</p>
+
+<p>
+You can download ill2svg
+<a href="files/ill2svg.tgz">from here</a>.
+
+<p>
+To use the program, just type:
+</p>
+<pre>
+ill2svg.pl [-l "string" -h] infile > outfile.svg
+
+options: 
+	-l specify the file's line-ending convention: dos, mac,
+	or unix; the default is unix
+
+	-h print this message and exit
+</pre>
+
+<h3>gimp2sodipodi</h3>
+
+<p>
+Shandy Brown has assembled a somewhat obscure but useful
+set of tools to get from GIMP to Sodipodi. That is convert raster
+to vector. His instructions can be found at
+<a href="http://sjbrown.geeky.net/gimp2sodi/HOWTO.html">http://sjbrown.geeky.net/gimp2sodi/HOWTO.html</a>.
+Enjoy.</p>
+

@@ -1,0 +1,197 @@
+<p>
+There are no stable sodipodi releases yet. Still time to time I do
+build and release distribution tarballs.  Although not of
+production quality, these are still stabler
+and more tested, than is the usual state of affairs in CVS.
+And many nice people have done binary packages of sodipodi.
+</p>
+<p>
+Released versions can be found
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">here</a>.
+</p>
+
+<h3>Sodipodi 0.30 release notes</h3>
+<p>
+This is bugfix release, cleaning some most rough corners
+of 0.29.
+There was quite nasty bug disturbing rotated paths in node edit
+mode, making sodipodi mostly unusable for real work. This, and
+some other minor ones, are fixed now.
+</p>
+
+<p>
+Highlights (in the order of Changelog):
+</p>
+<ul>
+<li>Do not crash on entity declarations (Lauris)</li>
+<li>Implemented almost full viewport support in &lt;svg&gt; (Lauris)</li>
+<li>Support for &lt;symbol&gt;, &lt;clipPath&gt; and &lt;mask&gt; (lauris)</li>
+<li>Make slideshow working again (Lauris)</li>
+<li>Fix path corruption bug (Lauris)</li>
+<li>Fix invalid rectangle corner radius interpetation (Lauris)</li>
+</ul>
+<p>
+07/02/2003<br>
+Lauris Kaplinski<br>
+Tartu, Estonia
+</p>
+
+
+<h3>Sodipodi 0.29 release notes</h3>
+<p>
+This is the first version using Gtk+ 2.0 widget set and
+updated support libraries. So it is probably quite buggy
+inside and out.
+</p>
+<p>
+The number of required libraries has come down considerably.
+Most importantly you do not need gnome libraries anymore,
+libgnomeprint and libgnomeprintui are optional. Thus building
+it should be much easier.
+</p>
+<p>
+This version should compile on Windows 95/98/ME/2000/XP.
+The support is still in very early phase of development,
+so it may require some tweaking, depending on actual
+build system used.
+</p>
+
+<p>
+Highlights (in the order of Changelog):
+</p>
+<ul>
+<li>Port to Gtk+ 2.0 (Mitsuru)
+<li>Removed libgnome, libgnomeui, libgal dependencies,
+    reimplement missing pieces (Mitsuru)
+<li>Gnome print support is now compile time option (Lauris)
+<li>Smooth canvas scroll (Lauris)
+<li>Initial direct PostScript print implementation (Lauris)
+<li>Windows32 port (Lauris)
+<li>Support GtkIM in text context (MenTaLguY)
+<li>Fixed namespace loading code (MenTaLguY)
+<li>Optional loading of Xft font database (Lauris)
+<li>Control constrains draw to 15 degrees instead of 90 (Nathan)
+<li>Fixed linear grid snapping code (Nathan)
+<li>Allow multiple toolboxes and toolbox docking (Lauris)
+</ul>
+<p>
+28/01/2003<br>
+Lauris Kaplinski<br>
+Tartu, Estonia
+</p>
+
+
+<h3>Sodipodi 0.28 release notes</h3>
+<p>
+This release is mostly about speed. Using locally modified
+canvas port we were able to made sodipodi so much more
+responsive, we felt the need to share it with community.
+</p>
+<p>
+Highlights (in order of Changelog):
+</p>
+<ul>
+<li>Eliminated lagging-behind-UI event queues (me)
+<li>Eliminated expensive intersection tests for select-only updates (me)
+<li>MMX optimizations for most heavily used pixel operations (me)
+<li>Compilation speedups (me)
+<li>Way to add custom freetype-readable fonts, thus having real
+    vertical metrics (me)
+<li>Fully dynamic XML editor (MenTaLguY)
+<li>Combine and Convert to curve work on multiple items selected (Masatake)
+<li>userSpaceOnUse units are supported, so nautilus-readable icons
+    can be drawn with sodipodi (me)
+<li>Way to specify reflect and repeat gradient spreads (me)
+<li>Patterned lines (me)
+<li>Node editing has stamping too (Masatake)
+</ul>
+<p>
+25/11/2002<br>
+Lauris Kaplinski<br>
+Tartu, Estonia
+</p>
+
+<h3>Sodipodi 0.27 release notes</h3>
+<p>
+Highlights (in order of Changelog):
+</p>
+<ul>
+<li>Transformation 'stamping' (Masatake)
+<li>Objects with either or both dimension zero show size correctly (me)
+<li>Fully functional radial gradients (me)
+<li>Patterns are displayed (no editing yet) (me)
+<li>You can enter arbitrary unicode values in text context (me)
+<li>Much faster text display (me)
+<li>Rule scale and origin can be changed (me)
+<li>Lots of bugfixes
+</ul>
+<p>
+09/10/2002<br>
+Lauris Kaplinski<br>
+Tartu, Estonia
+</p>
+
+<h3>Sodipodi 0.26 release notes</h3>
+<p>
+As one could expect, previous release was quite buggy. Some of them
+were nasty enough, to justify bugfix release.
+</p>
+<p>
+Highlights:
+</p>
+<ul>
+<li>Works now on locales using ',' as decimal separator
+<li>Writes DTD correctly, so Sodipodi files are viewable with Adobe
+    SVG plugin
+<li>Text is editable in place
+<li>Plain SVG saving mode
+<li>Recently opened files list
+<li>Fill rule can be changed
+<li>Lots of bugfixes
+</ul>
+
+<h3>Sodipodi 0.25 release notes</h3>
+<p>
+Too much time has passed from the last release. Lot has changed
+inside sodipodi, so do expect this release to be buggier and slower
+than 0.24. But otherwise it is cool and no doubt together we can
+make it better for the next release.
+</p>
+<p>
+Highlights:
+</p>
+<ul>
+<li>Text object manages now the whole tree of &lt;tspan&gt; and TEXT nodes,
+multiline text thus being compatible with SVG specification. Old sodipodi
+files will be converted to new format automatically if opened.
+<li>Linear gradient unit space and transformation is now calculated
+correctly. Only viewport relative percentages are not supported.
+<li>Style parsing and inheritance is much better now. Specifically
+most distances are now handled correctly.
+<li>There is working pen tool in addition to pencil.
+<li>XML tree is now completely editable. (Pawel)
+<li>Vertical writing mode is supported, although font metrics
+are emulated.
+<li>Line width behaves as it should bot in display and print.
+<li>Text object gradient is correct in display mode too.
+<li>Stroke can have gradient fill. No printing yet, but it does
+work in display and bitmap export.
+<li>Command line arguments are working. Plus there are arguments to
+convert SVG to PNG from command line (no X needed)
+<li>There are nifty star, spiral and arc tool, the latter replacing
+old ellipse tool. (Mitsuru)
+<li>Bitmaps can be traced to vector from context menu, using
+autotrace and frontline. (Masatake)
+<li>Several objects have now property dialogs and node editing mode. (Mitsuru)
+<li>There is tool options dialog for some tools.
+</ul>
+
+<p>
+11/09/2002<br>
+Lauris Kaplinski
+</p>
+
+
+
+
+
