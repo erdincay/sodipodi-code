@@ -23,7 +23,8 @@ useful tool for web designers.
 <p>
 It has a relatively modern display engine, giving you finely antialiased
 display, alpha transparencies, vector fonts and so on. Sodipodi is
-written in C, using the Gtk+ toolkit and optionally some Gnome libraries.
+written in C, using the Gtk+ toolkit and optionally some Gnome or
+KDE libraries.
 </p>
 <p>
 Sodipodi works under most versions of Unix and Windows.
