@@ -1,2 +1,2 @@
-$title="Bavaria, Germany";
+$title="Germany, Bavaria";
 $author="Jörgen Scheibengruber";
