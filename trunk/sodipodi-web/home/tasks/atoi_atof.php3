@@ -16,7 +16,8 @@ reliable solution than forcing the LC_NUMERIC workaround.</p>
 corresponding integer.</p>
 
 <p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
-<p><i>Status:</i>  new</p>
+<p><i>Status:</i>  Review - this routine exists in stdlib.h, can we just
+reuse that?</p>
 
 <h4>atof</h4>
 
@@ -30,7 +31,8 @@ CSS.</p>
 corresponding floating point number.</p>
 
 <p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
-<p><i>Status:</i>  new</p>
+<p><i>Status:</i>  Review - this routine exists in stdlib.h, can we just
+reuse that?</p>
 
 <h4>itoa</h4>
 
@@ -38,7 +40,9 @@ corresponding floating point number.</p>
 version of it as an unsigned char *.</p>
 
 <p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
-<p><i>Status:</i>  new</p>
+<p><i>Status:</i>  Review - submitted preliminary implementation, which
+writes to STL string objects; if acceptable will recode to use unsigned
+char*'s. </p>
 
 <h4>ftoa</h4>
 
@@ -50,7 +54,9 @@ exponential or non-exponential formats.</p>
 <p>This would provide an alternate to strnprintf(s, "%g", num).</p>
 
 <p><i>Owner:</i>  Bryce Harrington (2003/03/16) [bryce/osdl_net]</p>
-<p><i>Status:</i>  new</p>
+<p><i>Status:</i>  Review - submitted preliminary implementation, which
+writes to STL string objects; if acceptable will recode to use unsigned
+char*'s. </p>
 
 
 <h4>References</h4>

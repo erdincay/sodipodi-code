@@ -7,6 +7,13 @@ inserted, a thumbnail image for use in previewing the symbol, and a
 metadata file providing a description of the symbol as well as its
 drawing units definitions, etc.</p>
 
+<h4>Investigate Thumbnails Standards</h4>
+
+<p>This is a pre-req for the symbol library/browser.  See if there is a
+standard for how thumbnails are done, that is suitable and applicable to
+Sodipodi's needs.  If so, then it will be used for things such as the
+symbol library/browser.</p>
+
 <h4>Loading / Saving Symbol Libraries</h4>
 
 <p>Add a routine to scan a given directory tree and load up information
