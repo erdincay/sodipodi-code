@@ -1,0 +1,2 @@
+$title="Mexico";
+$author="Cezary Biel";
