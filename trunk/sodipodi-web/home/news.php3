@@ -30,7 +30,7 @@ accepted.</p>
 <p>
 Gatonegro shares his art including an example of a unique kind of
 poster, in his <a
-href="http://sodipodi.sourceforge.net/index.php3?section=gallery/gatonegro">gallery</a>.
+href="http://www.sodipodi.com/index.php3?section=gallery/gatonegro">gallery</a>.
 </p>
 
 <h3>20 Juuni 2003</h3>
@@ -75,7 +75,7 @@ nevertheless correct to have one for each customized spec file.
 
 <p>
 Enrique Meza has contributed a <a
-href="http://sodipodi.sourceforge.net/index.php3?section=gallery/emeza">gallery
+href="http://www.sodipodi.com/index.php3?section=gallery/emeza">gallery
 of his work</a>.
 </p>
 
@@ -83,7 +83,7 @@ of his work</a>.
 <h4>Burton Gallery</h4>
 
 <p>
-A gallery area showcasing <a href="http://sodipodi.sourceforge.net/index.php3?section=gallery/burton_samograd">Burton
+A gallery area showcasing <a href="http://www.sodipodi.com/index.php3?section=gallery/burton_samograd">Burton
 Samograd's work</a> has been set up.
 
 </p>
