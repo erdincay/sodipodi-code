@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="187mm"
+   height="140mm"
+   sodipodi:docbase="/home/sigge"
+   sodipodi:docname="/home/sigge/turkey.svg">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect571"
+     width="656.168577"
+     height="484.994202"
+     x="4.754845"
+     y="11.068779" />
+  <g
+     id="g567"
+     transform="matrix(1.574140,0.000000,0.000000,1.554048,-33.41905,6.639160)">
+    <path
+       sodipodi:type="arc"
+       style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+       id="path565"
+       d="M 295.486694 170.847443 A 70.718613 72.970802 0 1 0 154.049469,170.847443 A 70.7186 72.9708 0 1 0 295.487 170.847 L 224.768082 170.847443 z"
+       sodipodi:cx="224.768082"
+       sodipodi:cy="170.847443"
+       sodipodi:rx="70.718613"
+       sodipodi:ry="72.970802"
+       transform="matrix(1.121019,0.000000,0.000000,1.117284,-98.82072,-29.49689)" />
+    <path
+       sodipodi:type="arc"
+       style="fill-rule:evenodd;stroke:none;fill:#ff0000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+       id="path566"
+       d="M 276.568359 154.181274 A 52.250702 58.106377 0 1 0 172.066956,154.181274 A 52.2507 58.1064 0 1 0 276.568 154.181 L 224.317657 154.181274 z"
+       sodipodi:cx="224.317657"
+       sodipodi:cy="154.181274"
+       sodipodi:rx="52.250702"
+       sodipodi:ry="58.106377"
+       transform="matrix(1.232759,0.000000,0.000000,1.054263,-103.1112,-2.510696)" />
+  </g>
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 255.848 199.675 L 273.233 176.637 L 297.288 185.261 L 282.874 162.74 L 298.189 139.317 L 272.831 145.623 L 255.848 124.903 L 255.464 151.545 L 227.02 160.037 L 253.529 169.812 L 255.848 199.675 z "
+     id="path570"
+     sodipodi:nodetypes="ccccccccccc"
+     transform="matrix(1.574140,0.000000,0.000000,1.554048,-47.57631,8.843292)" />
+</svg>

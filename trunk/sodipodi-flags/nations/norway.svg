@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0"
+   y="0"
+   width="1062.99"
+   height="708.661"
+   id="svg378">
+  <defs
+     id="defs380" />
+  <rect
+     width="1062.99"
+     height="708.661"
+     x="0"
+     y="0"
+     style="font-size:12;fill:#ef0000;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect171" />
+  <path
+     d="M 0.727081 262.234 L 0.727081 446.185 L 262.476 446.185 L 262.476 709.388 L 445.7 709.388 L 445.7 446.185 L 1062.99 446.185 L 1062.99 262.234 L 445.7 262.234 L 445.7 -0.969925 L 262.476 -0.969925 L 262.476 262.234 L 0.727081 262.234 z "
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="path178" />
+  <path
+     d="M 0.727081 307.348 L 0.727081 396.744 L 305.374 396.744 L 305.374 709.388 L 399.894 709.388 L 399.894 396.744 L 1062.99 396.744 L 1062.99 307.348 L 399.894 307.348 L 399.894 -0.969925 L 305.374 -0.969925 L 305.374 307.348 L 0.727081 307.348 z "
+     style="font-size:12;fill:#00077a;fill-rule:evenodd;stroke-width:1pt;"
+     id="path177" />
+</svg>

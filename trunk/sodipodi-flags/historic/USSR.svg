@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg551"
+   sodipodi:version="0.32"
+   width="400mm"
+   height="300mm"
+   sodipodi:docbase="/home/sigge"
+   sodipodi:docname="/home/sigge/USSR.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs553">
+    <linearGradient
+       id="linearGradient567">
+      <stop
+         style="stop-color:#000;stop-opacity:1;"
+         offset="0"
+         id="stop568" />
+      <stop
+         style="stop-color:#fff;stop-opacity:1;"
+         offset="1"
+         id="stop569" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient567"
+       id="linearGradient570" />
+  </defs>
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#ff0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect590"
+     width="1415.815063"
+     height="1055.710861"
+     x="1.442833"
+     y="5.901978" />
+  <path
+     style="font-size:12;fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-width:1pt;fill-opacity:1;"
+     d="M 370.347 464.603 C 384.489 467.254 395.98 455.764 394.212 440.737 L 355.321 400.079 C 394.212 270.148 311.127 220.651 281.075 201.206 C 299.342 240.981 361.803 289.594 327.921 367.375 L 252.791 284.291 L 281.075 250.703 L 224.506 248.935 L 181.196 301.969 L 211.248 330.253 L 228.926 309.923 L 304.94 393.009 C 276.95 414.811 257.8 408.33 248.372 401.848 C 241.3 398.902 228.042 394.188 217.435 399.196 C 194.748 408.918 174.714 422.176 155.563 446.925 C 155.858 460.183 162.34 470.79 177.66 468.139 L 219.203 423.945 C 246.603 431.899 280.191 461.067 331.456 425.712 L 370.347 464.603 z "
+     id="path566"
+     sodipodi:nodetypes="ccccccccccccccccccc"
+     transform="translate(-15.30331,-18.90804)" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#ffff00;stroke-opacity:1;stroke-width:11.625;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;stroke-dasharray:none;"
+     d="M 268.701 174.689 L 254.559 220.652 L 211.248 221.535 L 243.952 254.239 L 233.345 302.852 L 269.585 275.452 L 307.591 301.968 L 296.101 253.354 L 327.037 222.418 L 283.727 221.534 L 268.701 174.689 z "
+     id="path589"
+     sodipodi:nodetypes="ccccccccccc"
+     transform="matrix(0.870229,0.000000,0.000000,0.800000,36.25252,-79.30408)" />
+</svg>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="210mm"
+   height="140mm"
+   id="svg378"
+   sodipodi:version="0.32"
+   sodipodi:docname="/home/jdandr2/Desktop/scotland.svg"
+   sodipodi:docbase="/home/jdandr2/Desktop/"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs380" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect559"
+     width="210mm"
+     height="140mm"
+     x="0"
+     y="0" />
+  <polygon
+     points="120,0 120,0 -60,103.923 -60,103.923 -60,-103.923 -60,-103.923 120,0 "
+     transform="matrix(1.600000,0.000000,0.000000,1.800000,95.99999,248.0315)"
+     style="font-size:12;fill:#0072c6;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon617" />
+  <polygon
+     points="120,0 120,0 -60,103.923 -60,103.923 -60,-103.923 -60,-103.923 120,0 "
+     transform="matrix(-1.600000,1.959370e-16,-2.204292e-16,-1.800000,648.0945,248.0315)"
+     style="font-size:12;fill:#0072c6;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon560" />
+  <polygon
+     points="120,0 120,0 -60,103.923 -60,103.923 -60,-103.923 -60,-103.923 120,0 "
+     transform="matrix(1.514351e-16,1.051535,-2.782355,7.243406e-17,372.0472,63.17023)"
+     style="font-size:12;fill:#0072c6;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon562" />
+  <polygon
+     points="120,0 120,0 -60,103.923 -60,103.923 -60,-103.923 -60,-103.923 120,0 "
+     transform="matrix(-2.802067e-16,-1.051535,2.782355,-4.131630e-16,372.0472,432.9709)"
+     style="font-size:12;fill:#0072c6;fill-rule:evenodd;stroke-width:1pt;"
+     id="polygon563" />
+</svg>

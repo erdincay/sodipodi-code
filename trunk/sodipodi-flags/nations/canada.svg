@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg
+   style="fill:#28ff09; fill-opacity:14.1176%; stroke:none; "
+   width="595.275591"
+   height="481.889764"
+   id="svg1"
+   sodipodi:docbase="/home/myklgrant/"
+   sodipodi:docname="/home/myklgrant/canada.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">  <defs
+     id="defs3">
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     gridoriginx="0.000000"
+     gridoriginy="0.000000"
+     gridspacingx="2.834646"
+     gridspacingy="2.834646"
+     gridtolerance="5.000000"
+     gridcolor="#000aff"
+     gridopacity="1.000000"
+     guidetolerance="5.000000"
+     guidecolor="#0000ff"
+     guideopacity="0.494118"
+     guidehicolor="#ff0000"
+     guidehiopacity="0.494118">
+  </sodipodi:namedview>
+  <g
+     id="g13"
+     transform="matrix(1 0 0 1 -4.26959e-06 -168.906)">    <rect
+       style="stroke:none; fill:#ff0000; fill-opacity:100%; fill-rule:evenodd; stroke-opacity:100%; stroke-width:1px; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="rect11"
+       x="11.811024"
+       y="375.472441"
+       width="556.062992"
+       height="284.527559"
+       transform="matrix(0.988318 0 0 1.06423 14.3479 -142.669)">
+    </rect>
+    <path
+       style="stroke:none; fill:#ffffff; fill-opacity:100%; fill-rule:evenodd; stroke-opacity:100%; stroke-width:1px; stroke-linejoin:miter; stroke-linecap:butt; "
+       d="M 149.528 318.307 L 149.528 600.236 L 431.457 600.236 L 431.457 318.307 L 149.528 318.307 z "
+       id="path14"
+       transform="matrix(0.988318 0 0 1.09677 14.3631 -94.8321)">
+    </path>
+    <path
+       style="stroke:none; fill:#ff0000; fill-opacity:100%; fill-rule:evenodd; stroke-opacity:100%; stroke-width:1px; stroke-linejoin:miter; stroke-linecap:butt; "
+       d="M 186.17 139.701 L 174.906 143.551 L 227.319 189.55 C 231.284 201.372 225.943 204.857 222.54 211.057 L 279.44 203.835 L 277.958 261.097 L 289.743 260.758 L 287.173 203.972 L 344.129 210.724 C 340.604 203.28 337.467 199.327 340.728 187.424 L 393.106 143.844 L 383.94 140.526 C 376.446 134.743 387.178 112.673 388.797 98.7457 C 388.797 98.7457 358.213 109.263 356.209 103.76 L 348.421 88.7984 L 320.597 119.364 C 317.557 120.092 316.262 118.882 315.549 116.314 L 328.403 52.4428 L 308.049 63.8906 C 306.345 64.6192 304.641 63.9906 303.518 62.0047 L 283.944 22.7102 L 263.758 63.5087 C 262.236 64.9706 260.713 65.14 259.449 64.1459 L 240.068 53.2739 L 251.702 116.646 C 250.777 119.162 248.56 119.87 245.953 118.508 L 219.356 88.2908 C 215.877 93.8651 213.519 102.973 208.92 105.014 C 204.321 106.925 188.918 101.152 178.594 98.8982 C 182.121 111.626 193.148 132.771 186.17 139.701 z "
+       id="path20"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccczcc"
+       transform="matrix(1 0 0 1 24.0248 263.915)">
+    </path>
+
+  </g>
+
+</svg>
