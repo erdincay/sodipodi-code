@@ -1,0 +1,2 @@
+$title="New Zealand, Maori";
+$author="Caleb Moore";
