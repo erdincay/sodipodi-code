@@ -3,8 +3,6 @@
 
 <h4>Forwarding unhandled key events from dialogs to canvas</h4>
 
-<p><i>Status:</i> Proposed</p>
-
 <p>Dialogs do not use F1..F10 keys, but they block them - when you have
 focus on e.g. object style dialog, you cannot use F1 to switch to
 selector. Those keys which are not handled by a dialog should be
@@ -12,15 +10,11 @@ forwarded to the canvas window for handling.</p>
 
 <h4>Configuring shortcuts</h4>
 
-<p><i>Status:</i> Proposed</p>
-
 As a first step that can be implemented
 quickly, a GUI-less option would be really great, with a text (XML?)
 config file that lists keys and actions. Is this doable?
 
 <h4>Always on Top Dialog Windows</h4>
-
-<p><i>Status:</i> Proposed</p>
 
 <p>When using the app in maximized mode, dialogs "disappear" behind the
 canvas.  The main toolbox can be docked which removes this problem for
@@ -32,8 +26,6 @@ from call to call.</p>
 windows to be displayed alwayus on top.</p>
 
 <h4>Focus Behavior</h4>
-
-<p><i>Status:</i> Proposed</p>
 
 <p>All dialog windows should return focus to the (last used) canvas
 window <u>whenever possible</u>. I.e. only if the focus is on a specific
