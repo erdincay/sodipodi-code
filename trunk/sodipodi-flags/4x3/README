@@ -1,0 +1,4 @@
+The flags in this directory are made to conform to the 4x3 size specification.
+This might make them more usefull in certain circumstances, but it also means they do not conform to the official aspect specification of the flags. We recommend you only use these versions of the flags if the correct aspect ones are not possible.
+
+All flags in this directory have correct aspect versions in the nations, regions or organisations directories
