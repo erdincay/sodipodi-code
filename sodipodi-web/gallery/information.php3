@@ -37,6 +37,7 @@ each image you'd like listed in a gallery:
 
 <ol>
   <li>A thumbnail image 128px tall rendered to a white background
+  <li>A description of the image 
   <li>The SVG file, that will work in Sodipodi
   <li>The license that the SVG may be redistributed under, such as
       Artistic, BSD, GPL, LGPL, or others.
