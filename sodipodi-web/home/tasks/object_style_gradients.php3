@@ -18,17 +18,36 @@ vector at the top of the dialog needs to be updated to show the effect
 of the multiple colors.  This dialog also needs to have a way to edit
 the name of the gradient.</p>
 
+<h4>External Gradient Libraries</h4>
+
+<p>Currently, gradients are stored in the document file.  A capability
+to load or save gradients to an external SVG file is to be added.  This
+saved file will contain <u>only</u> gradients.</p>
+
+<p>If the user chooses to import gradients, these will be appended to
+the user's current list of gradients.  If the file imported from
+contains more than gradients, only the gradients are imported.</p>
+
+<h4>Global and User Gradient Library Files</h4>
+
+<p>There are two gradient libraries recognized by Sodipodi at load
+time:  One stored in Sodipodi's standard config directory at install
+time, and another kept in the user's ~/.sodipodi directory.  Both are
+named gradients.svg.</p>
+
+<p>A palette.svg file (see Object Style Palette) specifies the subset of
+gradients to load from these libraries.</p>
+
+<p>If the user chooses to export the custom gradients, an option to
+save to their ~/.sodipodi/gradients.svg should be given.</p>
+
 <h4>Import/Export GIMP (& etc.) Gradients</h4>
 
-<p>Currently, gradients are stored in the current document file.  A
-capability to load or save gradients to external files is to be added.
-The format for this file should be the same as used for GIMP, if
-possible.  If Sodipodi's gradient feature comes to exceed what is
-possible to do with the standard GIMP gradient files, then the mechanism
-should be changed to allow the user to select which gradient file format
-to use (i.e., gimp or sodipodi or ...), and should warn if some of the
-selected gradient's properties will be lost if stored to the specified
-format.
+<p>There are a number of very good gradients already available for GIMP,
+however they are implemented using a GIMP-specific gradient file format
+(see References).  Routines should be added to Sodipodi that can
+translate between this format and the SVG gradient format, and
+appropriate code added for loading/saving the GIMP-formatted files.</p>
 
 <h4>References</h4>
 

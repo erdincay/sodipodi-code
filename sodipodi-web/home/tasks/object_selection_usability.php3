@@ -3,11 +3,9 @@
 <h4>Object Centerpoint Movement</h4>
 
 <p>Often with small sized objects, one ends up moving the centerpoint
-instead of moving the object itself, as desired.  This move-center
-operation needs to be changed such that it is only available when in
-'rotate' mode.  In 'move' mode click-and-drag on the center should
-result in allowing the object to be dragged to a new location, or should
-switch into 'rotate' mode if the user clicks and releases.
+instead of moving the object itself, as desired.  A key combination
+should be added to put the user in 'grab' mode, which allows only
+select-and-drag type behavior.
 
 <h4>Rotation Point</h4>
 
