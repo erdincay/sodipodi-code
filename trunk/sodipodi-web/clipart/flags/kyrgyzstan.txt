@@ -1,0 +1,2 @@
+$title="Kyrgyzstan";
+$author="Andrew Duhan";

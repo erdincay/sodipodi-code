@@ -1,0 +1,2 @@
+$title="France, Wallis and Futuna";
+$author="Andrew Duhan";

@@ -1,0 +1,2 @@
+$title="Eritrea";
+$author="Andrew Duhan";
