@@ -23,7 +23,7 @@ function show_clipart_cell ($dirname, $image)
         }
 	print "<a href=\"showsvg.php3?file=${dirname}${image}.svg\">";
 	if (file_exists ("${dirname}${image}.png")) {
-		print "<img src=\"${dirname}${image}.png\">";
+		print "<img src=\"${dirname}${image}.png\" border=\"0\">";
 	} else {
 		print "${image}.png";
 	}
