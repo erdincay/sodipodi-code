@@ -28,7 +28,7 @@ with shorter edge being 140mm, and make flag to cover the whole
 page area. This makes generating bitmaps automatically much easier.
 </p>
 <P>
-All contributed clipart should be dedicated to the <A HREF="http://creativecommons.org/licenses/publicdomain/">. Please follow the <A HREF="http://creativecommons.org/license/publicdomain-2">Creative Commons process</A> to dedicate the clipart to the public domain. Be sure to send in the documents the Creative Commons process generates for you together with the clipart.
+All contributed clipart should be dedicated to the <A HREF="http://creativecommons.org/licenses/publicdomain/">public domain</A>. Please follow the <A HREF="http://creativecommons.org/license/publicdomain-2">Creative Commons process</A> to dedicate the clipart to the public domain. Be sure to send in the documents the Creative Commons process generates for you together with the clipart.
 </P>
 <p>
 Official dimentions are preferred. 
