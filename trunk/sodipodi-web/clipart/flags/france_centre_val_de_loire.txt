@@ -1,0 +1,2 @@
+$title="France, Centre Val de Loire";
+$author="Patricia Fidi";

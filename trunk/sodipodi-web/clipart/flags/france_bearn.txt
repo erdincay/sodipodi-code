@@ -1,0 +1,2 @@
+$title="France, Bearn";
+$author="Patricia Fidi";
