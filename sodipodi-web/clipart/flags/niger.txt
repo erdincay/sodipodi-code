@@ -1,2 +1,2 @@
-$title="Niger (9:13)";
+$title="Niger";
 $author="Cezary Biele";

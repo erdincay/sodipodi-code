@@ -1,2 +1,2 @@
-$title="Nigeria (3:2)";
+$title="Niue";
 $author="Cezary Biele";
