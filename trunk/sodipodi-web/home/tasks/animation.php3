@@ -53,7 +53,7 @@ dialog.  This dialog has the following options:</p>
   <li> Use open path to dictate motion (use_path)
   <li> Rotate object along heading of path / shape (fixed_heading)
   <li> Time to execute animation
-<ul>
+</ul>
 
 <p>Once the dialog has been applied, "Make Animation" would then use the
 movement path and calculate heading, distance, and position as functions
