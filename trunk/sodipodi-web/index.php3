@@ -3,15 +3,14 @@
 $d = getdate ();
 $b = ($d['yday'] + $d['hour']) % 19;
 $c = $d % 5;
-$r = rand (0, 5);
+$r = rand (0, 3);
 
 if ($r > $c) {
     print "<html>\n";
     print "<head><title>Darkness</title></title>\n";
     print "<body bgcolor=\"black\">\n";
     print "<p align=\"center\">\n";
-    print "<a href=\"http://sodipodi.sourceforge.net/index.php3?section=home/about\">\n";
-    print "<img width=\"200\" height=\"400\" src=\"kurayami.png\"></a>\n";
+    print "<img width=\"200\" height=\"400\" src=\"kurayami.png\">\n";
     print "</p>";
     print "</body>\n";
     print "</html>\n";
