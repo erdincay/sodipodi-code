@@ -1,0 +1,2 @@
+$title="Kiribati";
+$author="Scott Baker";
