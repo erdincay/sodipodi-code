@@ -1,3 +1,7 @@
+<h2>
+For quick downloads go
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">HERE</a>.
+</h2>
 <p>
 There are no stable sodipodi releases yet. Still time to time I do
 build and release distribution tarballs.  Although not of
@@ -5,10 +9,37 @@ production quality, these are still stabler
 and more tested, than is the usual state of affairs in CVS.
 And many nice people have done binary packages of sodipodi.
 </p>
+
+<h3>Sodipodi 0.31 release notes</h3>
 <p>
-Released versions can be found
-<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">here</a>.
+This is the second bugfix release after switching to Gtk+ 2.0. Hopefully
+all internals are stabilized now and we can continue with
+features.
 </p>
+<p>
+There was nasty redraw bug, causing full window to be constantly
+repainted (and layout recalculated), thus making Sodipodi
+painfully slow if big windows and complex graphics were used.
+</p>
+
+<p>
+Highlights (in the order of Changelog):
+</p>
+<ul>
+<li>Faster radial gradients (Lauris)</li>
+<li>Update changed region, not full display (Lauris)</li>
+<li>Made sticky zoom working (Lauris)</li>
+<li>Dropper tool (Lauris)</li>
+<li>Handful of minor bugfixes (Lauris)</li>
+</ul>
+<p>
+22/02/2003<br>
+Lauris Kaplinski<br>
+Tartu, Estonia
+</p>
+
+
+
 
 <h3>Sodipodi 0.30 release notes</h3>
 <p>

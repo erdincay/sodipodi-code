@@ -4,6 +4,45 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+
+<h3>07 Veebruar 2003</h3>
+<h4>Sodipodi 0.30 has been released</h4>
+
+<p>
+<em>Update 08/0272003: gnome-print support files were accidentally
+slipped out from 0.30 tarball, so 0.30.1 has been prepared.</em>
+</p>
+<p>
+Download it from
+<a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+the usual place</a>.
+</p>
+<p>
+Read the
+<a href="index.php3?section=download">
+release notes</a> for the overview of features.
+</p>
+<p>
+Binaries so far:
+</p>
+<ul>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Mandrake 9.0 binary and source rpm (Xft, lpr)</a> (Lauris)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Windows 95/98/2000/XP zipped binary</a> (Lauris)
+<a
+href="index.php3?section=documentation/win32build">
+(Notes)</a></li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+All-in-one windows installer
+(program, libraries, clipart)</a> (Rafael M. Rubio)
+</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Red Hat 8.0 binary and source rpm (gnome-print)</a> (Dag Wieers)</li>
+</ul>
+
+
+
 <h3>29 Jaanuar 2003</h3>
 <p>
 0.29 binaries contributed so far
