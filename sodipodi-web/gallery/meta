@@ -1,7 +1,6 @@
 name=information/title=Information/file=information.php3
 name=misc/title=Miscellaneous/file=gallery.php3/datadir=misc
 name=logos/title=Logos/file=gallery.php3/datadir=logos
-name=flags/title=Flags/file=gallery.php3/datadir=flags
 name=fame/title=Hall&nbsp;of&nbsp;Fame/file=gallery.php3/datadir=fame
 name=ain/title=Ain/file=gallery.php3/datadir=ain/mode=matrix
 name=lauri/title=Lauri/file=gallery.php3/datadir=lauri
