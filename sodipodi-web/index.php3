@@ -10,7 +10,8 @@ if ($r > $c) {
     print "<head><title>Darkness</title></title>\n";
     print "<body bgcolor=\"black\">\n";
     print "<p align=\"center\">\n";
-    print "<img width=\"200\" height=\"400\" src=\"kurayami.png\">\n";
+    print "<a href=\"http://sodipodi.sourceforge.net/index.php3?section=home/about\">\n";
+    print "<img width=\"200\" height=\"400\" src=\"kurayami.png\"></a>\n";
     print "</p>";
     print "</body>\n";
     print "</html>\n";
