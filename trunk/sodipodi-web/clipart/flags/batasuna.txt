@@ -1,0 +1,2 @@
+$title="Batasuna Basque Nationalist Party";
+$author="Lauris Kaplinski";
