@@ -1,0 +1,2 @@
+$title="American Samoa";
+$author="Tobias Jakobs";
