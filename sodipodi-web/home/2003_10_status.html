@@ -1,0 +1,91 @@
+<a name="Sodipodi_Project_Status_10_13_03" id="Sodipodi_Project_Status_10_13_03"><h1>Sodipodi Project Status (10/13/03)</h1></a>
+
+<a name="New_Patch_Process" id="New_Patch_Process"><h2>New Patch Process</h2></a>
+
+<p>We've adopted a slightly more formalized process for accepting and
+integrating patches.  We encourage patches to be stored into the
+Sodipodi patch manager on SourceForge, and encourage people to test out
+the patches and indicate success or issues encountered.  These will be
+integrated together into a branch called 'hydra_october'.
+</p>
+
+<p>We're hopeful this new process will both encourage folks to submit more
+patches and provide users with a convenient way to get all the most
+recent patches in one package.
+</p>
+
+<a name="Integrated_Patches" id="Integrated_Patches"><h2>Integrated Patches</h2></a>
+<p>These patches were recently added into the hydra-october branch of
+Sodipodi:  
+</p>
+<ul>
+  <li>Tiny hack for SVG Item ID's - Bob Jamison - Integrated 10/08/03
+      Adds ID name widget to the item properties dialog box.
+      <a href="http://troi.lincom-asg.com/~rjamison/files/sodipodi/itemdialog.png">http://troi.lincom-asg.com/~rjamison/files/sodipodi/itemdialog.png</a>
+  </li>
+  <li>Alternate node join mechanism - Bob Jamison - Integrated 10/08/03
+      Adds a modified form of joining nodes, allowing curves to be closed
+      without deleting or moving any existing nodes; instead it adds a
+      new curve segment for the closure.
+      <br /><a href="http://troi.lincom-asg.com/~rjamison/files/sodipodi/join/newedit.png">http://troi.lincom-asg.com/~rjamison/files/sodipodi/join/newedit.png</a> 
+  </li>
+</ul>
+
+<a name="New_Patches" id="New_Patches"><h2>New Patches</h2></a>
+
+<p>Several new patches have been submitted and are pending
+integration:</p>
+
+<ul>
+  <li>Changing units in Size and Position dialog is broken -
+  ifkerby</li>
+  <li>Text attributes changing on selection - snauj</li>
+  <li>Transactions rollup - mental</li>
+  <li>Fix build --with-kde - anonymous</li>
+  <li>Move recently opened files into submenu - anonymous</li>
+  <li>Code cleanup to desktop-properties.c - bryce</li>
+</ul>
+
+<a name="Ted_Gould_s_Status" id="Ted_Gould_s_Status"><h2>Ted Gould's Status</h2></a>
+<ul>
+  <li>I'm working on getting all the patches in ;)</li>
+  <li>Implementing Extentions/Plug-ins - Lauris really wants this
+  code convered to Actions/Verbs before putting it in...</li>
+</ul>
+
+<a name="Bryce_Harrington_s_Status" id="Bryce_Harrington_s_Status"><h2>Bryce Harrington's Status</h2></a>
+<ul>
+  <li>Working on adding support for 'markers' (e.g., arrowheads).  Most of
+      the underlying code is there.  Still need to create dropdowns with pix
+      maps in them, and hook up the controls to the existing marker rendering
+      code.  
+  <li>Reworking some of the GUI code to be a little more concise</li>
+  <li>Beating the bushes for more patches  ;-)</li>
+</ul>
+
+<a name="Mental_s_Status" id="Mental_s_Status"><h2>Mental's Status</h2></a>
+<ul>
+  <li>Retested Transactions patch against hydra-october branch and
+  okay'd for integration.
+  <li>Investigating thumbwheel-based zooming</li>
+</ul>
+
+<a name="Lauris_Status" id="Lauris_Status"><h2>Lauris' Status</h2></a>
+<ul>
+  <li>Answering questions on IRC</li>
+  <li>Pondering Sodipodi as an SVG editor vs. as a sophisticated drawing
+  application</li>
+</ul>
+
+<h2>Statistics</h2>
+
+<table border=1>
+  <tr> <td>&nbsp;</td>            <td><b>Oct 09, 2003</b></td> </tr>
+  <tr> <td>FM Record hits</td>    <td>15,000</td>              </tr>
+  <tr> <td>FM URL hits</td>       <td>17,700</td>	       </tr>
+  <tr> <td>Subscribers</td>       <td>97</td>		       </tr>
+  <tr> <td>Bugs</td>              <td>66 / 134</td>	       </tr>
+  <tr> <td>Patches</td>           <td>6 /  10</td>	       </tr>
+  <tr> <td>Feature req's</td>     <td>115 / 120</td>	       </tr>
+  <tr> <td>SourceForge Rank</td>  <td>19</td>		       </tr>
+</table>
