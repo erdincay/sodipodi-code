@@ -1,0 +1,2 @@
+$title="Kazakhstan";
+$author="Caleb Moore";

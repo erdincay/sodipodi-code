@@ -1,2 +1,2 @@
 $title="Chile";
-$author="Anonymous";
+$author="Mario Fuentes";
