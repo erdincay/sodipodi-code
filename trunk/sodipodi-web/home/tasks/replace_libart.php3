@@ -10,5 +10,8 @@ intersector has all kinds of numerical problems.
 replace the Sodipodi calls for this, with the new one.  Implement it as
 a compile option whether to use the libart routines or the new ones.</p>
 
+<p><i>Owner:</i>  Lauris</p>
+<p><i>Status:</i>  new</p>
+
 <h4>References</h4>
 
