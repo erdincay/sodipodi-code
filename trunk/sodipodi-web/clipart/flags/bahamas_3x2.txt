@@ -1,2 +1,0 @@
-$title="Bahamas (3:2)";
-$author="Daniel McRae";
