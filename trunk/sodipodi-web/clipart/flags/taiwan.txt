@@ -1,2 +1,2 @@
-$title="Taiwan (3:2)";
+$title="Taiwan";
 $author="Cezary Biele";
