@@ -1,0 +1,2 @@
+$title="pirate Henry Every (historic)";
+$author="Tobias Jakobs";

@@ -1,0 +1,2 @@
+$title="pirate Emanuel Wynne (historic)";
+$author="Tobias Jakobs";
