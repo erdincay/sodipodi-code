@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="744.095"
+   height="1052.36"
+   id="svg1">
+  <defs
+     id="defs48" />
+  <g
+     transform="matrix(18.5926,0,0,18.5926,0.145121,1.16398)"
+     style="font-size:12;"
+     id="g38">
+    <path
+       d="M 0 8 L 16 16 L 16 32 L 0 24 L 0 8 z "
+       style="fill:#ff0000;"
+       id="path39" />
+    <path
+       d="M 16 16 L 32 24 L 32 40 L 16 32 L 16 16 z "
+       style="fill:#008000;"
+       id="path40" />
+    <path
+       d="M 0 24 L 16 32 L 16 48 L 0 40 L 0 24 z "
+       style="fill:#0000ff;"
+       id="path41" />
+    <path
+       d="M 16 32 L 32 40 L 32 56 L 16 48 L 16 32 z "
+       style="fill:#ffff00;"
+       id="path42" />
+    <path
+       d="M 0 8 L 16 16 L 24 8 L 8 0 L 0 8 z "
+       style="fill:#ff8080;"
+       id="path43" />
+    <path
+       d="M 16 16 L 32 24 L 40 16 L 24 8 L 16 16 z "
+       style="fill:#80ff80;"
+       id="path44" />
+    <path
+       d="M 32 24 L 40 16 L 40 32 L 32 40 L 32 24 z "
+       style="fill:#004100;"
+       id="path45" />
+    <path
+       d="M 32 40 L 40 32 L 40 48 L 32 56 L 32 40 z "
+       style="fill:#daa520;"
+       id="path46" />
+  </g>
+</svg>
