@@ -18,9 +18,10 @@
             } else {
                print " <tr bgcolor=#FFFFFF>\n";
             }
-	    print "  <td> * </td>\n";
+            print "  <td width='50'> + </td>\n";
 	    print "  <td><a href=\"index.php3?section=development/tasks/${data['name']}\">${data['title']}</a></td>\n";
             print "  <td>${data['status']}</td>\n";
+            print "  <td width='10%'>&nbsp;</td>\n";
             print " </tr>\n";
 	}
 	print "</table>\n";
