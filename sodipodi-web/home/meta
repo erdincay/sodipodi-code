@@ -3,4 +3,4 @@ name=news/title=News/file=news.php3
 name=donations/title=Donations/file=donations.html
 name=contacts/title=Contacts/file=contacts.html
 name=authors/title=Authors/file=authors.php3
-name=tasks/title=Tasks/directory=tasks/file=index.php3
+
