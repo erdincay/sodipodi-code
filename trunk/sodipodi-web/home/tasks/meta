@@ -18,4 +18,4 @@ name=object_style_font/title=Object Style Font/file=object_style_font.php3
 name=preview_renders/title=Preview Renders/file=preview_renders.php3
 name=session_management/title=Session Management/file=session_management.php3
 name=extensions/title=Ideas for Extensions/file=extensions.php3
-
+name=gaussian_blur/title=Gaussian Blur/file=gaussian_blur.php3
