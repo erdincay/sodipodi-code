@@ -4,20 +4,20 @@
 polygonal shapes.  This is one of Sodipodi's key features, but there's
 still much work to do on it to make it more perfect.
 
-<h4>Knife Tool</h4>
+<h4>Knife</h4>
 
-<P>A new tool should be added to enable splitting one path into two, at
-a particular point.  This differs from the 'Break line at selected
-nodes' function in that it results in two separate objects, instead of
-one object containing two unconnected paths.
+<P>A new path operator should be added to enable splitting one path into
+two, at a particular point.  This differs from the 'Break line at
+selected nodes' function in that it results in two separate objects,
+instead of one object containing two unconnected paths.
 
-<p>For a connected path (like a polygon), the knife tool would merely
+<p>For a connected path (like a polygon), the knife operator would merely
 change the connected path into a non-connected path.
 
 <h4>Punch Tool</h4>
 
-<p>Like the Knife Tool, this permits splitting one path entity into two,
-however this does it using another entity, called the 'punch entity'.  
+<p>Like Knife, this permits splitting one path entity into two, however
+this does it using another entity, called the 'punch entity'.
 
 <ul>
 <li>If the punch entity is a non-connected path with both endpoints
@@ -39,16 +39,16 @@ paths, then each resultant connected path becomes a separate entity.
 <p>Applying a punch to a selection of objects results in the deletion of
 the punch entity.
 
-<h4>Crop Tool</h4>
+<h4>Crop</h4>
 
-<p>This is similar to the Punch Tool but does the opposite.  Instead of
-deleting anything contained <u>within</u> its boundaries, it clips off
-anything that lays <u>outside</u> its boundaries.  The cropping object
-must be a connected path (or convertable to a connected path).
+<p>This is similar to Punch but does the opposite.  Instead of deleting
+anything contained <u>within</u> its boundaries, it clips off anything
+that lays <u>outside</u> its boundaries.  The cropping object must be a
+connected path (or convertable to a connected path).
 
-<h4>Join Tool</h4>
+<h4>Join</h4>
 
-<p>When two or more objects are selected, this command does the
+<p>When two or more objects are selected, this path operator does the
 following:
 
 <ol>
@@ -72,10 +72,9 @@ button, which causes a new node to be added at the midpoint between each
 pair of nodes.
 
 <p>A mechanism should be added to permit "dropping" new nodes onto the
-path at arbitrary locations.  If snap-to-grid is turned on, the points
-should appear at the appropriate snap points, and the curve revised
-accordingly (i.e., pulled to go through the snap point.)
-
+path at arbitrary locations.  If snap is turned on, the points should
+appear at the appropriate snapped locations, and the curve revised
+accordingly (i.e., pulled to go through the snap line.)
 
 
 
