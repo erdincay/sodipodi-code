@@ -1,0 +1,2 @@
+$title="Paoua New Guinea";
+$author="Tobias Jacobs";
