@@ -14,6 +14,9 @@
 	for ($i = 0; $i < $len; $i++) {
 	    $data = $meta[$keys[$i]];
 	    print " <tr>\n";
+	    print "  <td> * </td>\n";
+	    print " </tr>\n";
+	    print " <tr>\n";
 	    print "  <td><a href=\"index.php3?section=development/tasks/${data['name']}\">${data['title']}</a></td>\n";
             print "  <td>${data['status']}</td>\n";
             print " </tr>\n";
