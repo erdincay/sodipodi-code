@@ -1,1 +1,1 @@
-for i in  usa_newmexico usa_arkansas; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
+for i in  australia_new_south_wales; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
