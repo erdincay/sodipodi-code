@@ -12,9 +12,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
-   sodipodi:version="0.32"
-   sodipodi:docname="/home/support/Downloads/france.svg"
-   sodipodi:docbase="/home/support/Downloads/">
+   sodipodi:version="0.33pre"
+   sodipodi:docname="/home/tobias/Desktop/Flags/france.svg"
+   sodipodi:docbase="/home/tobias/Desktop/Flags">
   <sodipodi:namedview
      id="base" />
   <defs
@@ -32,8 +32,7 @@
      x="0"
      y="0"
      style="font-size:12;fill:#00267f;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-     id="rect403"
-     sodipodi:fill-cmyk="(1 0.7 0 0.5)" />
+     id="rect403" />
   <rect
      width="354.331"
      height="708.661"
