@@ -4,28 +4,9 @@ function page_textbox_start ($klass)
 {
 	/* Subtable */
 	print "<table class=\"$klass\" ";
-	print "width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+	print "width=\"100%\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">\n";
 
 	print "<tr>\n";
-
-	print "<td width=\"4px\"><img width=\"4\" height=\"3\" src=\"images/l.png\"/></td>\n";
-
-	print "<td ";
-	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
-	print "background=\"images/t.png\" ";
-	print "colspan=\"2\" width=\"*\"/><img width=\"4\" height=\"3\" src=\"images/4x4t.png\"/></td>\n";
-
-	print "<td width=\"4px\"><img width=\"4\" height=\"3\" src=\"images/tr.png\"/></td>\n";
-
-	print "</tr>\n";
-
-	print "<tr>\n";
-	print "<td width=\"4px\" background=\"images/l.png\"/><img width=\"4\" height=\"4\" src=\"images/4x4t.png\"/></td>\n";
-
-	print "<td ";
-	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
-	if ($GLOBALS['background_table']) {print "background=\"${GLOBALS['background_table']}\" ";}
-	print "width=\"2px\"><img width=\"2\" height=\"4\" src=\"images/2x4t.png\"/></td>\n";
 
 	print "<td ";
 	if ($GLOBALS['bgcolor_table']) {print "bgcolor=\"${GLOBALS['bgcolor_table']}\" ";}
@@ -35,20 +16,6 @@ function page_textbox_start ($klass)
 
 function page_textbox_end ()
 {
-	print "</td>\n";
-	print "<td background=\"images/r.png\" ";
-	if ($GLOBALS['bgcolor_border']) {print "bgcolor=\"${GLOBALS['bgcolor_border']}\" ";}
-	print "/><img src=\"images/4x4t.png\"/></td>\n";
-	print "</tr>\n";
-
-	print "<tr>\n";
-	print "<td width=\"4px\"><img width=\"4\" height=\"4\" src=\"images/bll.png\"/></td>\n";
-	print "<td width=\"2px\"><img width=\"2\" height=\"4\" src=\"images/bl.png\"/></td>\n";
-
-	print "<td colspan=\"2\" width=\"*\" background=\"images/b.png\" ";
-	if ($GLOBALS['bgcolor_border']) {print "bgcolor=\"${GLOBALS['bgcolor_border']}\" ";}
-	print "/>\n";
-	print "<img width=\"4\" height=\"4\" src=\"images/4x4t.png\"/>";
 	print "</td>\n";
 
 	print "</tr>\n";

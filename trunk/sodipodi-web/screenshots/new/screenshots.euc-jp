@@ -1,0 +1,12 @@
+<?
+print "<div><a href=\"screenshots/0.26/sodipodi-0.26.jpg\">";
+print "<img width=\"256\" height=\"192\" src=\"screenshots/0.26/sodipodi-0.26_256x192.jpg\"/>";
+print "</a></div>";
+?>
+
+<p>
+Sodipodi has become useful for some serious work at last. Here you can see
+in-progress vectorization of my favourite bishoujo character,
+ÌµÆ»º»Íå.
+</p>
+
