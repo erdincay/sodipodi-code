@@ -42,13 +42,19 @@ each image you'd like listed in a gallery:
 </p>
 
 <ol>
-  <li>A thumbnail image 128px tall rendered to a white background
+  <li>A thumbnail image 128px tall rendered to a white background.
+      Flags are an exception and should be 128px wide, with varying height.
   <li>A description of the image 
   <li>The SVG file, that will work in Sodipodi
   <li>The license that the SVG may be redistributed under, such as
       Artistic, BSD, GPL, LGPL, or others.
   <li>The name of the gallery to put the image in.
 </ol>
+
+<p>
+For flags, <a href="http://flagspot.net">http://flagspot.net</a> is a
+useful site for checking colors, dimensions, etc. 
+</p>
 
 <p>
 You should send your submission to the Sodipodi mailing list
