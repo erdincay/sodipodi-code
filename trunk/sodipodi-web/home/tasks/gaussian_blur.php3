@@ -1,8 +1,6 @@
 
 <h3>Gaussian Blur</h3>
 
-<p><i>Status:</i>  Proposed (unreviewed)</p>
-
 <p>Of all bitmap filters, Gaussian blur is by far the most often used
 one, and there's likely not any serious obstacle to implementing it in a
 <u>vector</u> fashion, simply by storing blur radius as a separate
@@ -83,6 +81,25 @@ and composited over the original graphic should do the trick.</p>
 motion blur.  (Mental has some recipes for various things floating
 around somewhere, if anyone's interested)</p>
 
+<h4>Implement blur filter</h4>
+
+<p>Using the SVG filter/extension capability, implement a blur filter as
+a special case for drop shadows, etc.  </p>
+
+<h4>Implement necessary infrastructure for filtering in NRArena</h4>
+
+<p>This is a pre-requisite for the following task.</p>
+
+<p><i>Owner:</i>  Lauris [lauris/kaplinski_com]</p>
+
+<p><i>Status:</i> This task is definitely for me, but I have to finish
+markers before (these too need some hooking in NRArena to get reasoanble
+speed).</p>
+
+
+<h4>Implement full SVG filter element</h4>
+
+<p>Research into SVG spec required behavior and implement.</p>
 
 <h4>Contributors</h4>
 
