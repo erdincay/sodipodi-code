@@ -33,10 +33,11 @@ function page_ns4_hack ($width, $height)
 
 function page_start ($title)
 {
-	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
-
+	print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n";
+ 	print "    \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
+	print "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
 	print "
-<html>
 <head>
 	<title>Sodipodi:$title</title>
 
@@ -48,7 +49,7 @@ function page_start ($title)
 	<meta name=\"keywords\" content=\"sodipodi, svg, vector graphics, linux, unix, gnome\">
 	<meta name=\"robots\" content=\"index, follow\">
 	<meta name=\"distribution\" content=\"Global\">
-	<meta name=\"copyright\" content=\"(c) 2001\">
+	<meta name=\"copyright\" content=\"(c) 2001-2003 Lauris Kaplinski\">
 	<meta name=\"rating\" content=\"General\">
 	<meta name=\"author\" content=\"Lauris Kaplinski\">
 	<meta name=\"generator\" content=\"Zombie Draft\">
