@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg548"
+   sodipodi:version="0.32"
+   width="1000pt"
+   height="1000pt"
+   sodipodi:docbase="/home/petr"
+   sodipodi:docname="/home/petr/radioactive.svg"
+   sodipodi:author="aqua78@email.cz"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs550" />
+  <sodipodi:namedview
+     id="base"
+     snaptogrid="false"
+     showgrid="false"
+     showborder="false"
+     snaptoguides="false" />
+  <g
+     id="g562"
+     transform="matrix(-5.000000,2.653585e-16,-2.653585e-16,-5.000000,2629.529,2579.751)">
+    <g
+       id="g558">
+      <path
+         sodipodi:type="arc"
+         style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="path713"
+         d="M 520.000000,400.000000 A 120.000000,120.000000 0 0 1 459.999756,503.923187 L 400.000000,400.000000 z"
+         sodipodi:cx="400.000000"
+         sodipodi:cy="400.000000"
+         sodipodi:rx="120.000000"
+         sodipodi:ry="120.000000"
+         transform="matrix(-0.500000,-0.866025,0.866025,-0.500000,253.5898,946.4102)"
+         sodipodi:start="0.000000"
+         sodipodi:end="1.0472" />
+      <path
+         sodipodi:type="arc"
+         style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+         id="path709"
+         d="M 520.000000,400.000000 A 120.000000,120.000000 0 0 1 459.999756,503.923187 L 400.000000,400.000000 z"
+         sodipodi:cx="400.000000"
+         sodipodi:cy="400.000000"
+         sodipodi:rx="120.000000"
+         sodipodi:ry="120.000000"
+         transform="matrix(-1.000000,1.061434e-16,1.061434e-16,1.000000,800,0)"
+         sodipodi:start="0.000000"
+         sodipodi:end="1.0472" />
+      <path
+         sodipodi:type="arc"
+         style="font-size:12;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke-width:1pt;"
+         id="path682"
+         d="M 520.000000,400.000000 A 120.000000,120.000000 0 0 1 459.999756,503.923187 L 400.000000,400.000000 z"
+         sodipodi:cx="400.000000"
+         sodipodi:cy="400.000000"
+         sodipodi:rx="120.000000"
+         sodipodi:ry="120.000000"
+         transform="translate(0,0)"
+         sodipodi:start="0.000000"
+         sodipodi:end="1.0472" />
+    </g>
+    <g
+       id="g678"
+       transform="translate(0,0)">
+      <path
+         sodipodi:type="arc"
+         style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+         id="path676"
+         d="M 436.000000 400.000000 A 36.000000 36.000000 0 1 0 364.000000,400.000000 A 36 36 0 1 0 436 400 L 400.000000 400.000000 z"
+         sodipodi:cx="400"
+         sodipodi:cy="400"
+         sodipodi:rx="36"
+         sodipodi:ry="36"
+         transform="translate(0,0)" />
+      <path
+         sodipodi:type="arc"
+         style="fill-rule:evenodd;stroke:none;fill:#000000;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
+         id="path677"
+         d="M 424.000000 400.000000 A 24.000000 24.000000 0 1 0 376.000000,400.000000 A 24 24 0 1 0 424 400 L 400.000000 400.000000 z"
+         sodipodi:cx="400"
+         sodipodi:cy="400"
+         sodipodi:rx="24"
+         sodipodi:ry="24"
+         transform="translate(0,0)" />
+    </g>
+  </g>
+</svg>
