@@ -1,2 +1,2 @@
 $title="Netherlands, Antilles";
-$author="Cezary GAZETA";
+$author="Cezary Biele";
