@@ -1,2 +1,2 @@
 $title="Spain";
-$author="Fran";
+$author="Pedro A. Gracia Fajardo";
