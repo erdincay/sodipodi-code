@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   id="svg831"
+   sodipodi:version="0.33pre"
+   width="90.28pt"
+   height="98.89pt"
+   sodipodi:docbase="/home/aki/myndir_ymisl/servicesigns2-svg"
+   sodipodi:docname="/home/aki/myndir_ymisl/servicesigns2-svg/factory.svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs
+     id="defs833" />
+  <sodipodi:namedview
+     id="base" />
+  <path
+     style="font-size:12;fill-rule:evenodd;stroke-width:5.625;"
+     d="M 158.847 648.012 L 158.796 751.215 L 391.863 751.215 L 391.863 661.591 L 306.156 620.853 L 276.694 667.023 L 182.952 620.853 L 158.847 648.012 z "
+     id="path564"
+     transform="matrix(0.382089,0.000000,0.000000,0.372988,-47.74189,-164.0675)"
+     sodipodi:nodetypes="cccccccc" />
+  <path
+     style="font-size:12;fill-rule:evenodd;stroke-width:2.125;"
+     d="M 367.758 532.675 L 362.401 641.623 L 384.703 652.53 L 381.149 532.675 L 367.758 532.675 z "
+     id="path565"
+     sodipodi:nodetypes="ccccc"
+     transform="matrix(0.382089,0.000000,0.000000,0.372988,-47.74189,-164.0675)" />
+</svg>
