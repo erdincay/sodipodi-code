@@ -1,46 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
-   version="1"
-   x="0"
-   y="0"
-   width="299.999mm"
-   height="210mm"
-   id="svg378"
-   sodipodi:version="0.32-hydra1"
-   sodipodi:docname="/home/yemu/clipart/flags/gabon.svg"
-   sodipodi:docbase="/home/yemu/clipart/flags"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <sodipodi:namedview
-     id="base" />
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="1062.98853"
+   height="744.094482"
+   id="svg378">
   <defs
      id="defs380" />
   <rect
-     width="1062.989990"
-     height="744.094421"
-     x="-1062.989227"
-     y="-744.094467"
-     style="font-size:12;fill:#ffe700;fill-rule:evenodd;stroke:none;stroke-width:1.0247pt;fill-opacity:1;"
-     id="rect149"
-     transform="scale(-1.000000,-1.000000)" />
+     width="1062.99182"
+     height="744.094360"
+     x="0.00000000"
+     y="0"
+     style="font-size:12;fill:#ffe700;fill-rule:evenodd;stroke-width:1.0247pt;"
+     id="rect149" />
   <rect
-     width="1062.989990"
-     height="248.031494"
-     x="-1062.989258"
-     y="-547.362320"
-     style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
-     id="rect148"
-     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,0.000000,-299.3308)" />
+     width="1062.99207"
+     height="248.031433"
+     x="0.00000000"
+     y="0.00006100"
+     style="font-size:12;fill:#36a100;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect148" />
   <rect
-     width="1062.989990"
-     height="248.031494"
-     x="-1062.989258"
-     y="-1006.603210"
-     style="font-size:12;fill:#006dbc;fill-rule:evenodd;stroke-width:1pt;stroke:none;fill-opacity:1;"
-     id="rect585"
-     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,0.000000,-262.5088)" />
+     width="1062.99207"
+     height="248.031448"
+     x="0.00000000"
+     y="496.062897"
+     style="font-size:12;fill:#006dbc;fill-rule:evenodd;stroke-width:1pt;"
+     id="rect585" />
 </svg>

@@ -25,7 +25,7 @@
      width="744.094499"
      height="496.062988"
      x="0.000000"
-     y="-0.000046"
+     y="0"
      transform="translate(0.000000,2.288818e-5)" />
   <rect
      style="font-size:12;fill:#00538c;fill-rule:evenodd;stroke-width:1pt;"
@@ -33,7 +33,7 @@
      width="373.689266"
      height="248.031494"
      x="0.000000"
-     y="-0.000031" />
+     y="0" />
   <polygon
      sodipodi:type="star"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"

@@ -1,2 +1,2 @@
-$title="Luxenburg";
+$title="Luxembourg";
 $author="Brett Roper";

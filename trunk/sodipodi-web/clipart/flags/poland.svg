@@ -22,17 +22,17 @@
   <rect
      width="1062.989990"
      height="708.661011"
-     x="-1062.989990"
-     y="-708.660950"
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;stroke:#000000;stroke-opacity:1;"
+     x="0"
+     y="0"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;"
      id="rect149"
-     transform="scale(-1.000000,-1.000000)" />
+     />
   <rect
      width="1062.989990"
      height="354.330994"
-     x="-1062.989990"
-     y="-708.660950"
-     style="font-size:12;fill:#df0000;fill-rule:evenodd;stroke-width:1pt;"
+     x="0"
+     y="354.330994"
+     style="font-size:12;fill:#df0000;fill-rule:evenodd;"
      id="rect148"
-     transform="scale(-1.000000,-1.000000)" />
+     />
 </svg>

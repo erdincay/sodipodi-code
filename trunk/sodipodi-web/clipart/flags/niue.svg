@@ -24,7 +24,7 @@
      width="499.547358"
      height="248.100128"
      x="0.013254"
-     y="-0.000366" />
+     y="0" />
   <path
      style="fill:#cc0000;stroke:none;"
      d="M 0.0132547 0.000331199 L -0.00755504 18.621 L 119.202 79.8743 L 164.056 81.1739 L 0.0132547 0.000331199 z "
@@ -73,7 +73,7 @@
        width="496.062988"
        height="496.062988"
        x="496.062988"
-       y="-0.00001526" />
+       y="0" />
     <rect
        style="font-size:12;fill:#ffd900;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
        id="rect3303"
