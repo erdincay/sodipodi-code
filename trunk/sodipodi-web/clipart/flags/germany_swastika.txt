@@ -1,2 +1,2 @@
-$title="Germany, Swastika (Historical)";
+$title="Germany, Swastika (Historic)";
 $author="Christian Neumair";
