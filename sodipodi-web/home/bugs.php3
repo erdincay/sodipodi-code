@@ -1,7 +1,7 @@
 <h2>Submitting bug reports</h2>
 <h3>Bug trackers</h3>
 <p>
-There are bug trakers in sodipodi
+There are bug trackers in sodipodi
 <a href="http://sourceforge.net/projects/sodipodi/">Sourceforge</a>
 project. It is always good idea to submit bug using web-based tracker
 interface, so it will be archived in database and won't be forgotten.
@@ -10,7 +10,7 @@ awareness of given bug, or want to discuss workarounds or fixes
 for it.
 </p>
 <p>
-Tacker locations:
+Tracker locations:
 <ul>
 <li><a
 href="http://sourceforge.net/tracker/?atid=104054&group_id=4054&func=browse">
@@ -33,7 +33,7 @@ There is small section about known bug workarounds at
 section</a>.
 </p>
 
-<h3>How to submit a but report</h3>
+<h3>How to submit a bug report</h3>
 <h4>Step 1 - browse existing bugs</h4>
 <p>
 If you find similar bug to yours already reported, do not submit new
@@ -52,7 +52,7 @@ repeatable scenario, submit report nevertheless.
 Write down relevant information about your system.
 <ul>
 <li>The version of sodipodi used</li>
-<li>Whether you compiled it youslef, or installed from package</li>
+<li>Whether you compiled it yourself, or installed from package</li>
 <li>Operating system used
 <li>The versions of support libraries used (Gtk+, libpng, freetype). If you
 do not know that information, no problem.
@@ -61,7 +61,7 @@ do not know that information, no problem.
 <h4>Attach test file</h4>
 <p>
 If there is specific file, that triggers erroneous behaviour, attach
-this to bug report.
+it to the bug report.
 </p>
 <h4>Submit a report</h4>
 <p>
