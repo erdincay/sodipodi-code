@@ -109,3 +109,10 @@ points.</p>
 attribute with the value 'center', which causes the object to have a
 snap point at its center.</p>
 
+<h4>Precise Positioning of Guidelines</h4>
+
+<p>For things like business cards or CD covers it's necessary to be able to
+exactly specify where the guidelines lay.  This can be done with the XML
+editor but there should be an easier way to do this.</p>
+
+<p>Requested by Gilles Schintgen</p>
