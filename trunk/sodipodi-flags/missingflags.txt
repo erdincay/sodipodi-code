@@ -1,4 +1,4 @@
-Missing international flags (alphabetical order):
+Missing international flags ISO 3166 (alphabetical order):
 bm, BERMUDA
 ky, CAYMAN ISLANDS
 fk, FALKLAND ISLANDS (MALVINAS)

@@ -1,1 +1,1 @@
-for i in belgium_brussels belgium_walloon canada_northwest_territories canada_new_brunswick belgium_flanders canada_nova_scotia spain_catalunya; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
+for i in germany_lower_saxony germany_berlin germany_saxony germany_schleswig-holstein; do sodipodi --export-png=${i}.png --export-background=white --export-width=128 ${i}.svg ; done
