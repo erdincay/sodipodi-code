@@ -64,7 +64,7 @@ for ($i=($n-1); $i<($n + $perpage - 1); $i++) {
 	print "<A HREF='clipart/$area/$svgfile' CLASS='clipart'>\n";
 	print "<IMG SRC='clipart/$area/$pngfile' CLASS='clipart'>\n";
 
-	if (file_exists ($txtfile)) {
+	if (file_exists ("./clipart/$area/$txtfile")) {
 		$eval = file("./clipart/$area/$txtfile");
 		eval(join('', $eval));
 		print "<BR>\n";
