@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   width="210.002mm"
+   height="210mm"
+   id="svg1"
+   sodipodi:version="0.28"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   sodipodi:docname="openoffice.svg">
+  <sodipodi:namedview
+     id="base" />
+  <defs
+     id="defs8" />
+  <desc
+     id="desc2" />
+  <desc
+     id="desc6" />
+  <g
+     transform="matrix(4.30667,0,0,4.30667,-1190.46,-577.629)"
+     style="font-size:12;fill-opacity:1;"
+     id="g122">
+    <path
+       d="M 396.955 224.052 C 378.442 224.861 355.747 224.653 340.691 243.648 C 330.204 232.106 308.712 227.265 275.772 236.074 C 295.248 215.067 327.319 218.642 339.008 226.817 C 349.255 217.44 371.227 210.74 396.955 224.052 z "
+       transform="translate(4.08752,1.6831)"
+       style="fill-rule:evenodd;"
+       id="path120" />
+    <path
+       d="M 399.418 227.23 C 379.427 225.245 355.747 224.653 340.691 243.648 C 330.204 232.106 306.742 228.466 273.802 237.275 C 295.248 218.023 327.319 222.09 339.008 230.265 C 349.255 220.888 373.69 213.918 399.418 227.23 z "
+       transform="matrix(0.732143,0.0803571,0,0.732143,153.334,7.30446)"
+       style="fill-rule:evenodd;"
+       id="path121" />
+  </g>
+</svg>

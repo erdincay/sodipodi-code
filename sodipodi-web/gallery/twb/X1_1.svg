@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="744.094"
+   height="595.276"
+   id="svg1">
+  <defs
+     id="defs5" />
+  <path
+     d="M 0 2 L 6 8 L 0 14 L 1 14 L 8 7 L 3 2 L 0 2 z M 15 14 L 9 8 L 15 2 L 14 2 L 7 9 L 12 14 L 15 14 z "
+     transform="matrix(49.5834,0,0,49.5834,0.033359,-98.7624)"
+     style="font-size:12;fill:black;"
+     id="path2" />
+  <desc
+     id="desc3">
+&quot;####          # &quot;
+&quot; ####        #  &quot;
+&quot;  ####      #   &quot;
+&quot;   ####    #    &quot;
+&quot;    ####  #     &quot;
+&quot;     ### #      &quot;
+&quot;      # ##      &quot;
+&quot;     # ####     &quot;
+&quot;    #   ####    &quot;
+&quot;   #     ####   &quot;
+&quot;  #       ####  &quot;
+&quot; #         #### &quot;
+&quot;#           ####&quot;</desc>
+</svg>

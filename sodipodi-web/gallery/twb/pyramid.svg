@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="744.094"
+   height="647.363"
+   id="svg31">
+  <defs
+     id="defs33" />
+  <path
+     d="M 375.521 242.027 L -118.491 243.189 L 127.509 -185.219 L 375.521 242.027 z M 312.165 207.063 L 312.165 207.063 z "
+     transform="matrix(1.44654,0,0,1.44654,188.75,285.71)"
+     style="font-size:12;fill:#bababa;fill-rule:evenodd;stroke:#000000;stroke-width:7.77718;"
+     id="path49" />
+  <path
+     d="M 448.465 398.439 C 393.741 464.823 335.552 460.671 277.46 405.231 C 336.667 354.531 391.29 359.457 448.465 398.439 z "
+     transform="matrix(3.2291,0,0,2.53304,-805.83,-688.864)"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:3.93361;stroke-linejoin:round;"
+     id="path28" />
+  <path
+     d="M 418.999 414.49 C 418.999 430.223 406.23 442.992 390.497 442.992 C 374.763 442.992 361.994 430.223 361.994 414.49 C 361.994 398.757 374.763 385.988 390.497 385.988 C 406.23 385.988 418.999 398.757 418.999 414.49 z "
+     transform="matrix(4.08879,0,0.0548831,4.08879,-1254.75,-1372.02)"
+     style="font-size:12;fill:#77741d;fill-rule:evenodd;stroke:#000000;stroke-width:2.75143;"
+     id="path32" />
+  <path
+     d="M 418.999 414.49 C 418.999 430.223 406.23 442.992 390.497 442.992 C 374.763 442.992 361.994 430.223 361.994 414.49 C 361.994 398.757 374.763 385.988 390.497 385.988 C 406.23 385.988 418.999 398.757 418.999 414.49 z "
+     transform="matrix(1.61905,0,0,1.61905,-265.569,-347.67)"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:6.94852;"
+     id="path33" />
+  <path
+     d="M 448.465 398.439 C 421.821 482.144 321.059 498.2 277.46 405.231 C 331.232 314.115 398.084 327.702 448.465 398.439 z M 448.465 398.439 C 393.741 464.823 335.552 460.671 277.46 405.231 C 336.667 354.531 391.29 359.457 448.465 398.439 z "
+     transform="matrix(3.2291,0,0,2.53304,-805.83,-688.864)"
+     style="font-size:12;fill:#b5af2d;fill-rule:evenodd;stroke:#000000;stroke-width:3.93361;stroke-linejoin:round;"
+     id="path31" />
+</svg>
