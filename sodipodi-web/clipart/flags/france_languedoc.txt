@@ -1,2 +1,0 @@
-$title="France, Languedoc";
-$author="Patricia Fidi";
