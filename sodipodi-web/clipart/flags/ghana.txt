@@ -1,2 +1,2 @@
 $title="Ghana";
-$author="Anonymous";
+$author="Lauris Kaplinski";
