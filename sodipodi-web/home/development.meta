@@ -3,4 +3,5 @@ name=todo/title=TODO&nbsp;snapshot/file=todo.php3
 name=architecture/title=Architecture/file=documents.php3/document=architecture.txt
 name=tasks/title=Programming Tasks/directory=tasks/file=index.php3
 name=cvs/title=CVS/file=cvs.html
+name=win32/title=Win9X,2000,XP/file=win32build
 name=libnr/title=LibNR/file=libnr.php3

@@ -1,5 +1,26 @@
 <h2>
-Sodipodi under Windows
+Sodipodi on Windows
+</h2>
+<p>
+Solution and project files for Microsoft Visual C++ .NET are
+included in latest CVS sodipodi, in <b>build/vc7</b>
+directory.
+</p>
+<p>
+More information about prerequisites and build environment
+setup can be read from <b>doc/MSVC_NET.txt</b>.
+</p>
+<p>
+In addition to MSVC.NET, people have successfully built
+sodipodi with MinGW, DevC++ and MS Visual C++ 6.0. We hope to
+update CVS and documentation to cover more development
+environments soon.
+</p>
+
+
+<h2>
+Ancient building instructions (probably do not work for latest
+sodipodi)
 </h2>
 <p>
 Starting from version 0.29 sodipodi can be built under Windows 95+
@@ -109,7 +130,6 @@ Ah, and of course, any help with Windows version is welcome.
 
 
 </pre>
-
 
 <p>
 29 Jaanuar 2003

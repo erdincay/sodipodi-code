@@ -4,18 +4,49 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+<h3>23 November 2003</h3>
+<h4>0.33beta for Win32</h4>
+<p>
+The first prerelease beta has hit the streets. Go grab it from:<br>
+<a href="http://www.sodipodi.com/files/Sodipodi_0_33_beta_Setup.exe">
+http://www.sodipodi.com/files/Sodipodi_0_33_beta_Setup.exe</a><br>
+and report back all showstopper bugs.<br>
+<em>Update:</em> There is beta tarball for the rest of us:<br>
+<a href="http://www.sodipodi.com/files/sodipodi-0.33-beta.tar.gz">
+http://www.sodipodi.com/files/sodipodi-0.33-beta.tar.gz</a><br>
+</p>
+
+
+<h3>20 Novemver 2003</h3>
+<h4>All UN members done!</h4>
+<p>Thanks to Caleb Moore, Andrew Duhan and Tobias Jakobs are we are steadily moving forward</p>
+<p>
+<img border=1 src="clipart/flags/andorra.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/kyrgyzstan.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/ecuador.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/western_sahara.png" width="64" height="32">
+<img border=1 src="clipart/flags/comoros.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/eritrea.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/guam.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/marshall_islands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/zambia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/guatemala.png" width="64" height="32">&nbsp;
+</p>
+
+
+
 <h3>18 November 2003</h3>
 <h4>Just 9 more international flags and we are complete<H4>
 
 <P>
-<img border=1 src="/clipart/flags/costa_rica.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/oman.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/paraguay.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/belize.png" width="64" height="32">
-<img border=1 src="/clipart/flags/swaziland.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/equatorial_guinea.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/myanmar.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/nicaragua.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/costa_rica.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/oman.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/paraguay.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/belize.png" width="64" height="32">
+<img border=1 src="clipart/flags/swaziland.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/equatorial_guinea.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/myanmar.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/nicaragua.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>16 November 2003</h3>
@@ -23,100 +54,100 @@ if (file_exists ("$directory"."latest.html")) {
 <P>Caleb Moore has been hard at work the last few days tackling many of the really hard
 flags left. We also a have the flag of Bhutan, Central African Republic and Uganda from Tobias Jakobs and Tajikistan from Matthew Gatto.
 <p>
-<img border=1 src="/clipart/flags/moldova.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/belarus.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/turkmenistan.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/lichtenstein.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/fiji.png" width="64" height="32">
-<img border=1 src="/clipart/flags/cambodia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/kazakhstan.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/vanuatu.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/bhutan.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/tajikistan.png" width="64" height="32">
-<img border=1 src="/clipart/flags/dominica.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/egypt.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/malta.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/central_african_republic.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/uganda.png" width="64" height="32">
+<img border=1 src="clipart/flags/moldova.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/belarus.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/turkmenistan.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/lichtenstein.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/fiji.png" width="64" height="32">
+<img border=1 src="clipart/flags/cambodia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/kazakhstan.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/vanuatu.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/bhutan.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/tajikistan.png" width="64" height="32">
+<img border=1 src="clipart/flags/dominica.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/egypt.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/malta.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/central_african_republic.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/uganda.png" width="64" height="32">
 <br>
 
 <h3>13 November 2003</h3>
 <h4>Sodipodi flags 1.0 released!</h4>
 <P>The first release of our package of flags are now available. Read <A HREF="http://sourceforge.net/mailarchive/forum.php?thread_id=3460738&forum_id=3970">the release notes</A> and get the files from the Sourceforge <A HREF="http://sourceforge.net/project/showfiles.php?group_id=4054">download area</A>. Here are some of the latest additions:
 <p>
-<img border=1 src="/clipart/flags/capeverde.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/congo.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/guineabissau.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/guyana.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/lebanon.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/kuwait.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/slovenia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/sri_lanka.png" width="64" height="32">
+<img border=1 src="clipart/flags/capeverde.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/congo.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/guineabissau.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/guyana.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/lebanon.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/kuwait.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/slovenia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/sri_lanka.png" width="64" height="32">
 <br>
 
 <h3>8 November 2003</h3>
 <h4>And the 200 flags barrier is crossed!</h4>
 <p>
-<img border=1 src="/clipart/flags/burundi.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/micronesia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/rwanda.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/saintlucia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/samoa.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/saotomeandprincipe.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/solomonislands.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_california.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/sudan.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/tokelau.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/burundi.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/micronesia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/rwanda.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/saintlucia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/samoa.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/saotomeandprincipe.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/solomonislands.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_california.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/sudan.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/tokelau.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>4 November 2003</h3>
 <h4>The steady march towards 200 flags continues with many new masterpieces.</h4>
 <p>
-<img border=1 src="/clipart/flags/papua_new_guinea.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/tibet.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/syria.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/liberia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/somalia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/djibouti.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/suriname.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_ohio.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/canada_british_columbia.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/canada_manitoba.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/canada_nunavut.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_maryland.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_tenessee.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/mexico.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/papua_new_guinea.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/tibet.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/syria.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/liberia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/somalia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/djibouti.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/suriname.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_ohio.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_british_columbia.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/canada_manitoba.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_nunavut.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_maryland.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_tenessee.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/mexico.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>3 November 2003</h3>
 <h4>6 new flags today</h4>
 <p>
-<img border=1 src="/clipart/flags/qatar.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/brunei.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/canada_ontario.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/haiti.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/spain_murcia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/spain_galicia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/qatar.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/brunei.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_ontario.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/haiti.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/spain_murcia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/spain_galicia.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>2 November 2003</h3>
 <h4>How far away can 200 flags be?</h4>
 <p>
-<img border=1 src="/clipart/flags/canada_newfoundland.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/christmas_island.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/england_gibraltar.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/iran.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/luxenburg.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/nauru.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/netherlands_antilles.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/niue.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/spain.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/tuvalu.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_alabama.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_southcarolina.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/venezuela.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_indiana.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/spain_canary.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_newfoundland.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/christmas_island.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/england_gibraltar.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/iran.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/luxenburg.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/nauru.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/netherlands_antilles.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/niue.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/spain.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/tuvalu.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_alabama.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_southcarolina.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/venezuela.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_indiana.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/spain_canary.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>1 November 2003</h3>
@@ -129,71 +160,71 @@ to this new section.
 <img align="right" src="/gallery/misc/pumpkin2.png" alt="Happy Halloween!" />
 <h4>New flags also today (162 total)</h4>
 <p>
-<img border=1 src="/clipart/flags/albania.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/san_marino.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/anguilla.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/arab_emirates.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/aruba.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/macedonia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/panama.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/trinidad_tobago.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/botswana.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/chad.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/elsalvador_plain.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/gabon.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/ivorycoast.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/mali.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/monaco.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/portugal.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/nato.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/albania.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/san_marino.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/anguilla.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/arab_emirates.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/aruba.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/macedonia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/panama.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/trinidad_tobago.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/botswana.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/chad.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/elsalvador_plain.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/gabon.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/ivorycoast.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/mali.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/monaco.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/portugal.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/nato.png" width="64" height="32">&nbsp;
 <br>
 <H4><A HREF="http://pudiga.org/flags/">List of flags</A> implemented and missing by Brett Roper</h4>
 
 <h3>31 October 2003</h3>
 <h4>And then we have 140 flags</h4>
 <p>
-<img border=1 src="/clipart/flags/antigua.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/argentina_3x2.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/antigua.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/argentina_3x2.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>30 October 2003</h3>
 <h4>Flags for today</h4>
 <p>
-<img border=1 src="/clipart/flags/angola.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/yemen.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/timorleste.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/denmark_faroe.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/palau_3x2.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/barbados.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/france_britanny.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/australia_aboriginies.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/finland_aaland.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/norway.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/angola.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/yemen.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/timorleste.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/denmark_faroe.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/palau_3x2.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/barbados.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/france_britanny.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/australia_aboriginies.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/finland_aaland.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/norway.png" width="64" height="32">&nbsp;
 <br>
 
 <h3>29 October 2003</h3>
 <h4>The Sodipodi Flags still incoming</h4>
 <p>
-<img border=1 src="/clipart/flags/scotland.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/usa_arizona.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/unitednations.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/southafrica.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/dominicanrepublic_2x1.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/cameroon.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/canada_acadia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/nepal.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/saintvincentandgrenadines.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/saudiarabia.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/uzbekistan.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/esperanto.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/china_macao.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/cyprus_4x3.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/tanzania.png" width="64" height="32"><BR>
-<img border=1 src="/clipart/flags/canada.png"  width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/england.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/seychelles.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/togo_3x2.png" width="64" height="32">&nbsp;
-<img border=1 src="/clipart/flags/madagascar.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/scotland.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_arizona.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/unitednations.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/southafrica.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/dominicanrepublic_2x1.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/cameroon.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/canada_acadia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/nepal.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/saintvincentandgrenadines.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/saudiarabia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/uzbekistan.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/esperanto.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/china_macao.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/cyprus_4x3.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/tanzania.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/canada.png"  width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/england.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/seychelles.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/togo_3x2.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/madagascar.png" width="64" height="32">&nbsp;
 
 <h3>22 October 2003</h3>
 <h4>Announcing <u>Sodipodi User Manual</u> Writing Project</h4>
