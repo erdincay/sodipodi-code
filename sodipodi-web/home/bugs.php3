@@ -27,6 +27,12 @@ href="http://sourceforge.net/tracker/?atid=204054&group_id=4054&func=browse">
 Support requests</a> - if you need specific help</li>
 </ul>
 </p>
+<p>
+There is small section about known bug workarounds at
+<a href="index.php3?section=documentation/bugs">documentation
+section</a>.
+</p>
+
 <h3>How to submit a but report</h3>
 <h4>Step 1 - browse existing bugs</h4>
 <p>
