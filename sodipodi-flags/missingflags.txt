@@ -1,10 +1,7 @@
 Missing international flags (alphabetical order):
-Afghanistan
-Andorra
-Comoros
-Ecuador
-Eritrea
-Guatemala
-Kyrgyzstan
-Marshall Islands
-Vatican State
+bm, BERMUDA
+ky, CAYMAN ISLANDS
+fk, FALKLAND ISLANDS (MALVINAS)
+sh, SAINT HELENA
+tc, TURKS AND CAICOS ISLANDS
+vg, VIRGIN ISLANDS, BRITISH
