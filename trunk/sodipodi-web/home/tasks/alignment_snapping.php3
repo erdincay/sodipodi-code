@@ -8,17 +8,11 @@ snapping is done independantly in each dimension.</p>
 <p>Currently canvas-grid.[ch] handles rectangular grids.  We need a more
 abstract mechanism that permits, e.g., iso and hex type grids.
 
-<p><i>Owner:</i>  Nathan Hurst (2003/30/18) [njh/hawthorn_csse_monash_edu_au] </p>
-<p><i>Status:</i> new</p>
-
 <h4>UI for alternate grid options</h4>
 
 <p>Add a dropdown to allow choice of different kinds of grids, including
 iso and hex.</p>
 
-<p><i>Owner:</i>  Bryce Harrington (2003/30/18) [bryce/osdl_org] </p>
-<p><i>Status:</i> Open - Sent patch to njh using checkboxes; dropdowns
-look complicated and will take more time.</p>
 
 <h4>Snap to Horizontal or Vertical</h4>
 
@@ -26,8 +20,6 @@ look complicated and will take more time.</p>
 code to make it to one or the other, depending on the value set in the
 horizgrid and vertgrid attributes.
 
-<p><i>Owner:</i>  Nathan Hurst (2003/30/18) [njh/hawthorn_csse_monash_edu_au] </p>
-<p><i>Status:</i> new</p>
 
 <h4>Horizontal/Vertical Snap UI</h4>
 

@@ -3,9 +3,6 @@
 
 <p>This is a proposal for improving the align/distribute dialog.</p>
 
-<p><B>NOTE:  All tasks on this page are in state <i>proposed</i> and are
-still to be reviewed.</B></p>
-
 <h4>1.  Add distribute buttons</h4>
 
 <p>Add two sets (vertical and horizontal) of distribution buttons:</p>
