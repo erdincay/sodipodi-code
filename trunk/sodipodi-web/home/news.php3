@@ -4,6 +4,83 @@ if (file_exists ("$directory"."latest.html")) {
 }
 ?>
 
+<h3>14 December 2003</h3>
+<h4>Har Har Har; Its pirate week in the Sodipodi flag collection</h4>
+<p>
+<img border=1 src="clipart/flags/pirate_thomas_tew.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pirate_jack_rackham.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pirate_henry_every.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pirate_emanuel_wynne.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pirate_stede_bonnet.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/pirate_blackbeard_edward_teach.png" width="64" height="32"><BR>
+<img border=1 src="clipart/flags/uk_english_royal_navy_historic.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/spain_spanish_royal_navy_historic.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/netherland_dutch_royal_navy_historic.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/france_french_royal_navy_historic.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/congo_kinshasa.png" width="64" height="32">&nbsp;
+</p>
+<hr>
+
+<h3>12 December 2003</h3>
+<h4>New mailing list created</h4>
+<p>
+There is now sodipodi-announce mailing list for release (and
+other relevant) announcements.
+It was created to give easy monitoring channel
+for software catalogue owners and distro builders, but is open
+for subscriptions to everyone. It is moderated list.
+</p>
+<p>
+Subscriptions page is at:
+<a href="http://lists.sourceforge.net/mailman/listinfo/sodipodi-announce">
+http://lists.sourceforge.net/mailman/listinfo/sodipodi-announce</a>
+</p>
+<hr>
+
+<h3>07 December 2003</h3>
+<h4>New flags streaming in</h4>
+<p>
+<img border=1 src="clipart/flags/australia_south_australia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/australia_tasmania.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/france_french_polynesia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/france_french_southern_territories.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_district_of_columbia.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/usa_hawaii.png" width="64" height="32"><br>
+<img border=1 src="clipart/flags/american_samoa.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/montserrat.png" width="64" height="32">&nbsp;
+<img border=1 src="clipart/flags/italy_piemonte.png" width="64" height="32">&nbsp;
+</p>
+<hr>
+                                                                                
+<h3>06 December 2003</h3>
+<h4>Sodipodi 0.33 binaries so far</h4>
+<ul>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Mandrake 9.2 binary and source rpm (vanilla installation)</a> (Lauris)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Windows 2000/XP binary package.</a> It does not work on Win9X because of
+problems with unicode layer.</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Windows 95/98/ME binary package.</a> It does work on Win2000/XP as well,
+although you are limited to ANSI/multibyte charset.</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Red Hat 9.0 binary and source rpm</a> (Dag)</li>
+<li><a href="http://sourceforge.net/project/showfiles.php?group_id=4054">
+Fedora binary and source rpm</a> (Dag)</li>
+</ul>
+</p>
+<p>
+Windows binaries require Gtk+ runtime package to be installed. You
+can download it from <a href="http://www.dropline.net/gtk/download.php">
+Dropline Project</a> or
+<a href="http://www2.arnes.si/~sopjsimo/gimp/unstable.html">GIMP for
+windows page</a>. Dropline version has problems with Japanese locale,
+so if you plan to use it, better install the second package.
+</p>
+<hr>
+
+
+
 <h3>06 December 2003</H3>
 <h4>Sodipodi-flag collection 1.4 released</h4>
 <p>We are happy to announce a new release of the Sodipodi flag collection. It now contains 275 different flags. You find a <A HREF="http://mail.gnome.org/archives/gnome-themes-list/2003-December/msg00003.html">release announcement here</A>. The flags can also be viewed in our clipart gallery.</P>
