@@ -6,11 +6,18 @@ The core collection of flags in this collection are meant to be as accurate as p
 
 New flags are of course also welcomed, but remember we need a clear statement from you that you dedicate the flag to the public domain,  preferably using the Creative Commons public domain dedication process found here:
 http://creativecommons.org/license/publicdomain-2 
-We do hope that many of you take some time to help us make this an even more complete collection.
+
+We do hope that many of you take some time to help us make this an evenmore complete collection; for instance the missing international flags per ISO 3166 are:
+bm, BERMUDA
+ky, CAYMAN ISLANDS
+fk, FALKLAND ISLANDS (MALVINAS)
+sh, SAINT HELENA
+tc, TURKS AND CAICOS ISLANDS
+vg, VIRGIN ISLANDS, BRITISH
 
 We hope that this collection can be useful to people in many different settings be that in relation to software, publishing, education and so on. 
 
-The assembly of this huge collection has been made possible thanks to the hard work of many people. We big thank you goes to all our contributors listed in the CREDITS file distributed with this package. We would especially like to thank Tobias Jacobs, Sigge Kotliar, Cezary Biel, Brett Roper, Daniel McRae and Lauris Kaplinski, whose contributions count for around half the collection. 
+The assembly of this huge collection has been made possible thanks to the hard work of many people. We big thank you goes to all our contributors listed in the CREDITS file distributed with this package. We would especially like to thank Tobias Jacobs who contributed most of the new flags for this release. 
 
 You can see all of the currently contributed flags here:
 http://www.sodipodi.com/index.php3?section=clipart/flags
