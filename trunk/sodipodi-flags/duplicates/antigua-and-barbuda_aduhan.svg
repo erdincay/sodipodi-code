@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Antigua and Barbuda's Flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Andrew Duhan</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+<svg
+   id="svg594"
+   sodipodi:version="0.32"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="500pt"
+   height="328pt"
+   sodipodi:docbase="/home/andrew/sodipodi-flags/work"
+   sodipodi:docname="/home/andrew/sodipodi-flags/work/antigua-and-barbuda.svg">
+  <defs
+     id="defs596" />
+  <sodipodi:namedview
+     id="base" />
+  <rect
+     style="font-size:12;fill:#000000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect604"
+     width="625.000000"
+     height="409.999725"
+     x="0.000000"
+     y="-0.000015" />
+  <path
+     style="fill:#ffff00;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 130.355 875.085 L 163.564 864.677 L 140.103 845.181 L 172.651 846.999 L 155.964 817.755 L 186.859 831.634 L 180.746 795.947 L 203.546 821.886 L 212.963 789.338 L 225.685 822.712 L 246.172 798.756 L 242.867 830.642 L 277.067 811.643 L 258.893 847.164 L 290.119 841.051 L 266.163 863.355 L 300.858 875.251 L 130.355 875.085 z "
+     id="path601"
+     transform="matrix(1.428571,0.000000,0.000000,1.426085,6.084795,-1089.343)" />
+  <rect
+     style="font-size:12;fill:#9ea8ff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect605"
+     width="624.999939"
+     height="253.130264"
+     x="0.000000"
+     y="156.869537" />
+  <rect
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
+     id="rect606"
+     width="624.999939"
+     height="163.999908"
+     x="0.000000"
+     y="246.000092" />
+  <path
+     style="fill:#e70000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 0 766.841 L 0 1052.83 L 213.09 1052.83 L 0 766.841 z "
+     id="path602"
+     transform="matrix(-1.472915,0.000000,0.000000,1.433618,625.0000,-1099.357)" />
+  <path
+     style="fill:#e70000;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
+     d="M 0 766.841 L 0 1052.83 L 213.09 1052.83 L 0 766.841 z "
+     id="path603"
+     transform="matrix(1.460116,0.000000,0.000000,1.433618,0.000000,-1099.357)" />
+</svg>
