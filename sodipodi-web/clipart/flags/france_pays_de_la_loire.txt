@@ -1,0 +1,2 @@
+$title="France, Pays de la Loire";
+$author="Patricia Fidi";

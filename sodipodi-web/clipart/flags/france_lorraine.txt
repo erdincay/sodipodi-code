@@ -1,0 +1,2 @@
+$title="France, Lorraine";
+$author="Patricia Fidi";

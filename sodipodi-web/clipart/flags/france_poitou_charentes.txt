@@ -1,0 +1,2 @@
+$title="France, Poitou Charentes";
+$author="Patricia Fidi";

@@ -1,0 +1,2 @@
+$title="France, Champagne-Ardenne";
+$author="Patricia Fidi";

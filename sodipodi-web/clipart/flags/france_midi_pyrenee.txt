@@ -1,0 +1,2 @@
+$title="France, Midi Pyrenee";
+$author="Patricia Fidi";

@@ -1,0 +1,2 @@
+$title="Australia, Eureka (historical)";
+$author="Ben Fowler";
