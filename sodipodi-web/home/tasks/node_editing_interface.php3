@@ -4,6 +4,11 @@
 polygonal shapes.  This is one of Sodipodi's key features, but there's
 still much work to do on it to make it more perfect.
 
+<h4>Node Editing Icon Images</h4>
+
+<p>Draw or find SVG button images for each of the features listed on
+this page.</p> 
+
 <h4>Knife</h4>
 
 <P>A new path operator should be added to enable splitting one path into
