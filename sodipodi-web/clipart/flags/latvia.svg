@@ -27,7 +27,7 @@
      style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"
      id="rect6"
      x="0.000000"
-     y="-0.000015"
+     y="0"
      width="1062.992065"
      height="531.496033" />
   <rect
@@ -36,7 +36,7 @@
      width="1062.99207"
      height="212.598419"
      x="0.00000000"
-     y="-0.00001526" />
+     y="0" />
   <rect
      style="font-size:12;fill:#ab231d;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
      id="rect562"

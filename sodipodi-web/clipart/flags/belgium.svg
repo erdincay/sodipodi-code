@@ -22,7 +22,7 @@
      width="194.881882"
      height="506.692841"
      x="0.000000"
-     y="-0.000006"
+     y="0"
      sodipodi:fill-cmyk="(0 0 0 1)" />
   <rect
      style="font-size:12;fill:#ffd90c;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
@@ -30,7 +30,7 @@
      width="194.881882"
      height="506.692841"
      x="194.881882"
-     y="-0.000046"
+     y="0"
      sodipodi:fill-cmyk="(0 0.15 0.95 0)" />
   <rect
      style="font-size:12;fill:#f31830;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
@@ -38,6 +38,6 @@
      width="194.881882"
      height="506.692841"
      x="389.763763"
-     y="-0.000046"
+     y="0"
      sodipodi:fill-cmyk="(0 0.9 0.8 0.05)" />
 </svg>

@@ -22,11 +22,11 @@
   <rect
      width="1062.989990"
      height="744.094421"
-     x="-1062.989990"
-     y="-708.660965"
+     x="0"
+     y="0"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.0247pt;"
      id="rect149"
-     transform="matrix(-1.000000,0.000000,0.000000,-1.000000,-7.629395e-4,35.43352)" />
+     />
   <path
      sodipodi:type="arc"
      style="fill-rule:evenodd;stroke:none;fill:#ffffff;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;"

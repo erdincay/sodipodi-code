@@ -1,73 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
+[
+ <!ATTLIST svg
+  xmlns:xlink CDATA #FIXED "http://www.w3.org/1999/xlink">
+]>
 <!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
 <svg
-   version="1"
-   x="0"
-   y="0"
-   width="1062.99"
-   height="708.661"
-   id="svg378"
-   sodipodi:version="0.32-hydra1"
-   sodipodi:docname="/home/yemu/clipart/flags/grenland.svg"
-   sodipodi:docbase="/home/yemu/clipart/flags/"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <sodipodi:namedview
-     id="base">
-    <sodipodi:guide
-       orientation="vertical"
-       position="154.847488"
-       id="guide565" />
-    <sodipodi:guide
-       orientation="vertical"
-       position="502.619720"
-       id="guide566" />
-  </sodipodi:namedview>
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1"
+   x="0.00000000"
+   y="0.00000000"
+   width="1062.98999"
+   height="708.661011"
+   id="svg378">
   <defs
      id="defs380" />
   <rect
-     width="1062.989990"
-     height="708.661011"
-     x="-1062.989990"
-     y="-708.660950"
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;stroke:#000000;stroke-opacity:1;"
-     id="rect149"
-     transform="scale(-1.000000,-1.000000)" />
+     width="1062.98743"
+     height="708.660828"
+     x="0.00012200"
+     y="0.00006100"
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:0.999999pt;"
+     id="rect149" />
   <rect
-     width="1062.989990"
-     height="354.330994"
-     x="-1062.989990"
-     y="-708.660919"
+     width="1062.98743"
+     height="354.330902"
+     x="0.00012200"
+     y="354.329926"
      style="font-size:12;fill:#df0000;fill-rule:evenodd;stroke-width:1pt;"
-     id="rect148"
-     transform="scale(-1.000000,-1.000000)" />
+     id="rect148" />
   <path
-     sodipodi:type="arc"
-     style="font-size:12;fill:#df0000;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-     id="path567"
      d="M 628.274841,506.375549 A 217.357712,217.357727 0 1 1 193.559402,506.375488"
-     sodipodi:cx="410.917114"
-     sodipodi:cy="506.375549"
-     sodipodi:rx="217.357712"
-     sodipodi:ry="217.357727"
      transform="matrix(1.000000,0.000000,0.000000,-1.000000,0.000000,860.5060)"
-     sodipodi:start="0.000000"
-     sodipodi:end="3.141593"
-     sodipodi:open="true" />
+     style="font-size:12;fill:#df0000;fill-rule:evenodd;stroke-width:1pt;"
+     id="path567" />
   <path
-     sodipodi:type="arc"
-     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;fill-opacity:1;"
-     id="path568"
      d="M 628.274841,506.375549 A 217.357712,217.357727 0 1 1 193.559402,506.375488"
-     sodipodi:cx="410.917114"
-     sodipodi:cy="506.375549"
-     sodipodi:rx="217.357712"
-     sodipodi:ry="217.357727"
      transform="translate(0.000000,-152.3964)"
-     sodipodi:start="0.000000"
-     sodipodi:end="3.141593"
-     sodipodi:open="true" />
+     style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
+     id="path568" />
 </svg>

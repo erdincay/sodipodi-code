@@ -22,11 +22,11 @@
   <rect
      width="1062.989990"
      height="744.094421"
-     x="-1062.989227"
-     y="-744.094467"
+     x="0"
+     y="0"
      style="font-size:12;fill:#2d9c4b;fill-rule:evenodd;stroke:none;stroke-width:1.0247pt;fill-opacity:1;"
      id="rect149"
-     transform="scale(-1.000000,-1.000000)" />
+     />
   <path
      style="fill:#ffe900;fill-rule:evenodd;stroke:none;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;"
      d="M 260 222.093 C 367.083 518.813 690.417 529.702 807.5 222.093 C 806.667 633.146 267.083 652.201 260 222.093 z "

@@ -17,7 +17,7 @@
      width="581.102539"
      height="70.8662033"
      x="481.889801"
-     y="-0.00021400"
+     y="0"
      style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
      id="rect595" />
   <rect
@@ -30,7 +30,7 @@
   <rect
      width="1062.99207"
      height="70.8661728"
-     x="-0.00000100"
+     x="0"
      y="318.897461"
      style="font-size:12;fill-rule:evenodd;stroke-width:1pt;"
      id="rect597" />
@@ -80,7 +80,7 @@
      width="481.889771"
      height="318.897614"
      x="0"
-     y="-0.00010200"
+     y="0"
      style="font-size:12;fill:#ffffff;fill-rule:evenodd;stroke-width:1pt;"
      id="rect604" />
   <g
