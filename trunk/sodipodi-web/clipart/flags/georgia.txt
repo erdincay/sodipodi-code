@@ -1,2 +1,2 @@
-$title="USA, Georgia";
+$title="Georgia";
 $author="Sigge Kotliar";
