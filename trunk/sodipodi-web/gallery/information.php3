@@ -51,8 +51,8 @@ each image you'd like listed in a gallery:
 </ol>
 
 <p>
-For flags, <a href="http://flagspot.net">http://flagspot.net</a> is a
-useful site for checking colors, dimensions, etc. 
+For flags, <a href="http://flagspot.net">http://flagspot.net</a> and <A HREF="http://www.flags.net"> are
+useful sites for checking colors, dimensions, etc. 
 </p>
 
 <p>
