@@ -8,7 +8,8 @@ if (file_exists ("$directory"."latest.html")) {
 <p>
 Sodipodi is a vector-based drawing program, like CorelDraw&reg;
 or Adobe Illustrator&reg; from the proprietary software world, and
-Sketch or Kontour
+<a href="http://sketch.sourceforge.net/">Sketch</a> or
+<a href="http://www.koffice.org/karbon/">Karbon14</a>
 from the free software world. It is free software, distributed under the
 terms of the Gnu General Public License, Version 2.
 </p>
