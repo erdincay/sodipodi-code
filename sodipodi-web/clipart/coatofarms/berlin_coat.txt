@@ -1,0 +1,2 @@
+$title="Berlin, Germany";
+$author="Tobias Jakobs";
