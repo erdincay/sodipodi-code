@@ -17,4 +17,7 @@ achieve better look under icon themes even for certain customized icons?
 
 
 <p><i>Owner:</i>  Pat Suwalski (2003/03/18) [pat/suwalski_net]</p>
-<p><i>Status:</i>  Checking how the file and copy/paste icons look</p>
+<p><i>Status:</i>  DONE.  0.32 now uses the stock icons from the current
+theme, from icons.svg.  So while not themable in the perfect sense of
+the word, it's at least easy for someone to replace the icons.svg file
+with whatever they wish, without recompiling.</p> 
