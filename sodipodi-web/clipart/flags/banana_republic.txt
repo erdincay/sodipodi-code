@@ -1,0 +1,2 @@
+$title="Banana Republic";
+$author="Christian Schaller and Tobias Jakobs";

@@ -1,0 +1,2 @@
+$title="South Georgia and South Sandwich Islands";
+$author="Tobias Jakobs";
