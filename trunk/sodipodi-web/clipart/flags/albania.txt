@@ -1,0 +1,2 @@
+$title="Albania";
+$author="John C Meuser";
