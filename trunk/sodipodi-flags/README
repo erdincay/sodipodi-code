@@ -5,6 +5,32 @@ This is meant to be a collection of flags which you can freely use for software,
 If you want to contribute a flag, be sure to go through the public domain dedication process found here:
 http://creativecommons.org/license/publicdomain-2
 
+Following that process you will eventually get to page where you are offered to cut and paste some code/text.
+As part of that you will see something looking like this:
+<!-- /Creative Commons Public Domain -->
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:title>SVG graphic of Puerto Rico flag</dc:title>
+   <dc:rights><Agent>
+      <dc:title>Ricardo Veguilla González</dc:title>
+   </Agent></dc:rights>
+   <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+</Work>
+
+<License rdf:about="http://web.resource.org/cc/PublicDomain">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+</License>
+</rdf:RDF>
+-->
+
+Please paste that into your SVG file using a text editor before sending it to us.
+
 The flags are categorized as follows:
 Nations - United Nations recognized nations
 Regions - Regions in Nations with their own flag, like US states
