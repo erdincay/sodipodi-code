@@ -13,7 +13,11 @@
 	print "<table border=0>\n";
 	for ($i = 0; $i < $len; $i++) {
 	    $data = $meta[$keys[$i]];
-	    print " <tr>\n";
+            if ($i % 2 == 0) {
+               print " <tr bgcolor=#DDDDDD>\n";
+            } else {
+               print " <tr bgcolor=#FFFFFF>\n";
+            }
 	    print "  <td> * </td>\n";
 	    print "  <td><a href=\"index.php3?section=development/tasks/${data['name']}\">${data['title']}</a></td>\n";
             print "  <td>${data['status']}</td>\n";
