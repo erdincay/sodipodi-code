@@ -1,0 +1,2 @@
+$title="Isle of Man";
+$author="Cezary Biele";
