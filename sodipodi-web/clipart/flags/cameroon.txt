@@ -1,2 +1,2 @@
 $title="Cameroon";
-$author="Anonymous";
+$author="Sigge Kotliar";
