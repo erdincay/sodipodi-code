@@ -2,10 +2,11 @@
 
 body {
 	a_background: #ff8f4f;
+	font-family: Arial, Helvetica, Sans, sans-serif;
+	font-size: 10px;
 }
 
 .navigation {
-	font-size: normal;
 	text-align: center;
 	font-weight: normal;
 	white-space: no-wrap;
@@ -28,7 +29,6 @@ td {
 
 table, tr, td {
 	a_color: #df3f1f
-	font-family: Arial, Helvetica, Sans, sans-serif;
 }
 
 body,
@@ -39,16 +39,18 @@ h1, h2, h3, h4, h5, h6,
 blockquote {
 	a_color: #df3f1f;
 	font-family: Arial, Helvetica, Sans, sans-serif;
+	font-size: 12px;
 	text-align: justify;	
 }
 
 pre {
 	font-family: "Andale Mono", "Courier New", "Courier", monospace;
-	font-size: 10pt;
+	font-size: 12px;
 }
 
 A {
-	font-family: "Arial", "Helvetica", "Sans", sans-serif;
+	font-family: Arial, Helvetica, Sans, sans-serif;
+	font-size: 12px;
 }
 
 A:link {a_color: #bf2f00; text-decoration: none;}
