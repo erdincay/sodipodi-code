@@ -1,0 +1,2 @@
+$title="Libya";
+$author="Cezary Biele";
