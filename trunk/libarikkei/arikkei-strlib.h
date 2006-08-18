@@ -50,4 +50,54 @@ unsigned int arikkei_ucs2_strncpy (const unsigned short *s, unsigned short *d, u
 };
 #endif
 
+#ifdef __cplusplus
+
+namespace Arikkei {
+
+class UTEXT {
+private:
+	unsigned char *_utf8;
+	unsigned short *_ucs2;
+public:
+	// Constructor
+	UTEXT (void) : _utf8(0), _ucs2(0) {}
+	UTEXT (const char *utf8) : _ucs2(0) { _utf8 = (unsigned char *) strdup (utf8); }
+	UTEXT (const unsigned char *utf8) : _ucs2(0) { _utf8 = (unsigned char *) strdup ((const char *) utf8); }
+	UTEXT (const unsigned short *ucs2) : _utf8(0) { _ucs2 = arikkei_ucs2_strdup (ucs2); }
+	UTEXT (const UTEXT& utext) {
+		_utf8 = (utext._utf8) ? (unsigned char *) strdup ((const char *) utext._utf8) : NULL;
+		_ucs2 = (utext._ucs2 && !_utf8) ? arikkei_ucs2_strdup (utext._ucs2) : NULL;
+	}
+	// Destructor
+	~UTEXT (void) { if (_utf8) free (_utf8); if (_ucs2) free (_ucs2); }
+	// Operators
+	operator const char * (void) { if (!_utf8 && _ucs2) _utf8 = arikkei_ucs2_utf8_strdup (_ucs2); return (const char *) _utf8; }
+	operator const unsigned char * (void) { if (!_utf8 && _ucs2) _utf8 = arikkei_ucs2_utf8_strdup (_ucs2); return _utf8; }
+	operator const unsigned short * (void) { if (!_ucs2 && _utf8) _ucs2 = arikkei_utf8_ucs2_strdup (_utf8); return _ucs2; }
+	UTEXT& operator= (const UTEXT& utext) {
+		if (_utf8) free (_utf8);
+		_utf8 = (utext._utf8) ? (unsigned char *) strdup ((const char *) utext._utf8) : NULL;
+		if (_ucs2) free (_ucs2);
+		_ucs2 = (utext._ucs2 && !_utf8) ? arikkei_ucs2_strdup (utext._ucs2) : NULL;
+		return *this;
+	}
+	operator bool (void) const { return _utf8 || _ucs2; }
+	friend operator&& (const UTEXT& lhs, const UTEXT& rhs) { return (bool) lhs && (bool) rhs; }
+	// Methods
+	size_t getLengthChars (void) const {
+		if (_ucs2) return (size_t) arikkei_ucs2_strlen (_ucs2);
+		if (_utf8) return arikkei_utf8_strlen (_utf8);
+		return 0;
+	}
+	size_t getLengthUTF8Bytes (void) const {
+		if (_utf8) return strlen ((const char *) _utf8);
+		if (_ucs2) return (size_t) arikkei_ucs2_utf8_bytelen (_ucs2);
+		return 0;
+	}
+};
+
+} // Namespace Arikkei
+
+#endif
+
 #endif
