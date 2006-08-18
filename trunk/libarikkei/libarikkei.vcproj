@@ -109,6 +109,9 @@
 			<File
 				RelativePath=".\arikkei-token.c">
 			</File>
+			<File
+				RelativePath=".\token.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
