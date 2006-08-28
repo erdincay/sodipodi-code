@@ -54,6 +54,13 @@ unsigned int arikkei_ucs2_strncpy (const unsigned short *s, unsigned short *d, u
 
 namespace Arikkei {
 
+// Suppress MSVC 2005 nagging
+#ifdef WIN32
+inline char *strdup (const char *str) { return ::_strdup (str); }
+#else
+inline char *strdup (const char *str) { return ::strdup (str); }
+#endif
+
 class UTEXT {
 private:
 	unsigned char *_utf8;
@@ -82,7 +89,7 @@ public:
 		return *this;
 	}
 	operator bool (void) const { return _utf8 || _ucs2; }
-	friend operator&& (const UTEXT& lhs, const UTEXT& rhs) { return (bool) lhs && (bool) rhs; }
+	friend bool operator&& (const UTEXT& lhs, const UTEXT& rhs) { return (bool) lhs && (bool) rhs; }
 	// Methods
 	size_t getLengthChars (void) const {
 		if (_ucs2) return (size_t) arikkei_ucs2_strlen (_ucs2);
@@ -98,6 +105,9 @@ public:
 
 } // Namespace Arikkei
 
+
+
 #endif
+
 
 #endif
