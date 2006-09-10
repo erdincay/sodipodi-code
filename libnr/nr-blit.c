@@ -12,13 +12,16 @@
 #include "nr-rect.h"
 #include "nr-pixops.h"
 #include "nr-compose.h"
+#include "nr-pixblock.h"
+
 #include "nr-blit.h"
 
 void
-nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alpha)
+nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned int alpha)
 {
 	NRRectS clip;
-	unsigned char *dpx, *spx;
+	unsigned char *dpx;
+	const unsigned char *spx;
 	int dbpp, sbpp;
 	int w, h;
 
@@ -26,8 +29,6 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alph
 	if (s->empty) return;
 	/* fixme: */
 	if (s->mode == NR_PIXBLOCK_MODE_A8) return;
-	/* fixme: */
-	if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) return;
 
 	/*
 	 * Possible variants as of now:
@@ -70,8 +71,10 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alph
 	case NR_PIXBLOCK_MODE_R8G8B8:
 		if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 			nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-		} else {
+		} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 			nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+		} else {
+			nr_R8G8B8_R8G8B8_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
 		}
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8A8P:
@@ -98,17 +101,21 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alph
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 				/* Case 9 */
 				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* Case D */
 				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				nr_R8G8B8A8_N_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
 			}
 		} else {
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 				/* case B */
 				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* case F */
 				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
 			}
 		}
 		break;
@@ -116,10 +123,11 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alph
 }
 
 void
-nr_blit_pixblock_pixblock_mask (NRPixBlock *d, NRPixBlock *s, NRPixBlock *m)
+nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixBlock *m)
 {
 	NRRectS clip;
-	unsigned char *dpx, *spx, *mpx;
+	unsigned char *dpx;
+	const unsigned char *spx, *mpx;
 	int dbpp, sbpp;
 	int w, h;
 
@@ -218,13 +226,14 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, NRPixBlock *s, NRPixBlock *m)
 }
 
 void
-nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, NRPixBlock *m, unsigned long rgba)
+nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, const NRPixBlock *m, unsigned long rgba)
 {
 	if (!(rgba & 0xff)) return;
 
 	if (m) {
 		NRRectS clip;
-		unsigned char *dpx, *mpx;
+		unsigned char *dpx;
+		const unsigned char *mpx;
 		int w, h;
 
 		if (m->mode != NR_PIXBLOCK_MODE_A8) return;

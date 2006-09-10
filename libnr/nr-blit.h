@@ -10,7 +10,7 @@
  * This code is in public domain
  */
 
-#include <libnr/nr-pixblock.h>
+#include <libnr/nr-forward.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,9 +18,9 @@ extern "C" {
 
 #define nr_blit_pixblock_pixblock(d,s) nr_blit_pixblock_pixblock_alpha (d, s, 255)
 
-void nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, NRPixBlock *s, unsigned int alpha);
-void nr_blit_pixblock_pixblock_mask (NRPixBlock *d, NRPixBlock *s, NRPixBlock *m);
-void nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, NRPixBlock *m, unsigned long rgba32);
+void nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned int alpha);
+void nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixBlock *m);
+void nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, const NRPixBlock *m, unsigned long rgba32);
 
 #ifdef __cplusplus
 };

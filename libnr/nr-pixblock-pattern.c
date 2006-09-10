@@ -9,9 +9,59 @@
  * This code is in public domain
  */
 
+#include <string.h>
+
 #include "nr-rect.h"
 #include "nr-pixops.h"
 #include "nr-pixblock-pattern.h"
+
+void
+nr_pixblock_fill (NRPixBlock *pb, unsigned int rgba32)
+{
+	unsigned int r = NR_RGBA32_R (rgba32);
+	unsigned int g = NR_RGBA32_R (rgba32);
+	unsigned int b = NR_RGBA32_R (rgba32);
+	unsigned int a = NR_RGBA32_R (rgba32);
+	int x, y;
+
+	switch (pb->mode) {
+	case NR_PIXBLOCK_MODE_A8:
+		for (y = pb->area.y0; y < pb->area.y1; y++) {
+			unsigned char *d;
+			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
+			memset (d, a, pb->area.x1 - pb->area.x0);
+		}
+		break;
+	case NR_PIXBLOCK_MODE_R8G8B8:
+		for (y = pb->area.y0; y < pb->area.y1; y++) {
+			unsigned char *d;
+			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
+			for (x = pb->area.x0; x < pb->area.x1; x++) {
+				d[0] = r;
+				d[1] = g;
+				d[2] = b;
+				d += 3;
+			}
+		}
+		break;
+	case NR_PIXBLOCK_MODE_R8G8B8A8N:
+	case NR_PIXBLOCK_MODE_R8G8B8A8P:
+		for (y = pb->area.y0; y < pb->area.y1; y++) {
+			unsigned char *d;
+			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
+			for (x = pb->area.x0; x < pb->area.x1; x++) {
+				d[0] = r;
+				d[1] = g;
+				d[2] = b;
+				d[3] = a;
+				d += 4;
+			}
+		}
+		break;
+	default:
+		break;
+	}
+}
 
 #define NR_NOISE_SIZE 1024
 
