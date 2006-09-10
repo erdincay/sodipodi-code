@@ -452,6 +452,7 @@ nr_node_list_insert_curve_round (struct _NRNode *node, struct _NRFlatNode *flat,
 	double x000, y000, x001, y001, x011, y011, x111, y111;
 	double x00t, y00t, x01t, y01t, x0tt, y0tt, x1tt, y1tt, x11t, y11t, xttt, yttt;
 	double dlen, slen, s, t;
+	float dx, dy;
 
 	x = QROUND (x);
 	y = QROUND (y);
@@ -460,8 +461,12 @@ nr_node_list_insert_curve_round (struct _NRNode *node, struct _NRFlatNode *flat,
 	if ((x == flat->next->x) && (y == flat->next->y) && !flat->next->next) return 0;
 	if ((x == node->x3) && (y == node->y3) && !flat->prev) return 0;
 	if ((x == node->next->x3) && (y == node->next->y3) && !flat->next->next) return 0;
-	dlen = hypot (x - flat->x, y - flat->y);
-	slen = hypot (flat->next->x - flat->x, flat->next->y - flat->y);
+	dx = x - flat->x;
+	dy = y - flat->y;
+	dlen = sqrt (dx * dx + dy * dy);
+	dx = flat->next->x - flat->x;
+	dy = flat->next->y - flat->y;
+	slen = sqrt (dx * dx + dy * dy);
 	s = flat->s + (flat->next->s - flat->s) * dlen / slen;
 	t = 1.0 - s;
 

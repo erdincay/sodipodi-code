@@ -93,7 +93,9 @@ nr_svl_stroke_build_lineto (NRSVLStrokeBuild *svlb, float x, float y)
 			/* Second point on line */
 			svlb->x[1] = x;
 			svlb->y[1] = y;
-			len = (float) hypot (svlb->x[1] - svlb->x[0], svlb->y[1] - svlb->y[0]);
+			dx = svlb->x[1] - svlb->x[0];
+			dy = svlb->y[1] - svlb->y[0];
+			len = (float) sqrt (dx * dx + dy * dy);
 			/* Extra check for WinME */
 			if (fabs (len) < NR_EPSILON_F) return;
 			dx = (float) (svlb->x[1] - svlb->x[0]) / len;
@@ -134,7 +136,9 @@ nr_svl_stroke_build_finish_subpath (NRSVLStrokeBuild *svlb)
 		/* Draw 2->3 + join 2->3->1 */
 		nr_svl_stroke_build_draw_join (svlb, svlb->x[2], svlb->y[2], svlb->x[3], svlb->y[3], svlb->x[1], svlb->y[1]);
 		/* And finsih possibly open paths */
-		len = (float) hypot (svlb->x[1] - svlb->x[0], svlb->y[1] - svlb->y[0]);
+		dx = svlb->x[1] - svlb->x[0];
+		dy = svlb->y[1] - svlb->y[0];
+		len = (float) sqrt (dx * dx + dy * dy);
 		/* Extra check for WinME */
 		if (fabs (len) < NR_EPSILON_F) return;
 		dx = (svlb->x[1] - svlb->x[0]) / len;
@@ -739,7 +743,9 @@ static void
 nr_svl_stroke_build_draw_cap (NRSVLStrokeBuild *svlb, float x0, float y0, float x1, float y1, unsigned int finish)
 {
 	float len, dx, dy;
-	len = hypot (x1 - x0, y1 - y0);
+	dx = x1 - x0;
+	dy = y1 - y0;
+	len = sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len) < NR_EPSILON_F) return;
 	dx = (x1 - x0) / len;
@@ -802,17 +808,22 @@ nr_svl_stroke_build_draw_cap (NRSVLStrokeBuild *svlb, float x0, float y0, float 
 static void
 nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float x1, float y1, float x2, float y2)
 {
+	float dx, dy;
 	float len0, dx0, dy0, px0, py0;
 	float len1, dx1, dy1, px1, py1;
 	double costheta;
-	len0 = hypot (x1 - x0, y1 - y0);
+	dx = x1 - x0;
+	dy = y1 - y0;
+	len0 = sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len0) < NR_EPSILON_F) return;
 	dx0 = (x1 - x0) / len0;
 	dy0 = (y1 - y0) / len0;
 	px0 = dy0 * svlb->width_2;
 	py0 = -dx0 * svlb->width_2;
-	len1 = hypot (x2 - x1, y2 - y1);
+	dx = x2 - x1;
+	dy = y2 - y1;
+	len1 = sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len1) < NR_EPSILON_F) return;
 	dx1 = (x2 - x1) / len1;

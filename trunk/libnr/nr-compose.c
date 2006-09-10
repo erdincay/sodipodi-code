@@ -27,6 +27,31 @@ void nr_mmx_R8G8B8_R8G8B8_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, c
 #endif
 
 void
+nr_R8G8B8A8_N_EMPTY_R8G8B8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+{
+	int r, c;
+
+	for (r = 0; r < h; r++) {
+		if (alpha == 0) {
+			memset (px, 0x0, 4 * w);
+		} else {
+			const unsigned char *s;
+			unsigned char *d;
+			d = px;
+			s = spx;
+			for (c = 0; c < w; c++) {
+				*d++ = *s++;
+				*d++ = *s++;
+				*d++ = *s++;
+				*d++ = alpha;
+			}
+		}
+		px += rs;
+		spx += srs;
+	}
+}
+
+void
 nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
 {
 	int r, c;
@@ -52,7 +77,6 @@ nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (unsigned char *px, int w, int h, int rs, const u
 		spx += srs;
 	}
 }
-
 void
 nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
 {
@@ -141,6 +165,44 @@ nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, const u
 			}
 			d += 4;
 			s += 4;
+		}
+		px += rs;
+		spx += srs;
+	}
+}
+
+/* fixme: This is not optimized (Lauris) */
+void
+nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+{
+	int r, c;
+
+	if (alpha == 0) return;
+
+	for (r = 0; r < h; r++) {
+		unsigned char *d, *s;
+		d = (unsigned char *) px;
+		s = (unsigned char *) spx;
+		for (c = 0; c < w; c++) {
+			unsigned int a;
+			a = alpha;
+			if ((a == 255) || (d[3] == 0)) {
+				/* Full coverage, COPY */
+				d[0] = s[0];
+				d[1] = s[1];
+				d[2] = s[2];
+				d[3] = a;
+			} else {
+				unsigned int ca;
+				/* Full composition */
+				ca = 65025 - (255 - a) * (255 - d[3]);
+				d[0] = NR_COMPOSENNN_A7 (s[0], a, d[0], d[3], ca);
+				d[1] = NR_COMPOSENNN_A7 (s[1], a, d[1], d[3], ca);
+				d[2] = NR_COMPOSENNN_A7 (s[2], a, d[2], d[3], ca);
+				d[3] = (ca + 127) / 255;
+			}
+			d += 4;
+			s += 3;
 		}
 		px += rs;
 		spx += srs;
@@ -853,6 +915,36 @@ nr_R8G8B8A8_P_R8G8B8A8_P_A8_RGBA32 (unsigned char *px, int w, int h, int rs, con
 }
 
 /* RGB */
+
+void
+nr_R8G8B8_R8G8B8_R8G8B8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+{
+	int r, c;
+
+	if (alpha == 0) return;
+
+	for (r = 0; r < h; r++) {
+		const unsigned char *s;
+		unsigned char *d;
+		d = px;
+		s = spx;
+		for (c = 0; c < w; c++) {
+			if (alpha == 255) {
+				d[0] = s[0];
+				d[1] = s[1];
+				d[2] = s[2];
+			} else {
+				d[0] = NR_COMPOSEN11 (s[0], alpha, d[0]);
+				d[1] = NR_COMPOSEN11 (s[1], alpha, d[1]);
+				d[2] = NR_COMPOSEN11 (s[2], alpha, d[2]);
+			}
+			d += 3;
+			s += 3;
+		}
+		px += rs;
+		spx += srs;
+	}
+}
 
 void
 nr_R8G8B8_R8G8B8_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)

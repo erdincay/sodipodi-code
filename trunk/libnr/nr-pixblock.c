@@ -14,8 +14,6 @@
 #include "nr-macros.h"
 #include "nr-pixblock.h"
 
-#define NR_TINY_MAX sizeof (unsigned char *)
-
 void
 nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear)
 {
@@ -29,7 +27,7 @@ nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1
 
 	if (size <= NR_TINY_MAX) {
 		pb->size = NR_PIXBLOCK_SIZE_TINY;
-		if (clear) memset (pb->data.p, 0x0, size);
+		if (clear && size) memset (pb->data.p, 0x0, size);
 	} else if (size <= 4096) {
 		pb->size = NR_PIXBLOCK_SIZE_4K;
 		pb->data.px = nr_pixelstore_4K_new (clear, 0x0);
@@ -67,7 +65,7 @@ nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int
 
 	if (size <= NR_TINY_MAX) {
 		pb->size = NR_PIXBLOCK_SIZE_TINY;
-		if (clear) memset (pb->data.p, 0x0, size);
+		if (clear && size) memset (pb->data.p, 0x0, size);
 	} else {
 		pb->size = NR_PIXBLOCK_SIZE_BIG;
 		pb->data.px = nr_new (unsigned char, size);
