@@ -12,6 +12,14 @@
  *
  */
 
+// Disable VS2005 nagging
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE 1
+#endif
+#ifndef _CRT_NON_CONFORMING_SWPRINTFS
+#define _CRT_NON_CONFORMING_SWPRINTFS 1
+#endif
+
 #ifndef WIN32
 #include <unistd.h>
 #include <sys/mman.h>

@@ -6,6 +6,11 @@
 // Copyright (C) Lauris Kaplinski 2004
 //
 
+// Disable VS2005 nagging
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE 1
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -16,6 +21,9 @@
 
 #ifndef WIN32
 #define _strnicmp strncasecmp
+#define g_strdup strdup
+#else
+#define g_strdup _strdup
 #endif
 
 #ifndef MIN
@@ -597,7 +605,7 @@ TokenMMap::TokenMMap (const Token& filename, const Token& mapid)
 	if (mapid.isEmpty ()) {
 		static int mapc = 0;
 		sprintf (b, "EZD_mapid_%d", mapc++);
-		_mapid = ::strdup (b);
+		_mapid = g_strdup (b);
 	} else {
 		_mapid = mapid.strdup ();
 	}

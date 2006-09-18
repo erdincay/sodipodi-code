@@ -52,6 +52,9 @@ unsigned int arikkei_ucs2_strncpy (const unsigned short *s, unsigned short *d, u
 
 #ifdef __cplusplus
 
+#include <string.h>
+#include <stdlib.h>
+
 namespace Arikkei {
 
 // Suppress MSVC 2005 nagging

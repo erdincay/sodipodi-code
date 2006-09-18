@@ -12,6 +12,11 @@
  *
  */
 
+// Disable VS2005 nagging
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE 1
+#endif
+
 #include <malloc.h>
 #include <string.h>
 

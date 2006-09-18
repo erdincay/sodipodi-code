@@ -51,7 +51,7 @@ arikkei_pointer_hash (const void *data)
 {
 	unsigned int hval, p;
 	hval = 0;
-	p = (unsigned int) data;
+	p = (unsigned int) ((const char *) data - (const char *) 0);
 	while (p) {
 		hval ^= p;
 		p /= 17;
@@ -70,7 +70,7 @@ arikkei_int_hash (const void *data)
 {
 	unsigned int hval, p;
 	hval = 0;
-	p = (unsigned int) data;
+	p = (unsigned int) ((const char *) data - (const char *) 0);
 	while (p) {
 		hval ^= p;
 		p /= 17;
@@ -81,7 +81,7 @@ arikkei_int_hash (const void *data)
 static unsigned int
 arikkei_int_equal (const void *l, const void *r)
 {
-	return (unsigned int) l == (unsigned int) r;
+	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) l - (const char *) 0);
 }
 
 void
