@@ -68,7 +68,7 @@ arikkei_strtod_simple (const unsigned char *str, unsigned int len, double *val)
 
 	/* assert ((*val > -1e17) && (*val < 1e17)); */
 
-	return p - str;
+	return (unsigned int) (p - str);
 }
 
 unsigned int
@@ -84,7 +84,7 @@ arikkei_strtod_exp (const unsigned char *str, unsigned int len, double *val)
 	if ((*p == 'e') || (*p == 'E')) {
 		double exval;
 		unsigned int exlen;
-		exlen = arikkei_strtod_simple (p + 1, (str + len) - (p + 1), &exval);
+		exlen = arikkei_strtod_simple (p + 1, (unsigned int) ((str + len) - (p + 1)), &exval);
 		if (exlen) {
 			p += 1;
 			p += exlen;
@@ -95,7 +95,7 @@ arikkei_strtod_exp (const unsigned char *str, unsigned int len, double *val)
 
 	/* assert ((*val > -1e17) && (*val < 1e17)); */
 
-	return p - str;
+	return (unsigned int) (p - str);
 }
 
 unsigned int
@@ -275,7 +275,7 @@ arikkei_ucs2_strlen (const unsigned short *str)
 	const unsigned short *s;
 	s = str;
 	while (*s) s += 1;
-	return s - str;
+	return (unsigned int) (s - str);
 }
 
 unsigned int
