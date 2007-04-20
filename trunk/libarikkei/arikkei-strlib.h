@@ -73,7 +73,17 @@ public:
 	UTEXT (void) : _utf8(0), _ucs2(0) {}
 	UTEXT (const char *utf8) : _ucs2(0) { _utf8 = (unsigned char *) strdup (utf8); }
 	UTEXT (const unsigned char *utf8) : _ucs2(0) { _utf8 = (unsigned char *) strdup ((const char *) utf8); }
+	UTEXT (const unsigned char *utf8, size_t nbytes) : _ucs2(0) {
+		_utf8 = (unsigned char *) malloc (nbytes + 1);
+		memcpy (_utf8, utf8, nbytes);
+		_utf8[nbytes] = 0;
+	}
 	UTEXT (const unsigned short *ucs2) : _utf8(0) { _ucs2 = arikkei_ucs2_strdup (ucs2); }
+	UTEXT (const unsigned short *ucs2, size_t len) : _utf8(0) {
+		_ucs2 = (unsigned short *) malloc ((len + 1) * sizeof (unsigned short));
+		memcpy (_ucs2, ucs2, len * sizeof (unsigned short));
+		_ucs2[len] = 0;
+	}
 	UTEXT (const UTEXT& utext) {
 		_utf8 = (utext._utf8) ? (unsigned char *) strdup ((const char *) utext._utf8) : NULL;
 		_ucs2 = (utext._ucs2 && !_utf8) ? arikkei_ucs2_strdup (utext._ucs2) : NULL;

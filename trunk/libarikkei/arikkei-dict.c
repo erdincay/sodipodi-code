@@ -24,7 +24,7 @@
 struct _ArikkeiDictEntry {
 	int next;
 	const void *key;
-	void *val;
+	const void *val;
 };
 
 static unsigned int
@@ -127,7 +127,7 @@ arikkei_dict_release (ArikkeiDict *dict)
 }
 
 void
-arikkei_dict_insert (ArikkeiDict *dict, const void *key, void *val)
+arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val)
 {
 	unsigned int hval;
 	int pos;
@@ -198,7 +198,7 @@ arikkei_dict_remove (ArikkeiDict *dict, const void *key)
 	}
 }
 
-void *
+const void *
 arikkei_dict_lookup (ArikkeiDict *dict, const void *key)
 {
 	unsigned int hval;
