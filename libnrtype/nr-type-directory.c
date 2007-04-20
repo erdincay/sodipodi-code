@@ -15,6 +15,15 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+/* For MSVC 2005 */
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE 1
+#endif
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
+#endif
+
 #include <math.h>
 
 #include <string.h>
@@ -300,7 +309,12 @@ nr_type_register (NRTypeFaceDef *def)
 	fdef = nr_type_dict_lookup (familydict, def->family);
 	if (!fdef) {
 		fdef = nr_new (NRFamilyDef, 1);
+#ifndef WIN32
 		fdef->name = strdup (def->family);
+#else
+		/* Suppress MSVC complaining */
+		fdef->name = _strdup (def->family);
+#endif
 		fdef->faces = NULL;
 		fdef->next = families;
 		families = fdef;
@@ -367,11 +381,7 @@ nr_type_directory_style_list_get (const unsigned char *family, NRNameList *style
 static int
 nr_type_family_def_compare (const void *a, const void *b)
 {
-#ifndef WIN32
 	return strcasecmp ((*((NRFamilyDef **) a))->name, (*((NRFamilyDef **) b))->name);
-#else
-	return stricmp ((*((NRFamilyDef **) a))->name, (*((NRFamilyDef **) b))->name);
-#endif
 }
 
 static void
@@ -522,26 +532,15 @@ nr_type_distance_family_better (const unsigned char *ask, const unsigned char *b
 {
 	int alen, blen;
 
-#ifndef WIN32
 	if (!strcasecmp (ask, bid)) return MIN (best, 0.0F);
-#else
-	if (!stricmp (ask, bid)) return MIN (best, 0.0F);
-#endif
 
 	alen = (int) strlen (ask);
 	blen = (int) strlen (bid);
 
-#ifndef WIN32
 	if ((blen < alen) && !strncasecmp (ask, bid, blen)) return MIN (best, 1.0F);
 	if (!strcasecmp (bid, "bitstream cyberbit")) return MIN (best, 10.0F);
 	if (!strcasecmp (bid, "arial")) return MIN (best, 100.0F);
 	if (!strcasecmp (bid, "helvetica")) return MIN (best, 1000.0F);
-#else
-	if ((blen < alen) && !strnicmp (ask, bid, blen)) return MIN (best, 1.0F);
-	if (!stricmp (bid, "bitstream cyberbit")) return MIN (best, 10.0F);
-	if (!stricmp (bid, "arial")) return MIN (best, 100.0F);
-	if (!stricmp (bid, "helvetica")) return MIN (best, 1000.0F);
-#endif
 
 	return 10000.0;
 }

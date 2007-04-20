@@ -46,6 +46,6 @@ nr_type_dict_insert (NRTypeDict *td, const unsigned char *key, void *val)
 void *
 nr_type_dict_lookup (NRTypeDict *td, const unsigned char *key)
 {
-	return arikkei_dict_lookup ((ArikkeiDict *) td, key);
+	return (void *) arikkei_dict_lookup ((ArikkeiDict *) td, key);
 }
 

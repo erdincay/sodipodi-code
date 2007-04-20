@@ -117,9 +117,10 @@ arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *
                 0,              /* low offset:   beginning */
                 0);             /* default: map entire file */
 
-        /* if (cdata == NULL) { */
-            CloseHandle(hMapObject);
-        /* } */
+		if (cdata == NULL) {
+			DWORD ecode = GetLastError ();
+		}
+		CloseHandle (hMapObject);
     } else {
         cdata = NULL;
     }

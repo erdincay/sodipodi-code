@@ -217,6 +217,8 @@ arikkei_utf8_strlen (const unsigned char *str)
 			s += 5;
 		} else if ((*s & 0xfe) == 0xfc) {
 			s += 6;
+		} else {
+			return len;
 		}
 		len += 1;
 	}
