@@ -27,8 +27,6 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 
 	if (alpha == 0) return;
 	if (s->empty) return;
-	/* fixme: */
-	if (s->mode == NR_PIXBLOCK_MODE_A8) return;
 
 	/*
 	 * Possible variants as of now:
@@ -66,15 +64,21 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 
 	switch (d->mode) {
 	case NR_PIXBLOCK_MODE_A8:
-		/* No rendering into alpha at moment */
+		if (s->mode == NR_PIXBLOCK_MODE_A8) {
+			nr_A8_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+		} else {
+			/* fixme: Implement color rendering (Lauris) */
+		}
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8:
 		if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 			nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
 		} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 			nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-		} else {
+		} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
 			nr_R8G8B8_R8G8B8_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+		} else {
+			/* fixme: Implement mask rendering (Lauris) */
 		}
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8A8P:
@@ -82,17 +86,21 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 				/* Case 8 */
 				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N){
 				/* Case C */
 				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				/* fixme: Implement mask and RGB rendering (Lauris) */
 			}
 		} else {
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 				/* case A */
 				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* case E */
 				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				/* fixme: Implement mask and RGB rendering (Lauris) */
 			}
 		}
 		break;
@@ -104,8 +112,10 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* Case D */
 				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else  if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
 				nr_R8G8B8A8_N_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				/* fixme: Implement mask rendering (Lauris) */
 			}
 		} else {
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
@@ -114,8 +124,10 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* case F */
 				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
+			} else  if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
 				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				/* fixme: Implement mask rendering (Lauris) */
 			}
 		}
 		break;

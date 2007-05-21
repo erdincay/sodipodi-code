@@ -27,6 +27,28 @@ void nr_mmx_R8G8B8_R8G8B8_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, c
 #endif
 
 void
+nr_A8_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+{
+	int r, c;
+
+	for (r = 0; r < h; r++) {
+		if (alpha == 0) {
+			memset (px, 0x0, 4 * w);
+		} else {
+			const unsigned char *s;
+			unsigned char *d;
+			d = px;
+			s = spx;
+			for (c = 0; c < w; c++) {
+				*d++ = (*s++ * alpha + 127) / 255;
+			}
+		}
+		px += rs;
+		spx += srs;
+	}
+}
+
+void
 nr_R8G8B8A8_N_EMPTY_R8G8B8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
 {
 	int r, c;
