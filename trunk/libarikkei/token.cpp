@@ -1,4 +1,4 @@
-#define __TOKEN_CPP__
+#define __ARIKKEI_TOKEN_CPP__
 
 //
 // Krieg3
@@ -16,7 +16,7 @@
 
 #include "arikkei-iolib.h"
 
-#include "arikkei-token.h"
+#include "token.h"
 
 #ifndef WIN32
 #define _strnicmp strncasecmp
@@ -47,8 +47,8 @@ const char *
 Token<char>::getPData (void)
 {
 	if (!_pdata && _cdata) {
-		_pdata = (char *) malloc (_len + 1);
-		if (_len > 0) ::strncpy (_pdata, _cdata, _len);
+		_pdata = (char *) malloc ((_len + 1) * sizeof (char));
+		if (_len > 0) memcpy (_pdata, _cdata, _len * sizeof (char));
 		_pdata[_len] = 0;
 	}
 	return _pdata;
@@ -106,6 +106,19 @@ Token<char>::getLine (void) const
 	return Token<char> (_cdata, e);
 }
 
+Token<unsigned short>
+Token<unsigned short>::getLine (void) const
+{
+	// Test if empty
+	if (isEmpty ()) return *this;
+	// Drop sign
+	unsigned short *p = (unsigned short *) _cdata;
+	// Search end
+	size_t e = 0;
+	while ((e < _len) && ((p[e] >= 32) || (p[e] == 9))) e += 1;
+	return Token<unsigned short> (_cdata, e);
+}
+
 Token<char>
 Token<char>::nextLine (const Token& line) const
 {
@@ -118,6 +131,20 @@ Token<char>::nextLine (const Token& line) const
 	size_t e = s;
 	while ((e < _len) && ((p[e] >= 32) || (p[e] == 9))) e += 1;
 	return Token<char> (_cdata, s, e);
+}
+
+Token<unsigned short>
+Token<unsigned short>::nextLine (const Token& line) const
+{
+	if (isEmpty ()) return *this;
+	if (!line.isValid ()) return getLine ();
+	// Drop sign
+	unsigned short *p = (unsigned short *) _cdata;
+	size_t s = (line.getCData () - _cdata) + line.getLength ();
+	while ((s < _len) && (p[s] < 32) && (p[s] != 9)) s += 1;
+	size_t e = s;
+	while ((e < _len) && ((p[e] >= 32) || (p[e] == 9))) e += 1;
+	return Token<unsigned short> (_cdata, s, e);
 }
 
 void
@@ -148,13 +175,7 @@ Token<char>::strconcat (const Token<char> *tokens, int size, const Token<char>& 
 // Line iterator
 
 bool
-TokenLine::eof (void)
-{
-	return (getCData () >= (_master.getCData () + _master.getLength ()));
-}
-
-bool
-TokenLine::forward (bool skipempty)
+TokenLine<char>::forward (bool skipempty)
 {
 	if (eof ()) return false;
 	Token n = _master.nextLine (*this);
@@ -172,94 +193,26 @@ TokenLine::forward (bool skipempty)
 	return true;
 }
 
-TokenLine&
-TokenLine::operator= (const TokenLine& token)
+bool
+TokenLine<unsigned short>::forward (bool skipempty)
 {
-	set (token);
-	_master = token._master;
-	return (*this);
-}
-
-TokenLine&
-TokenLine::operator= (const Token& token)
-{
-	set (token);
-	_master = token;
-	return (*this);
-}
-
-TokenLine&
-TokenLine::operator++ (void)
-{
+	if (eof ()) return false;
 	Token n = _master.nextLine (*this);
 	set (n);
-	return *this;
-}
-
-TokenLine
-TokenLine::operator++ (int v)
-{
-	TokenLine orig = *this;
-	Token n = _master.nextLine (*this);
-	set (n);
-	return orig;
-}
-
-void
-TokenLine::rewind (void)
-{
-	set (_master.getLine ());
-}
-
-bool
-TokenLine::parse (const char *id, int& v0)
-{
-	Token tokenz[3];
-	int ntokenz = tokenize (tokenz, 3, true, true, true);
-	if (ntokenz != 2) return false;
-	if (tokenz[0].strip () != id) return false;
-	v0 = (int) tokenz[1].strip ();
-	forward ();
+	if (eof ()) return false;
+	if (skipempty) {
+		Token st = strip ();
+		while (st.isEmpty ()) {
+			Token n = _master.nextLine (*this);
+			set (n);
+			Token st = strip ();
+			if (eof ()) return false;
+		}
+	}
 	return true;
 }
 
-bool
-TokenLine::parse (const char *id, int& v0, int& v1)
-{
-	Token tokenz[4];
-	int ntokenz = tokenize (tokenz, 4, true, true, true);
-	if (ntokenz != 3) return false;
-	if (tokenz[0].strip () != id) return false;
-	v0 = (int) tokenz[1].strip ();
-	v1 = (int) tokenz[2].strip ();
-	forward ();
-	return true;
-}
-
-bool
-TokenLine::parse (const char *id, float& v0)
-{
-	Token tokenz[3];
-	int ntokenz = tokenize (tokenz, 3, true, true, true);
-	if (ntokenz != 2) return false;
-	if (tokenz[0].strip () != id) return false;
-	v0 = (float) tokenz[1].strip ();
-	forward ();
-	return true;
-}
-
-bool
-TokenLine::parse (const char *id, float& v0, float& v1)
-{
-	Token tokenz[4];
-	int ntokenz = tokenize (tokenz, 4, true, true, true);
-	if (ntokenz != 3) return false;
-	if (tokenz[0].strip () != id) return false;
-	v0 = (float) tokenz[1].strip ();
-	v1 = (float) tokenz[2].strip ();
-	forward ();
-	return true;
-}
+// TokenMMap
 
 TokenMMap::TokenMMap (const CToken& filename, const CToken& mapid)
 : CToken(), _filename(filename.strdup ())
