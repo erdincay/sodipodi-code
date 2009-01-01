@@ -9,8 +9,14 @@
  * This code is in public domain
  */
 
+/* Disable VS2008 nagging */
+#define _CRT_SECURE_NO_WARNINGS 1
+
 #include <windows.h>
 #include <windowsx.h>
+
+/* Disable VS2008 nagging */
+#define strdup _strdup
 
 #include <stdio.h>
 #include <tchar.h>
@@ -224,7 +230,7 @@ nr_type_read_w32_list (void)
 		}
 		if (family) {
 			LOGFONT *logfont;
-			logfont = arikkei_dict_lookup (&namedict, wnames.names[i]);
+			logfont = (LOGFONT *) arikkei_dict_lookup (&namedict, wnames.names[i]);
 			if (logfont) {
 				tdef = nr_new (NRTypeFaceDef, 1);
 				tdef->next = NULL;
@@ -261,7 +267,7 @@ nr_typeface_w32_setup (NRTypeFace *tface, NRTypeFaceDef *def)
 	((NRTypeFaceClass *) (parent_class))->setup (tface, def);
 
 	tfw32->fonts = NULL;
-	tfw32->logfont = arikkei_dict_lookup (&namedict, def->name);
+	tfw32->logfont = (LOGFONT *) arikkei_dict_lookup (&namedict, def->name);
 	/* tfw32->weight=w32_to_nr_weight(tfw32->logfont->lfWeight); */
 	/* tfw32->slant=w32_to_nr_slant(tfw32->logfont->lfItalic); */
 	tfw32->logfont->lfHeight = -1000;

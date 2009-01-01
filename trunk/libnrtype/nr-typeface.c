@@ -9,7 +9,18 @@
  * This code is in public domain
  */
 
+#ifdef WIN32
+/* Disable VS2008 nagging */
+#define _CRT_SECURE_NO_WARNINGS 1
+#endif
+
 #include <string.h>
+
+#ifdef WIN32
+/* Disable VS2008 nagging */
+#define strdup _strdup
+#endif
+
 #include <libnr/nr-macros.h>
 #include <libnr/nr-matrix.h>
 #include "nr-typeface.h"
