@@ -12,6 +12,10 @@
 #include <string.h>
 #include <stdio.h>
 
+#ifdef WIN32
+#define strdup _strdup
+#endif
+
 #include <libnr/nr-macros.h>
 
 #include "nr-object.h"
@@ -64,7 +68,7 @@ nr_object_check_instance_type (void *ip, unsigned int tc)
 
 unsigned int
 nr_object_register_type (unsigned int parent,
-			 unsigned char *name,
+			 const unsigned char *name,
 			 unsigned int csize,
 			 unsigned int isize,
 			 void (* cinit) (NRObjectClass *),
@@ -95,7 +99,7 @@ nr_object_register_type (unsigned int parent,
 
 	klass->type = type;
 	klass->parent = classes[parent];
-	klass->name = strdup (name);
+	klass->name = (unsigned char *) strdup ((const char *) name);
 	klass->csize = csize;
 	klass->isize = isize;
 	klass->cinit = cinit;
@@ -116,7 +120,7 @@ nr_object_get_type (void)
 	static unsigned int type = 0;
 	if (!type) {
 		type = nr_object_register_type (0,
-						"NRObject",
+						(const unsigned char *) "NRObject",
 						sizeof (NRObjectClass),
 						sizeof (NRObject),
 						(void (*) (NRObjectClass *)) nr_object_class_init,
@@ -231,7 +235,7 @@ nr_active_object_get_type (void)
 	static unsigned int type = 0;
 	if (!type) {
 		type = nr_object_register_type (NR_TYPE_OBJECT,
-						"NRActiveObject",
+						(const unsigned char *) "NRActiveObject",
 						sizeof (NRActiveObjectClass),
 						sizeof (NRActiveObject),
 						(void (*) (NRObjectClass *)) nr_active_object_class_init,
