@@ -15,9 +15,11 @@
 
 #include <stdlib.h>
 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 
 const unsigned char *arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *name);
 void arikkei_munmap (const unsigned char *buffer, size_t size);
