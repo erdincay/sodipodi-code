@@ -433,10 +433,10 @@ NRRectF *
 nr_rect_f_translate_xy (NRRectF *d, double x, double y)
 {
 	if (d) {
-		d->x0 += x;
-		d->x1 += x;
-		d->y0 += y;
-		d->y1 += y;
+		d->x0 += (float) x;
+		d->x1 += (float) x;
+		d->y0 += (float) y;
+		d->y1 += (float) y;
 	}
 	return d;
 }

@@ -24,6 +24,10 @@
 #include <string.h>
 #include <assert.h>
 
+#ifdef WIN32
+#define alloca _alloca
+#endif
+
 #include "nr-pathops.h"
 
 static struct _NRNode *nr_node_alloc (void);
@@ -79,7 +83,7 @@ nr_node_flatten_curve (double x0, double y0, double x1, double y1, double x2, do
 	x0 = QROUND (x0);
 	y0 = QROUND (y0);
 	if ((x0 != next->x) || (y0 != next->y)) {
-		node = nr_flat_node_new (x0, y0, s0);
+		node = nr_flat_node_new ((float) x0, (float) y0, s0);
 		node->next = next;
 		next->prev = node;
 		node->prev = NULL;
@@ -145,8 +149,8 @@ nr_node_path_build_moveto (float x0, float y0, unsigned int flags, void *data)
 	nseg->closed = ((flags & NR_PATH_CLOSED) != 0);
 	nseg->value = ndata->val;
 	/* Round and save coordinates */
-	ndata->x0 = QROUND (x0);
-	ndata->y0 = QROUND (y0);
+	ndata->x0 = (float) QROUND (x0);
+	ndata->y0 = (float) QROUND (y0);
 	/* ndata->curnode = NULL; */
 	return 1;
 }
@@ -159,8 +163,8 @@ nr_node_path_build_lineto (float x0, float y0, float x1, float y1, unsigned int 
 	ndata = (struct _NRNodePathBuildData *) data;
 	/* Current segment */
 	nseg = ndata->npath->segs + ndata->curseg;
-	x1 = QROUND (x1);
-	y1 = QROUND (y1);
+	x1 = (float) QROUND (x1);
+	y1 = (float) QROUND (y1);
 	if ((x1 != ndata->x0) || (y1 != ndata->y0)) {
 		struct _NRNode *node;
 		if (!nseg->nodes) {
@@ -190,14 +194,14 @@ nr_node_path_build_curveto3 (float x0, float y0, float x1, float y1, float x2, f
 	ndata = (struct _NRNodePathBuildData *) data;
 	/* Current segment */
 	nseg = ndata->npath->segs + ndata->curseg;
-	x0 = QROUND (x0);
-	y0 = QROUND (y0);
-	x1 = QROUND (x1);
-	y1 = QROUND (y1);
-	x2 = QROUND (x2);
-	y2 = QROUND (y2);
-	x3 = QROUND (x3);
-	y3 = QROUND (y3);
+	x0 = (float) QROUND (x0);
+	y0 = (float) QROUND (y0);
+	x1 = (float) QROUND (x1);
+	y1 = (float) QROUND (y1);
+	x2 = (float) QROUND (x2);
+	y2 = (float) QROUND (y2);
+	x3 = (float) QROUND (x3);
+	y3 = (float) QROUND (y3);
 	if ((x3 != x0) || (y3 != y0) || (x1 != x0) || (y3 != y0) || (x2 != x0) || (y2 != y0)) {
 		struct _NRNode *node;
 		if (!nseg->nodes) {
@@ -223,8 +227,8 @@ nr_node_path_build_curveto2 (float x0, float y0, float x1, float y1, float x2, f
 			     unsigned int flags, void *data)
 {
 	return nr_node_path_build_curveto3 (x0, y0,
-					    x1 + (x0 - x1) / 3.0, y1 + (y0 - y1) / 3.0,
-					    x1 + (x2 - x1) / 3.0, y1 + (y2 - y1) / 3.0, x2, y2, flags, data);
+					    x1 + (x0 - x1) / 3.0f, y1 + (y0 - y1) / 3.0f,
+					    x1 + (x2 - x1) / 3.0f, y1 + (y2 - y1) / 3.0f, x2, y2, flags, data);
 }
 
 static unsigned int
@@ -235,10 +239,10 @@ nr_node_path_build_endpath (float ex, float ey, float sx, float sy, unsigned int
 	ndata = (struct _NRNodePathBuildData *) data;
 	/* Current segment */
 	nseg = ndata->npath->segs + ndata->curseg;
-	sx = QROUND (sx);
-	sy = QROUND (sy);
-	ex = QROUND (ex);
-	ey = QROUND (ey);
+	sx = (float) QROUND (sx);
+	sy = (float) QROUND (sy);
+	ex = (float) QROUND (ex);
+	ey = (float) QROUND (ey);
 	if ((flags & NR_PATH_CLOSED) && ((sx != ex) || (sy != ey))) {
 		nr_node_path_build_lineto (ex, ey, sx, sy, flags, data);
 	}
@@ -432,8 +436,8 @@ static unsigned int
 nr_node_list_insert_line_round (struct _NRNode *node, float x, float y)
 {
 	struct _NRNode *nnode;
-	x = QROUND (x);
-	y = QROUND (y);
+	x = (float) QROUND (x);
+	y = (float) QROUND (y);
 	if ((x == node->x3) && (y == node->y3)) return 0;
 	if ((x == node->next->x3) && (y == node->next->y3)) return 0;
 	nnode = nr_node_new_line (x, y);
@@ -454,8 +458,8 @@ nr_node_list_insert_curve_round (struct _NRNode *node, struct _NRFlatNode *flat,
 	double dlen, slen, s, t;
 	float dx, dy;
 
-	x = QROUND (x);
-	y = QROUND (y);
+	x = (float) QROUND (x);
+	y = (float) QROUND (y);
 
 	/* Stop if rounded to the next node */
 	if ((x == flat->next->x) && (y == flat->next->y) && !flat->next->next) return 0;
@@ -493,15 +497,15 @@ nr_node_list_insert_curve_round (struct _NRNode *node, struct _NRFlatNode *flat,
 	y1tt = t * y01t + s * y11t;
 	yttt = t * y0tt + s * y1tt;
 
-	nnode = nr_node_new_curve (QROUND (x00t), QROUND (y00t), QROUND (x0tt), QROUND (y0tt), x, y);
+	nnode = nr_node_new_curve ((float) QROUND (x00t), (float) QROUND (y00t), (float) QROUND (x0tt), (float) QROUND (y0tt), x, y);
 	nnode->prev = node;
 	nnode->next = node->next;
 	node->next = nnode;
 	nnode->next->prev = nnode;
-	nnode->next->x1 = QROUND (x1tt);
-	nnode->next->y1 = QROUND (y1tt);
-	nnode->next->x2 = QROUND (x11t);
-	nnode->next->y2 = QROUND (y11t);
+	nnode->next->x1 = (float) QROUND (x1tt);
+	nnode->next->y1 = (float) QROUND (y1tt);
+	nnode->next->x2 = (float) QROUND (x11t);
+	nnode->next->y2 = (float) QROUND (y11t);
 
 	/* Insert new flat at the beginning of new seg if needed */
 	if ((x != flat->next->x) || (y != flat->next->y)) {
@@ -571,11 +575,11 @@ nr_node_uncross (struct _NRNode *n0_0, struct _NRNode *n1_0)
 				/* Insert new nodes at ca and cb */
 				while (nda > 0) {
 					nda -= 1;
-					nr_node_list_insert_line_round (n0_0, ca[nda].x, ca[nda].y);
+					nr_node_list_insert_line_round (n0_0, (float) ca[nda].x, (float) ca[nda].y);
 				}
 				while (ndb > 0) {
 					ndb -= 1;
-					nr_node_list_insert_line_round (n1_0, cb[ndb].x, cb[ndb].y);
+					nr_node_list_insert_line_round (n1_0, (float) cb[ndb].x, (float) cb[ndb].y);
 				}
 				return 1;
 			}
@@ -598,11 +602,11 @@ nr_node_uncross (struct _NRNode *n0_0, struct _NRNode *n1_0)
 						/* Insert new nodes at ca and cb */
 						while (nda > 0) {
 							nda -= 1;
-							nr_node_list_insert_line_round (n0_0, ca[nda].x, ca[nda].y);
+							nr_node_list_insert_line_round (n0_0, (float) ca[nda].x, (float) ca[nda].y);
 						}
 						while (ndb > 0) {
 							ndb -= 1;
-							nr_node_list_insert_curve_round (n1_0, f0, cb[ndb].x, cb[ndb].y);
+							nr_node_list_insert_curve_round (n1_0, f0, (float) cb[ndb].x, (float) cb[ndb].y);
 						}
 					}
 				}
@@ -631,11 +635,11 @@ nr_node_uncross (struct _NRNode *n0_0, struct _NRNode *n1_0)
 						/* Insert new nodes at ca and cb */
 						while (nda > 0) {
 							nda -= 1;
-							nr_node_list_insert_curve_round (n0_0, f0, ca[nda].x, ca[nda].y);
+							nr_node_list_insert_curve_round (n0_0, f0, (float) ca[nda].x, (float) ca[nda].y);
 						}
 						while (ndb > 0) {
 							ndb -= 1;
-							nr_node_list_insert_line_round (n1_0, cb[ndb].x, cb[ndb].y);
+							nr_node_list_insert_line_round (n1_0, (float) cb[ndb].x, (float) cb[ndb].y);
 						}
 					}
 				}
@@ -671,11 +675,11 @@ nr_node_uncross (struct _NRNode *n0_0, struct _NRNode *n1_0)
 						/* B has to be first for self-interect to work */
 						while (ndb > 0) {
 							ndb -= 1;
-							nr_node_list_insert_curve_round (n1_0, f1, cb[ndb].x, cb[ndb].y);
+							nr_node_list_insert_curve_round (n1_0, f1, (float) cb[ndb].x, (float) cb[ndb].y);
 						}
 						while (nda > 0) {
 							nda -= 1;
-							nr_node_list_insert_curve_round (n0_0, f0, ca[nda].x, ca[nda].y);
+							nr_node_list_insert_curve_round (n0_0, f0, (float) ca[nda].x, (float) ca[nda].y);
 						}
 					}
 				}
@@ -990,7 +994,7 @@ nr_wind_matrix_test (struct _NRNodePath *path, int *winds, int idx, int ngroups,
 	int sval, i;
 	sval = path->segs[idx].value;
 	for (i = 0; i < 256; i++) gwinds[i] = 0;
-	for (i = 0; i < path->nsegs; i++) {
+	for (i = 0; i < (int) path->nsegs; i++) {
 		gwinds[path->segs[i].value] += winds[i];
 	}
 	/* Test AND */
@@ -1111,11 +1115,11 @@ nr_node_path_rewind (struct _NRNodePath *path, int ngroups, int *and, int *or, i
 	int nsegs;
 	int *idx;
 	winds = (int *) malloc (path->nsegs * path->nsegs * sizeof (int));
-	for (i = 0; i < path->nsegs; i++) {
+	for (i = 0; i < (int) path->nsegs; i++) {
 #ifdef DEBUG_REWIND
 		g_print ("Seg %d (%d): ", i, path->segs[i].value);
 #endif
-		for (j = 0; j < path->nsegs; j++) {
+		for (j = 0; j < (int) path->nsegs; j++) {
 			winds[i * path->nsegs + j] = nr_node_path_seg_get_wind (path, i, j);
 #ifdef DEBUG_REWIND
 			g_print ("%d ", winds[i * path->nsegs + j]);
@@ -1126,8 +1130,8 @@ nr_node_path_rewind (struct _NRNodePath *path, int ngroups, int *and, int *or, i
 #endif
 	}
 	nsegs = 0;
-	idx = alloca (path->nsegs * sizeof (int));
-	for (i = 0; i < path->nsegs; i++) {
+	idx = (int *) alloca (path->nsegs * sizeof (int));
+	for (i = 0; i < (int) path->nsegs; i++) {
 		if (nr_wind_matrix_test (path, winds + i * path->nsegs, i, ngroups, and, or, self)) {
 			idx[nsegs] = i;
 			nsegs += 1;

@@ -93,8 +93,8 @@ nr_svl_stroke_build_lineto (NRSVLStrokeBuild *svlb, float x, float y)
 			/* Second point on line */
 			svlb->x[1] = x;
 			svlb->y[1] = y;
-			dx = svlb->x[1] - svlb->x[0];
-			dy = svlb->y[1] - svlb->y[0];
+			dx = (float) (svlb->x[1] - svlb->x[0]);
+			dy = (float) (svlb->y[1] - svlb->y[0]);
 			len = (float) sqrt (dx * dx + dy * dy);
 			/* Extra check for WinME */
 			if (fabs (len) < NR_EPSILON_F) return;
@@ -104,17 +104,17 @@ nr_svl_stroke_build_lineto (NRSVLStrokeBuild *svlb, float x, float y)
 			dy *= svlb->width_2;
 			if (!svlb->closed) {
 				/* Draw cap[0,1] if open */
-				nr_svl_build_moveto (&svlb->left, svlb->x[0] + dy, svlb->y[0] - dx);
-				nr_svl_build_moveto (&svlb->right, svlb->x[0] + dy, svlb->y[0] - dx);
-				nr_svl_stroke_build_draw_cap (svlb, svlb->x[0], svlb->y[0], svlb->x[1], svlb->y[1], FALSE);
+				nr_svl_build_moveto (&svlb->left, (float) svlb->x[0] + dy, (float) svlb->y[0] - dx);
+				nr_svl_build_moveto (&svlb->right, (float) svlb->x[0] + dy, (float) svlb->y[0] - dx);
+				nr_svl_stroke_build_draw_cap (svlb, (float) svlb->x[0], (float) svlb->y[0], (float) svlb->x[1], (float) svlb->y[1], FALSE);
 			} else {
 				/* Set starting point */
-				nr_svl_build_moveto (&svlb->left, svlb->x[0] - dy, svlb->y[0] + dx);
-				nr_svl_build_moveto (&svlb->right, svlb->x[0] + dy, svlb->y[0] - dx);
+				nr_svl_build_moveto (&svlb->left, (float) svlb->x[0] - dy, (float) svlb->y[0] + dx);
+				nr_svl_build_moveto (&svlb->right, (float) svlb->x[0] + dy, (float) svlb->y[0] - dx);
 			}
 		} else {
 			/* Draw 2->3 + join 2->3->CP */
-			nr_svl_stroke_build_draw_join (svlb, svlb->x[2], svlb->y[2], svlb->x[3], svlb->y[3], x, y);
+			nr_svl_stroke_build_draw_join (svlb, (float) svlb->x[2], (float) svlb->y[2], (float) svlb->x[3], (float) svlb->y[3], x, y);
 		}
 		svlb->x[2] = svlb->x[3];
 		svlb->y[2] = svlb->y[3];
@@ -134,20 +134,20 @@ nr_svl_stroke_build_finish_subpath (NRSVLStrokeBuild *svlb)
 	if (svlb->closed) {
 		float len, dx, dy;
 		/* Draw 2->3 + join 2->3->1 */
-		nr_svl_stroke_build_draw_join (svlb, svlb->x[2], svlb->y[2], svlb->x[3], svlb->y[3], svlb->x[1], svlb->y[1]);
+		nr_svl_stroke_build_draw_join (svlb, (float) svlb->x[2], (float) svlb->y[2], (float) svlb->x[3], (float) svlb->y[3], (float) svlb->x[1], (float) svlb->y[1]);
 		/* And finsih possibly open paths */
-		dx = svlb->x[1] - svlb->x[0];
-		dy = svlb->y[1] - svlb->y[0];
+		dx = (float) (svlb->x[1] - svlb->x[0]);
+		dy = (float) (svlb->y[1] - svlb->y[0]);
 		len = (float) sqrt (dx * dx + dy * dy);
 		/* Extra check for WinME */
 		if (fabs (len) < NR_EPSILON_F) return;
-		dx = (svlb->x[1] - svlb->x[0]) / len;
-		dy = (svlb->y[1] - svlb->y[0]) / len;
-		nr_svl_build_lineto (&svlb->left, svlb->x[0] - dy * svlb->width_2, svlb->y[0] + dx * svlb->width_2);
-		nr_svl_build_lineto (&svlb->right, svlb->x[0] + dy * svlb->width_2, svlb->y[0] - dx * svlb->width_2);
+		dx = (float) (svlb->x[1] - svlb->x[0]) / len;
+		dy = (float) (svlb->y[1] - svlb->y[0]) / len;
+		nr_svl_build_lineto (&svlb->left, (float) svlb->x[0] - dy * svlb->width_2, (float) svlb->y[0] + dx * svlb->width_2);
+		nr_svl_build_lineto (&svlb->right, (float) svlb->x[0] + dy * svlb->width_2, (float) svlb->y[0] - dx * svlb->width_2);
 	} else {
 		/* Draw 2->3 plus cap 2->3 */
-		nr_svl_stroke_build_draw_cap (svlb, svlb->x[3], svlb->y[3], svlb->x[2], svlb->y[2], TRUE);
+		nr_svl_stroke_build_draw_cap (svlb, (float) svlb->x[3], (float) svlb->y[3], (float) svlb->x[2], (float) svlb->y[2], TRUE);
 	}
 }
 
@@ -313,7 +313,7 @@ NRSVL *nr_path_stroke (const NRPath *path, const NRMatrixF *transform,
 	}
 	svlb.bboxonly = FALSE;
 	svlb.closed = FALSE;
-	svlb.width_2 = MAX (width / 2.0, 0.0625);
+	svlb.width_2 = MAX (width / 2.0f, 0.0625f);
 	svlb.cap = cap;
 	svlb.join = join;
 	svlb.curve = FALSE;
@@ -368,7 +368,7 @@ nr_path_stroke_bbox_union (const NRPath *path, NRMatrixF *transform, NRRectF *bb
 	}
 	svlb.bboxonly = TRUE;
 	svlb.closed = FALSE;
-	svlb.width_2 = MAX (width / 2.0, 0.0625);
+	svlb.width_2 = MAX (width / 2.0f, 0.0625f);
 	svlb.cap = cap;
 	svlb.join = join;
 	svlb.curve = FALSE;
@@ -745,7 +745,7 @@ nr_svl_stroke_build_draw_cap (NRSVLStrokeBuild *svlb, float x0, float y0, float 
 	float len, dx, dy;
 	dx = x1 - x0;
 	dy = y1 - y0;
-	len = sqrt (dx * dx + dy * dy);
+	len = (float) sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len) < NR_EPSILON_F) return;
 	dx = (x1 - x0) / len;
@@ -771,8 +771,8 @@ nr_svl_stroke_build_draw_cap (NRSVLStrokeBuild *svlb, float x0, float y0, float 
 				     y0 - dx * svlb->width_2);
 		for (theta = 0.0; theta < M_PI; theta += (float) (M_PI / 32)) {
 			float ct, st;
-			ct = cos (theta);
-			st = sin (theta);
+			ct = (float) cos (theta);
+			st = (float) sin (theta);
 			nr_svl_build_lineto (&svlb->left,
 					     x0 + ct * dy * svlb->width_2 - st * dx * svlb->width_2,
 					     y0 - ct * dx * svlb->width_2 - st * dy * svlb->width_2);
@@ -814,7 +814,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 	double costheta;
 	dx = x1 - x0;
 	dy = y1 - y0;
-	len0 = sqrt (dx * dx + dy * dy);
+	len0 = (float) sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len0) < NR_EPSILON_F) return;
 	dx0 = (x1 - x0) / len0;
@@ -823,7 +823,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 	py0 = -dx0 * svlb->width_2;
 	dx = x2 - x1;
 	dy = y2 - y1;
-	len1 = sqrt (dx * dx + dy * dy);
+	len1 = (float) sqrt (dx * dx + dy * dy);
 	/* Extra check for WinME */
 	if (fabs (len1) < NR_EPSILON_F) return;
 	dx1 = (x2 - x1) / len1;
@@ -861,7 +861,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 			ly1 = cy + py1 - y1;
 			if (((lx0 * lx0 + ly0 * ly0) < (len0 * len0)) && ((lx1 * lx1 + ly1 * ly1) < (len1 * len1))) {
 				/* Can use intersection point */
-				nr_svl_build_lineto (&svlb->left, cx, cy);
+				nr_svl_build_lineto (&svlb->left, (float) cx, (float) cy);
 			} else {
 				/* Draw reversed bevel */
 				nr_svl_build_lineto (&svlb->left, x1 - px0, y1 - py0);
@@ -870,7 +870,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 			/* Draw right side */
 			if (join == NR_STROKE_JOIN_MITER) {
 				/* Miter */
-				nr_svl_build_lineto (&svlb->right, x1 + dx, y1 + dy);
+				nr_svl_build_lineto (&svlb->right, x1 + (float) dx, y1 + (float) dy);
 			} else if (join == NR_STROKE_JOIN_ROUND) {
 				double px, py;
 				/* Round */
@@ -879,7 +879,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 				py = SIN_R * px0 + COS_R * py0;
 				while ((px * py1 - py * px1) > 0.0) {
 					double sx, sy;
-					nr_svl_build_lineto (&svlb->right, x1 + px, y1 + py);
+					nr_svl_build_lineto (&svlb->right, x1 + (float) px, y1 + (float) py);
 					sx = COS_R * px + -SIN_R * py;
 					sy = SIN_R * px + COS_R * py;
 					px = sx;
@@ -905,7 +905,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 			ly1 = cy - py1 - y1;
 			if (((lx0 * lx0 + ly0 * ly0) < (len0 * len0)) && ((lx1 * lx1 + ly1 * ly1) < (len1 * len1))) {
 				/* Can use intersection point */
-				nr_svl_build_lineto (&svlb->right, cx, cy);
+				nr_svl_build_lineto (&svlb->right, (float) cx, (float) cy);
 			} else {
 				/* Draw reversed bevel */
 				nr_svl_build_lineto (&svlb->right, x1 + px0, y1 + py0);
@@ -914,7 +914,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 			/* Draw left side */
 			if (join == NR_STROKE_JOIN_MITER) {
 				/* Miter */
-				nr_svl_build_lineto (&svlb->left, x1 - dx, y1 - dy);
+				nr_svl_build_lineto (&svlb->left, x1 - (float) dx, y1 - (float) dy);
 			} else if (join == NR_STROKE_JOIN_ROUND) {
 				double px, py;
 				/* Round */
@@ -923,7 +923,7 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 				py = -SIN_R * -px0 + COS_R * -py0;
 				while ((px * -py1 - py * -px1) < 0.0) {
 					double sx, sy;
-					nr_svl_build_lineto (&svlb->left, x1 + px, y1 + py);
+					nr_svl_build_lineto (&svlb->left, x1 + (float) px, y1 + (float) py);
 					sx = COS_R * px + SIN_R * py;
 					sy = -SIN_R * px + COS_R * py;
 					px = sx;
@@ -941,12 +941,12 @@ nr_svl_stroke_build_draw_join (NRSVLStrokeBuild *svlb, float x0, float y0, float
 		/* Straight */
 		/* Draw right side */
 		nr_svl_build_lineto (&svlb->right,
-				     x1 + 0.5 * (dy0 + dy1) * svlb->width_2,
-				     y1 - 0.5 * (dx0 + dx1) * svlb->width_2);
+				     x1 + 0.5f * (dy0 + dy1) * svlb->width_2,
+				     y1 - 0.5f * (dx0 + dx1) * svlb->width_2);
 		/* Draw left side */
 		nr_svl_build_lineto (&svlb->left,
-				     x1 - 0.5 * (dy0 + dy1) * svlb->width_2,
-				     y1 + 0.5 * (dx0 + dx1) * svlb->width_2);
+				     x1 - 0.5f * (dy0 + dy1) * svlb->width_2,
+				     y1 + 0.5f * (dx0 + dx1) * svlb->width_2);
 	}
 }
 

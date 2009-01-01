@@ -24,8 +24,8 @@ typedef struct _NRObjectClass NRObjectClass;
 typedef struct _NRActiveObject NRActiveObject;
 typedef struct _NRActiveObjectClass NRActiveObjectClass;
 
-#define nr_return_if_fail(expr) if (!(expr) && nr_emit_fail_warning (__FILE__, __LINE__, "?", #expr)) return
-#define nr_return_val_if_fail(expr,val) if (!(expr) && nr_emit_fail_warning (__FILE__, __LINE__, "?", #expr)) return (val)
+#define nr_return_if_fail(expr) if (!(expr) && nr_emit_fail_warning ((const unsigned char *) __FILE__, __LINE__, (const unsigned char *) "?", (const unsigned char *) #expr)) return
+#define nr_return_val_if_fail(expr,val) if (!(expr) && nr_emit_fail_warning ((const unsigned char *) __FILE__, __LINE__, (const unsigned char *) "?", (const unsigned char *) #expr)) return (val)
 
 unsigned int nr_emit_fail_warning (const unsigned char *file, unsigned int line, const unsigned char *method, const unsigned char *expr);
 
@@ -44,7 +44,7 @@ void *nr_object_check_instance_cast (void *ip, unsigned int tc);
 unsigned int nr_object_check_instance_type (void *ip, unsigned int tc);
 
 unsigned int nr_object_register_type (unsigned int parent,
-				      unsigned char *name,
+				      const unsigned char *name,
 				      unsigned int csize,
 				      unsigned int isize,
 				      void (* cinit) (NRObjectClass *),
