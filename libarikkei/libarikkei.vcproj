@@ -157,6 +157,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\arikkei-cache.c"
+				>
+			</File>
+			<File
 				RelativePath=".\arikkei-dict.c"
 				>
 			</File>
@@ -171,13 +175,6 @@
 			<File
 				RelativePath=".\arikkei-token.c"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
 					ExcludedFromBuild="true"
@@ -206,6 +203,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\arikkei-cache.h"
+				>
+			</File>
+			<File
 				RelativePath=".\arikkei-dict.h"
 				>
 			</File>
@@ -219,6 +220,10 @@
 			</File>
 			<File
 				RelativePath=".\arikkei-token.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cache.h"
 				>
 			</File>
 			<File
