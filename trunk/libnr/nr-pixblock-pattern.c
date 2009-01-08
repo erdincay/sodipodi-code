@@ -25,7 +25,7 @@ nr_pixblock_fill (NRPixBlock *pb, unsigned int rgba32)
 	int x, y;
 
 	switch (pb->mode) {
-	case NR_PIXBLOCK_MODE_A8:
+	case NR_PIXBLOCK_MODE_G8:
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			unsigned char *d;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
@@ -100,7 +100,7 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 			for (x = clip.x0; x < clip.x1; x++) {
 				v = v ^ noise[seed];
 				switch (pb->mode) {
-				case NR_PIXBLOCK_MODE_A8:
+				case NR_PIXBLOCK_MODE_G8:
 					d[0] = (65025 - (255 - m[0]) * (255 - d[0]) + 127) / 255;
 					break;
 				case NR_PIXBLOCK_MODE_R8G8B8:
@@ -144,7 +144,7 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 			for (x = clip.x0; x < clip.x1; x++) {
 				v = v ^ noise[seed];
 				switch (pb->mode) {
-				case NR_PIXBLOCK_MODE_A8:
+				case NR_PIXBLOCK_MODE_G8:
 					d[0] = 255;
 					break;
 				case NR_PIXBLOCK_MODE_R8G8B8:

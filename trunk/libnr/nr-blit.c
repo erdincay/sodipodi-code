@@ -63,8 +63,8 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 	h = clip.y1 - clip.y0;
 
 	switch (d->mode) {
-	case NR_PIXBLOCK_MODE_A8:
-		if (s->mode == NR_PIXBLOCK_MODE_A8) {
+	case NR_PIXBLOCK_MODE_G8:
+		if (s->mode == NR_PIXBLOCK_MODE_G8) {
 			nr_A8_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
 		} else {
 			/* fixme: Implement color rendering (Lauris) */
@@ -145,7 +145,7 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixB
 
 	if (s->empty) return;
 	/* fixme: */
-	if (s->mode == NR_PIXBLOCK_MODE_A8) return;
+	if (s->mode == NR_PIXBLOCK_MODE_G8) return;
 	/* fixme: */
 	if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) return;
 
@@ -186,7 +186,7 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixB
 	h = clip.y1 - clip.y0;
 
 	switch (d->mode) {
-	case NR_PIXBLOCK_MODE_A8:
+	case NR_PIXBLOCK_MODE_G8:
 		/* No rendering into alpha at moment */
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8:
@@ -248,7 +248,7 @@ nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, const NRPixBlock *m, unsigned long 
 		const unsigned char *mpx;
 		int w, h;
 
-		if (m->mode != NR_PIXBLOCK_MODE_A8) return;
+		if (m->mode != NR_PIXBLOCK_MODE_G8) return;
 
 		if (!nr_rect_s_test_intersect (&d->area, &m->area)) return;
 
