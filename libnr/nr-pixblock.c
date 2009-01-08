@@ -21,7 +21,7 @@ nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1
 
 	w = x1 - x0;
 	h = y1 - y0;
-	bpp = (mode == NR_PIXBLOCK_MODE_A8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
 
 	size = bpp * w * h;
 
@@ -59,7 +59,7 @@ nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int
 
 	w = x1 - x0;
 	h = y1 - y0;
-	bpp = (mode == NR_PIXBLOCK_MODE_A8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
 
 	size = bpp * w * h;
 
@@ -87,7 +87,7 @@ nr_pixblock_setup_extern (NRPixBlock *pb, int mode, int x0, int y0, int x1, int 
 	int w, bpp;
 
 	w = x1 - x0;
-	bpp = (mode == NR_PIXBLOCK_MODE_A8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
 
 	pb->size = NR_PIXBLOCK_SIZE_STATIC;
 	pb->mode = mode;
@@ -156,6 +156,39 @@ nr_pixblock_free (NRPixBlock *pb)
 	nr_free (pb);
 
 	return NULL;
+}
+
+/* Helpers */
+
+unsigned int
+nr_pixblock_has_alpha (const NRPixBlock *pb)
+{
+	if (!pb) return 0;
+	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) return 1;
+	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) return 1;
+	return 0;
+}
+
+void
+nr_pixblock_get_channel_limits (const NRPixBlock *pb, unsigned int minv[], unsigned int maxv[])
+{
+	int x, y, bpp, c;
+	bpp = (pb->mode == NR_PIXBLOCK_MODE_G8) ? 1 : (pb->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	for (c = 0; c < bpp; c++) {
+		minv[c] = 255;
+		maxv[c] = 0;
+	}
+	for (y = pb->area.y0; y < pb->area.y1; y++) {
+		const unsigned char *s;
+		s = NR_PIXBLOCK_PX (pb) + y * pb->rs;
+		for (x = pb->area.x0; x < pb->area.x1; x++) {
+			for (c = 0; c < bpp; c++) {
+				if (s[c] < minv[c]) minv[c] = s[c];
+				if (s[c] > maxv[c]) maxv[c] = s[c];
+			}
+			s += bpp;
+		}
+	}
 }
 
 /* PixelStore operations */

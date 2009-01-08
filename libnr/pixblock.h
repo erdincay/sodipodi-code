@@ -21,14 +21,14 @@ namespace NR {
 
 class PixBlock {
 public:
-	enum Mode { A8, R8G8B8, R8G8B8A8N, R8G8B8A8P, NUM_MODES };
+	enum Mode { G8, R8G8B8, R8G8B8A8N, R8G8B8A8P, NUM_MODES };
 private:
 	NRPixBlock _pb;
 	// Not copyable
 	PixBlock& operator= (const PixBlock& pixblock) { assert (false); return *this; }
 public:
 	// Constructor
-	PixBlock (void) { nr_pixblock_setup_fast (&_pb, NR_PIXBLOCK_MODE_A8, 0, 0, 0, 0, 0); }
+	PixBlock (void) { nr_pixblock_setup_fast (&_pb, NR_PIXBLOCK_MODE_G8, 0, 0, 0, 0, 0); }
 	PixBlock (PixBlock& pb) {
 		nr_pixblock_setup_extern (&_pb, pb._pb.mode, pb._pb.area.x0, pb._pb.area.y0, pb._pb.area.x1, pb._pb.area.y1, NR_PIXBLOCK_PX (&pb._pb), pb._pb.rs, pb._pb.empty, 0);
 	}
@@ -75,6 +75,7 @@ public:
 	int getX1 (void) const { return _pb.area.x1; }
 	int getY0 (void) const { return _pb.area.y0; }
 	int getY1 (void) const { return _pb.area.y1; }
+	bool hasAlpha (void) const { return nr_pixblock_has_alpha (&_pb) != 0; }
 	// Mark pixblock as nonempty
 	void markDirty (void) { _pb.empty = 0; }
 	// Get row pointer
@@ -83,6 +84,8 @@ public:
 	// Get pixel pointer
 	unsigned char *getPixel (int row, int col) { return NR_PIXBLOCK_PX (&_pb) + row * _pb.rs + col * NR_PIXBLOCK_BPP (&_pb); }
 	const unsigned char *getPixel (int row, int col) const { return NR_PIXBLOCK_PX (&_pb) + row * _pb.rs + col * NR_PIXBLOCK_BPP (&_pb); }
+	// Get minimal and maximal values
+	void getChannelLimits (unsigned int minv[], unsigned int maxv[]) const { nr_pixblock_get_channel_limits (&_pb, minv, maxv); }
 	// Drawing
 	void fill (unsigned int rgba32) { nr_pixblock_fill (&_pb, rgba32); }
 	// Blitting
