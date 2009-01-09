@@ -212,6 +212,7 @@ sp_icon_get_gtk_size (int size)
 unsigned char *
 sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size, unsigned int scale)
 {
+	if (!name || !*name) return NULL;
 	/* fixme: Make stock/nonstock configurable */
 	if (!strncmp (name, "gtk-", 4)) {
 		GdkPixbuf *pb;
