@@ -45,6 +45,10 @@ public:
 	// Destructor
 	~PixBlock (void) { nr_pixblock_release (&_pb); }
 	// Initialization
+	void clear (void) {
+		nr_pixblock_release (&_pb);
+		nr_pixblock_setup_fast (&_pb, G8, 0, 0, 0, 0, 0);
+	}
 	void set (Mode mode, int x0, int y0, int x1, int y1, bool fast, bool clear) {
 		nr_pixblock_release (&_pb);
 		if (fast) {
