@@ -13,6 +13,8 @@
  *
  */
 
+#include <string.h>
+
 #include <libarikkei/arikkei-strlib.h>
 
 namespace Arikkei {
