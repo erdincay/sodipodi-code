@@ -174,7 +174,7 @@ arikkei_dict_remove (ArikkeiDict *dict, const void *key)
 	if (!dict->entries[hval].key) return;
 	if (dict->equal (dict->entries[hval].key, key)) {
 		/* Have to remove root key */
-		if (dict->entries[hval].next) {
+		if (dict->entries[hval].next >= 0) {
 			int pos;
 			pos = dict->entries[hval].next;
 			dict->entries[hval] = dict->entries[pos];
