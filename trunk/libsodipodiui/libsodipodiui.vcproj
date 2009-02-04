@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1257"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="libsodipodiui"
 	ProjectGUID="{8B4F7F0A-0095-43D3-BDC0-4540F4C71A86}"
 	RootNamespace="libsodipodiui"
@@ -164,6 +164,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\color.c"
+				>
+			</File>
+			<File
 				RelativePath=".\icon.c"
 				>
 			</File>
@@ -173,6 +177,18 @@
 			</File>
 			<File
 				RelativePath=".\shortcuts.c"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-preview.c"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-selector.c"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-slider.c"
 				>
 			</File>
 			<File
@@ -194,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\color.h"
+				>
+			</File>
+			<File
 				RelativePath=".\icon.h"
 				>
 			</File>
@@ -203,6 +223,18 @@
 			</File>
 			<File
 				RelativePath=".\shortcuts.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-preview.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-selector.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sp-color-slider.h"
 				>
 			</File>
 			<File
