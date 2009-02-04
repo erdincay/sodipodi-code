@@ -111,6 +111,7 @@
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)&quot;;&quot;..\..\gtk\2.0\lib\glib-2.0\include&quot;;&quot;..\..\gtk\2.0\include\glib-2.0&quot;;..\..\gtk\2.0\include\cairo;&quot;..\..\gtk\2.0\include\pango-1.0&quot;;&quot;..\..\gtk\2.0\include\atk-1.0&quot;;&quot;..\..\gtk\2.0\lib\gtk-2.0\include&quot;;&quot;..\..\gtk\2.0\include\gtk-2.0&quot;;..\..\gtk\2.0\include;&quot;..\..\gtk\2.0\lib\gtkglext-1.0\include&quot;;&quot;..\..\gtk\2.0\include\gtkglext-1.0&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
+				BufferSecurityCheck="false"
 				EnableFunctionLevelLinking="true"
 				TreatWChar_tAsBuiltInType="false"
 				UsePrecompiledHeader="0"
@@ -128,7 +129,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/libsodipodiuid.lib"
+				OutputFile="$(OutDir)/libsodipodiui.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
