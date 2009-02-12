@@ -13,6 +13,7 @@
  *
  */
 
+#include <malloc.h>
 #include <string.h>
 
 #include <libarikkei/arikkei-strlib.h>

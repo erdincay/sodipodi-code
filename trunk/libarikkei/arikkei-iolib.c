@@ -119,6 +119,7 @@ arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *
 
 		if (cdata == NULL) {
 			DWORD ecode = GetLastError ();
+			// fprintf (stderr, "Error %d\n", ecode);
 		}
 		CloseHandle (hMapObject);
     } else {
