@@ -268,7 +268,7 @@ Node::clone (Document *pdocument, bool recursive)
 		Node *refchild = NULL;
 		for (Node *child = children; child; child = child->next) {
 			Node *newchild = child->clone (pdocument, recursive);
-			addChild (newchild, refchild);
+			newnode->addChild (newchild, refchild);
 			refchild = newchild;
 		}
 	}
