@@ -39,7 +39,19 @@ void arikkei_dict_release (ArikkeiDict *dict);
 
 void arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val);
 void arikkei_dict_remove (ArikkeiDict *dict, const void *key);
+unsigned int arikkei_dict_exists (ArikkeiDict *dict, const void *key);
 const void *arikkei_dict_lookup (ArikkeiDict *dict, const void *key);
+
+/* Utility methods */
+unsigned int arikkei_string_hash (const void *data);
+unsigned int arikkei_string_equal (const void *l, const void *r);
+unsigned int arikkei_pointer_hash (const void *data);
+unsigned int arikkei_pointer_equal (const void *l, const void *r);
+unsigned int arikkei_int_hash (const void *data);
+unsigned int arikkei_int_equal (const void *l, const void *r);
+
+unsigned int arikkei_memory_hash (const void *data, unsigned int size);
+unsigned int arikkei_memory_equal (const void *l, const void *r, unsigned int size);
 
 #ifdef __cplusplus
 }
