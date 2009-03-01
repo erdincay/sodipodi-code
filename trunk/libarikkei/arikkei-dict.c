@@ -27,63 +27,6 @@ struct _ArikkeiDictEntry {
 	const void *val;
 };
 
-static unsigned int
-arikkei_string_hash (const void *data)
-{
-	const unsigned char *p;
-	unsigned int hval;
-	p = data;
-	hval = *p;
-	if (hval) {
-		for (p += 1; *p; p++) hval = (hval << 5) - hval + *p;
-	}
-	return hval;
-}
-
-static unsigned int
-arikkei_string_equal (const void *l, const void *r)
-{
-	return !strcmp (l, r);
-}
-
-static unsigned int
-arikkei_pointer_hash (const void *data)
-{
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
-}
-
-static unsigned int
-arikkei_pointer_equal (const void *l, const void *r)
-{
-	return l == r;
-}
-
-static unsigned int
-arikkei_int_hash (const void *data)
-{
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
-}
-
-static unsigned int
-arikkei_int_equal (const void *l, const void *r)
-{
-	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) l - (const char *) 0);
-}
-
 void
 arikkei_dict_setup_full (ArikkeiDict *dict, unsigned int hashsize,
 			 unsigned int (* hash) (const void *),
@@ -198,6 +141,23 @@ arikkei_dict_remove (ArikkeiDict *dict, const void *key)
 	}
 }
 
+unsigned int
+arikkei_dict_exists (ArikkeiDict *dict, const void *key)
+{
+	unsigned int hval;
+	int pos;
+	if (!key) return 0;
+	hval = dict->hash (key) % dict->hashsize;
+	if (dict->entries[hval].key) {
+		for (pos = hval; pos >= 0; pos = dict->entries[pos].next) {
+			if (dict->equal (dict->entries[pos].key, key)) {
+				return 1;
+			}
+		}
+	}
+	return 0;
+}
+
 const void *
 arikkei_dict_lookup (ArikkeiDict *dict, const void *key)
 {
@@ -213,6 +173,86 @@ arikkei_dict_lookup (ArikkeiDict *dict, const void *key)
 		}
 	}
 	return NULL;
+}
+
+unsigned int
+arikkei_string_hash (const void *data)
+{
+	const unsigned char *p;
+	unsigned int hval;
+	p = data;
+	hval = *p;
+	if (hval) {
+		for (p = p + 1; *p; p++) hval = (hval << 5) - hval + *p;
+	}
+	return hval;
+}
+
+unsigned int
+arikkei_string_equal (const void *l, const void *r)
+{
+	return !strcmp (l, r);
+}
+
+unsigned int
+arikkei_pointer_hash (const void *data)
+{
+	unsigned int hval, p;
+	hval = 0;
+	p = (unsigned int) ((const char *) data - (const char *) 0);
+	while (p) {
+		hval ^= p;
+		p /= 17;
+	}
+	return hval;
+}
+
+unsigned int
+arikkei_pointer_equal (const void *l, const void *r)
+{
+	return l == r;
+}
+
+unsigned int
+arikkei_int_hash (const void *data)
+{
+	unsigned int hval, p;
+	hval = 0;
+	p = (unsigned int) ((const char *) data - (const char *) 0);
+	while (p) {
+		hval ^= p;
+		p /= 17;
+	}
+	return hval;
+}
+
+unsigned int
+arikkei_int_equal (const void *l, const void *r)
+{
+	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) l - (const char *) 0);
+}
+
+unsigned int
+arikkei_memory_hash (const void *data, unsigned int size)
+{
+	const unsigned char *p;
+	unsigned int hval, i;
+	p = data;
+	hval = *p;
+	for (i = 1; i < size; i++) {
+		hval = (hval << 5) - hval + p[i];
+	}
+	return hval;
+}
+
+unsigned int
+arikkei_memory_equal (const void *l, const void *r, unsigned int size)
+{
+	unsigned int i;
+	for (i = 0; i < size; i++) {
+		if (*((const char *) l + i) != *((const char *) r + i)) return 0;
+	}
+	return 1;
 }
 
 
