@@ -9,8 +9,8 @@
 
 namespace Thera {
 
-struct Document;
-struct Node;
+class Document;
+class Node;
 
 struct EventVector {
 	// Cannot be vetoed
@@ -29,21 +29,54 @@ struct EventVector {
 	void (* order_changed) (Node *node, Node *child, Node *oldref, Node *newref, void *data);
 };
 
-struct Document
+struct Record;
+struct Transaction;
+
+class Document
 {
+private:
+	unsigned int log;
+
+	// Transactions
+	Transaction *current;
+	Transaction *undolist;
+	Transaction *redolist;
+	void addRecord (Record *record);
+	unsigned int checkNode (Node *node);
+public:
 	Node *root;
 
-	Document (void);
+	// Constructor
+	Document (const char *rootname);
+	// Destructor
 	~Document (void);
+
+	// Transactions
+	void enableTransactions (unsigned int enable);
+	void finishTransaction (void);
+	void cancelTransaction (void);
+	void undo (void);
+	void redo (void);
+
+	// Transaction handlers for node implementation
+	// Oldvalue is consumed by transaction
+	void attributeChanged (Node *node, const char *attrid, char *oldvalue, const char *newvalue);
+	void contentChanged (Node *node, char *oldvalue, const char *newvalue);
+	void childInserted (Node *node, Node *ref, Node *child);
+	// Child is consumed by transaction
+	void childRemoved (Node *node, Node *ref, Node *child);
+	void childRelocated (Node *node, Node *oldref, Node *newref, Node *child);
 };
 
-struct Node {
+class Node {
+private:
 	struct NodeArray;
 	struct Attribute;
 	struct AttributeArray;
 	struct Listener;
 	struct ListenerArray;
 
+public:
 	enum Type {
 		ELEMENT,
 		TEXT,
@@ -62,7 +95,10 @@ struct Node {
 	AttributeArray *attributes;
 	ListenerArray *listeners;
 
+	// Constructors
 	Node (Type type, Document *document, const char *name);
+	Node (Document *document, const char *name);
+	// Destructor
 	~Node (void);
 
 	Type getType (void) const { return type; }
@@ -86,6 +122,7 @@ struct Node {
 
 	bool addChild (Node *child, Node *ref);
 	bool appendChild (Node *child);
+	// Child is not guaranteed to exist after removal
 	bool removeChild (Node *child);
 	bool relocateChild (Node *child, Node *ref);
 
@@ -94,6 +131,9 @@ struct Node {
 
 	// Helper
 	Node *clone (Document *pdocument, bool recursive);
+	// Convenience methods
+	bool setAttributeInt (const char *name, int value);
+	bool setAttributeUint (const char *name, unsigned int value);
 };
 
 Document *load (const char *filename);

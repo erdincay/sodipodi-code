@@ -110,7 +110,8 @@ load (const char *filename)
 	xmlTextReaderPtr reader = xmlNewTextReaderFilename (filename);
 	if (reader != NULL) {
 
-		doc = new Document();
+		// fixme: Think about root element (Lauris)
+		doc = new Document(NULL);
 		Node *current = NULL;
 
 		int ret = xmlTextReaderRead (reader);
@@ -139,17 +140,24 @@ saveNode (FILE *ofs, Node *node, int level)
 	for (int i = 0; i < node->getNumAttributes (); i++) {
 		wlen += fprintf (ofs, " %s=\"%s\"", node->getAttributeName (i), node->getAttribute (i));
 	}
+	const char *content = node->getTextContent ();
 	Node *child = node->getFirstChild ();
-	if (!child) {
+	if (!content && !child) {
 		// Empty node
 		wlen += fprintf (ofs, "/>\n");
 	} else {
-		wlen += fprintf (ofs, ">\n");
-		while (child) {
-			wlen += saveNode (ofs, child, level + 1);
-			child = child->getNextSibling ();
+		wlen += fprintf (ofs, ">");
+		if (content) {
+			wlen += fprintf (ofs, "%s", content);
 		}
-		for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
+		if (child) {
+			wlen += fprintf (ofs, "\n");
+			while (child) {
+				wlen += saveNode (ofs, child, level + 1);
+				child = child->getNextSibling ();
+			}
+			for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
+		}
 		wlen += fprintf (ofs, "</%s>\n", node->name);
 	}
 
@@ -159,6 +167,8 @@ saveNode (FILE *ofs, Node *node, int level)
 unsigned int
 save (const Document *document, const char *filename)
 {
+	if (!document || !document->root) return 0;
+
 	unsigned int wlen = 0;
 
 	FILE *ofs = fopen (filename, "wb+");
