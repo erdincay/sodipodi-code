@@ -159,6 +159,10 @@
 				RelativePath=".\thera.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\transaction.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -175,6 +179,10 @@
 			</File>
 			<File
 				RelativePath=".\thera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\transaction.h"
 				>
 			</File>
 		</Filter>

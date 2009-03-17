@@ -3,6 +3,10 @@
 #include <malloc.h>
 #include <string.h>
 
+#include <libarikkei/arikkei-strlib.h>
+
+#include "transaction.h"
+
 #include "thera.h"
 
 #ifdef WIN32
@@ -11,13 +15,27 @@
 
 namespace Thera {
 
-Document::Document (void)
-: root(NULL)
+Document::Document (const char *rootname)
+: log(false), current(NULL), undolist(NULL), redolist(NULL), root(NULL)
 {
+	if (rootname) {
+		root = new Node(Node::ELEMENT, this, rootname);
+	}
 }
 
 Document::~Document (void)
 {
+	delete current;
+	while (undolist) {
+		Transaction *t = undolist;
+		undolist = undolist->next;
+		delete t;
+	}
+	while (redolist) {
+		Transaction *t = redolist;
+		redolist = redolist->next;
+		delete t;
+	}
 	delete root;
 }
 
@@ -32,7 +50,7 @@ struct Node::AttributeArray {
 	Attribute elements[1];
 	static void destroy (AttributeArray *aa);
 	static AttributeArray *ensureSpace (AttributeArray *aa, int ensure);
-	static const char *get (const AttributeArray *aa, const char *name);
+	static char *get (const AttributeArray *aa, const char *name);
 	static AttributeArray *set (AttributeArray *aa, const char *name, const char *value);
 	// Create duplicate of this attribute array
 	AttributeArray *duplicate ();
@@ -54,6 +72,12 @@ struct Node::ListenerArray {
 
 Node::Node (Type ptype, Document *pdocument, const char *pname)
 : type(ptype), document(pdocument), parent(NULL), next(NULL), name(strdup(pname)), content(NULL),
+children(NULL), attributes(NULL), listeners(NULL)
+{
+}
+
+Node::Node (Document *pdocument, const char *pname)
+: type(ELEMENT), document(pdocument), parent(NULL), next(NULL), name(strdup(pname)), content(NULL),
 children(NULL), attributes(NULL), listeners(NULL)
 {
 }
@@ -106,7 +130,7 @@ Node::getAttribute (const char *name) const
 bool
 Node::setAttribute (const char *name, const char *newvalue)
 {
-	const char *oldvalue = AttributeArray::get (attributes, name);
+	char *oldvalue = AttributeArray::get (attributes, name);
 	// Emit change_attr
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -122,6 +146,7 @@ Node::setAttribute (const char *name, const char *newvalue)
 			if (l.events->attr_changed) l.events->attr_changed (this, name, oldvalue, newvalue, l.data);
 		}
 	}
+	document->attributeChanged (this, name, oldvalue, newvalue);
 	return true;
 }
 
@@ -144,7 +169,7 @@ Node::setTextContent (const char *newcontent)
 			if (l.events->content_changed) l.events->content_changed (this, oldcontent, newcontent, l.data);
 		}
 	}
-	if (oldcontent) free (oldcontent);
+	document->contentChanged (this, oldcontent, newcontent);
 	return true;
 }
 
@@ -173,6 +198,7 @@ Node::addChild (Node *child, Node *ref)
 			if (l.events->child_added) l.events->child_added (this, child, ref, l.data);
 		}
 	}
+	document->childInserted (this, ref, child);
 	return true;
 }
 
@@ -183,27 +209,7 @@ Node::appendChild (Node *child)
 	if (ref) {
 		while (ref->next) ref = ref->next;
 	}
-	// Emit add_child
-	if (listeners) {
-		for (int i = 0; i < listeners->length; i++) {
-			Listener& l(listeners->elements[i]);
-			if (l.events->add_child) if (!l.events->add_child (this, child, ref, l.data)) return false;
-		}
-	}
-	if (!children) {
-		children = child;
-	} else {
-		ref->next = child;
-	}
-	child->parent = this;
-	// Emit child_added
-	if (listeners) {
-		for (int i = 0; i < listeners->length; i++) {
-			Listener& l(listeners->elements[i]);
-			if (l.events->child_added) l.events->child_added (this, child, ref, l.data);
-		}
-	}
-	return true;
+	return addChild (child, ref);
 }
 
 bool
@@ -229,6 +235,7 @@ Node::removeChild (Node *child)
 			if (l.events->child_removed) l.events->child_removed (this, child, ref, l.data);
 		}
 	}
+	document->childRemoved (this, ref, child);
 	return true;
 }
 
@@ -255,6 +262,7 @@ Node::relocateChild (Node *child, Node *nref)
 			if (l.events->order_changed) l.events->order_changed (this, child, cref, nref, l.data);
 		}
 	}
+	document->childRelocated (this, cref, nref, child);
 	return true;
 }
 
@@ -316,7 +324,7 @@ Node::AttributeArray::ensureSpace (Node::AttributeArray *aa, int ensure)
 	return aa;
 }
 
-const char *
+char *
 Node::AttributeArray::get (const AttributeArray *aa, const char *name)
 {
 	if (!aa || !name) return NULL;
@@ -334,7 +342,7 @@ Node::AttributeArray::set (AttributeArray *aa, const char *name, const char *val
 		for (int i = 0; i < aa->length; i++) {
 			if (!strcmp (name, aa->elements[i].name)) {
 				if (value) {
-					free (aa->elements[i].value);
+					// free (aa->elements[i].value);
 					aa->elements[i].value = strdup (value);
 				} else {
 					for (int j = i + 1; j < aa->length; j++) {
@@ -402,6 +410,22 @@ Node::ListenerArray::remove (ListenerArray *la, void *data)
 		}
 	}
 	return la;
+}
+
+bool
+Node::setAttributeInt (const char *name, int value)
+{
+	char c[16];
+	arikkei_itoa ((unsigned char *) c, 16, value);
+	return setAttribute (name, c);
+}
+
+bool
+Node::setAttributeUint (const char *name, unsigned int value)
+{
+	char c[16];
+	arikkei_dtoa_simple ((unsigned char *) c, 16, (double) value, 15, 0, 0);
+	return setAttribute (name, c);
 }
 
 } // Namespace Thera
