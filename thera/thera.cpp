@@ -139,6 +139,7 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	attributes = AttributeArray::set (attributes, name, newvalue);
+	document->attributeChanged (this, name, oldvalue, newvalue);
 	// Emit attr_changed
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -146,7 +147,6 @@ Node::setAttribute (const char *name, const char *newvalue)
 			if (l.events->attr_changed) l.events->attr_changed (this, name, oldvalue, newvalue, l.data);
 		}
 	}
-	document->attributeChanged (this, name, oldvalue, newvalue);
 	return true;
 }
 
@@ -162,6 +162,7 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	content = (newcontent) ? strdup (newcontent) : NULL;
+	document->contentChanged (this, oldcontent, newcontent);
 	// Emit content_changed
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -169,7 +170,6 @@ Node::setTextContent (const char *newcontent)
 			if (l.events->content_changed) l.events->content_changed (this, oldcontent, newcontent, l.data);
 		}
 	}
-	document->contentChanged (this, oldcontent, newcontent);
 	return true;
 }
 
@@ -191,6 +191,7 @@ Node::addChild (Node *child, Node *ref)
 		child->next = ref->next;
 		ref->next = child;
 	}
+	document->childInserted (this, ref, child);
 	// Emit child_added
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -198,7 +199,6 @@ Node::addChild (Node *child, Node *ref)
 			if (l.events->child_added) l.events->child_added (this, child, ref, l.data);
 		}
 	}
-	document->childInserted (this, ref, child);
 	return true;
 }
 
@@ -228,6 +228,7 @@ Node::removeChild (Node *child)
 	ref->next = child->next;
 	child->next = NULL;
 	child->parent = NULL;
+	document->childRemoved (this, ref, child);
 	// Emit child_removed
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -235,7 +236,6 @@ Node::removeChild (Node *child)
 			if (l.events->child_removed) l.events->child_removed (this, child, ref, l.data);
 		}
 	}
-	document->childRemoved (this, ref, child);
 	return true;
 }
 
@@ -255,6 +255,7 @@ Node::relocateChild (Node *child, Node *nref)
 	cref->next = child->next;
 	child->next = nref->next;
 	nref->next = child;
+	document->childRelocated (this, cref, nref, child);
 	// Emit order_changed
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -262,14 +263,13 @@ Node::relocateChild (Node *child, Node *nref)
 			if (l.events->order_changed) l.events->order_changed (this, child, cref, nref, l.data);
 		}
 	}
-	document->childRelocated (this, cref, nref, child);
 	return true;
 }
 
 Node *
 Node::clone (Document *pdocument, bool recursive)
 {
-	Node *newnode = new Node(type, document, name);
+	Node *newnode = new Node(type, pdocument, name);
 	if (content) newnode->content = strdup (content);
 	if (attributes) newnode->attributes = attributes->duplicate ();
 	if (recursive) {
