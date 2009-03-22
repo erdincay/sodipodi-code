@@ -215,9 +215,12 @@ Node::appendChild (Node *child)
 bool
 Node::removeChild (Node *child)
 {
-	Node *ref = children;
-	while (ref && (ref->next != child)) ref = ref->next;
-	if (!ref) return false;
+	Node *ref = NULL;
+	if (children != child) {
+		ref = children;
+		while (ref && (ref->next != child)) ref = ref->next;
+		if (!ref) return false;
+	}
 	// Emit remove_child
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -225,7 +228,11 @@ Node::removeChild (Node *child)
 			if (l.events->remove_child) if (!l.events->remove_child (this, child, ref, l.data)) return false;
 		}
 	}
-	ref->next = child->next;
+	if (ref) {
+		ref->next = child->next;
+	} else {
+		children = child->next;
+	}
 	child->next = NULL;
 	child->parent = NULL;
 	document->childRemoved (this, ref, child);
