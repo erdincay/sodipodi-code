@@ -381,29 +381,37 @@ public:
 
 // Specialization
 
+template <>
 inline unsigned int Token<char>::_U (size_t idx) const { return *((unsigned char *) _cdata + idx); }
+template <>
 inline unsigned int Token<unsigned short>::_U (size_t idx) const { return _cdata[idx]; }
+template <>
 inline bool Token<char>::_S (size_t idx) const { return isspace (*((unsigned char *) _cdata + idx)) != 0; }
+template <>
 inline bool Token<unsigned short>::_S (size_t idx) const { return (_cdata[idx] < 256) && isspace (_cdata[idx]); }
 
+template <>
 inline size_t
 Token<char>::_tlen (const char *cdata)
 {
 	return ::strlen (cdata);
 }
 
+template <>
 inline size_t
 Token<unsigned short>::_tlen (const unsigned short *cdata)
 {
 	return arikkei_ucs2_strlen (cdata);
 }
 
+template <>
 inline int
 Token<char>::_tncmp (const char *lhs, const char *rhs, size_t len)
 {
 	return ::strncmp (lhs, rhs, len);
 }
 
+template <>
 inline int
 Token<char>::_tnicmp (const char *lhs, const char *rhs, size_t len)
 {
