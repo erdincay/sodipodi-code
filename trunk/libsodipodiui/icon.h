@@ -28,6 +28,7 @@ typedef struct _SPIconClass SPIconClass;
 #define SP_ICON_SIZE_TITLEBAR 12
 #define SP_ICON_SIZE_NOTEBOOK 20
 
+#include <libnr/nr-pixblock.h>
 #include <gtk/gtkwidget.h>
 
 #define SP_ICON_FLAG_STATIC_DATA (1 << 24)
@@ -52,8 +53,10 @@ GtkWidget *sp_icon_new_from_data (unsigned int size, const unsigned char *px);
 
 /* This is unrelated, but can as well be here */
 
-unsigned char *sp_icon_image_load (const unsigned char *name, unsigned int size, unsigned int scale);
-unsigned char *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size, unsigned int scale);
+void sp_icon_register_loader (const unsigned char *prefix, unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb));
+
+unsigned char *sp_icon_image_load (const unsigned char *name, unsigned int size);
+unsigned char *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
 
 #ifdef __cplusplus
 }

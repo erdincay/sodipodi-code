@@ -21,9 +21,9 @@
 #include <libnr/nr-macros.h>
 #include <libnr/nr-rect.h>
 #include <libnr/nr-matrix.h>
-#include <libnr/nr-pixblock.h>
 #include <libnr/nr-pixblock-pattern.h>
 #include <libnr/nr-pixops.h>
+#include <libnr/nr-blit.h>
 
 #include <gtk/gtkiconfactory.h>
 
@@ -39,8 +39,9 @@ static int sp_icon_expose (GtkWidget *widget, GdkEventExpose *event);
 
 static void sp_icon_paint (SPIcon *icon, GdkRectangle *area);
 
-static unsigned char *sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size, unsigned int scale);
-static unsigned char *sp_icon_image_load_svg (const unsigned char *name, unsigned int size, unsigned int scale);
+static unsigned char *sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size);
+static unsigned char *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
+/* static unsigned char *sp_icon_image_load_svg (const unsigned char *name, unsigned int size, unsigned int scale); */
 
 static GtkWidgetClass *parent_class;
 
@@ -149,7 +150,7 @@ sp_icon_new_full (unsigned int size, unsigned int scale, const unsigned char *na
 	g_snprintf (c, 256, "%d:%d:%s", icon->size, scale, name);
 	icon->px = g_hash_table_lookup (iconlib, c);
 	if (!icon->px) {
-		icon->px = sp_icon_image_load_gtk ((GtkWidget *) icon, name, icon->size, scale);
+		icon->px = sp_icon_image_load_gtk ((GtkWidget *) icon, name, icon->size);
 		g_hash_table_insert (iconlib, g_strdup (c), icon->px);
 	}
 
@@ -185,16 +186,6 @@ sp_icon_new_from_data (unsigned int size, const unsigned char *px)
 	return (GtkWidget *) icon;
 }
 
-unsigned char *
-sp_icon_image_load (const unsigned char *name, unsigned int size, unsigned int scale)
-{
-	unsigned char *px;
-
-	px = sp_icon_image_load_pixmap (name, size, scale);
-
-	return px;
-}
-
 int
 sp_icon_get_gtk_size (int size)
 {
@@ -207,32 +198,6 @@ sp_icon_get_gtk_size (int size)
 		map[size] = gtk_icon_size_register (c, size, size);
 	}
 	return map[size];
-}
-
-unsigned char *
-sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size, unsigned int scale)
-{
-	if (!name || !*name) return NULL;
-	/* fixme: Make stock/nonstock configurable */
-	if (!strncmp (name, "gtk-", 4)) {
-		GdkPixbuf *pb;
-		unsigned char *px, *spx;
-		int gtksize, srs;
-		unsigned int y;
-		gtksize = sp_icon_get_gtk_size (size);
-		pb = gtk_widget_render_icon (widget, name, gtksize, NULL);
-		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
-		spx = gdk_pixbuf_get_pixels (pb);
-		srs = gdk_pixbuf_get_rowstride (pb);
-		px = nr_new (unsigned char, 4 * size * size);
-		for (y = 0; y < size; y++) {
-			memcpy (px + 4 * y * size, spx + y * srs, 4 * size);
-		}
-		g_object_unref ((GObject *) pb);
-		return px;
-	} else {
-		return sp_icon_image_load (name, size, scale);
-	}
 }
 
 static void
@@ -300,8 +265,70 @@ sp_icon_paint (SPIcon *icon, GdkRectangle *area)
 	}
 }
 
+static GHashTable *loaderdict = NULL;
+
+void
+sp_icon_register_loader (const unsigned char *prefix, unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb))
+{
+	if (!loaderdict) loaderdict = g_hash_table_new (g_str_hash, g_str_equal);
+	g_hash_table_insert (loaderdict, (gpointer) prefix, (gpointer) loader);
+}
+
+unsigned char *
+sp_icon_image_load (const unsigned char *name, unsigned int size)
+{
+	unsigned char *px;
+	const unsigned char *p;
+	if (!name || !*name) return NULL;
+	p = strchr (name, ':');
+	if (p && loaderdict) {
+		char *prefix;
+		const unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb);
+		prefix = g_strndup (name, p - name);
+		loader = g_hash_table_lookup (loaderdict, prefix);
+		g_free (prefix);
+		if (loader) {
+			NRPixBlock pxb;
+			if (loader (p + 1, &pxb)) {
+				px = sp_icon_image_load_pixblock (&pxb, size);
+				nr_pixblock_release (&pxb);
+				if (px) return px;
+			}
+		}
+	}
+	px = sp_icon_image_load_pixmap (name, size);
+
+	return px;
+}
+
+unsigned char *
+sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size)
+{
+	if (!name || !*name) return NULL;
+	/* fixme: Make stock/nonstock configurable */
+	if (!strncmp (name, "gtk-", 4)) {
+		GdkPixbuf *pb;
+		unsigned char *px, *spx;
+		int gtksize, srs;
+		unsigned int y;
+		gtksize = sp_icon_get_gtk_size (size);
+		pb = gtk_widget_render_icon (widget, name, gtksize, NULL);
+		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
+		spx = gdk_pixbuf_get_pixels (pb);
+		srs = gdk_pixbuf_get_rowstride (pb);
+		px = nr_new (unsigned char, 4 * size * size);
+		for (y = 0; y < size; y++) {
+			memcpy (px + 4 * y * size, spx + y * srs, 4 * size);
+		}
+		g_object_unref ((GObject *) pb);
+		return px;
+	} else {
+		return sp_icon_image_load (name, size);
+	}
+}
+
 static unsigned char *
-sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size, unsigned int scale)
+sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size)
 {
 	unsigned char *path, *fn;
 	unsigned char *px;
@@ -319,6 +346,46 @@ sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size, unsigne
 		pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
 		g_free (path);
 	}
+	if (pb) {
+		unsigned char *spx;
+		int srs;
+		unsigned int y;
+		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
+		if ((gdk_pixbuf_get_width (pb) != size) || (gdk_pixbuf_get_height (pb) != size)) {
+			GdkPixbuf *spb;
+			spb = gdk_pixbuf_scale_simple (pb, size, size, GDK_INTERP_HYPER);
+			g_object_unref (G_OBJECT (pb));
+			pb = spb;
+		}
+		spx = gdk_pixbuf_get_pixels (pb);
+		srs = gdk_pixbuf_get_rowstride (pb);
+		px = nr_new (unsigned char, 4 * size * size);
+		for (y = 0; y < size; y++) {
+			memcpy (px + 4 * y * size, spx + y * srs, 4 * size);
+		}
+		g_object_unref (G_OBJECT (pb));
+
+		return px;
+	}
+
+	return NULL;
+}
+
+static unsigned char *
+sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
+{
+	NRPixBlock np;
+	unsigned char *px;
+	GdkPixbuf *pb;
+
+	if (pxb->mode != NR_PIXBLOCK_MODE_R8G8B8A8N) {
+		nr_pixblock_setup_fast (&np, NR_PIXBLOCK_MODE_R8G8B8A8N, pxb->area.x0, pxb->area.y0, pxb->area.x1, pxb->area.y1, FALSE);
+		nr_blit_pixblock_pixblock_alpha (&np, pxb, 255);
+		np.empty = FALSE;
+		pxb = &np;
+	}
+	pb = gdk_pixbuf_new_from_data (NR_PIXBLOCK_PX(pxb), GDK_COLORSPACE_RGB, TRUE, 8, pxb->area.x1 - pxb->area.x0, pxb->area.y1 - pxb->area.y0, pxb->rs, NULL, NULL);
+
 	if (pb) {
 		unsigned char *spx;
 		int srs;
