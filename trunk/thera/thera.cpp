@@ -71,7 +71,7 @@ struct Node::ListenerArray {
 };
 
 Node::Node (Type ptype, Document *pdocument, const char *pname)
-: type(ptype), document(pdocument), parent(NULL), next(NULL), name(strdup(pname)), content(NULL),
+: type(ptype), document(pdocument), parent(NULL), next(NULL), name(pname ? strdup(pname) : NULL), content(NULL),
 children(NULL), attributes(NULL), listeners(NULL)
 {
 }
