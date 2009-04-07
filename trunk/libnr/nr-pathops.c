@@ -23,6 +23,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <assert.h>
+#include <alloca.h>
 
 #ifdef WIN32
 #define alloca _alloca
