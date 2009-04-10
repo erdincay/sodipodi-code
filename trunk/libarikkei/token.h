@@ -13,6 +13,7 @@
  *
  */
 
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -418,7 +419,12 @@ Token<char>::_tnicmp (const char *lhs, const char *rhs, size_t len)
 #ifdef WIN32
 	return ::_strnicmp (lhs, rhs, len);
 #else
-	return ::strnicmp (lhs, rhs, len);
+	return ::strncasecmp (lhs, rhs, len);
+	// for (size_t i = 0; i < len; i++) {
+	// 	if (tolower(lhs[i] < tolower(rhs[i]))) return -1;
+	// 	if (tolower(lhs[i] > tolower(rhs[i]))) return 1;
+	// }
+	// return 0;
 #endif
 }
 
@@ -432,19 +438,19 @@ typedef Token<unsigned short> TokenUS;
 
 template <typename T> class TokenLine : public Token<T> {
 private:
-	Token _master;
+	Token<T> _master;
 public:
-	TokenLine (void) : Token(), _master() {}
-	TokenLine (const Token& master, size_t start = 0) : Token (master.getLine ()) { _master = master; }
+	TokenLine (void) : Token<T>(), _master() {}
+	TokenLine (const Token<T>& master, size_t start = 0) : Token<T>(master.getLine ()) { _master = master; }
 
-	bool eof (void) const { return (getCData () >= (_master.getCData () + _master.getLength ())); }
+	bool eof (void) const { return (this->getCData () >= (_master.getCData () + _master.getLength ())); }
 
 	bool forward (bool skipempty = false);
 
 	TokenLine& operator= (const TokenLine& token) {	set (token); _master = token._master; return (*this); }
-	TokenLine& operator= (const Token& token) { set (token); _master = token; return (*this); }
-	TokenLine& operator++ (void) { Token n = _master.nextLine (*this); set (n); return *this; }
-	TokenLine operator++ (int v) { TokenLine orig = *this; Token n = _master.nextLine (*this); set (n); return orig; }
+	TokenLine& operator= (const Token<T>& token) { set (token); _master = token; return (*this); }
+	TokenLine& operator++ (void) { Token<T> n = _master.nextLine (*this); set (n); return *this; }
+	TokenLine operator++ (int v) { TokenLine orig = *this; Token<T> n = _master.nextLine (*this); set (n); return orig; }
 
 	void rewind (void) { set (_master.getLine ()); }
 };

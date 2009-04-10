@@ -20,7 +20,7 @@
 
 #ifndef WIN32
 #define _strnicmp strncasecmp
-#define g_strdup strdup
+#define g_strdup ::strdup
 #else
 #define g_strdup _strdup
 #endif
@@ -31,6 +31,7 @@
 
 namespace Arikkei {
 
+template <>
 char *
 Token<char>::_tdup (const char *cdata)
 {
@@ -43,6 +44,7 @@ Token<char>::_tdup (const char *cdata)
 
 // Member operators
 
+template <>
 const char *
 Token<char>::getPData (void)
 {
@@ -54,6 +56,7 @@ Token<char>::getPData (void)
 	return _pdata;
 }
 
+template <>
 int
 Token<char>::getInt (void) const
 {
@@ -62,6 +65,7 @@ Token<char>::getInt (void) const
 	return atoi (c);
 }
 
+template <>
 unsigned int
 Token<char>::getUInt (void) const
 {
@@ -74,6 +78,7 @@ Token<char>::getUInt (void) const
 #endif
 }
 
+template <>
 float
 Token<char>::getFloat (void) const
 {
@@ -82,6 +87,7 @@ Token<char>::getFloat (void) const
 	return (float) atof (c);
 }
 
+template <>
 double
 Token<char>::getDouble (void) const
 {
@@ -106,6 +112,7 @@ Token<char>::getLine (void) const
 	return Token<char> (_cdata, e);
 }
 
+template <>
 Token<unsigned short>
 Token<unsigned short>::getLine (void) const
 {
@@ -119,6 +126,7 @@ Token<unsigned short>::getLine (void) const
 	return Token<unsigned short> (_cdata, e);
 }
 
+template <>
 Token<char>
 Token<char>::nextLine (const Token& line) const
 {
@@ -133,6 +141,7 @@ Token<char>::nextLine (const Token& line) const
 	return Token<char> (_cdata, s, e);
 }
 
+template <>
 Token<unsigned short>
 Token<unsigned short>::nextLine (const Token& line) const
 {
@@ -147,6 +156,7 @@ Token<unsigned short>::nextLine (const Token& line) const
 	return Token<unsigned short> (_cdata, s, e);
 }
 
+template <>
 void
 Token<char>::skipUTF8Signature (void)
 {
@@ -157,6 +167,7 @@ Token<char>::skipUTF8Signature (void)
 	}
 }
 
+template <>
 char *
 Token<char>::strconcat (const Token<char> *tokens, int size, const Token<char>& separator)
 {
@@ -174,38 +185,40 @@ Token<char>::strconcat (const Token<char> *tokens, int size, const Token<char>& 
 
 // Line iterator
 
+template <>
 bool
 TokenLine<char>::forward (bool skipempty)
 {
 	if (eof ()) return false;
-	Token n = _master.nextLine (*this);
+	Token<char> n = _master.nextLine (*this);
 	set (n);
 	if (eof ()) return false;
 	if (skipempty) {
-		Token st = strip ();
+		Token<char> st = strip ();
 		while (st.isEmpty ()) {
-			Token n = _master.nextLine (*this);
+			Token<char> n = _master.nextLine (*this);
 			set (n);
-			Token st = strip ();
+			Token<char> st = strip ();
 			if (eof ()) return false;
 		}
 	}
 	return true;
 }
 
+template <>
 bool
 TokenLine<unsigned short>::forward (bool skipempty)
 {
 	if (eof ()) return false;
-	Token n = _master.nextLine (*this);
+	Token<unsigned short> n = _master.nextLine (*this);
 	set (n);
 	if (eof ()) return false;
 	if (skipempty) {
-		Token st = strip ();
+		Token<unsigned short> st = strip ();
 		while (st.isEmpty ()) {
-			Token n = _master.nextLine (*this);
+			Token<unsigned short> n = _master.nextLine (*this);
 			set (n);
-			Token st = strip ();
+			Token<unsigned short> st = strip ();
 			if (eof ()) return false;
 		}
 	}
@@ -245,6 +258,7 @@ TokenMMap::skipSignature (void)
 	}
 }
 
+template <>
 bool
 Token<char>::parseKeywordString (Token<char>& lt, const char *keyword, Token<char>& text, bool removequotes)
 {
@@ -261,6 +275,7 @@ Token<char>::parseKeywordString (Token<char>& lt, const char *keyword, Token<cha
 	return true;
 }
 
+template <>
 bool
 Token<char>::parseKeywordUInt (Token<char>& lt, const char *keyword, unsigned int& val)
 {
@@ -273,6 +288,7 @@ Token<char>::parseKeywordUInt (Token<char>& lt, const char *keyword, unsigned in
 	return true;
 }
 
+template <>
 bool
 Token<char>::parseKeywordInt (Token<char>& lt, const char *keyword, int& val)
 {
