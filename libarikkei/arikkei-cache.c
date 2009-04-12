@@ -33,25 +33,6 @@ struct _ArikkeiCacheEntry {
 	unsigned int size;
 };
 
-unsigned int
-arikkei_string_hash (const void *data)
-{
-	const unsigned char *p;
-	unsigned int hval;
-	p = data;
-	hval = *p;
-	if (hval) {
-		for (p += 1; *p; p++) hval = (hval << 5) - hval + *p;
-	}
-	return hval;
-}
-
-unsigned int
-arikkei_string_equal (const void *l, const void *r)
-{
-	return !strcmp (l, r);
-}
-
 static void *
 arikkei_string_dup (const void *str)
 {
@@ -62,44 +43,6 @@ static void
 arikkei_string_free (void *str)
 {
 	free (str);
-}
-
-unsigned int
-arikkei_pointer_hash (const void *data)
-{
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
-}
-
-unsigned int
-arikkei_pointer_equal (const void *l, const void *r)
-{
-	return l == r;
-}
-
-unsigned int
-arikkei_int_hash (const void *data)
-{
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
-}
-
-unsigned int
-arikkei_int_equal (const void *l, const void *r)
-{
-	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) l - (const char *) 0);
 }
 
 void arikkei_cache_setup_full (ArikkeiCache *cache, unsigned int size,
