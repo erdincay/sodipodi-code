@@ -16,6 +16,8 @@
 #include <gtk/gtksignal.h>
 #include <gtk/gtkmain.h>
 
+#include "color.h"
+
 #include "sp-color-slider.h"
 
 #define SLIDER_WIDTH 96
@@ -368,6 +370,34 @@ sp_color_slider_set_map (SPColorSlider *slider, const guchar *map)
 {
 	g_return_if_fail (slider != NULL);
 	g_return_if_fail (SP_IS_COLOR_SLIDER (slider));
+
+	slider->map = (guchar *) map;
+
+	gtk_widget_queue_draw (GTK_WIDGET (slider));
+}
+
+void
+sp_color_slider_set_hue_gradient (SPColorSlider *slider)
+{
+	static guchar *map = NULL;
+
+	g_return_if_fail (slider != NULL);
+	g_return_if_fail (SP_IS_COLOR_SLIDER (slider));
+
+	if (!map) {
+		guchar *p;
+		gint h;
+		map = g_new (guchar, 4 * 1024);
+		p = map;
+		for (h = 0; h < 1024; h++) {
+			gfloat rgb[3];
+			sp_color_hsv_to_rgb_floatv (rgb, h / 1024.0f, 1.0f, 1.0f);
+			*p++ = SP_COLOR_F_TO_U (rgb[0]);
+			*p++ = SP_COLOR_F_TO_U (rgb[1]);
+			*p++ = SP_COLOR_F_TO_U (rgb[2]);
+			*p++ = 255;
+		}
+	}
 
 	slider->map = (guchar *) map;
 
