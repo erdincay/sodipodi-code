@@ -12,7 +12,9 @@
  * This code is in public domain
  */
 
-#include <gtk/gtkwidget.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct _SPColorSlider SPColorSlider;
 typedef struct _SPColorSliderClass SPColorSliderClass;
@@ -22,6 +24,8 @@ typedef struct _SPColorSliderClass SPColorSliderClass;
 #define SP_COLOR_SLIDER_CLASS(k) (GTK_CHECK_CLASS_CAST ((k), SP_TYPE_COLOR_SLIDER, SPColorSliderClass))
 #define SP_IS_COLOR_SLIDER(o) (GTK_CHECK_TYPE ((o), SP_TYPE_COLOR_SLIDER))
 #define SP_IS_COLOR_SLIDER_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), SP_TYPE_COLOR_SLIDER))
+
+#include <gtk/gtkwidget.h>
 
 struct _SPColorSlider {
 	GtkWidget widget;
@@ -56,6 +60,11 @@ GtkWidget *sp_color_slider_new (GtkAdjustment *adjustment);
 void sp_color_slider_set_adjustment (SPColorSlider *slider, GtkAdjustment *adjustment);
 void sp_color_slider_set_colors (SPColorSlider *slider, guint32 start, guint32 end);
 void sp_color_slider_set_map (SPColorSlider *slider, const guchar *map);
+void sp_color_slider_set_hue_gradient (SPColorSlider *slider);
 void sp_color_slider_set_background (SPColorSlider *slider, guint dark, guint light, guint size);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
