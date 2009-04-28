@@ -151,12 +151,18 @@ saveNode (FILE *ofs, Node *node, int level)
 			wlen += fprintf (ofs, "%s", content);
 		}
 		if (child) {
-			wlen += fprintf (ofs, "\n");
-			while (child) {
-				wlen += saveNode (ofs, child, level + 1);
-				child = child->getNextSibling ();
+			if (child->getType () == Node::ELEMENT) {
+				wlen += fprintf (ofs, "\n");
+				while (child) {
+					wlen += saveNode (ofs, child, level + 1);
+					child = child->getNextSibling ();
+				}
+				for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
+			} else if (child->getType () == Node::TEXT) {
+				wlen += fprintf (ofs, "%s", child->getTextContent ());
+			} else if (child->getType () == Node::CDATA) {
+				// fixme: What goes here?
 			}
-			for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
 		}
 		wlen += fprintf (ofs, "</%s>\n", node->name);
 	}
