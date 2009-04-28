@@ -12,9 +12,9 @@
  * This code is in public domain
  */
 
-#include <gtk/gtkvbox.h>
-
-#include <libsodipodiui/color.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct _SPColorSelector SPColorSelector;
 typedef struct _SPColorSelectorClass SPColorSelectorClass;
@@ -24,6 +24,10 @@ typedef struct _SPColorSelectorClass SPColorSelectorClass;
 #define SP_COLOR_SELECTOR_CLASS(k) (GTK_CHECK_CLASS_CAST ((k), SP_TYPE_COLOR_SELECTOR, SPColorSelectorClass))
 #define SP_IS_COLOR_SELECTOR(o) (GTK_CHECK_TYPE ((o), SP_TYPE_COLOR_SELECTOR))
 #define SP_IS_COLOR_SELECTOR_CLASS(k) (GTK_CHECK_CLASS_TYPE ((k), SP_TYPE_COLOR_SELECTOR))
+
+#include <gtk/gtkvbox.h>
+
+#include <libsodipodiui/color.h>
 
 typedef enum {
 	SP_COLOR_SELECTOR_MODE_NONE,
@@ -87,5 +91,9 @@ gfloat sp_color_selector_get_b (SPColorSelector *csel);
 gfloat sp_color_selector_get_a (SPColorSelector *csel);
 
 guint32 sp_color_selector_get_rgba32 (SPColorSelector *csel);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
