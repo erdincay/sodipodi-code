@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 2.6)
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 #add definitions, compiler switches, etc.
-ADD_DEFINITIONS(-Wall -O2)
+ADD_DEFINITIONS(-Wall -O0 -g)
 
 #list all source files here
 ADD_LIBRARY(libarikkei STATIC
