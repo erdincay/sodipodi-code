@@ -176,6 +176,16 @@ arikkei_dict_lookup (ArikkeiDict *dict, const void *key)
 }
 
 unsigned int
+arikkei_dict_forall (ArikkeiDict *dict, unsigned int (* forall) (const void *, const void *, void *), void *data)
+{
+	unsigned int i;
+	for (i = 0; i < dict->size; i++) {
+		if (dict->entries[i].key && !forall (dict->entries[i].key, dict->entries[i].val, data)) return 0;
+	}
+	return 1;
+}
+
+unsigned int
 arikkei_string_hash (const void *data)
 {
 	const unsigned char *p;
