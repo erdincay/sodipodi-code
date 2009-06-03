@@ -36,6 +36,7 @@ class Document
 {
 private:
 	unsigned int log;
+	unsigned int collate;
 
 	// Transactions
 	Transaction *current;
@@ -53,6 +54,7 @@ public:
 
 	// Transactions
 	void enableTransactions (unsigned int enable);
+	void collateTransactions (unsigned int enable);
 	void finishTransaction (void);
 	void cancelTransaction (void);
 	void undo (void);

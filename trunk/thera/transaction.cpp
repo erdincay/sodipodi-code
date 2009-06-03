@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "transaction.h"
 
@@ -233,20 +234,44 @@ Document::enableTransactions (unsigned int enable)
 }
 
 void
+Document::collateTransactions (unsigned int enable)
+{
+	collate = enable;
+}
+
+bool
+Record::isValueOverwrite (Record *prev)
+{
+	if (type != prev->type) return false;
+	if ((type == ATTRIBUTE_CHANGE) && !strcmp (attrid, prev->attrid)) return true;
+	if (type == CONTENT_CHANGE) return true;
+	return false;
+}
+
+void
 Document::finishTransaction (void)
 {
-	// Push current to undo
-	if (current) {
-		current->next = undolist;
-		undolist = current;
-		current = NULL;
-	}
+	if (!current) return;
+
 	// Clear redo
 	while (redolist) {
 		Transaction *t = redolist;
 		redolist = redolist->next;
 		delete t;
 	}
+
+	if (collate && undolist && !current->records->next && !undolist->records->next) {
+		if (current->records->isValueOverwrite (undolist->records)) {
+			delete current;
+			current = NULL;
+			return;
+		}
+	}
+
+	// Push current to undo
+	current->next = undolist;
+	undolist = current;
+	current = NULL;
 }
 
 void
