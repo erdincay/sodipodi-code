@@ -64,6 +64,8 @@ public:
 
 	// Revert recorded action
 	void revert (Document *doc);
+	// Check if current record overwrites the value of previous record
+	bool isValueOverwrite (Record *prev);
 };
 
 struct Transaction {

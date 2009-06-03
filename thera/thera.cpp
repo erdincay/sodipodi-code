@@ -131,6 +131,8 @@ bool
 Node::setAttribute (const char *name, const char *newvalue)
 {
 	char *oldvalue = AttributeArray::get (attributes, name);
+	if (!oldvalue && !newvalue) return true;
+	if (oldvalue && newvalue && !strcmp (oldvalue, newvalue)) return true;
 	// Emit change_attr
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -154,6 +156,8 @@ bool
 Node::setTextContent (const char *newcontent)
 {
 	char *oldcontent = content;
+	if (!oldcontent && !newcontent) return true;
+	if (oldcontent && newcontent && !strcmp (oldcontent, newcontent)) return true;
 	// Emit change_content
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
