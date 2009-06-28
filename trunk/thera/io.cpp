@@ -15,6 +15,8 @@
 
 #include <libxml/xmlreader.h>
 
+#include <libarikkei/arikkei-iolib.h>
+
 #include "thera.h"
 
 namespace Thera {
@@ -36,7 +38,7 @@ appendChildNode (Document *doc, Node **current, Node *child)
 	return true;
 }
 
-static void
+static Node *
 processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 {
 	int nodetype = xmlTextReaderNodeType (reader);
@@ -63,8 +65,10 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 				// fprintf (stdout, ".");
 				*current = child;
 			}
+			return child;
 		} else {
 			delete child;
+			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_TEXT) {
 		Node *child = new Node(Node::TEXT, doc, NULL);
@@ -72,24 +76,30 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 			xmlChar *value = xmlTextReaderValue (reader);
 			child->setTextContent ((const char *) value);
 			xmlFree (value);
+			return child;
 		} else {
 			delete child;
+			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_CDATA) {
+		return NULL;
 	} else if (nodetype == XML_READER_TYPE_COMMENT) {
 		Node *child = new Node(Node::COMMENT, doc, NULL);
 		if (appendChildNode (doc, current, child)) {
 			xmlChar *value = xmlTextReaderValue (reader);
 			child->setTextContent ((const char *) value);
 			xmlFree (value);
+			return child;
 		} else {
 			delete child;
+			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_SIGNIFICANT_WHITESPACE) {
+		return NULL;
 	} else if (nodetype == XML_READER_TYPE_END_ELEMENT) {
 		if (!*current) {
 			fprintf (stderr, "No current element\n");
-			return;
+			return NULL;
 		}
 		// if (xmlTextReaderDepth (reader) < 10) {
 		// 	for (int i = 0; i < xmlTextReaderDepth (reader); i++) fprintf (stdout, "  ");
@@ -97,8 +107,10 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 		// }
 		// fprintf (stdout, "backing %s->%s\n", (*current)->name, ((*current)->parent) ? (*current)->parent->name : "NONE");
 		*current = (*current)->parent;
+		return NULL;
 	} else {
 		fprintf (stderr, "Unsupported node type: %d\n", nodetype);
+		return NULL;
 	}
 }
 
@@ -107,9 +119,42 @@ load (const char *filename)
 {
 	Document *doc = NULL;
 
-	xmlTextReaderPtr reader = xmlNewTextReaderFilename (filename);
-	if (reader != NULL) {
+	size_t csize;
+	const unsigned char *cdata = arikkei_mmap ((const unsigned char *) filename, &csize, NULL);
+	if (cdata) {
+		doc = load (cdata, csize, (const unsigned char *) filename);
+		arikkei_munmap (cdata, csize);
+	}
 
+	return doc;
+}
+
+Document *
+load (const unsigned char *cdata, size_t csize, const unsigned char *uri)
+{
+	Document *doc = NULL;
+
+	xmlBuffer b = {
+		(xmlChar *) cdata, // Content
+		csize, // Use
+		csize, // Size
+		XML_BUFFER_ALLOC_IMMUTABLE // Alloc
+	};
+
+	xmlParserInputBuffer ib = {
+		NULL, // Context
+		NULL, // Read callback
+		NULL, // Close callback
+		NULL, // Encoder
+		&b, // Buffer
+		NULL, // Raw
+		-1, // Compressed
+		0, // Error
+		0 // Raw consumed
+	};
+
+	xmlTextReaderPtr reader = xmlNewTextReader (&ib, NULL);
+	if (reader != NULL) {
 		// fixme: Think about root element (Lauris)
 		doc = new Document(NULL);
 		Node *current = NULL;
@@ -121,13 +166,75 @@ load (const char *filename)
 		}
 		xmlFreeTextReader (reader);
 		if (ret != 0) {
-			fprintf (stderr, "%s : failed to parse\n", filename);
+			fprintf (stderr, "%s : failed to parse\n", uri);
 		}
 	} else {
-		fprintf(stderr, "Unable to open %s\n", filename);
+		fprintf(stderr, "Unable to open %s\n", uri);
 	}
 
 	return doc;
+}
+
+Node *
+loadNode (Node *parent, const char *filename)
+{
+	Node *node = NULL;
+
+	size_t csize;
+	const unsigned char *cdata = arikkei_mmap ((const unsigned char *) filename, &csize, NULL);
+	if (cdata) {
+		node = loadNode (parent, cdata, csize, (const unsigned char *) filename);
+		arikkei_munmap (cdata, csize);
+	}
+
+	return node;
+}
+
+Node *
+loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned char *uri)
+{
+	Node *child = NULL;
+
+	Document *doc = parent->document;
+
+	xmlBuffer b = {
+		(xmlChar *) cdata, // Content
+		csize, // Use
+		csize, // Size
+		XML_BUFFER_ALLOC_IMMUTABLE // Alloc
+	};
+
+	xmlParserInputBuffer ib = {
+		NULL, // Context
+		NULL, // Read callback
+		NULL, // Close callback
+		NULL, // Encoder
+		&b, // Buffer
+		NULL, // Raw
+		-1, // Compressed
+		0, // Error
+		0 // Raw consumed
+	};
+
+	xmlTextReaderPtr reader = xmlNewTextReader (&ib, NULL);
+	if (reader != NULL) {
+		Node *current = parent;
+
+		int ret = xmlTextReaderRead (reader);
+		while (ret == 1) {
+			Node *newnode = processNode (reader, doc, &current);
+			if (!child && newnode) child = newnode;
+			ret = xmlTextReaderRead (reader);
+		}
+		xmlFreeTextReader (reader);
+		if (ret != 0) {
+			fprintf (stderr, "%s : failed to parse\n", uri);
+		}
+	} else {
+		fprintf(stderr, "Unable to open %s\n", uri);
+	}
+
+	return child;
 }
 
 unsigned int
