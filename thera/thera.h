@@ -139,6 +139,9 @@ public:
 };
 
 Document *load (const char *filename);
+Document *load (const unsigned char *cdata, size_t csize, const unsigned char *uri);
+Node *loadNode (Node *parent, const char *filename);
+Node *loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned char *uri);
 
 unsigned int save (const Document *document, const char *filename);
 
