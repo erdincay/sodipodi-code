@@ -58,6 +58,10 @@ arikkei_utf8_multibyte_strdup (const unsigned char *utf8)
 #endif
 #endif
 
+#ifdef TESTING
+static size_t total = 0;
+#endif
+
 const unsigned char *
 arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *name)
 {
@@ -119,7 +123,11 @@ arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *
 
 		if (cdata == NULL) {
 			DWORD ecode = GetLastError ();
-			// fprintf (stderr, "Error %d\n", ecode);
+			// fprintf (stderr, "arikkei_mmap: Error %d\n", ecode);
+		} else {
+#ifdef TESTING
+			total += st.st_size;
+#endif
 		}
 		CloseHandle (hMapObject);
     } else {
@@ -161,5 +169,9 @@ arikkei_munmap (const unsigned char *cdata, size_t size)
 	UnmapViewOfFile (cdata);
 #else
 	munmap ((void *) cdata, size);
+#endif
+
+#ifdef TESTING
+	total -= size;
 #endif
 }
