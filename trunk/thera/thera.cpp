@@ -239,7 +239,6 @@ Node::removeChild (Node *child)
 	}
 	child->next = NULL;
 	child->parent = NULL;
-	document->childRemoved (this, ref, child);
 	// Emit child_removed
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -247,6 +246,10 @@ Node::removeChild (Node *child)
 			if (l.events->child_removed) l.events->child_removed (this, child, ref, l.data);
 		}
 	}
+
+	// This has to be last because document either deletes child or grabs ownership
+	document->childRemoved (this, ref, child);
+
 	return true;
 }
 
