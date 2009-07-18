@@ -21,7 +21,7 @@ namespace NR {
 
 struct PixBlock {
 public:
-	enum Mode { G8, R8G8B8, R8G8B8A8N, R8G8B8A8P, NUM_MODES };
+	enum Mode { G8, R8G8B8, R8G8B8A8N, R8G8B8A8P, INVALID };
 private:
 	// Not copyable
 	PixBlock& operator= (const PixBlock& pixblock) { assert (false); return *this; }
@@ -96,6 +96,9 @@ public:
 	// Blitting
 	void blit (const PixBlock& source, unsigned int alpha) { nr_blit_pixblock_pixblock_alpha (&pb, &source.pb, alpha); if (alpha && !source.pb.empty) pb.empty = 0; }
 	void drawMask (const PixBlock& mask, unsigned int rgba32) { nr_blit_pixblock_mask_rgba32 (&pb, &mask.pb, rgba32); if (rgba32 & 255) pb.empty = 0; }
+
+	// Helper
+	static int modeBPP (Mode mode) { return (mode == G8) ? 1 : (mode == R8G8B8) ? 3 : 4; }
 };
 
 } // Namespace NR
