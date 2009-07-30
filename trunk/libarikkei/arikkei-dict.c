@@ -239,7 +239,7 @@ arikkei_int_hash (const void *data)
 unsigned int
 arikkei_int_equal (const void *l, const void *r)
 {
-	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) l - (const char *) 0);
+	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) r - (const char *) 0);
 }
 
 unsigned int
