@@ -16,7 +16,7 @@
 namespace Thera {
 
 Document::Document (const char *rootname)
-: log(false), current(NULL), undolist(NULL), redolist(NULL), root(NULL)
+: log(0), collate(0), current(NULL), undolist(NULL), redolist(NULL), root(NULL)
 {
 	if (rootname) {
 		root = new Node(Node::ELEMENT, this, rootname);
@@ -141,14 +141,19 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	attributes = AttributeArray::set (attributes, name, newvalue);
-	document->attributeChanged (this, name, oldvalue, newvalue);
 	// Emit attr_changed
+	bool emitted = false;
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
 			Listener& l(listeners->elements[i]);
-			if (l.events->attr_changed) l.events->attr_changed (this, name, oldvalue, newvalue, l.data);
+			if (l.events->attr_changed) {
+				l.events->attr_changed (this, name, oldvalue, newvalue, l.data);
+				emitted = true;
+			}
 		}
 	}
+	if (!emitted && parent) parent->emitDownstreamAttrChanged (this, name, oldvalue, newvalue);
+	document->attributeChanged (this, name, oldvalue, newvalue);
 	return true;
 }
 
@@ -166,14 +171,19 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	content = (newcontent) ? strdup (newcontent) : NULL;
-	document->contentChanged (this, oldcontent, newcontent);
 	// Emit content_changed
+	bool emitted = false;
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
 			Listener& l(listeners->elements[i]);
-			if (l.events->content_changed) l.events->content_changed (this, oldcontent, newcontent, l.data);
+			if (l.events->content_changed) {
+				l.events->content_changed (this, oldcontent, newcontent, l.data);
+				emitted = true;
+			}
 		}
 	}
+	if (!emitted && parent) parent->emitDownstreamContentChanged (this, oldcontent, newcontent);
+	document->contentChanged (this, oldcontent, newcontent);
 	return true;
 }
 
@@ -195,14 +205,19 @@ Node::addChild (Node *child, Node *ref)
 		child->next = ref->next;
 		ref->next = child;
 	}
-	document->childInserted (this, ref, child);
 	// Emit child_added
+	bool emitted = false;
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
 			Listener& l(listeners->elements[i]);
-			if (l.events->child_added) l.events->child_added (this, child, ref, l.data);
+			if (l.events->child_added) {
+				l.events->child_added (this, child, ref, l.data);
+				emitted = true;
+			}
 		}
 	}
+	if (!emitted && parent) parent->emitDownstreamChildAdded (this, child, ref);
+	document->childInserted (this, ref, child);
 	return true;
 }
 
@@ -240,16 +255,19 @@ Node::removeChild (Node *child)
 	child->next = NULL;
 	child->parent = NULL;
 	// Emit child_removed
+	bool emitted = false;
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
 			Listener& l(listeners->elements[i]);
-			if (l.events->child_removed) l.events->child_removed (this, child, ref, l.data);
+			if (l.events->child_removed) {
+				l.events->child_removed (this, child, ref, l.data);
+				emitted = true;
+			}
 		}
 	}
-
+	if (!emitted && parent) parent->emitDownstreamChildRemoved (this, child, ref);
 	// This has to be last because document either deletes child or grabs ownership
 	document->childRemoved (this, ref, child);
-
 	return true;
 }
 
@@ -269,16 +287,102 @@ Node::relocateChild (Node *child, Node *nref)
 	cref->next = child->next;
 	child->next = nref->next;
 	nref->next = child;
-	document->childRelocated (this, cref, nref, child);
 	// Emit order_changed
+	bool emitted = false;
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
 			Listener& l(listeners->elements[i]);
-			if (l.events->order_changed) l.events->order_changed (this, child, cref, nref, l.data);
+			if (l.events->order_changed) {
+				l.events->order_changed (this, child, cref, nref, l.data);
+				emitted = true;
+			}
 		}
 	}
+	if (!emitted && parent) parent->emitDownstreamOrderChanged (this, child, cref, nref);
+	document->childRelocated (this, cref, nref, child);
 	return true;
 }
+
+void
+Node::emitDownstreamChildAdded (Node *node, Node *child, Node *ref)
+{
+	bool emitted = false;
+	if (listeners) {
+		for (int i = 0; i < listeners->length; i++) {
+			Listener& l(listeners->elements[i]);
+			if (l.events->downstream_child_added) {
+				l.events->downstream_child_added (node, child, ref, l.data);
+				emitted = true;
+			}
+		}
+	}
+	if (!emitted && parent) parent->emitDownstreamChildAdded (node, child, ref);
+}
+
+void
+Node::emitDownstreamChildRemoved (Node *node, Node *child, Node *ref)
+{
+	bool emitted = false;
+	if (listeners) {
+		for (int i = 0; i < listeners->length; i++) {
+			Listener& l(listeners->elements[i]);
+			if (l.events->downstream_child_removed) {
+				l.events->downstream_child_removed (node, child, ref, l.data);
+				emitted = true;
+			}
+		}
+	}
+	if (!emitted && parent) parent->emitDownstreamChildRemoved (node, child, ref);
+}
+
+void
+Node::emitDownstreamAttrChanged (Node *node, const char *key, const char *oldval, const char *newval)
+{
+	bool emitted = false;
+	if (listeners) {
+		for (int i = 0; i < listeners->length; i++) {
+			Listener& l(listeners->elements[i]);
+			if (l.events->downstream_attr_changed) {
+				l.events->downstream_attr_changed (node, key, oldval, newval, l.data);
+				emitted = true;
+			}
+		}
+	}
+	if (!emitted && parent) parent->emitDownstreamAttrChanged (node, key, oldval, newval);
+}
+
+void
+Node::emitDownstreamContentChanged (Node *node, const char *oldcontent, const char *newcontent)
+{
+	bool emitted = false;
+	if (listeners) {
+		for (int i = 0; i < listeners->length; i++) {
+			Listener& l(listeners->elements[i]);
+			if (l.events->downstream_content_changed) {
+				l.events->downstream_content_changed (node, oldcontent, newcontent, l.data);
+				emitted = true;
+			}
+		}
+	}
+	if (!emitted && parent) parent->emitDownstreamContentChanged (node, oldcontent, newcontent);
+}
+
+void
+Node::emitDownstreamOrderChanged (Node *node, Node *child, Node *oldref, Node *newref)
+{
+	bool emitted = false;
+	if (listeners) {
+		for (int i = 0; i < listeners->length; i++) {
+			Listener& l(listeners->elements[i]);
+			if (l.events->downstream_order_changed) {
+				l.events->downstream_order_changed (node, child, oldref, newref, l.data);
+				emitted = true;
+			}
+		}
+	}
+	if (!emitted && parent) parent->emitDownstreamOrderChanged (node, child, oldref, newref);
+}
+
 
 Node *
 Node::clone (Document *pdocument, bool recursive)

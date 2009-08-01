@@ -27,6 +27,13 @@ struct EventVector {
 	void (* content_changed) (Node *node, const char *oldcontent, const char *newcontent, void *data);
 	unsigned int (* change_order) (Node *node, Node *child, Node *oldref, Node *newref, void *data);
 	void (* order_changed) (Node *node, Node *child, Node *oldref, Node *newref, void *data);
+	// Upstream handlers
+	// If node does not have particular handler installed parent upstream handler is called and so on
+	void (* downstream_child_added) (Node *node, Node *child, Node *ref, void *data);
+	void (* downstream_child_removed) (Node *node, Node *child, Node *ref, void *data);
+	void (* downstream_attr_changed) (Node *node, const char *key, const char *oldval, const char *newval, void *data);
+	void (* downstream_content_changed) (Node *node, const char *oldcontent, const char *newcontent, void *data);
+	void (* downstream_order_changed) (Node *node, Node *child, Node *oldref, Node *newref, void *data);
 };
 
 struct Record;
@@ -78,6 +85,12 @@ private:
 	struct Listener;
 	struct ListenerArray;
 
+	// Upstream signal emitters
+	void emitDownstreamChildAdded (Node *node, Node *child, Node *ref);
+	void emitDownstreamChildRemoved (Node *node, Node *child, Node *ref);
+	void emitDownstreamAttrChanged (Node *node, const char *key, const char *oldval, const char *newval);
+	void emitDownstreamContentChanged (Node *node, const char *oldcontent, const char *newcontent);
+	void emitDownstreamOrderChanged (Node *node, Node *child, Node *oldref, Node *newref);
 public:
 	enum Type {
 		ELEMENT,
