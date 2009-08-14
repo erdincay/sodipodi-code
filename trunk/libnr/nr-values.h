@@ -12,13 +12,21 @@
 
 #include <libnr/nr-types.h>
 
-#define NR_EPSILON_D 1e-18
-#define NR_EPSILON_F 1e-18F
+#define NR_EPSILON_D 1e-24
+#define NR_EPSILON_F 1e-12F
 
-#define NR_HUGE_D 1e18L
-#define NR_HUGE_F 1e18F
+#define NR_HUGE_D 1e24L
+#define NR_HUGE_F 1e12F
 #define NR_HUGE_L (0x7fffffff)
 #define NR_HUGE_S (0x7fff)
+
+#define NR_PI_F 3.14159265f
+#define NR_2PI_F 6.28318531f
+#define NR_PI2_F 1.57079633f
+
+#define NR_PI_D 3.1415926535897932384626433832795
+#define NR_2PI_D 6.283185307179586476925286766559
+#define NR_PI2_D 1.5707963267948966192313216916398
 
 #ifdef _WIN32
 #define NR_EXPORT static

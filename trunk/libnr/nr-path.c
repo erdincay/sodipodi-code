@@ -510,10 +510,10 @@ nr_path_is_empty (const NRPath *path)
 		seg = path->elements + sstart;
 		slen = NR_PATH_SEGMENT_LENGTH (seg);
 		/* Empty moveto is self + x + y */
-		if (slen > 3) return TRUE;
+		if (slen > 3) return FALSE;
 		sstart += slen;
 	}
-	return FALSE;
+	return TRUE;
 }
 
 unsigned int
@@ -704,8 +704,10 @@ nr_path_break (NRPath *paths[], unsigned int maxpaths, const NRPath *path)
 		unsigned int slen;
 		seg = &path->elements[sstart];
 		slen = NR_PATH_SEGMENT_LENGTH (seg);
-		paths[numpaths] = nr_path_new (slen, 0);
-		nr_path_copy_elements (paths[numpaths], 0, path, sstart, slen);
+		if (paths) {
+			paths[numpaths] = nr_path_new (slen, 0);
+			nr_path_copy_elements (paths[numpaths], 0, path, sstart, slen);
+		}
 		numpaths += 1;
 		if (numpaths >= maxpaths) break;
 		sstart += slen;
@@ -822,11 +824,11 @@ nr_dynamic_path_setup_from_path (NRDynamicPath *dpath, NRPath *path, unsigned in
 	dpath->hascpt = (lastseg != NULL) && !(NR_PATH_SEGMENT_IS_CLOSED (lastseg));
 }
 
-// void
-// nr_dynamic_path_release (NRDynamicPath *dpath)
-// {
-//	if (!dpath->isstatic) free (dpath->path);
-// }
+void
+nr_dynamic_path_release (NRDynamicPath *dpath)
+{
+	if (!dpath->isstatic) free (dpath->path);
+}
 
 NRDynamicPath *
 nr_dynamic_path_new (unsigned int nelements)

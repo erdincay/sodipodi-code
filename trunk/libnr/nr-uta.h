@@ -37,4 +37,6 @@ void nr_uta_move_resize (NRUTA *src, int x0, int y0, int x1, int y1);
 
 void nr_uta_clear_block (NRUTA *uta, int x, int y);
 
+void nr_uta_free (NRUTA *uta);
+
 #endif
