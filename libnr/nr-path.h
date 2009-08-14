@@ -102,8 +102,7 @@ NRPath *nr_path_duplicate_transform (const NRPath *path, const NRMatrixF *transf
 /* Transform can be NULL */
 /* Path is NOT autoclosed */
 unsigned int nr_path_forall (const NRPath *path, const NRMatrixF *transform, const NRPathGVector *gv, void *data);
-unsigned int nr_path_forall_flat (const NRPath *path, const NRMatrixF *transform, float tolerance,
-				  const NRPathGVector *gv, void *data);
+unsigned int nr_path_forall_flat (const NRPath *path, const NRMatrixF *transform, float tolerance, const NRPathGVector *gv, void *data);
 
 void nr_path_matrix_f_bbox_f_union (const NRPath *path, const NRMatrixF *m, NRRectF *bbox, float tolerance);
 float nr_path_matrix_f_wind_distance (const NRPath *path, const NRMatrixF *m, float x, float y, int *wind, float tolerance);
@@ -145,7 +144,7 @@ struct _NRDynamicPath {
 
 void nr_dynamic_path_setup (NRDynamicPath *dpath, unsigned int nelements);
 void nr_dynamic_path_setup_from_path (NRDynamicPath *dpath, NRPath *path, unsigned int isstatic, unsigned int makecopy);
-// void nr_dynamic_path_release (NRDynamicPath *dpath);
+void nr_dynamic_path_release (NRDynamicPath *dpath);
 
 NRDynamicPath *nr_dynamic_path_new (unsigned int nelements);
 NRDynamicPath *nr_dynamic_path_new_from_path (NRPath *path, unsigned int isstatic, unsigned int makecopy);
