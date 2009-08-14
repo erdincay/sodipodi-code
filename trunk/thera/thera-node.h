@@ -32,6 +32,13 @@ struct _TheraNodeEventVector {
 	void (* content_changed) (TheraNode *node, const char *oldcontent, const char *newcontent, void *data);
 	unsigned int (* change_order) (TheraNode *node, TheraNode *child, TheraNode *oldref, TheraNode *newref, void *data);
 	void (* order_changed) (TheraNode *node, TheraNode *child, TheraNode *oldref, TheraNode *newref, void *data);
+	// Upstream handlers
+	// If node does not have particular handler installed parent upstream handler is called and so on
+	void (* downstream_child_added) (TheraNode *node, TheraNode *child, TheraNode *ref, void *data);
+	void (* downstream_child_removed) (TheraNode *node, TheraNode *child, TheraNode *ref, void *data);
+	void (* downstream_attr_changed) (TheraNode *node, const char *key, const char *oldval, const char *newval, void *data);
+	void (* downstream_content_changed) (TheraNode *node, const char *oldcontent, const char *newcontent, void *data);
+	void (* downstream_order_changed) (TheraNode *node, TheraNode *child, TheraNode *oldref, TheraNode *newref, void *data);
 };
 
 /* Element types */
@@ -43,11 +50,11 @@ TheraDocument *thera_node_get_document (TheraNode *node);
 
 const char *thera_node_get_name (TheraNode *node);
 
-int thera_node_get_num_attributes (TheraNode *node);
-const char *thera_node_get_attribute_name (TheraNode *node, int attridx);
-const char *thera_node_get_attribute_value (TheraNode *node, int attridx);
-const char *thera_node_get_attribute (TheraNode *node, const char *name);
-unsigned int thera_node_set_attribute (TheraNode *node, const char *name, const char *value);
+unsigned int thera_node_get_num_attributes (TheraNode *node);
+const char *thera_node_get_attribute_name (TheraNode *node, unsigned int attridx);
+const char *thera_node_get_attribute_value (TheraNode *node, unsigned int attridx);
+const char *thera_node_get_attribute (TheraNode *node, const char *key);
+unsigned int thera_node_set_attribute (TheraNode *node, const char *key, const char *value);
 
 const char *thera_node_get_text_content (TheraNode *node);
 unsigned int thera_node_set_text_content (TheraNode *node, const char *value);
@@ -66,7 +73,30 @@ void thera_node_remove_listener (TheraNode *node, void *data);
 
 TheraNode *thera_node_clone (TheraNode *node, TheraDocument *document, unsigned int recursive);
 
-unsigned int thera_node_merge (TheraNode *node, TheraNode *from, const char *id);
+unsigned int thera_node_merge (TheraNode *node, TheraNode *from, const char *identitykey, unsigned int recursive);
+
+unsigned int thera_node_get_boolean (TheraNode *node, const char *key, unsigned int *value);
+unsigned int thera_node_get_int (TheraNode *node, const char *key, int *value);
+unsigned int thera_node_get_double (TheraNode *node, const char *key, double *value);
+
+unsigned int thera_node_set_boolean (TheraNode *node, const char *key, unsigned int value);
+unsigned int thera_node_set_int (TheraNode *node, const char *key, int value);
+unsigned int thera_node_set_double (TheraNode *node, const char *key, double value);
+
+unsigned int thera_node_unparent (TheraNode *node);
+
+unsigned int thera_node_get_num_children (TheraNode *node);
+TheraNode *thera_node_get_child_by_index (TheraNode *node, unsigned int index);
+
+int thera_node_compare_position (TheraNode *lhs, TheraNode *rhs);
+
+unsigned int thera_node_set_position_absolute (TheraNode *node, int newpos);
+
+void thera_node_delete (TheraNode *node);
+
+TheraNode *thera_node_lookup_child_by_attribute (TheraNode *node, const char *key, const char *value);
+TheraNode *thera_node_lookup_child_by_name (TheraNode *node, const char *name);
+TheraNode *thera_node_lookup_child_by_name_id (TheraNode *node, const char *name, const char *id);
 
 #ifdef __cplusplus
 }

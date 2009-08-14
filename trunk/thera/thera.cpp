@@ -16,10 +16,11 @@
 namespace Thera {
 
 Document::Document (const char *rootname)
-: log(0), collate(0), current(NULL), undolist(NULL), redolist(NULL), root(NULL)
+: log(0), collate(0), current(NULL), undolist(NULL), redolist(NULL), children(NULL), root(NULL)
 {
 	if (rootname) {
-		root = new Node(Node::ELEMENT, this, rootname);
+		children = new Node(Node::ELEMENT, this, rootname);
+		root = children;
 	}
 }
 
@@ -36,7 +37,11 @@ Document::~Document (void)
 		redolist = redolist->next;
 		delete t;
 	}
-	delete root;
+	while (children) {
+		Node *child = children;
+		children = children->next;
+		delete child;
+	}
 }
 
 struct Node::Attribute {
@@ -45,8 +50,8 @@ struct Node::Attribute {
 };
 
 struct Node::AttributeArray {
-	int size;
-	int length;
+	unsigned int size;
+	unsigned int length;
 	Attribute elements[1];
 	static void destroy (AttributeArray *aa);
 	static AttributeArray *ensureSpace (AttributeArray *aa, int ensure);
@@ -103,22 +108,22 @@ Node::~Node (void)
 	free (name);
 }
 
-int
+unsigned int
 Node::getNumAttributes (void) const
 {
 	return (attributes) ? attributes->length : 0;
 }
 
 const char *
-Node::getAttributeName (int idx) const
+Node::getAttributeName (unsigned int idx) const
 {
-	return (attributes && (idx >= 0) && (idx < attributes->length)) ? attributes->elements[idx].name : NULL;
+	return (attributes && (idx < attributes->length)) ? attributes->elements[idx].name : NULL;
 }
 
 const char *
-Node::getAttribute (int idx) const
+Node::getAttribute (unsigned int idx) const
 {
-	return (attributes && (idx >= 0) && (idx < attributes->length)) ? attributes->elements[idx].value : NULL;
+	return (attributes && (idx < attributes->length)) ? attributes->elements[idx].value : NULL;
 }
 
 const char *
@@ -383,6 +388,24 @@ Node::emitDownstreamOrderChanged (Node *node, Node *child, Node *oldref, Node *n
 	if (!emitted && parent) parent->emitDownstreamOrderChanged (node, child, oldref, newref);
 }
 
+unsigned int
+Node::getNumChildren (void)
+{
+	unsigned int nchildren = 0;
+	for (Node *child = children; child; child = child->next) nchildren += 1;
+	return nchildren;
+}
+
+Node *
+Node::getChild (unsigned int childidx)
+{
+	unsigned int childpos = 0;
+	for (Node *child = children; child; child = child->next) {
+		if (childpos == childidx) return child;
+		childpos += 1;
+	}
+	return NULL;
+}
 
 Node *
 Node::clone (Document *pdocument, bool recursive)
@@ -417,7 +440,7 @@ void
 Node::AttributeArray::destroy (Node::AttributeArray *aa)
 {
 	if (!aa) return;
-	for (int i = 0; i < aa->length; i++) {
+	for (unsigned int i = 0; i < aa->length; i++) {
 		free (aa->elements[i].name);
 		free (aa->elements[i].value);
 	}
@@ -446,7 +469,7 @@ char *
 Node::AttributeArray::get (const AttributeArray *aa, const char *name)
 {
 	if (!aa || !name) return NULL;
-	for (int i = 0; i < aa->length; i++) {
+	for (unsigned int i = 0; i < aa->length; i++) {
 		if (!strcmp (name, aa->elements[i].name)) return aa->elements[i].value;
 	}
 	return NULL;
@@ -457,13 +480,13 @@ Node::AttributeArray::set (AttributeArray *aa, const char *name, const char *val
 {
 	if (!name) return aa;
 	if (aa) {
-		for (int i = 0; i < aa->length; i++) {
+		for (unsigned int i = 0; i < aa->length; i++) {
 			if (!strcmp (name, aa->elements[i].name)) {
 				if (value) {
 					// free (aa->elements[i].value);
 					aa->elements[i].value = strdup (value);
 				} else {
-					for (int j = i + 1; j < aa->length; j++) {
+					for (unsigned int j = i + 1; j < aa->length; j++) {
 						aa->elements[j - 1] = aa->elements[j];
 					}
 					aa->length -= 1;
@@ -485,7 +508,7 @@ Node::AttributeArray::duplicate ()
 {
 	AttributeArray *aa = NULL;
 	aa = ensureSpace (aa, length);
-	for (int i = 0; i < length; i++) {
+	for (unsigned int i = 0; i < length; i++) {
 		aa->elements[i].name = strdup (elements[i].name);
 		aa->elements[i].value = strdup (elements[i].value);
 	}

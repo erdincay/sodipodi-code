@@ -28,12 +28,16 @@ appendChildNode (Document *doc, Node **current, Node *child)
 		// fprintf (stdout, "Appending %s->%s\n", (*current)->name, child->name);
 		(*current)->appendChild (child);
 	} else {
-		if (doc->root) {
-			fprintf (stderr, "appendChildNode: Document already has root\n");
-			return false;
+		if (doc->children) {
+			Node *ref = doc->children;
+			while (ref->next) ref = ref->next;
+			ref->next = child;
+		} else {
+			doc->children = child;
 		}
-		// fprintf (stdout, "Appending ROOT->%s\n", child->name);
-		doc->root = child;
+		if (!doc->root && (child->type == Node::ELEMENT)) {
+			doc->root = child;
+		}
 	}
 	return true;
 }
@@ -244,7 +248,7 @@ saveNode (FILE *ofs, Node *node, int level)
 
 	for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
 	wlen += fprintf (ofs, "<%s", node->name);
-	for (int i = 0; i < node->getNumAttributes (); i++) {
+	for (unsigned int i = 0; i < node->getNumAttributes (); i++) {
 		wlen += fprintf (ofs, " %s=\"%s\"", node->getAttributeName (i), node->getAttribute (i));
 	}
 	const char *content = node->getTextContent ();
