@@ -52,6 +52,9 @@ private:
 	void addRecord (Record *record);
 	unsigned int checkNode (Node *node);
 public:
+	// All toplevel nodes
+	Node *children;
+	// Root element
 	Node *root;
 
 	// Constructor
@@ -122,11 +125,11 @@ public:
 
 	Document *getDocument (void) const { return document; }
 
-	int getNumAttributes (void) const;
-	const char *getAttributeName (int idx) const;
-	const char *getAttribute (int idx) const;
+	unsigned int getNumAttributes (void) const;
+	const char *getAttributeName (unsigned int idx) const;
+	const char *getAttribute (unsigned int idx) const;
 	const char *getAttribute (const char *name) const;
-	bool setAttribute (const char *name, const char *value);
+	bool setAttribute (const char *key, const char *value);
 
 	const char *getTextContent (void) { return content; }
 	bool setTextContent (const char *newcontent);
@@ -134,6 +137,8 @@ public:
 	Node *getParent (void) { return parent; }
 	Node *getFirstChild (void) { return children; }
 	Node *getNextSibling (void) { return next; }
+	unsigned int getNumChildren (void);
+	Node *getChild (unsigned int childidx);
 
 	bool addChild (Node *child, Node *ref);
 	bool appendChild (Node *child);
