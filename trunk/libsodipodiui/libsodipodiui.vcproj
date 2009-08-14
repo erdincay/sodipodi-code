@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1257"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="libsodipodiui"
 	ProjectGUID="{8B4F7F0A-0095-43D3-BDC0-4540F4C71A86}"
 	RootNamespace="libsodipodiui"
@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\menu.c"
+				>
+			</File>
+			<File
 				RelativePath=".\shortcuts.c"
 				>
 			</File>
@@ -220,6 +224,10 @@
 			</File>
 			<File
 				RelativePath=".\interface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\menu.h"
 				>
 			</File>
 			<File
