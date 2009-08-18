@@ -158,6 +158,8 @@ public:
 	// Convenience methods
 	bool setAttributeInt (const char *name, int value);
 	bool setAttributeUint (const char *name, unsigned int value);
+	// Get content of this node or single text child
+	const char *getContentOrChildText (void);
 };
 
 Document *load (const char *filename);

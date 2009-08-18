@@ -161,6 +161,7 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	attributes = AttributeArray::set (attributes, name, newvalue);
+	document->attributeChanged (this, name, oldvalue, newvalue);
 	// Emit attr_changed
 	bool emitted = false;
 	if (listeners) {
@@ -173,7 +174,6 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamAttrChanged (this, name, oldvalue, newvalue);
-	document->attributeChanged (this, name, oldvalue, newvalue);
 	return true;
 }
 
@@ -191,6 +191,7 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	content = (newcontent) ? strdup (newcontent) : NULL;
+	document->contentChanged (this, oldcontent, newcontent);
 	// Emit content_changed
 	bool emitted = false;
 	if (listeners) {
@@ -203,7 +204,6 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamContentChanged (this, oldcontent, newcontent);
-	document->contentChanged (this, oldcontent, newcontent);
 	return true;
 }
 
@@ -225,6 +225,8 @@ Node::addChild (Node *child, Node *ref)
 		child->next = ref->next;
 		ref->next = child;
 	}
+	// This has to be before emiting or we got id changes messed up
+	document->childInserted (this, ref, child);
 	// Emit child_added
 	bool emitted = false;
 	if (listeners) {
@@ -237,7 +239,6 @@ Node::addChild (Node *child, Node *ref)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamChildAdded (this, child, ref);
-	document->childInserted (this, ref, child);
 	return true;
 }
 
@@ -307,6 +308,7 @@ Node::relocateChild (Node *child, Node *nref)
 	cref->next = child->next;
 	child->next = nref->next;
 	nref->next = child;
+	document->childRelocated (this, cref, nref, child);
 	// Emit order_changed
 	bool emitted = false;
 	if (listeners) {
@@ -319,7 +321,6 @@ Node::relocateChild (Node *child, Node *nref)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamOrderChanged (this, child, cref, nref);
-	document->childRelocated (this, cref, nref, child);
 	return true;
 }
 
@@ -582,6 +583,21 @@ Node::setAttributeUint (const char *name, unsigned int value)
 	char c[16];
 	arikkei_dtoa_simple ((unsigned char *) c, 16, (double) value, 15, 0, 0);
 	return setAttribute (name, c);
+}
+
+const char *
+Node::getContentOrChildText (void)
+{
+	if (content) return content;
+	Node *text = NULL;
+	for (Node *child = children; child; child = child->next) {
+		if (child->type == TEXT) {
+			if (text) return NULL;
+			text = child;
+		}
+	}
+	if (!text) return NULL;
+	return text->content;
 }
 
 } // Namespace Thera
