@@ -23,9 +23,13 @@ TheraDocument *thera_document_new (const char *rootname);
 void thera_document_ref (TheraDocument *doc);
 void thera_document_unref (TheraDocument *doc);
 
+TheraNode *thera_document_get_first_node (TheraDocument *doc);
 TheraNode *thera_document_get_root (TheraDocument *doc);
 
+unsigned int thera_document_add_node (TheraDocument *thedoc, TheraNode *node, TheraNode *ref);
+
 TheraNode *thera_document_new_node (TheraDocument *doc, unsigned int nodetype, const char *name);
+TheraNode *thera_document_new_element (TheraDocument *doc, const char *name);
 
 void thera_document_enable_transactions (TheraDocument *doc, unsigned int enabled);
 void thera_document_collate_transactions (TheraDocument *doc, unsigned int collate);

@@ -143,6 +143,16 @@ thera_node_clone (TheraNode *node, TheraDocument *document, unsigned int recursi
 }
 
 unsigned int
+thera_node_set_attribute_recursive (TheraNode *node, const char *key, const char *value)
+{
+	bool result = node->t.setAttribute (key, value);
+	for (Thera::Node *child = node->t.children; child; child = child->next) {
+		result = result & child->setAttribute (key, value);
+	}
+	return result;
+}
+
+unsigned int
 thera_node_merge (TheraNode *node, TheraNode *from, const char *identitykey, unsigned int recursive)
 {
 	// fixme:
