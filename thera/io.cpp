@@ -25,7 +25,13 @@ static bool
 appendChildNode (Document *doc, Node **current, Node *child)
 {
 	if (*current) {
-		// fprintf (stdout, "Appending %s->%s\n", (*current)->name, child->name);
+		if ((*current)->content) {
+			// Create text child
+			Node *text = new Node(Node::TEXT, doc, NULL);
+			text->setTextContent ((*current)->content);
+			(*current)->appendChild (text);
+			(*current)->setTextContent (NULL);
+		}
 		(*current)->appendChild (child);
 	} else {
 		if (doc->children) {
@@ -75,6 +81,13 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_TEXT) {
+		if ((*current) && !(*current)->children) {
+			// Simply set context
+			xmlChar *value = xmlTextReaderValue (reader);
+			(*current)->setTextContent ((const char *) value);
+			xmlFree (value);
+			return NULL;
+		}
 		Node *child = new Node(Node::TEXT, doc, NULL);
 		if (appendChildNode (doc, current, child)) {
 			xmlChar *value = xmlTextReaderValue (reader);
