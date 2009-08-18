@@ -60,7 +60,10 @@ public:
 	// Constructor
 	Document (const char *rootname);
 	// Destructor
-	~Document (void);
+	virtual ~Document (void);
+
+	// Add CDATA node
+	bool addNode (Node *node, Node *ref);
 
 	// Transactions
 	void enableTransactions (unsigned int enable);
@@ -100,6 +103,7 @@ public:
 		TEXT,
 		CDATA,
 		COMMENT,
+		DOCTYPE,
 		NUM_TYPES
 	};
 

@@ -43,7 +43,7 @@ struct _TheraNodeEventVector {
 
 /* Element types */
 
-enum TheraNodeType { THERA_NODE_ELEMENT, THERA_NODE_TEXT, THERA_NODE_CDATA, THERA_NODE_COMMENT, NUM_THERA_NODE_TYPES };
+enum TheraNodeType { THERA_NODE_ELEMENT, THERA_NODE_TEXT, THERA_NODE_CDATA, THERA_NODE_COMMENT, THERA_NODE_DOCTYPE, NUM_THERA_NODE_TYPES };
 
 unsigned int thera_node_get_type (TheraNode *node);
 TheraDocument *thera_node_get_document (TheraNode *node);
@@ -73,6 +73,7 @@ void thera_node_remove_listener (TheraNode *node, void *data);
 
 TheraNode *thera_node_clone (TheraNode *node, TheraDocument *document, unsigned int recursive);
 
+unsigned int thera_node_set_attribute_recursive (TheraNode *node, const char *key, const char *value);
 unsigned int thera_node_merge (TheraNode *node, TheraNode *from, const char *identitykey, unsigned int recursive);
 
 unsigned int thera_node_get_boolean (TheraNode *node, const char *key, unsigned int *value);

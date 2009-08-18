@@ -27,15 +27,33 @@ thera_document_unref (TheraDocument *doc)
 }
 
 TheraNode *
+thera_document_get_first_node (TheraDocument *doc)
+{
+	return (TheraNode *) doc->t.children;
+}
+
+TheraNode *
 thera_document_get_root (TheraDocument *doc)
 {
 	return (TheraNode *) doc->t.root;
+}
+
+unsigned int
+thera_document_add_node (TheraDocument *thedoc, TheraNode *node, TheraNode *ref)
+{
+	return thedoc->t.addNode ((Thera::Node *) node, (Thera::Node *) ref);
 }
 
 TheraNode *
 thera_document_new_node (TheraDocument *doc, unsigned int nodetype, const char *name)
 {
 	return (TheraNode *) new Thera::Node((Thera::Node::Type) nodetype, (Thera::Document *) doc, name);
+}
+
+TheraNode *
+thera_document_new_element (TheraDocument *doc, const char *name)
+{
+	return (TheraNode *) new Thera::Node((Thera::Document *) doc, name);
 }
 
 void 

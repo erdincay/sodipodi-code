@@ -44,6 +44,21 @@ Document::~Document (void)
 	}
 }
 
+bool
+Document::addNode (Node *node, Node *ref)
+{
+	if (!node || node->parent || (node->document != this)) return false;
+	if (ref && (ref->parent || (node->document != this))) return false;
+	if (ref) {
+		node->next = ref->next;
+		ref->next = node;
+	} else {
+		node->next = children;
+		children = node;
+	}
+	return true;
+}
+
 struct Node::Attribute {
 	char *name;
 	char *value;

@@ -100,6 +100,17 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 		}
 	} else if (nodetype == XML_READER_TYPE_SIGNIFICANT_WHITESPACE) {
 		return NULL;
+	} else if (nodetype == XML_READER_TYPE_DOCUMENT_TYPE) {
+		Node *child = new Node(Node::DOCTYPE, doc, NULL);
+		if (appendChildNode (doc, current, child)) {
+			xmlChar *value = xmlTextReaderValue (reader);
+			child->setTextContent ((const char *) value);
+			xmlFree (value);
+			return child;
+		} else {
+			delete child;
+			return NULL;
+		}
 	} else if (nodetype == XML_READER_TYPE_END_ELEMENT) {
 		if (!*current) {
 			fprintf (stderr, "No current element\n");
