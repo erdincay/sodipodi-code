@@ -40,8 +40,7 @@ NRSVL *nr_path_stroke (const NRPath *path, const NRMatrixF *transform,
 		       unsigned int cap, unsigned int join, float miterlimit,
 		       float flatness);
 
-void nr_path_stroke_bbox_union (const NRPath *path, NRMatrixF *transform, NRRectF *bbox,
-								float width, unsigned int cap, unsigned int join, float miterlimit, float flatness);
+void nr_path_stroke_bbox_union (const NRPath *path, const NRMatrixF *transform, NRRectF *bbox, float width, unsigned int cap, unsigned int join, float miterlimit, float flatness);
 
 struct _NRDash {
 	unsigned int ndashes;

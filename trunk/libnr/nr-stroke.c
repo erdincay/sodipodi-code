@@ -353,8 +353,7 @@ NRSVL *nr_path_stroke (const NRPath *path, const NRMatrixF *transform,
 }
 
 void
-nr_path_stroke_bbox_union (const NRPath *path, NRMatrixF *transform, NRRectF *bbox,
-								float width, unsigned int cap, unsigned int join, float miterlimit, float flatness)
+nr_path_stroke_bbox_union (const NRPath *path, const NRMatrixF *transform, NRRectF *bbox, float width, unsigned int cap, unsigned int join, float miterlimit, float flatness)
 {
 	NRSVLStrokeBuild svlb;
 

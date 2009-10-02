@@ -174,3 +174,56 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 
 	pb->empty = 0;
 }
+
+void
+nr_pixblock_render_checker (NRPixBlock *pb, unsigned int size, unsigned int xoffset, unsigned int yoffset, unsigned int rgb0, unsigned int rgb1)
+{
+	unsigned char r[2], g[2], b[2];
+	unsigned int size2;
+	int x, y, bpp;
+	int p;
+
+	size2 = 2 * size;
+	bpp = NR_PIXBLOCK_BPP (pb);
+	if (bpp == 1) {
+		g[0] = (NR_RGBA32_R (rgb0) + NR_RGBA32_G (rgb0) + NR_RGBA32_B (rgb0) + 1) / 3;
+		g[1] = (NR_RGBA32_R (rgb1) + NR_RGBA32_G (rgb1) + NR_RGBA32_B (rgb1) + 1) / 3;
+	} else {
+		r[0] = NR_RGBA32_R (rgb0);
+		g[0] = NR_RGBA32_G (rgb0);
+		b[0] = NR_RGBA32_B (rgb0);
+		r[1] = NR_RGBA32_R (rgb1);
+		g[1] = NR_RGBA32_G (rgb1);
+		b[1] = NR_RGBA32_B (rgb1);
+	}
+
+	for (y = pb->area.y0; y < pb->area.y1; y++) {
+		unsigned char *d;
+		d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
+		for (x = pb->area.x0; x < pb->area.x1; x++) {
+			p = (((x + xoffset) ^ (y + yoffset)) % size2) / size;
+			switch (pb->mode) {
+			case NR_PIXBLOCK_MODE_G8:
+				d[0] = g[p];
+				break;
+			case NR_PIXBLOCK_MODE_R8G8B8:
+				d[0] = r[p];
+				d[1] = g[p];
+				d[2] = b[p];
+				break;
+			case NR_PIXBLOCK_MODE_R8G8B8A8N:
+			case NR_PIXBLOCK_MODE_R8G8B8A8P:
+				d[0] = r[p];
+				d[1] = g[p];
+				d[2] = b[p];
+				d[3] = 255;
+			default:
+				break;
+			}
+			d += bpp;
+		}
+	}
+
+	pb->empty = 0;
+}
+
