@@ -39,7 +39,6 @@ static int sp_icon_expose (GtkWidget *widget, GdkEventExpose *event);
 
 static void sp_icon_paint (SPIcon *icon, GdkRectangle *area);
 
-static unsigned char *sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size);
 static unsigned char *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
 /* static unsigned char *sp_icon_image_load_svg (const unsigned char *name, unsigned int size, unsigned int scale); */
 
@@ -267,37 +266,78 @@ sp_icon_paint (SPIcon *icon, GdkRectangle *area)
 
 static GHashTable *loaderdict = NULL;
 
+struct IconClassLoader {
+	char *prefix;
+	GSList *loaders;
+};
+
+struct IconLoader {
+	unsigned char *(* loader) (const unsigned char *, unsigned int, void *);
+	void *data;
+};
+
 void
-sp_icon_register_loader (const unsigned char *prefix, unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb))
+sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loader) (const unsigned char *, unsigned int, void *), void *data)
 {
+	struct IconClassLoader *lc;
+	struct IconLoader *l;
 	if (!loaderdict) loaderdict = g_hash_table_new (g_str_hash, g_str_equal);
-	g_hash_table_insert (loaderdict, (gpointer) prefix, (gpointer) loader);
+	if (!prefix) prefix = "*";
+	lc = g_hash_table_lookup (loaderdict, prefix);
+	if (!lc) {
+		lc = (struct IconClassLoader *) malloc (sizeof (struct IconClassLoader));
+		lc->prefix = g_strdup (prefix);
+		lc->loaders = NULL;
+		g_hash_table_insert (loaderdict, lc->prefix, lc);
+	}
+	l = (struct IconLoader *) malloc (sizeof (struct IconLoader));
+	l->loader = loader;
+	l->data = data;
+	lc->loaders = g_slist_append (lc->loaders, l);
 }
 
 unsigned char *
 sp_icon_image_load (const unsigned char *name, unsigned int size)
 {
-	unsigned char *px;
 	const unsigned char *p;
+	unsigned char *px;
 	if (!name || !*name) return NULL;
-	p = strchr (name, ':');
-	if (p && loaderdict) {
-		char *prefix;
-		const unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb);
-		prefix = g_strndup (name, p - name);
-		loader = g_hash_table_lookup (loaderdict, prefix);
-		g_free (prefix);
-		if (loader) {
-			NRPixBlock pxb;
-			if (loader (p + 1, &pxb)) {
-				px = sp_icon_image_load_pixblock (&pxb, size);
-				nr_pixblock_release (&pxb);
+	if (loaderdict) {
+		struct IconClassLoader *lc;
+		p = strchr (name, ':');
+		if (p) {
+			char *prefix;
+			prefix = g_strndup (name, p - name);
+			lc = g_hash_table_lookup (loaderdict, prefix);
+			g_free (prefix);
+			p = p + 1;
+		} else {
+			lc = g_hash_table_lookup (loaderdict, "*");
+			p = name;
+		}
+		if (lc) {
+			GSList *ll;
+			for (ll = lc->loaders; ll; ll = ll->next) {
+				struct IconLoader *l;
+				l = (struct IconLoader *) ll->data;
+				px = l->loader (p, size, l->data);
 				if (px) return px;
 			}
 		}
 	}
-	px = sp_icon_image_load_pixmap (name, size);
-
+	px = sp_icon_image_load_from_file (name, size);
+	if (!px) {
+		guchar *path;
+		path = (guchar *) g_strdup_printf ("%s.png", name);
+		px = sp_icon_image_load_from_file (path, size);
+		g_free (path);
+	}
+	if (!px) {
+		guchar *path;
+		path = (guchar *) g_strdup_printf ("%s.xpm", name);
+		px = sp_icon_image_load_from_file (path, size);
+		g_free (path);
+	}
 	return px;
 }
 
@@ -308,7 +348,7 @@ sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned i
 	/* fixme: Make stock/nonstock configurable */
 	if (!strncmp (name, "gtk-", 4)) {
 		GdkPixbuf *pb;
-		unsigned char *px, *spx;
+		unsigned char *dpx, *spx;
 		int gtksize, srs;
 		unsigned int y;
 		gtksize = sp_icon_get_gtk_size (size);
@@ -316,38 +356,25 @@ sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned i
 		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
 		spx = gdk_pixbuf_get_pixels (pb);
 		srs = gdk_pixbuf_get_rowstride (pb);
-		px = nr_new (unsigned char, 4 * size * size);
+		dpx = (unsigned char *) malloc (size * 4 * size);
 		for (y = 0; y < size; y++) {
-			memcpy (px + 4 * y * size, spx + y * srs, 4 * size);
+			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
 		}
-		g_object_unref ((GObject *) pb);
-		return px;
+		g_object_unref (G_OBJECT(pb));
+		return dpx;
 	} else {
 		return sp_icon_image_load (name, size);
 	}
 }
 
-static unsigned char *
-sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size)
+unsigned char *
+sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
 {
-	unsigned char *path, *fn;
-	unsigned char *px;
 	GdkPixbuf *pb;
 
-	fn = g_strdup_printf ("%s.png", name);
-	path = (unsigned char *) g_build_filename (SODIPODI_PIXMAPDIR, fn, NULL);
-	g_free (fn);
 	pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
-	g_free (path);
-	if (!pb) {
-		fn = g_strdup_printf ("%s.xpm", name);
-		path = (unsigned char *) g_build_filename (SODIPODI_PIXMAPDIR, fn, NULL);
-		g_free (fn);
-		pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
-		g_free (path);
-	}
 	if (pb) {
-		unsigned char *spx;
+		unsigned char *dpx, *spx;
 		int srs;
 		unsigned int y;
 		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
@@ -359,13 +386,13 @@ sp_icon_image_load_pixmap (const unsigned char *name, unsigned int size)
 		}
 		spx = gdk_pixbuf_get_pixels (pb);
 		srs = gdk_pixbuf_get_rowstride (pb);
-		px = nr_new (unsigned char, 4 * size * size);
+		dpx = (unsigned char *) malloc (size * 4 * size);
 		for (y = 0; y < size; y++) {
-			memcpy (px + 4 * y * size, spx + y * srs, 4 * size);
+			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
 		}
 		g_object_unref (G_OBJECT (pb));
 
-		return px;
+		return dpx;
 	}
 
 	return NULL;
