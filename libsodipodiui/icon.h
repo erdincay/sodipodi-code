@@ -53,10 +53,12 @@ GtkWidget *sp_icon_new_from_data (unsigned int size, const unsigned char *px);
 
 /* This is unrelated, but can as well be here */
 
-void sp_icon_register_loader (const unsigned char *prefix, unsigned int (* loader) (const unsigned char *name, NRPixBlock *pxb));
+void sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loader) (const unsigned char *, unsigned int, void *), void *data);
 
 unsigned char *sp_icon_image_load (const unsigned char *name, unsigned int size);
 unsigned char *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
+
+unsigned char *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
 
 #ifdef __cplusplus
 }
