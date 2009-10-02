@@ -64,7 +64,8 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 		if (appendChildNode (doc, current, child)) {
 			while (xmlTextReaderMoveToNextAttribute (reader)) {
 				// xmlChar *localname = xmlTextReaderLocalName (reader);
-				xmlChar *xmlname = xmlTextReaderLocalName (reader);
+				// xmlChar *xmlname = xmlTextReaderLocalName (reader);
+				xmlChar *xmlname = xmlTextReaderName (reader);
 				xmlChar *value = xmlTextReaderValue (reader);
 				child->setAttribute ((const char *) xmlname, (const char *) value);
 				xmlFree (value);
@@ -114,16 +115,7 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 	} else if (nodetype == XML_READER_TYPE_SIGNIFICANT_WHITESPACE) {
 		return NULL;
 	} else if (nodetype == XML_READER_TYPE_DOCUMENT_TYPE) {
-		Node *child = new Node(Node::DOCTYPE, doc, NULL);
-		if (appendChildNode (doc, current, child)) {
-			xmlChar *value = xmlTextReaderValue (reader);
-			child->setTextContent ((const char *) value);
-			xmlFree (value);
-			return child;
-		} else {
-			delete child;
-			return NULL;
-		}
+		return NULL;
 	} else if (nodetype == XML_READER_TYPE_END_ELEMENT) {
 		if (!*current) {
 			fprintf (stderr, "No current element\n");
@@ -265,8 +257,10 @@ loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned
 	return child;
 }
 
-unsigned int
-saveNode (FILE *ofs, Node *node, int level)
+static unsigned int saveNode (FILE *ofs, Node *node, int level);
+
+static unsigned int
+saveElement (FILE *ofs, Node *node, int level)
 {
 	unsigned int wlen = 0;
 
@@ -305,6 +299,28 @@ saveNode (FILE *ofs, Node *node, int level)
 	return wlen;
 }
 
+static unsigned int
+saveNode (FILE *ofs, Node *node, int level)
+{
+	unsigned int wlen = 0;
+
+	if (node->type == Node::ELEMENT) {
+		wlen += saveElement (ofs, node, level);
+	} else if (node->type == Node::COMMENT) {
+		for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
+		wlen += fprintf (ofs, "<!--");
+		wlen += fprintf (ofs, "%s", node->content);
+		wlen += fprintf (ofs, "-->\n");
+	} else if (node->type == Node::DOCTYPE) {
+		for (int i = 0; i < level; i++) wlen += fputs ("  ", ofs);
+		wlen += fprintf (ofs, "<!DOCTYPE ");
+		wlen += fprintf (ofs, "%s", node->content);
+		wlen += fprintf (ofs, ">\n");
+	}
+
+	return wlen;
+}
+
 unsigned int
 save (const Document *document, const char *filename)
 {
@@ -317,7 +333,9 @@ save (const Document *document, const char *filename)
 
 	wlen += fprintf (ofs, "<?xml version=\"1.0\"?>\n");
 
-	wlen += saveNode (ofs, document->root, 0);
+	for (Node *child = document->children; child; child = child->next) {
+		wlen += saveNode (ofs, child, 0);
+	}
 
 	fclose (ofs);
 
