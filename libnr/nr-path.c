@@ -59,6 +59,7 @@ NRPath *
 nr_path_duplicate (const NRPath *path, unsigned int nreserved)
 {
 	NRPath *newpath;
+	if (!path) return NULL;
 	if (nreserved > 3) return NULL;
 	newpath = nr_path_new (path->nelements - path->offset + nreserved, nreserved);
 	memcpy (&newpath->elements[newpath->offset], &path->elements[path->offset], (path->nelements - path->offset) * sizeof (NRPathElement));
@@ -69,6 +70,7 @@ NRPath *
 nr_path_duplicate_transform (const NRPath *path, const NRMatrixF *transform)
 {
 	NRPath *newpath;
+	if (!path) return NULL;
 	newpath = nr_path_new (path->nelements, path->offset);
 	if (transform) {
 		unsigned int sstart;
@@ -109,6 +111,61 @@ nr_path_duplicate_transform (const NRPath *path, const NRMatrixF *transform)
 		memcpy (newpath, path, sizeof (NRPath) + path-> nelements * sizeof (NRPathElement) - sizeof (NRPathElement));
 	}
 	return newpath;
+}
+
+unsigned int
+nr_path_compare (const NRPath *lhs, const NRPath *rhs, float *delta)
+{
+	unsigned int lstart, rstart;
+
+	if (delta) *delta = 0;
+	if (!lhs) return !rhs;
+	if (!rhs) return !lhs;
+	if (lhs->nelements != rhs->nelements) return 0;
+
+	lstart = lhs->offset;
+	rstart = rhs->offset;
+	while (lstart < lhs->nelements) {
+		const NRPathElement *ls, *rs;
+		unsigned int slen, idx;
+
+		ls = &lhs->elements[lstart];
+		rs = &rhs->elements[rstart];
+		if (ls[0].uval != rs[0].uval) return 0;
+
+		slen = NR_PATH_SEGMENT_LENGTH (&ls[0]);
+
+		if (delta) {
+			float ldelta;
+			ldelta = (float) fabs (ls[1].fval - rs[1].fval);
+			if (ldelta > *delta) *delta = ldelta;
+			ldelta = (float) fabs (ls[2].fval - rs[2].fval);
+			if (ldelta > *delta) *delta = ldelta;
+		}
+
+		idx = 3;
+		while (idx < slen) {
+			int nmulti, ncp, i, j;
+			if (ls[idx].uval != rs[idx].uval) return 0;
+			nmulti = NR_PATH_ELEMENT_LENGTH (&ls[idx]);
+			ncp = NR_PATH_CODE_NUM_POINTS (NR_PATH_ELEMENT_CODE (&ls[idx]));
+			idx += 1;
+			for (i = 0; i < nmulti; i++) {
+				for (j = 0; j < ncp; j++) {
+					float ldelta;
+					ldelta = (float) fabs (ls[idx + 2 * j].fval - rs[idx + 2 * j].fval);
+					if (ldelta > *delta) *delta = ldelta;
+					ldelta = (float) fabs (ls[idx + 2 * j + 1].fval - rs[idx + 2 * j + 1].fval);
+					if (ldelta > *delta) *delta = ldelta;
+				}
+				idx += (2 * ncp);
+			}
+		}
+		lstart += slen;
+		rstart += slen;
+	}
+
+	return 1;
 }
 
 unsigned int
@@ -491,7 +548,7 @@ nr_path_get_num_strokes (const NRPath *path)
 			code = NR_PATH_ELEMENT_CODE (&sseg[idx]);
 			nmulti = NR_PATH_ELEMENT_LENGTH (&sseg[idx]);
 			numstrokes += nmulti;
-			npoints = NR_PATH_CODE_NUM_POINTS (code);
+			npoints = nmulti * NR_PATH_CODE_NUM_POINTS (code);
 			idx += (2 * npoints + 1);
 		}
 		sstart += slen;
@@ -500,9 +557,36 @@ nr_path_get_num_strokes (const NRPath *path)
 }
 
 unsigned int
+nr_path_get_num_points (const NRPath *path)
+{
+	unsigned int numpoints;
+	unsigned int sstart;
+
+	numpoints = 0;
+	sstart = path->offset;
+	while (sstart < path->nelements) {
+		unsigned int slen, idx;
+		numpoints += 1;
+		slen = NR_PATH_SEGMENT_LENGTH (&path->elements[sstart]);
+		idx = 3;
+		while (idx < slen) {
+			unsigned int code, nmulti;
+			code = NR_PATH_ELEMENT_CODE (&path->elements[sstart + idx]);
+			nmulti = NR_PATH_ELEMENT_LENGTH (&path->elements[sstart + idx]);
+			idx += 1;
+			numpoints += nmulti * NR_PATH_CODE_NUM_POINTS (code);
+			idx += 2 * nmulti * NR_PATH_CODE_NUM_POINTS (code);
+		}
+		sstart += slen;
+	}
+	return numpoints;
+}
+
+unsigned int
 nr_path_is_empty (const NRPath *path)
 {
 	unsigned int sstart;
+	if (!path) return TRUE;
 	sstart = path->offset;
 	while (sstart < path->nelements) {
 		const NRPathElement *seg;
@@ -520,6 +604,7 @@ unsigned int
 nr_path_is_shape (const NRPath *path)
 {
 	unsigned int sstart;
+	if (!path) return FALSE;
 	sstart = path->offset;
 	while (sstart < path->nelements) {
 		const NRPathElement *seg;
@@ -567,7 +652,7 @@ nr_path_get_segment_list (unsigned int segs[], unsigned int maxsegs, NRPath *pat
 }
 
 unsigned int
-nr_path_is_any_closed (const NRPath *path)
+nr_path_any_closed (const NRPath *path)
 {
 	unsigned int sstart;
 	sstart = path->offset;
@@ -583,7 +668,7 @@ nr_path_is_any_closed (const NRPath *path)
 }
 
 unsigned int
-nr_path_are_all_closed (const NRPath *path)
+nr_path_all_closed (const NRPath *path)
 {
 	unsigned int sstart;
 	sstart = path->offset;
@@ -599,78 +684,88 @@ nr_path_are_all_closed (const NRPath *path)
 }
 
 unsigned int
-nr_path_get_starting_point (const NRPath *path, float *x, float *y)
+nr_path_get_first_point (const NRPath *path, float *x, float *y)
 {
-	if (path->nelements == path->offset) return 0;
+	if (path->nelements < (path->offset + 2)) return 0;
 	if (x) *x = NR_PATH_ELEMENT_VALUE (&path->elements[path->offset + 1]);
 	if (y) *y = NR_PATH_ELEMENT_VALUE (&path->elements[path->offset + 2]);
+	return 1;
+}
+
+unsigned int
+nr_path_get_last_point (const NRPath *path, float *x, float *y)
+{
+	if (path->nelements < (path->offset + 2)) return 0;
+	if (x) *x = NR_PATH_ELEMENT_VALUE (&path->elements[path->nelements - 2]);
+	if (y) *y = NR_PATH_ELEMENT_VALUE (&path->elements[path->nelements - 1]);
 	return 1;
 }
 
 static NRPath *
 nr_path_combine_join (const NRPath *paths[], unsigned int numpaths, float snaple)
 {
-#if 0
-	unsigned int nelements, i;
-	unsigned int dlseg, dlel, dend;
+	unsigned int nelements, dpos, i;
 	unsigned int lastclosed;
 	NRPath *path;
 	/* In worst case we have to add LINETo X Y, but we get rid of segment start */
 	nelements = 0;
-	for (i = 0; i < numpaths; i++) nelements += (paths[i]->nelements - paths[i]->offset);
-
-	path = nr_path_new (nelements, 0);
-	dlseg = dlel = dend = path->offset;
-	/* Set closed flag so the next segment will be added intact */
 	for (i = 0; i < numpaths; i++) {
-		unsigned int sfseg;
-		sfseg = paths[i]->offset;
-		if (lastclosed || NR_PATH_SEGMENT_IS_CLOSED (&paths[i]->elements[sfseg])) {
+		if (!paths[i] || (paths[i]->nelements <= paths[i]->offset)) continue;
+		nelements += (paths[i]->nelements - paths[i]->offset);
+	}
+	if (!nelements) return NULL;
+	path = nr_path_new (nelements, 0);
+	/* Force first component to be copied asis */
+	lastclosed = TRUE;
+	dpos = path->offset;
+	for (i = 0; i < numpaths; i++) {
+		const NRPathElement *dlseg, *sfseg;
+		unsigned int spos;
+		if (!paths[i] || (paths[i]->nelements <= paths[i]->offset)) continue;
+		spos = paths[i]->offset;
+		sfseg = &paths[i]->elements[spos];
+		if (lastclosed || NR_PATH_SEGMENT_IS_CLOSED (sfseg)) {
 			unsigned int len;
 			/* Just add all path elements */
-			len = paths[i]->nelements - paths[i]->offset;
-			nr_path_copy_elements (path, dpos, paths[i], paths[i]->offset, len);
+			len = paths[i]->nelements - spos;
+			nr_path_copy_elements (path, dpos, paths[i], spos, len);
 			dpos += len;
 		} else {
-	}
-
 			float x0, y0, x1, y1;
-			unsigned int spos, llen, flen, len;
-			NRPathElement *lseg;
-####lseg = nr_path_get_last_segment (paths[i]);
-			llen = NR_PATH_SEGMENT_LENGTH (lseg);
-			flen = NR_PATH_SEGMENT_LENGTH (fseg);
+			unsigned int dllen, sflen, len;
+			NRPathElement *dlseg;
+			dlseg = nr_path_get_last_segment (path);
+			dllen = NR_PATH_SEGMENT_LENGTH (dlseg);
+			sflen = NR_PATH_SEGMENT_LENGTH (sfseg);
 			x0 = path->elements[dpos - 2].fval;
 			y0 = path->elements[dpos - 1].fval;
-			spos = paths[i]->offset;
 			x1 = paths[i]->elements[spos + 1].fval;
 			y1 = paths[i]->elements[spos + 2].fval;
 			if ((fabs (x1 - x0) <= snaple) && (fabs (y1 - y0) <= snaple)) {
 				/* Snap - i.e. just ignore segment start */
-				len = llen + flen - 3;
+				len = dllen + sflen - 3;
+				spos += 3;
 			} else {
 				/* Add lineto - replace segment start */
 				NR_PATH_ELEMENT_SET_CODE (&path->elements[dpos], NR_PATH_LINETO);
 				NR_PATH_ELEMENT_SET_LENGTH (&path->elements[dpos], 1);
 				path->elements[dpos + 1].fval = x1;
 				path->elements[dpos + 2].fval = y1;
-				len = llen + flen;
+				len = dllen + sflen;
 				dpos += 3;
+				spos += 3;
 			}
-			NR_PATH_ELEMENT_SET_LENGTH (lseg, len);
-			len = paths[i]->nelements - paths[i]->offset - 3;
-			nr_path_copy_elements (path, dpos, paths[i], paths[i]->offset + 3, len);
+			NR_PATH_ELEMENT_SET_LENGTH (dlseg, len);
+			len = paths[i]->nelements - spos;
+			nr_path_copy_elements (path, dpos, paths[i], spos, len);
 			dpos += len;
 		}
-		if (join) {
-			const NRPathElement *lseg;
-			lseg = nr_path_get_last_segment (paths[i]);
-			lastclosed = NR_PATH_SEGMENT_IS_CLOSED (lseg);
-		}
+		path->nelements = dpos - path->offset;
+		dlseg = nr_path_get_last_segment (path);
+		lastclosed = NR_PATH_SEGMENT_IS_CLOSED (dlseg);
 	}
 	return path;
-#endif
-return NULL;
+
 }
 
 NRPath *
@@ -680,11 +775,16 @@ nr_path_combine (const NRPath *paths[], unsigned int numpaths, unsigned int join
 	NRPath *path;
 	if (join) return nr_path_combine_join (paths, numpaths, snaple);
 	nelements = 0;
-	for (i = 0; i < numpaths; i++) nelements += (paths[i]->nelements - paths[i]->offset);
+	for (i = 0; i < numpaths; i++) {
+		if (!paths[i]) continue;
+		nelements += (paths[i]->nelements - paths[i]->offset);
+	}
+	if (!nelements) return NULL;
 	path = nr_path_new (nelements, 0);
 	dpos = path->offset;
 	for (i = 0; i < numpaths; i++) {
 		unsigned int len;
+		if (!paths[i]) continue;
 		len = paths[i]->nelements - paths[i]->offset;
 		nr_path_copy_elements (path, dpos, paths[i], paths[i]->offset, len);
 		dpos += len;
@@ -785,6 +885,22 @@ nr_path_append_continuous (const NRPath *lhs, const NRPath *rhs)
 	NR_PATH_ELEMENT_SET_LENGTH (seg, 1);
 	memcpy (seg + 1, &rhs->elements[rhs->offset + 1], (rhs->nelements - rhs->offset - 1) * sizeof (NRPathElement));
 	return path;
+}
+
+void
+nr_path_close_all (NRPath *path)
+{
+	unsigned int sstart;
+	if (!path) return;
+	sstart = path->offset;
+	while (sstart < path->nelements) {
+		NRPathElement *seg;
+		unsigned int slen;
+		seg = path->elements + sstart;
+		slen = NR_PATH_SEGMENT_LENGTH (seg);
+		NR_PATH_SEGMENT_SET_CLOSED (seg, TRUE);
+		sstart += slen;
+	}
 }
 
 /* NRDynamicPath */

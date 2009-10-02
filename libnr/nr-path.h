@@ -98,6 +98,8 @@ struct _NRPath {
 
 NRPath *nr_path_duplicate (const NRPath *path, unsigned int nreserved);
 NRPath *nr_path_duplicate_transform (const NRPath *path, const NRMatrixF *transform);
+/* Return TRUE if paths have identical structure (delta will be maximum difference between any points) */
+unsigned int nr_path_compare (const NRPath *lhs, const NRPath *rhs, float *delta);
 
 /* Transform can be NULL */
 /* Path is NOT autoclosed */
@@ -109,18 +111,21 @@ float nr_path_matrix_f_wind_distance (const NRPath *path, const NRMatrixF *m, fl
 
 unsigned int nr_path_get_num_segments (const NRPath *path);
 unsigned int nr_path_get_num_strokes (const NRPath *path);
+unsigned int nr_path_get_num_points (const NRPath *path);
 unsigned int nr_path_is_empty (const NRPath *path);
 unsigned int nr_path_is_shape (const NRPath *path);
 #define nr_path_get_first_segment(p) (&(p)->elements[(p)->offset])
 NRPathElement *nr_path_get_last_segment (NRPath *path);
-unsigned int nr_path_is_any_closed (const NRPath *path);
-unsigned int nr_path_are_all_closed (const NRPath *path);
-unsigned int nr_path_get_starting_point (const NRPath *path, float *x, float *y);
+unsigned int nr_path_any_closed (const NRPath *path);
+unsigned int nr_path_all_closed (const NRPath *path);
+unsigned int nr_path_get_first_point (const NRPath *path, float *x, float *y);
+unsigned int nr_path_get_last_point (const NRPath *path, float *x, float *y);
 
 NRPath *nr_path_combine (const NRPath *paths[], unsigned int numpaths, unsigned int join, float snaple);
 unsigned int nr_path_break (NRPath *paths[], unsigned int maxpaths, const NRPath *path);
 NRPath *nr_path_reverse (const NRPath *path);
 NRPath *nr_path_append_continuous (const NRPath *lhs, const NRPath *rhs);
+void nr_path_close_all (NRPath *path);
 
 typedef struct _NRDynamicPath NRDynamicPath;
 
