@@ -40,7 +40,7 @@ sp_action_get_type (void)
 	static unsigned int type = 0;
 	if (!type) {
 		type = nr_object_register_type (NR_TYPE_ACTIVE_OBJECT,
-						"SPAction",
+						(const unsigned char *) "SPAction",
 						sizeof (SPActionClass),
 						sizeof (SPAction),
 						(void (*) (NRObjectClass *)) sp_action_class_init,
@@ -89,7 +89,7 @@ sp_action_setup (SPAction *action, unsigned int verb, const unsigned char *id, c
 	nr_object_setup ((NRObject *) action, SP_TYPE_ACTION);
 
 	action->sensitive = TRUE;
-	if (id) action->id = strdup (id);
+	if (id) action->id = strdup ((const char *) id);
 	if (name) action->name = strdup (name);
 	if (tip) action->tip = strdup (tip);
 	if (image) action->image = strdup (image);
