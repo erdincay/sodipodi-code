@@ -26,7 +26,7 @@ ArikkeiToken *
 arikkei_token_set_from_string (ArikkeiToken *token, const unsigned char *cdata)
 {
 	token->cdata = cdata;
-	token->len = (cdata) ? strlen (cdata) : 0;
+	token->len = (cdata) ? strlen ((const char *) cdata) : 0;
 	return token;
 }
 
@@ -53,7 +53,7 @@ arikkei_token_is_equal (const ArikkeiToken *token, const ArikkeiToken *other)
 	if (!arikkei_token_is_valid (other)) return 0;
 	if (!arikkei_token_is_empty (token)) {
 		if (!arikkei_token_is_empty (other)) {
-			return ((token->len == other->len) && !strncmp (token->cdata, other->cdata, token->len));
+			return ((token->len == other->len) && !strncmp ((const char *) token->cdata, (const char *) other->cdata, token->len));
 		} else {
 			return 0;
 		}
@@ -79,7 +79,7 @@ arikkei_token_strdup (const ArikkeiToken *token)
 	if (arikkei_token_is_valid (token)) {
 		unsigned char *b;
 		b = malloc (token->len + 1);
-		if (token->len) strncpy (b, token->cdata, token->len);
+		if (token->len) strncpy ((char *) b, (const char *) token->cdata, token->len);
 		b[token->len] = 0;
 		return b;
 	} else {
@@ -91,7 +91,7 @@ size_t
 arikkei_token_strcpy (const ArikkeiToken *token, unsigned char *b)
 {
 	if (arikkei_token_is_valid (token)) {
-		if (token->len) strncpy (b, token->cdata, token->len);
+		if (token->len) strncpy ((char *) b, (const char *) token->cdata, token->len);
 		b[token->len] = 0;
 		return token->len;
 	} else {
@@ -107,7 +107,7 @@ arikkei_token_strncpy (const ArikkeiToken *token, unsigned char *b, size_t size)
 	if (arikkei_token_is_valid (token) && (size > 1)) {
 		size_t len = token->len;
 		if (len > (size - 1)) len = size - 1;
-		if (len) strncpy (b, token->cdata, len);
+		if (len) strncpy ((char *) b, (const char *) token->cdata, len);
 		b[len] = 0;
 		return len;
 	} else {
@@ -121,7 +121,7 @@ arikkei_token_strcmp (const ArikkeiToken *token, const unsigned char *str)
 {
 	if (!arikkei_token_is_valid (token)) return -1;
 	if (str) {
-		return arikkei_token_strncmp (token, str, strlen (str));
+		return arikkei_token_strncmp (token, str, strlen ((const char *) str));
 	} else {
 		return arikkei_token_is_empty (token);
 	}
@@ -137,7 +137,7 @@ arikkei_token_strncmp (const ArikkeiToken *token, const unsigned char *str, size
 			int cval;
 			len = token->len;
 			clen = (len < size) ? len : size;
-			cval = strncmp (token->cdata, str, clen);
+			cval = strncmp ((const char *) token->cdata, (const char *) str, clen);
 			if (cval) return cval;
 			if (len < size) return -1;
 			if (len > size) return 1;
@@ -267,7 +267,7 @@ arikkei_token_tokenize_ws (ArikkeiToken *token, ArikkeiToken *tokens, int maxtok
 	size_t len, s;
 	int ntokens;
 	if (arikkei_token_is_empty (token)) return 0;
-	len = strlen (ws);
+	len = strlen ((const char *) ws);
 	ntokens = 0;
 	s = 0;
 	while ((s < token->len) && (ntokens < maxtokens)) {
@@ -320,7 +320,7 @@ ArikkeiToken *
 arikkei_token_strip_start_ws (ArikkeiToken *token, ArikkeiToken *dst, const unsigned char *ws)
 {
 	size_t len, s;
-	len = strlen (ws);
+	len = strlen ((const char *) ws);
 	s = 0;
 	if (token->cdata) {
 		while (s < token->len) {
@@ -355,7 +355,7 @@ arikkei_token_strip_end_ws (ArikkeiToken *token, ArikkeiToken *dst, const unsign
 {
 	size_t len;
 	int e;
-	len = strlen (ws);
+	len = strlen ((const char *) ws);
 	e = (int) token->len - 1;
 	if (token->cdata) {
 		while (e >= 0) {
@@ -393,7 +393,7 @@ arikkei_token_strip_ws (ArikkeiToken *token, ArikkeiToken *dst, const unsigned c
 {
 	size_t len;
 	int s, e;
-	len = strlen (ws);
+	len = strlen ((const char *) ws);
 	s = 0;
 	e = (int) token->len - 1;
 	if (token->cdata) {
@@ -424,7 +424,7 @@ arikkei_token_strconcat (const ArikkeiToken *tokens, int size, const unsigned ch
 	unsigned char *str, *p;
 	size_t slen, len;
 	int i;
-	slen = strlen (separator);
+	slen = strlen ((const char *) separator);
 	len = 1;
 	for (i = 0; i < size; i++) len += tokens[i].len;
 	len += (size - 1) * slen;
@@ -432,7 +432,7 @@ arikkei_token_strconcat (const ArikkeiToken *tokens, int size, const unsigned ch
 	p = str;
 	for (i = 0; i < size; i++) {
 		if ((i > 0) && (slen > 0)) {
-			strncpy (p, separator, slen);
+			strncpy ((char *) p, (const char *) separator, slen);
 			p += slen;
 		}
 		p += arikkei_token_strcpy (tokens + i, p);
