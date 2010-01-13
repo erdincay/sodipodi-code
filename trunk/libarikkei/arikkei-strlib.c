@@ -159,7 +159,7 @@ arikkei_dtoa_simple (unsigned char *buf, unsigned int len, double val,
 			epsilon *= 10.0;
 			dival = floor (fval);
 			fval -= dival;
-			buf[i++] = '0' + (int) dival;
+			buf[i++] = '0' + (unsigned char) dival;
 			fprec -= 1;
 		}
 
@@ -289,7 +289,7 @@ arikkei_ucs2_utf8_strcpy (const unsigned short *s, unsigned char *d)
 		if (*s < 0x80) {
 			d[dp++] = (unsigned char) *s;
 		} else if (*s < 0x800) {
-			d[dp++] = 0xc0 | (*s >> 6);
+			d[dp++] = 0xc0 | (unsigned char) (*s >> 6);
 			d[dp++] = 0x80 | (*s & 0x3f);
 		} else /* if (*s < 0x10000) */ {
 			/* As long as these are 16 bit we do not need more */

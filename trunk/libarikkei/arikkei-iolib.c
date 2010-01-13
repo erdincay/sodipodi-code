@@ -35,114 +35,96 @@
 #endif
 
 #include "arikkei-strlib.h"
+#include "arikkei-dict.h"
 
 #include "arikkei-iolib.h"
 
-#ifdef WIN32
-#define S_ISREG(st) 1
-#ifndef _UNICODE
-static char *
-arikkei_utf8_multibyte_strdup (const unsigned char *utf8)
-{
-	unsigned short *ucs2;
-	LPSTR mbs;
-	int mbslen;
-	ucs2 = arikkei_utf8_ucs2_strdup (utf8);
-	mbslen = WideCharToMultiByte (CP_ACP, 0, ucs2, arikkei_ucs2_strlen (ucs2), NULL, 0, NULL, NULL);
-	mbs = malloc ((mbslen + 1) * sizeof (char));
-	WideCharToMultiByte (CP_ACP, 0, ucs2, arikkei_ucs2_strlen (ucs2), mbs, mbslen, NULL, NULL);
-	mbs[mbslen] = 0;
-	free (ucs2);
-	return mbs;
-}
-#endif
-#endif
-
-#ifdef TESTING
+#ifdef DEBUG
 static size_t total = 0;
 #endif
 
-const unsigned char *
-arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *name)
-{
 #ifdef WIN32
-	// nr_w32_mmap (const TCHAR *filename, int size, LPCTSTR name)
-	TCHAR *tfilename, *tname;
+
+const unsigned char *
+arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *mapname)
+{
+	unsigned short *ucs2filename, *ucs2mapname;
 	unsigned char *cdata;
 	struct _stat st;
-	HANDLE fh, hMapObject;
+	HANDLE fh, mh;
 
-	if (!filename) return NULL;
-#ifdef _UNICODE
-	tfilename = arikkei_utf8_ucs2_strdup (filename);
-#else
-	tfilename = arikkei_utf8_multibyte_strdup (filename);
-#endif
+	if (!filename || !*filename) return NULL;
 
-	if (name) {
-#ifdef _UNICODE
-		tname = arikkei_utf8_ucs2_strdup (name);
-#else
-		tname = arikkei_utf8_multibyte_strdup (name);
-#endif
-	} else {
-		static int rval = 0;
-		TCHAR tbuf[32];
-		_stprintf (tbuf, TEXT ("Object-%d"), rval++);
-		tname = _tcsdup (tbuf);
-	}
+	ucs2filename = arikkei_utf8_ucs2_strdup (filename);
 
-	/* Load file into mmaped memory buffer */
-	if (_tstat (tfilename, &st) /* || !S_ISREG (st.st_mode)*/) {
+	ucs2mapname = (mapname && *mapname) ? arikkei_utf8_ucs2_strdup (mapname) : NULL;
+
+	if (_wstat (ucs2filename, &st)) {
 		/* No such file */
-		/* fprintf (stderr, "File %s not found or not regular file\n", filename); */
-		free (tfilename);
-		free (tname);
+		/* fprintf (stderr, "arikkei_mmap: File %s not found or not regular file\n", filename); */
+		free (ucs2filename);
+		if (ucs2mapname) free (ucs2mapname);
 		return NULL;
 	}
 
-	fh = CreateFile (tfilename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	fh = CreateFile (ucs2filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (fh == INVALID_HANDLE_VALUE) {
-		/* No cannot open */
-		/* fprintf (stderr, "File %s cannot be opened for reading\n", filename); */
-		free (tfilename);
-		free (tname);
+		/* Cannot open */
+		/* fprintf (stderr, "arikkei_mmap: File %s cannot be opened for reading\n", filename); */
+		free (ucs2filename);
+		if (ucs2mapname) free (ucs2mapname);
 		return NULL;
 	}
 
-	hMapObject = CreateFileMapping (fh, NULL, PAGE_READONLY, 0, 0, tname);
+	mh = CreateFileMapping (fh, NULL, PAGE_READONLY, 0, 0, ucs2mapname);
+	if (mh == NULL) {
+		/* Mapping failed */
+		/* fprintf (stderr, "arikkei_mmap: File %s cannot be mapped as %s\n", filename, mapname); */
+		DWORD ecode = GetLastError ();
+		fprintf (stderr, "arikkei_mmap: File %s cannot be mapped as %s (Error %d)\n", filename, mapname, ecode);
+		CloseHandle (fh);
+		free (ucs2filename);
+		if (ucs2mapname) free (ucs2mapname);
+		return NULL;
+	}
+	/* Get a pointer to the file-mapped shared memory. */
+	cdata = (unsigned char *) MapViewOfFile (mh, FILE_MAP_READ, 0, 0, 0);
 
-    if (hMapObject != NULL) {
-        /* Get a pointer to the file-mapped shared memory. */
-        cdata = (char *) MapViewOfFile( 
-                hMapObject,     /* object to map view of */
-                FILE_MAP_READ, /* read/write access */
-                0,              /* high offset:  map from */
-                0,              /* low offset:   beginning */
-                0);             /* default: map entire file */
-
-		if (cdata == NULL) {
-			DWORD ecode = GetLastError ();
-			// fprintf (stderr, "arikkei_mmap: Error %d\n", ecode);
-		} else {
-#ifdef TESTING
-			total += st.st_size;
+#ifdef DEBUG
+	if (!cdata) {
+		DWORD ecode = GetLastError ();
+		fprintf (stderr, "arikkei_mmap: Error %d\n", ecode);
+	} else {
+		total += st.st_size;
+	}
 #endif
-		}
-		CloseHandle (hMapObject);
-    } else {
-        cdata = NULL;
-    }
-
+	CloseHandle (mh);
 	CloseHandle (fh);
 
-	free (tfilename);
-	free (tname);
+	free (ucs2filename);
+	if (ucs2mapname) free (ucs2mapname);
 
 	*size = st.st_size;
 
 	return cdata;
+}
+
+void
+arikkei_munmap (const unsigned char *cdata, size_t size)
+{
+	/* Release data */
+	UnmapViewOfFile (cdata);
+
+#ifdef DEBUG
+	total -= size;
+#endif
+}
+
 #else
+
+const unsigned char *
+arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *name)
+{
 	unsigned char *cdata;
 	struct stat st;
 	cdata = NULL;
@@ -158,20 +140,16 @@ arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *
 	*size = st.st_size;
 
 	return cdata;
-#endif
 }
 
 void
 arikkei_munmap (const unsigned char *cdata, size_t size)
 {
-#ifdef WIN32
-	/* Release data */
-	UnmapViewOfFile (cdata);
-#else
 	munmap ((void *) cdata, size);
-#endif
 
-#ifdef TESTING
+#ifdef DEBUG
 	total -= size;
 #endif
 }
+
+#endif
