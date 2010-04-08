@@ -2,6 +2,7 @@
 
 #include <malloc.h>
 #include <string.h>
+#include <stdio.h>
 
 #include <libarikkei/arikkei-strlib.h>
 
@@ -56,6 +57,30 @@ Document::addNode (Node *node, Node *ref)
 		node->next = children;
 		children = node;
 	}
+	fprintf (stderr, "Document::addNode: fixme: Implement transactions for rootlevel nodes\n");
+	// childInserted (NULL, ref, node);
+	return true;
+}
+
+bool
+Document::collateTexts (void)
+{
+	unsigned int logstatus = log;
+	for (Node *node = children; node; node = node->next) {
+		node->collateTexts ();
+	}
+	log = logstatus;
+	return true;
+}
+
+bool
+Document::expandTexts (void)
+{
+	unsigned int logstatus = log;
+	for (Node *node = children; node; node = node->next) {
+		node->expandTexts ();
+	}
+	log = logstatus;
 	return true;
 }
 
@@ -295,9 +320,12 @@ Node::removeChild (Node *child)
 bool
 Node::relocateChild (Node *child, Node *nref)
 {
-	Node *cref = children;
-	while (cref && (cref->next != child)) cref = cref->next;
-	if (!cref) return false;
+	Node *cref = NULL;
+	if (child != children) {
+		cref = children;
+		while (cref && (cref->next != child)) cref = cref->next;
+		if (!cref) return false;
+	}
 	// Emit change_order
 	if (listeners) {
 		for (int i = 0; i < listeners->length; i++) {
@@ -305,9 +333,18 @@ Node::relocateChild (Node *child, Node *nref)
 			if (l.events->change_order) if (!l.events->change_order (this, child, cref, nref, l.data)) return false;
 		}
 	}
-	cref->next = child->next;
-	child->next = nref->next;
-	nref->next = child;
+	if (cref) {
+		cref->next = child->next;
+	} else {
+		children = child->next;
+	}
+	if (nref) {
+		child->next = nref->next;
+		nref->next = child;
+	} else {
+		child->next = children;
+		children = child;
+	}
 	document->childRelocated (this, cref, nref, child);
 	// Emit order_changed
 	bool emitted = false;
@@ -598,6 +635,34 @@ Node::getContentOrChildText (void)
 	}
 	if (!text) return NULL;
 	return text->content;
+}
+
+bool
+Node::collateTexts (void)
+{
+	if (!content && children && !children->next && (children->type == TEXT)) {
+		content = (children->content) ? strdup (children->content) : NULL;
+		removeChild (children);
+	}
+	for (Node *child = children; child; child = child->next) {
+		child->collateTexts ();
+	}
+	return true;
+}
+
+bool
+Node::expandTexts (void)
+{
+	if (content) {
+		Node *child = new Node(TEXT, document, NULL);
+		child->setTextContent (content);
+		addChild (child, NULL);
+		setTextContent (NULL);
+	}
+	for (Node *child = children; child; child = child->next) {
+		child->expandTexts ();
+	}
+	return true;
 }
 
 } // Namespace Thera

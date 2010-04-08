@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 #include "thera.h"
 
@@ -272,14 +273,17 @@ unsigned int
 thera_node_set_position_absolute (TheraNode *node, int newpos)
 {
 	Thera::Node *parent = node->t.parent;
-	if (!parent) return 0;
-	if (newpos < 0) newpos = parent->getNumChildren () - 1;
-	if (newpos == 0) {
-		return parent->relocateChild ((Thera::Node *) node, NULL);
-	} else {
-		Thera::Node *ref = parent->getChild (newpos - 1);
-		return parent->relocateChild ((Thera::Node *) node, ref);
+	Thera::Node *ref = NULL;
+	if (newpos != 0) {
+		int refpos = 0;
+		for (ref = parent->children; ref->next; ref = ref->next) {
+			if (ref != (Thera::Node *) node) refpos += 1;
+			if (refpos == newpos) break;
+		}
 	}
+	// This means that we want to move last child to the end of queue
+	if (ref == (Thera::Node *) node) return true;
+	return parent->relocateChild ((Thera::Node *) node, ref);
 }
 
 void

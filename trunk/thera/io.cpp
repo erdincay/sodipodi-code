@@ -25,13 +25,13 @@ static bool
 appendChildNode (Document *doc, Node **current, Node *child)
 {
 	if (*current) {
-		if ((*current)->content) {
-			// Create text child
-			Node *text = new Node(Node::TEXT, doc, NULL);
-			text->setTextContent ((*current)->content);
-			(*current)->appendChild (text);
-			(*current)->setTextContent (NULL);
-		}
+		// if ((*current)->content) {
+		//	// Create text child
+		//	Node *text = new Node(Node::TEXT, doc, NULL);
+		//	text->setTextContent ((*current)->content);
+		//	(*current)->appendChild (text);
+		//	(*current)->setTextContent (NULL);
+		// }
 		(*current)->appendChild (child);
 	} else {
 		if (doc->children) {
@@ -82,13 +82,13 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_TEXT) {
-		if ((*current) && !(*current)->children) {
-			// Simply set context
-			xmlChar *value = xmlTextReaderValue (reader);
-			(*current)->setTextContent ((const char *) value);
-			xmlFree (value);
-			return NULL;
-		}
+		// if ((*current) && !(*current)->children) {
+		//	// Simply set context
+		//	xmlChar *value = xmlTextReaderValue (reader);
+		//	(*current)->setTextContent ((const char *) value);
+		//	xmlFree (value);
+		//	return NULL;
+		// }
 		Node *child = new Node(Node::TEXT, doc, NULL);
 		if (appendChildNode (doc, current, child)) {
 			xmlChar *value = xmlTextReaderValue (reader);
@@ -100,7 +100,16 @@ processNode (xmlTextReaderPtr reader, Document *doc, Node **current)
 			return NULL;
 		}
 	} else if (nodetype == XML_READER_TYPE_CDATA) {
-		return NULL;
+		Node *child = new Node(Node::CDATA, doc, NULL);
+		if (appendChildNode (doc, current, child)) {
+			xmlChar *value = xmlTextReaderValue (reader);
+			child->setTextContent ((const char *) value);
+			xmlFree (value);
+			return child;
+		} else {
+			delete child;
+			return NULL;
+		}
 	} else if (nodetype == XML_READER_TYPE_COMMENT) {
 		Node *child = new Node(Node::COMMENT, doc, NULL);
 		if (appendChildNode (doc, current, child)) {
