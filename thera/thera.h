@@ -62,8 +62,13 @@ public:
 	// Destructor
 	virtual ~Document (void);
 
-	// Add CDATA node
+	// Transactions are not logged for following methods
+	// Add root level node
 	bool addNode (Node *node, Node *ref);
+	// Move single text elements to content
+	bool collateTexts (void);
+	// Expand content to text elements
+	bool expandTexts (void);
 
 	// Transactions
 	void enableTransactions (unsigned int enable);
@@ -160,10 +165,28 @@ public:
 	bool setAttributeUint (const char *name, unsigned int value);
 	// Get content of this node or single text child
 	const char *getContentOrChildText (void);
+
+	// Move single text elements to content
+	bool collateTexts (void);
+	// Expand content to text elements
+	bool expandTexts (void);
 };
+
+//
+// Load document
+//
+// Texts are parsed as TEXT elements
+//
 
 Document *load (const char *filename);
 Document *load (const unsigned char *cdata, size_t csize, const unsigned char *uri);
+
+//
+// Load node and insert in hierarchy
+//
+// Texts are parsed as TEXT elements
+//
+
 Node *loadNode (Node *parent, const char *filename);
 Node *loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned char *uri);
 
