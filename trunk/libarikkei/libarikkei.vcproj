@@ -52,7 +52,7 @@
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4100"
+				DisableSpecificWarnings="4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -119,7 +119,7 @@
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4100"
+				DisableSpecificWarnings="4996"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -172,11 +172,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\arikkei-object.c"
+				>
+			</File>
+			<File
 				RelativePath=".\arikkei-strlib.c"
 				>
 			</File>
 			<File
 				RelativePath=".\arikkei-token.c"
+				>
+			</File>
+			<File
+				RelativePath=".\arikkei-url.c"
 				>
 			</File>
 			<File
@@ -202,11 +210,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\arikkei-object.h"
+				>
+			</File>
+			<File
 				RelativePath=".\arikkei-strlib.h"
 				>
 			</File>
 			<File
 				RelativePath=".\arikkei-token.h"
+				>
+			</File>
+			<File
+				RelativePath=".\arikkei-url.h"
 				>
 			</File>
 			<File
