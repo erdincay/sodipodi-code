@@ -24,10 +24,10 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 	memset (url, 0, sizeof (ArikkeiURL));
 
 	if (!address || !*address) return 0;
-	if (!defaultprotocol && !strchr (address, ':')) return 0;
+	if (!defaultprotocol && !strchr ((const char *) address, ':')) return 0;
 
 	/* Local copy */
-	url->address = strdup (address);
+	url->address = (unsigned char *) strdup ((const char *) address);
 
 	next = 0;
 
@@ -95,12 +95,12 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 		arg_s = next + 1;
 	}
 
-	url->protocol = (prot_e > 0) ? strdup_substr (address, prot_s, prot_e) : strdup (defaultprotocol);
+	url->protocol = (prot_e > 0) ? strdup_substr (address, prot_s, prot_e) : (unsigned char *) strdup ((const char *) defaultprotocol);
 	url->domain = strdup_substr (address, dom_s, dom_e);
 	url->directory = strdup_substr (address, dir_s, dir_e);
 	url->filename = strdup_substr (address, file_s, file_e);
 	url->reference = strdup_substr (address, ref_s, ref_e);
-	url->arguments = (arg_s >= 0) ? strdup (address + arg_s) : NULL;
+	url->arguments = (arg_s >= 0) ? (unsigned char *) strdup ((const char *) address + arg_s) : NULL;
 
 	url->base = strdup_substr (address, prot_s, dir_e);
 	url->path = strdup_substr (address, prot_s, file_e);
