@@ -179,8 +179,13 @@ unsigned int
 arikkei_dict_forall (ArikkeiDict *dict, unsigned int (* forall) (const void *, const void *, void *), void *data)
 {
 	unsigned int i;
-	for (i = 0; i < dict->size; i++) {
-		if (dict->entries[i].key && !forall (dict->entries[i].key, dict->entries[i].val, data)) return 0;
+	for (i = 0; i < dict->hashsize; i++) {
+		if (dict->entries[i].key) {
+			int j;
+			for (j = i; j >= 0; j = dict->entries[j].next) {
+				if (!forall (dict->entries[i].key, dict->entries[i].val, data)) return 0;
+			}
+		}
 	}
 	return 1;
 }
