@@ -37,6 +37,9 @@ struct _ArikkeiURL {
 unsigned int arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned char *defaultprotocol);
 void arikkei_url_release (ArikkeiURL *url);
 
+/* Build canonical file URL - i.e. "file:" prepended and separators set to "/" */
+unsigned char *arikkei_build_file_url (const unsigned char *path);
+
 #ifdef __cplusplus
 }
 #endif

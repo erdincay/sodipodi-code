@@ -136,3 +136,19 @@ strdup_substr (const unsigned char *str, int start, int end)
 	return d;
 }
 
+unsigned char *
+arikkei_build_file_url (const unsigned char *path)
+{
+	char *c, *p;
+
+	if (!path) return NULL;
+
+	c = (char *) malloc (strlen ((const char *) path) + 6);
+	strcpy (c, "file:");
+	strcpy (c + 5, (const char *) path);
+	for (p = c + 5; *p; p++) {
+		if (*p == '\\') *p = '/';
+	}
+
+	return (unsigned char *) c;
+}
