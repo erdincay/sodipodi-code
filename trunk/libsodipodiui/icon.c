@@ -39,7 +39,6 @@ static int sp_icon_expose (GtkWidget *widget, GdkEventExpose *event);
 
 static void sp_icon_paint (SPIcon *icon, GdkRectangle *area);
 
-static unsigned char *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
 /* static unsigned char *sp_icon_image_load_svg (const unsigned char *name, unsigned int size, unsigned int scale); */
 
 static GtkWidgetClass *parent_class;
@@ -368,37 +367,6 @@ sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned i
 }
 
 unsigned char *
-sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
-{
-	GdkPixbuf *pb;
-
-	pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
-	if (pb) {
-		unsigned char *dpx, *spx;
-		int srs;
-		unsigned int y;
-		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
-		if ((gdk_pixbuf_get_width (pb) != size) || (gdk_pixbuf_get_height (pb) != size)) {
-			GdkPixbuf *spb;
-			spb = gdk_pixbuf_scale_simple (pb, size, size, GDK_INTERP_HYPER);
-			g_object_unref (G_OBJECT (pb));
-			pb = spb;
-		}
-		spx = gdk_pixbuf_get_pixels (pb);
-		srs = gdk_pixbuf_get_rowstride (pb);
-		dpx = (unsigned char *) malloc (size * 4 * size);
-		for (y = 0; y < size; y++) {
-			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
-		}
-		g_object_unref (G_OBJECT (pb));
-
-		return dpx;
-	}
-
-	return NULL;
-}
-
-static unsigned char *
 sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
 {
 	NRPixBlock np;
@@ -433,6 +401,37 @@ sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
 		g_object_unref (G_OBJECT (pb));
 
 		return px;
+	}
+
+	return NULL;
+}
+
+unsigned char *
+sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
+{
+	GdkPixbuf *pb;
+
+	pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
+	if (pb) {
+		unsigned char *dpx, *spx;
+		int srs;
+		unsigned int y;
+		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
+		if ((gdk_pixbuf_get_width (pb) != size) || (gdk_pixbuf_get_height (pb) != size)) {
+			GdkPixbuf *spb;
+			spb = gdk_pixbuf_scale_simple (pb, size, size, GDK_INTERP_HYPER);
+			g_object_unref (G_OBJECT (pb));
+			pb = spb;
+		}
+		spx = gdk_pixbuf_get_pixels (pb);
+		srs = gdk_pixbuf_get_rowstride (pb);
+		dpx = (unsigned char *) malloc (size * 4 * size);
+		for (y = 0; y < size; y++) {
+			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
+		}
+		g_object_unref (G_OBJECT (pb));
+
+		return dpx;
 	}
 
 	return NULL;
