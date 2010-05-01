@@ -11,10 +11,6 @@
  *
  */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef struct _SPIcon SPIcon;
 typedef struct _SPIconClass SPIconClass;
 
@@ -30,6 +26,10 @@ typedef struct _SPIconClass SPIconClass;
 
 #include <libnr/nr-pixblock.h>
 #include <gtk/gtkwidget.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define SP_ICON_FLAG_STATIC_DATA (1 << 24)
 
@@ -58,6 +58,7 @@ void sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loa
 unsigned char *sp_icon_image_load (const unsigned char *name, unsigned int size);
 unsigned char *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
 
+unsigned char *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
 unsigned char *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
 
 #ifdef __cplusplus
