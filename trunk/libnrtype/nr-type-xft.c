@@ -22,7 +22,7 @@
 #include <fontconfig/fontconfig.h>
 #else
 #include <X11/Xft/Xft.h>
-#include <gdk/gdkx.h>
+/*#include <gdk/gdkx.h>*/
 #endif
 
 #include "nr-type-directory.h"
