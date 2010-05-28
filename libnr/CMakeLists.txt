@@ -10,16 +10,14 @@ ADD_DEFINITIONS(-Wall -O2)
 
 #list all source files here
 ADD_LIBRARY(libnr STATIC
-nr-gradient.c                                        
+	nr-gradient.c nr-gradient.h
+	nr-image.c nr-image.h
+	nr-macros.h
 nr-path.h              
-nr-rect.c         
+	nr-pathops.c nr-pathops.h
+	nr-rect.c nr-rect.h
 nr-types.h
-nr-gradient.h                                        
-nr-pathops.c           
-nr-rect.h         
 nr-uta.c
-nr-macros.h                                          
-nr-pathops.h           
 nr-render.h       
 nr-uta.h
 nr-matrix.c                                          
