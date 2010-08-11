@@ -53,7 +53,7 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 		dom_s = next + 2;
 		for (dom_e = dom_s; address[dom_e]; dom_e++) if (address[dom_e] == '/') break;
 		next = (address[dom_e]) ? dom_e + 1 : dom_e;
-	} else if (address[next] == ')') {
+	} else if (address[next] == '(') {
 		dom_s = next + 1;
 		for (dom_e = dom_s; address[dom_e]; dom_e++) if (address[dom_e] == ')') break;
 		next = (address[dom_e]) ? dom_e + 1 : dom_e;
