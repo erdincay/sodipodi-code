@@ -65,6 +65,8 @@ public:
 	// Transactions are not logged for following methods
 	// Add root level node
 	bool addNode (Node *node, Node *ref);
+	// Clear transaction list
+	void clearTransactions (void);
 	// Move single text elements to content
 	bool collateTexts (void);
 	// Expand content to text elements
@@ -163,6 +165,7 @@ public:
 	// Convenience methods
 	bool setAttributeInt (const char *name, int value);
 	bool setAttributeUint (const char *name, unsigned int value);
+	bool setAttributeFloat (const char *name, float value, unsigned int precision);
 	// Get content of this node or single text child
 	const char *getContentOrChildText (void);
 

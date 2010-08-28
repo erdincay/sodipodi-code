@@ -622,6 +622,14 @@ Node::setAttributeUint (const char *name, unsigned int value)
 	return setAttribute (name, c);
 }
 
+bool
+Node::setAttributeFloat (const char *name, float value, unsigned int precision)
+{
+	char c[16];
+	arikkei_dtoa_exp ((unsigned char *) c, 16, value, precision, 0);
+	return setAttribute (name, c);
+}
+
 const char *
 Node::getContentOrChildText (void)
 {
