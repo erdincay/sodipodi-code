@@ -172,7 +172,7 @@ unsigned int
 arikkei_dtoa_exp (unsigned char *buf, unsigned int len, double val,
 		  unsigned int tprec, unsigned int padf)
 {
-	if ((val == 0.0) || ((fabs (val) >= 0.1) && (fabs(val) < 10000000))) {
+	if ((val == 0.0) || ((fabs (val) >= 0.01) && (fabs(val) < 10000000))) {
 		return arikkei_dtoa_simple (buf, len, val, tprec, 0, padf);
 	} else {
 		double eval;
