@@ -226,6 +226,15 @@ Document::childRelocated (Node *node, Node *oldref, Node *newref, Node *child)
 	addRecord (r);
 }
 
+bool
+Record::isValueOverwrite (Record *prev)
+{
+	if (type != prev->type) return false;
+	if ((type == ATTRIBUTE_CHANGE) && !strcmp (attrid, prev->attrid)) return true;
+	if (type == CONTENT_CHANGE) return true;
+	return false;
+}
+
 void
 Document::enableTransactions (unsigned int enable)
 {
@@ -239,13 +248,24 @@ Document::collateTransactions (unsigned int enable)
 	collate = enable;
 }
 
-bool
-Record::isValueOverwrite (Record *prev)
+void
+Document::clearTransactions (void)
 {
-	if (type != prev->type) return false;
-	if ((type == ATTRIBUTE_CHANGE) && !strcmp (attrid, prev->attrid)) return true;
-	if (type == CONTENT_CHANGE) return true;
-	return false;
+	while (current) {
+		Transaction *t = current;
+		current = current->next;
+		delete t;
+	}
+	while (redolist) {
+		Transaction *t = redolist;
+		redolist = redolist->next;
+		delete t;
+	}
+	while (undolist) {
+		Transaction *t = undolist;
+		undolist = undolist->next;
+		delete t;
+	}
 }
 
 void
