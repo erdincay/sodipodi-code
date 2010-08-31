@@ -102,8 +102,28 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 	url->reference = strdup_substr (address, ref_s, ref_e);
 	url->arguments = (arg_s >= 0) ? (unsigned char *) strdup ((const char *) address + arg_s) : NULL;
 
-	url->base = strdup_substr (address, prot_s, dir_e);
-	url->path = strdup_substr (address, prot_s, file_e);
+	if (prot_s >= 0) {
+		url->base = strdup_substr (address, prot_s, dir_e);
+		url->path = strdup_substr (address, prot_s, file_e);
+	} else {
+		size_t plen = strlen ((const char *) defaultprotocol);
+		if (dir_e >= 0) {
+			size_t len = plen + 1 + dir_e + 1;
+			url->base = (unsigned char *) malloc (len);
+			memcpy (url->base, defaultprotocol, plen);
+			url->base[plen] = ':';
+			memcpy (url->base + plen + 1, address, dir_e);
+			url->base[len - 1] = 0;
+		}
+		if (file_e >= 0) {
+			size_t len = plen + 1 + file_e + 1;
+			url->path = (unsigned char *) malloc (len);
+			memcpy (url->path, defaultprotocol, plen);
+			url->path[plen] = ':';
+			memcpy (url->path + plen + 1, address, file_e);
+			url->path[len - 1] = 0;
+		}
+	}
 
 	return 1;
 }
