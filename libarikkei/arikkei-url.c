@@ -43,6 +43,13 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 		}
 		if (!isalnum (address[i]) && (address[i] != '-') && (address[i] != '_')) break;
 	}
+#ifdef WIN32
+	if ((prot_e - prot_s) == 1) {
+		/* One letter protocol is drive letter */
+		prot_s = -1;
+		prot_e = -1;
+	}
+#endif
 	if (!defaultprotocol && (prot_e < 0)) return 0;
 
 	dom_s = -1;
