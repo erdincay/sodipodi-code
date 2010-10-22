@@ -15,7 +15,7 @@ extern "C" {
 
 /* Location */
 
-/* protocol:[domain][[/]directory/][file][#reference][&arguments] */
+/* [protocol]:[domain][[/]directory/][file][#reference][&arguments] */
 
 struct _ArikkeiURL {
 	/* protocol:[domain][[/]directory/][file][#reference][&arguments] */
