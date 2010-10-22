@@ -26,9 +26,6 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 	if (!address || !*address) return 0;
 	if (!defaultprotocol && !strchr ((const char *) address, ':')) return 0;
 
-	/* Local copy */
-	url->address = (unsigned char *) strdup ((const char *) address);
-
 	next = 0;
 
 	prot_s = -1;
@@ -110,12 +107,20 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 	url->arguments = (arg_s >= 0) ? (unsigned char *) strdup ((const char *) address + arg_s) : NULL;
 
 	if (prot_s >= 0) {
+		url->address = (unsigned char *) strdup ((const char *) address);
 		url->base = strdup_substr (address, prot_s, dir_e);
 		url->path = strdup_substr (address, prot_s, file_e);
 	} else {
 		size_t plen = strlen ((const char *) defaultprotocol);
+		size_t alen = strlen ((const char *) address);
+		size_t len = plen + 1 + alen + 1;
+		url->address = (unsigned char *) malloc (len);
+		memcpy (url->address, defaultprotocol, plen);
+		url->address[plen] = ':';
+		memcpy (url->address + plen + 1, address, alen);
+		url->address[len - 1] = 0;
 		if (dir_e >= 0) {
-			size_t len = plen + 1 + dir_e + 1;
+			len = plen + 1 + dir_e + 1;
 			url->base = (unsigned char *) malloc (len);
 			memcpy (url->base, defaultprotocol, plen);
 			url->base[plen] = ':';
@@ -123,7 +128,7 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 			url->base[len - 1] = 0;
 		}
 		if (file_e >= 0) {
-			size_t len = plen + 1 + file_e + 1;
+			len = plen + 1 + file_e + 1;
 			url->path = (unsigned char *) malloc (len);
 			memcpy (url->path, defaultprotocol, plen);
 			url->path[plen] = ':';
