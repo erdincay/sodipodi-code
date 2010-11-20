@@ -17,6 +17,7 @@
 #include <libnr/nr-pixblock.h>
 #include <libnr/nr-pixblock-pattern.h>
 #include <libnr/nr-pixops.h>
+#include <libnr/nr-image.h>
 
 #include <gdk/gdkkeys.h>
 #include <gtk/gtkmain.h>
@@ -400,7 +401,7 @@ sp_button_timeout (gpointer data)
 	gtk_widget_show (button->menu);
 	for (i = 0; i < button->noptions; i++) {
 		GtkWidget *icon, *mi;
-		icon = sp_icon_new_from_data (button->size, button->options[i].px);
+		icon = sp_icon_new_from_image (button->options[i].px);
 		gtk_widget_show (icon);
 		mi = gtk_menu_item_new ();
 		gtk_widget_show (mi);
@@ -721,12 +722,12 @@ sp_button_paint (SPButton *button, GdkRectangle *area)
 			ye = MIN (y + 64, y1);
 			nr_pixblock_setup_fast (&bpb, NR_PIXBLOCK_MODE_R8G8B8, x, y, xe, ye, FALSE);
 
-			px = button->options[button->option].px;
-			if (px) {
+			if (button->options[button->option].px) {
 				GdkColor *color;
 				unsigned int br, bg, bb;
 				int xx, yy;
 
+				px = NR_PIXBLOCK_PX (&button->options[button->option].px->pixels);
 				/* fixme: We support only plain-color themes */
 				/* fixme: But who needs other ones anyways? (Lauris) */
 				color = &widget->style->bg[widget->state];

@@ -19,6 +19,8 @@ typedef struct _SPBChoiceData SPBChoiceData;
 #define SP_BUTTON(o) (GTK_CHECK_CAST ((o), SP_TYPE_BUTTON, SPButton))
 #define SP_IS_BUTTON(o) (GTK_CHECK_TYPE ((o), SP_TYPE_BUTTON))
 
+#include <libnr/nr-image.h>
+
 #include <gtk/gtkwidget.h>
 #include <gtk/gtktooltips.h>
 
@@ -31,7 +33,7 @@ enum {
 };
 
 struct _SPBChoiceData {
-	unsigned char *px;
+	NRImage *px;
 	SPAction *action;
 	void *params;
 };

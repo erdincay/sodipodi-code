@@ -24,21 +24,17 @@ typedef struct _SPIconClass SPIconClass;
 #define SP_ICON_SIZE_TITLEBAR 12
 #define SP_ICON_SIZE_NOTEBOOK 20
 
-#include <libnr/nr-pixblock.h>
+#include <libnr/nr-types.h>
 #include <gtk/gtkwidget.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define SP_ICON_FLAG_STATIC_DATA (1 << 24)
-
 struct _SPIcon {
 	GtkWidget widget;
-
 	unsigned int size;
-
-	unsigned char *px;
+	NRImage *image;
 };
 
 struct _SPIconClass {
@@ -47,19 +43,19 @@ struct _SPIconClass {
 
 GType sp_icon_get_type (void);
 
-GtkWidget *sp_icon_new (unsigned int size, const unsigned char *name);
-GtkWidget *sp_icon_new_scaled (unsigned int size, const unsigned char *name);
-GtkWidget *sp_icon_new_from_data (unsigned int size, const unsigned char *px);
+/* Size is the size in pixels */
+GtkWidget *sp_icon_new (const unsigned char *name, unsigned int size);
+GtkWidget *sp_icon_new_from_image (NRImage *image);
+/* Pixels will NOT be copied */
+GtkWidget *sp_icon_new_from_data (const unsigned char *name, unsigned int size, const unsigned char *px);
 
 /* This is unrelated, but can as well be here */
+/* Loader fetches a new reference to image */
+void sp_icon_register_loader (const unsigned char *prefix, NRImage *(* loader) (const unsigned char *, unsigned int, void *), void *data);
 
-void sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loader) (const unsigned char *, unsigned int, void *), void *data);
-
-unsigned char *sp_icon_image_load (const unsigned char *name, unsigned int size);
-unsigned char *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
-
-unsigned char *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
-unsigned char *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
+NRImage *sp_icon_image_load (const unsigned char *name, unsigned int size);
+/* This is the loader for widget implementations */
+NRImage *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
 
 #ifdef __cplusplus
 }
