@@ -40,6 +40,10 @@
 #include "arikkei-iolib.h"
 
 #ifdef _DEBUG
+#define PRINT_MAPSIZE 1
+#endif
+
+#ifdef PRINT_MAPSIZE
 static size_t total = 0;
 #endif
 
@@ -90,7 +94,7 @@ arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *
 	/* Get a pointer to the file-mapped shared memory. */
 	cdata = (unsigned char *) MapViewOfFile (mh, FILE_MAP_READ, 0, 0, 0);
 
-#ifdef _DEBUG
+#ifdef PRINT_MAPSIZE
 	if (!cdata) {
 		DWORD ecode = GetLastError ();
 		fprintf (stderr, "arikkei_mmap: Error %d\n", ecode);
@@ -116,7 +120,7 @@ arikkei_munmap (const unsigned char *cdata, size_t size)
 	/* Release data */
 	UnmapViewOfFile (cdata);
 
-#ifdef _DEBUG
+#ifdef PRINT_MAPSIZE
 	total -= size;
 	fprintf (stderr, "MMap size-: %x\n", (unsigned int) total);
 #endif
@@ -154,20 +158,23 @@ arikkei_munmap (const unsigned char *cdata, size_t size)
 #endif
 }
 
+#endif
+
 FILE *
 arikkei_fopen (const unsigned char *filename, const unsigned char *mode)
 {
 #ifdef WIN32
-	unsigned short *ucs2filename;
+	unsigned short *ucs2filename, *ucs2mode;
 	FILE *fs;
 	if (!filename || !*filename) return NULL;
 	ucs2filename = arikkei_utf8_ucs2_strdup (filename);
-	fs = _wfopen (filename, mode);
+	ucs2mode = arikkei_utf8_ucs2_strdup (mode);
+	fs = _wfopen (ucs2filename, ucs2mode);
 	free (ucs2filename);
+	free (ucs2mode);
 	return fs;
 #else
 	return fopen (filename, mode);
 #endif
 }
 
-#endif
