@@ -89,6 +89,9 @@ struct _NRRectS {
 	NRShort x0, y0, x1, y1;
 };
 
+typedef struct _NRPixBlock NRPixBlock;
+typedef struct _NRImage NRImage;
+
 #ifdef __cplusplus
 };
 #endif

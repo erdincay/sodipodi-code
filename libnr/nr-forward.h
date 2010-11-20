@@ -14,8 +14,6 @@
 extern "C" {
 #endif
 
-typedef struct _NRPixBlock NRPixBlock;
-
 #ifdef __cplusplus
 };
 #endif
