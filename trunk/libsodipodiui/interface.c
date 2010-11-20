@@ -79,7 +79,7 @@ sp_ui_menu_item_new_from_verb (unsigned int verb, void *data)
 		}
 		if (action->image) {
 			GtkWidget *icon;
-			icon = sp_icon_new_scaled (16, action->image);
+			icon = sp_icon_new (action->image, 16);
 			gtk_widget_show (icon);
 			gtk_image_menu_item_set_image ((GtkImageMenuItem *) item, icon);
 		}

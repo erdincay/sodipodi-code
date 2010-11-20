@@ -24,6 +24,7 @@
 #include <libnr/nr-pixblock-pattern.h>
 #include <libnr/nr-pixops.h>
 #include <libnr/nr-blit.h>
+#include <libnr/nr-image.h>
 
 #include <gtk/gtkiconfactory.h>
 
@@ -39,7 +40,8 @@ static int sp_icon_expose (GtkWidget *widget, GdkEventExpose *event);
 
 static void sp_icon_paint (SPIcon *icon, GdkRectangle *area);
 
-/* static unsigned char *sp_icon_image_load_svg (const unsigned char *name, unsigned int size, unsigned int scale); */
+static NRImage *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
+static NRImage *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
 
 static GtkWidgetClass *parent_class;
 
@@ -92,11 +94,9 @@ sp_icon_destroy (GtkObject *object)
 
 	icon = SP_ICON (object);
 
-	if (icon->px) {
-		if (!(GTK_OBJECT_FLAGS (icon) & SP_ICON_FLAG_STATIC_DATA)) {
-			nr_free (icon->px);
-		}
-		icon->px = NULL;
+	if (icon->image) {
+		nr_image_unref (icon->image);
+		icon->image = NULL;
 	}
 
 	((GtkObjectClass *) (parent_class))->destroy (object);
@@ -133,54 +133,36 @@ sp_icon_expose (GtkWidget *widget, GdkEventExpose *event)
 	return TRUE;
 }
 
-static GtkWidget *
-sp_icon_new_full (unsigned int size, unsigned int scale, const unsigned char *name)
+GtkWidget *
+sp_icon_new (const unsigned char *name, unsigned int size)
 {
-	static GHashTable *iconlib = NULL;
-	char c[256];
 	SPIcon *icon;
-
-	if (!iconlib) iconlib = g_hash_table_new (g_str_hash, g_str_equal);
-
 	icon = g_object_new (SP_TYPE_ICON, NULL);
-
 	icon->size = CLAMP (size, 1, 128);
-	g_snprintf (c, 256, "%d:%d:%s", icon->size, scale, name);
-	icon->px = g_hash_table_lookup (iconlib, c);
-	if (!icon->px) {
-		icon->px = sp_icon_image_load_gtk ((GtkWidget *) icon, name, icon->size);
-		g_hash_table_insert (iconlib, g_strdup (c), icon->px);
-	}
-
-	GTK_OBJECT_FLAGS (icon) |= SP_ICON_FLAG_STATIC_DATA;
-
+	icon->image = sp_icon_image_load_gtk (GTK_WIDGET(icon), name, icon->size);
 	return (GtkWidget *) icon;
 }
 
 GtkWidget *
-sp_icon_new (unsigned int size, const unsigned char *name)
-{
-	return sp_icon_new_full (size, size, name);
-}
-
-GtkWidget *
-sp_icon_new_scaled (unsigned int size, const unsigned char *name)
-{
-	return sp_icon_new_full (size, 24, name);
-}
-
-GtkWidget *
-sp_icon_new_from_data (unsigned int size, const unsigned char *px)
+sp_icon_new_from_image (NRImage *image)
 {
 	SPIcon *icon;
-
+	g_return_val_if_fail (image != NULL, NULL);
 	icon = g_object_new (SP_TYPE_ICON, NULL);
+	icon->size = image->pixels.area.x1 - image->pixels.area.x0;
+	icon->image = image;
+	if (icon->image) nr_image_ref (icon->image);
+	return (GtkWidget *) icon;
+}
 
+GtkWidget *
+sp_icon_new_from_data (const unsigned char *name, unsigned int size, const unsigned char *px)
+{
+	SPIcon *icon;
+	icon = g_object_new (SP_TYPE_ICON, NULL);
 	icon->size = CLAMP (size, 1, 128);
-
-	GTK_OBJECT_FLAGS (icon) |= SP_ICON_FLAG_STATIC_DATA;
-	icon->px = (unsigned char *) px;
-
+	icon->image = nr_image_new ();
+	nr_pixblock_setup_extern (&icon->image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, size, size, (unsigned char *) px, 4 * size, 0, 0);
 	return (GtkWidget *) icon;
 }
 
@@ -223,7 +205,7 @@ sp_icon_paint (SPIcon *icon, GdkRectangle *area)
 			ye = MIN (y + 64, y1);
 			nr_pixblock_setup_fast (&bpb, NR_PIXBLOCK_MODE_R8G8B8, x, y, xe, ye, FALSE);
 
-			if (icon->px) {
+			if (icon->image) {
 				GdkColor *color;
 				unsigned int br, bg, bb;
 				int xx, yy;
@@ -239,7 +221,7 @@ sp_icon_paint (SPIcon *icon, GdkRectangle *area)
 					const unsigned char *s;
 					unsigned char *d;
 					d = NR_PIXBLOCK_PX (&bpb) + (yy - y) * bpb.rs;
-					s = icon->px + 4 * (yy - pady - widget->allocation.y) * icon->size + 4 * (x - padx - widget->allocation.x);
+					s = NR_PIXBLOCK_ROW(&icon->image->pixels, yy - pady - widget->allocation.y) + 4 * (x - padx - widget->allocation.x);
 					for (xx = x; xx < xe; xx++) {
 						d[0] = NR_COMPOSEN11 (s[0], s[3], br);
 						d[1] = NR_COMPOSEN11 (s[1], s[3], bg);
@@ -271,12 +253,12 @@ struct IconClassLoader {
 };
 
 struct IconLoader {
-	unsigned char *(* loader) (const unsigned char *, unsigned int, void *);
+	NRImage *(* loader) (const unsigned char *, unsigned int, void *);
 	void *data;
 };
 
 void
-sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loader) (const unsigned char *, unsigned int, void *), void *data)
+sp_icon_register_loader (const unsigned char *prefix, NRImage *(* loader) (const unsigned char *, unsigned int, void *), void *data)
 {
 	struct IconClassLoader *lc;
 	struct IconLoader *l;
@@ -295,11 +277,39 @@ sp_icon_register_loader (const unsigned char *prefix, unsigned char *(* loader) 
 	lc->loaders = g_slist_append (lc->loaders, l);
 }
 
-unsigned char *
+NRImage *
+sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size)
+{
+	if (!name || !*name) return NULL;
+	/* fixme: Make stock/nonstock configurable */
+	if (!strncmp (name, "gtk-", 4)) {
+		GdkPixbuf *pb;
+		NRImage *dpx;
+		const unsigned char *spx;
+		int gtksize, srs;
+		unsigned int y;
+		gtksize = sp_icon_get_gtk_size (size);
+		pb = gtk_widget_render_icon (widget, name, gtksize, NULL);
+		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
+		spx = gdk_pixbuf_get_pixels (pb);
+		srs = gdk_pixbuf_get_rowstride (pb);
+		dpx = nr_image_new ();
+		nr_pixblock_setup (&dpx->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, size, size, 0);
+		for (y = 0; y < size; y++) {
+			memcpy (NR_PIXBLOCK_ROW (&dpx->pixels, y), spx + y * srs, 4 * size);
+		}
+		g_object_unref (G_OBJECT(pb));
+		return dpx;
+	} else {
+		return sp_icon_image_load (name, size);
+	}
+}
+
+NRImage *
 sp_icon_image_load (const unsigned char *name, unsigned int size)
 {
 	const unsigned char *p;
-	unsigned char *px;
+	NRImage *px;
 	if (!name || !*name) return NULL;
 	if (loaderdict) {
 		struct IconClassLoader *lc;
@@ -340,32 +350,7 @@ sp_icon_image_load (const unsigned char *name, unsigned int size)
 	return px;
 }
 
-unsigned char *
-sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size)
-{
-	if (!name || !*name) return NULL;
-	/* fixme: Make stock/nonstock configurable */
-	if (!strncmp (name, "gtk-", 4)) {
-		GdkPixbuf *pb;
-		unsigned char *dpx, *spx;
-		int gtksize, srs;
-		unsigned int y;
-		gtksize = sp_icon_get_gtk_size (size);
-		pb = gtk_widget_render_icon (widget, name, gtksize, NULL);
-		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
-		spx = gdk_pixbuf_get_pixels (pb);
-		srs = gdk_pixbuf_get_rowstride (pb);
-		dpx = (unsigned char *) malloc (size * 4 * size);
-		for (y = 0; y < size; y++) {
-			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
-		}
-		g_object_unref (G_OBJECT(pb));
-		return dpx;
-	} else {
-		return sp_icon_image_load (name, size);
-	}
-}
-
+#if 0
 unsigned char *
 sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
 {
@@ -405,15 +390,16 @@ sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
 
 	return NULL;
 }
+#endif
 
-unsigned char *
+static NRImage *
 sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
 {
 	GdkPixbuf *pb;
-
 	pb = gdk_pixbuf_new_from_file ((const char *) path, NULL);
 	if (pb) {
-		unsigned char *dpx, *spx;
+		NRImage *dpx;
+		unsigned char *spx;
 		int srs;
 		unsigned int y;
 		if (!gdk_pixbuf_get_has_alpha (pb)) gdk_pixbuf_add_alpha (pb, FALSE, 0, 0, 0);
@@ -425,9 +411,10 @@ sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
 		}
 		spx = gdk_pixbuf_get_pixels (pb);
 		srs = gdk_pixbuf_get_rowstride (pb);
-		dpx = (unsigned char *) malloc (size * 4 * size);
+		dpx = nr_image_new ();
+		nr_pixblock_setup (&dpx->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, size, size, 0);
 		for (y = 0; y < size; y++) {
-			memcpy (dpx + y * 4 * size, spx + y * srs, 4 * size);
+			memcpy (NR_PIXBLOCK_ROW (&dpx->pixels, y), spx + y * srs, 4 * size);
 		}
 		g_object_unref (G_OBJECT (pb));
 
