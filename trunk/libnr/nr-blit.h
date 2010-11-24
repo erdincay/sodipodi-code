@@ -10,7 +10,7 @@
  * This code is in public domain
  */
 
-#include <libnr/nr-forward.h>
+#include <libnr/nr-types.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -34,17 +34,21 @@ struct _NRLGradientRenderer {
 	float dx, dy;
 };
 
-NRRenderer *nr_lgradient_renderer_setup (NRLGradientRenderer *lgr,
-					 const unsigned char *cv, 
-					 unsigned int spread, 
-					 const NRMatrixF *gs2px,
-					 float x0, float y0,
-					 float x1, float y1);
+void nr_lgradient_renderer_setup (NRLGradientRenderer *renderer, NRPaintServer *server,
+								  const unsigned char *vector, unsigned int spread, const NRMatrixF *gs2px,
+								  float x0, float y0, float x1, float y1);
 
 /* Radial */
 
+enum {
+	RGR_END,
+	RGR_SYMMETRIC,
+	RGR_OPTIMIZED
+};
+
 struct _NRRGradientRenderer {
 	NRRenderer renderer;
+	unsigned int type;
 	const unsigned char *vector;
 	unsigned int spread;
 	NRMatrixF px2gs;
@@ -54,12 +58,8 @@ struct _NRRGradientRenderer {
 	float C;
 };
 
-NRRenderer *nr_rgradient_renderer_setup (NRRGradientRenderer *rgr,
-					 const unsigned char *cv,
-					 unsigned int spread,
-					 const NRMatrixF *gs2px,
-					 float cx, float cy,
-					 float fx, float fy,
-					 float r);
+void nr_rgradient_renderer_setup (NRRGradientRenderer *renderer, NRPaintServer *server,
+								  const unsigned char *vector, unsigned int spread, const NRMatrixF *gs2px,
+								float cx, float cy, float fx, float fy, float r);
 
 #endif
