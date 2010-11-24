@@ -237,6 +237,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\intl.h"
+				>
+			</File>
+			<File
 				RelativePath=".\menu.h"
 				>
 			</File>

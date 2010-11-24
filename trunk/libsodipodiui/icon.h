@@ -56,6 +56,8 @@ void sp_icon_register_loader (const unsigned char *prefix, NRImage *(* loader) (
 NRImage *sp_icon_image_load (const unsigned char *name, unsigned int size);
 /* This is the loader for widget implementations */
 NRImage *sp_icon_image_load_gtk (GtkWidget *widget, const unsigned char *name, unsigned int size);
+/* Try to load image from file */
+NRImage *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
 
 #ifdef __cplusplus
 }

@@ -41,7 +41,6 @@ static int sp_icon_expose (GtkWidget *widget, GdkEventExpose *event);
 static void sp_icon_paint (SPIcon *icon, GdkRectangle *area);
 
 static NRImage *sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size);
-static NRImage *sp_icon_image_load_from_file (const unsigned char *path, unsigned int size);
 
 static GtkWidgetClass *parent_class;
 
@@ -392,7 +391,7 @@ sp_icon_image_load_pixblock (NRPixBlock *pxb, unsigned int size)
 }
 #endif
 
-static NRImage *
+NRImage *
 sp_icon_image_load_from_file (const unsigned char *path, unsigned int size)
 {
 	GdkPixbuf *pb;
