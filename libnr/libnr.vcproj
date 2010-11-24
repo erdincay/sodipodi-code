@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\nr-pixblock-compose.c"
+				>
+			</File>
+			<File
 				RelativePath=".\nr-pixblock-line.c"
 				>
 			</File>
@@ -211,6 +215,10 @@
 			</File>
 			<File
 				RelativePath=".\nr-rect.c"
+				>
+			</File>
+			<File
+				RelativePath=".\nr-render.c"
 				>
 			</File>
 			<File
@@ -285,6 +293,10 @@
 			</File>
 			<File
 				RelativePath=".\nr-pathops.h"
+				>
+			</File>
+			<File
+				RelativePath=".\nr-pixblock-compose.h"
 				>
 			</File>
 			<File
