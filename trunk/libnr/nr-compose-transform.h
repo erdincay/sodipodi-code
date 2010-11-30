@@ -44,6 +44,12 @@ void nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P_TRANSFORM (unsigned char *px, int w, in
 						    const unsigned char *spx, int sw, int sh, int srs,
 						    const NRMatrixF *d2s, unsigned int alpha, int xd, int yd);
 
+/* RGB */
+
+void nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8_TRANSFORM (unsigned char *px, int w, int h, int rs,
+						    const unsigned char *spx, int sw, int sh, int srs,
+						    const NRMatrixF *d2s, unsigned int alpha, int xd, int yd);
+
 #ifdef __cplusplus
 };
 #endif
