@@ -26,9 +26,13 @@
 
 #include <gtk/gtk.h>
 
-#include "intl.h"
+/* #include "intl.h" */
 
 #include "font-selector.h"
+
+#ifndef _
+#define _(t) (t)
+#endif
 
 /* SPFontSelector */
 
