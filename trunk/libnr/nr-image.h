@@ -10,8 +10,7 @@
  * This code is in public domain
  */
 
-typedef struct _NRImage NRImage;
-
+#include <libnr/nr-types.h>
 #include <libnr/nr-pixblock.h>
 
 #ifdef __cplusplus
