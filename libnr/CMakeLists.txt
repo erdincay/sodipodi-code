@@ -13,12 +13,13 @@ ADD_LIBRARY(libnr STATIC
 	nr-gradient.c nr-gradient.h
 	nr-image.c nr-image.h
 	nr-macros.h
-nr-path.h              
+	nr-path.h              
 	nr-pathops.c nr-pathops.h
+	nr-pixblock-compose.c nr-pixblock-compose.h
 	nr-rect.c nr-rect.h
+	nr-render.c nr-render.h       
 nr-types.h
 nr-uta.c
-nr-render.h       
 nr-uta.h
 nr-matrix.c                                          
 nr-pixblock.c          
