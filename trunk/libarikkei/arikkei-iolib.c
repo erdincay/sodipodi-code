@@ -40,7 +40,7 @@
 #include "arikkei-iolib.h"
 
 #ifdef _DEBUG
-#define PRINT_MAPSIZE 1
+//#define PRINT_MAPSIZE 1
 #endif
 
 #ifdef PRINT_MAPSIZE
