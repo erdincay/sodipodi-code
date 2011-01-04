@@ -8,7 +8,7 @@ SET(CMAKE_VERBOSE_MAKEFILE ON)
 EXECUTE_PROCESS(COMMAND pkg-config --cflags gtk+-2.0 OUTPUT_VARIABLE GTK_CFLAGS)
 
 #add definitions, compiler switches, etc.
-ADD_DEFINITIONS(-Wall -O2 ${GTK_CFLAGS})
+ADD_DEFINITIONS(${GTK_CFLAGS})
 
 #list all source files here
 ADD_LIBRARY(libsodipodiui STATIC
