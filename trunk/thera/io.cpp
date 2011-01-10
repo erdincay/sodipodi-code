@@ -337,7 +337,7 @@ save (const Document *document, const char *filename)
 
 	unsigned int wlen = 0;
 
-	FILE *ofs = fopen (filename, "wb+");
+	FILE *ofs = arikkei_fopen ((const unsigned char *) filename, (const unsigned char *) "wb");
 	if (!ofs) return 0;
 
 	wlen += fprintf (ofs, "<?xml version=\"1.0\"?>\n");
@@ -348,6 +348,103 @@ save (const Document *document, const char *filename)
 
 	fclose (ofs);
 
+	return wlen;
+}
+
+static void
+write_char (char *d, unsigned int dlen, unsigned int *dpos, char c)
+{
+	if (d && (*dpos < dlen)) d[*dpos] = '<';
+	*dpos += 1;
+}
+
+static void
+write_string (char *d, unsigned int dlen, unsigned int *dpos, const char *c)
+{
+	if (!c) return;
+	for (const char *p = c; *p; p++) write_char (d, dlen, dpos, *p);
+}
+
+static void
+write_element (char *d, unsigned int dlen, unsigned int *dpos, const Node *node, int level)
+{
+	for (int i = 0; i < level; i++) write_string (d, dlen, dpos, "  ");
+
+	write_char (d, dlen, dpos, '<');
+	write_string (d, dlen, dpos, node->name);
+	for (unsigned int i = 0; i < node->getNumAttributes (); i++) {
+		write_char (d, dlen, dpos, ' ');
+		write_string (d, dlen, dpos, node->getAttributeName (i));
+		write_char (d, dlen, dpos, '=');
+		write_char (d, dlen, dpos, '\"');
+		write_string (d, dlen, dpos, node->getAttribute (i));
+		write_char (d, dlen, dpos, '\"');
+	}
+	const char *content = node->getTextContent ();
+	Node *child = node->getFirstChild ();
+	if (!content && !child) {
+		// Empty node
+		write_string (d, dlen, dpos, "/>");
+		if (level >= 0) write_string (d, dlen, dpos, "\n");
+	} else {
+		write_char (d, dlen, dpos, '>');
+		if (content) {
+			write_string (d, dlen, dpos, content);
+		}
+		if (child) {
+			if (child->getType () == Node::ELEMENT) {
+				if (level >= 0) write_string (d, dlen, dpos, "\n");
+				while (child) {
+					*dpos += write_node (d, dlen, child, (level >= 0) ? level + 1 : level);
+					child = child->getNextSibling ();
+				}
+				for (int i = 0; i < level; i++) write_string (d, dlen, dpos, "  ");
+			} else if (child->getType () == Node::TEXT) {
+				write_string (d, dlen, dpos, child->getTextContent ());
+			} else if (child->getType () == Node::CDATA) {
+				// fixme: What goes here?
+			}
+		}
+		write_char (d, dlen, dpos, '<');
+		write_char (d, dlen, dpos, '/');
+		write_string (d, dlen, dpos, node->name);
+		write_char (d, dlen, dpos, '>');
+		if (level >= 0) write_string (d, dlen, dpos, "\n");
+	}
+}
+
+unsigned int
+write_node (char *d, unsigned int dlen, const Node *node, int level)
+{
+	unsigned int wlen = 0;
+	if (node->type == Node::ELEMENT) {
+		write_element (d, dlen, &wlen, node, level);
+	} else if (node->type == Node::COMMENT) {
+		for (int i = 0; i < level; i++) write_string (d, dlen, &wlen, "  ");
+		write_string (d, dlen, &wlen, "<!--");
+		write_string (d, dlen, &wlen, node->content);
+		write_string (d, dlen, &wlen, "-->");
+		if (level >= 0) write_string (d, dlen, &wlen, "\n");
+	} else if (node->type == Node::DOCTYPE) {
+		for (int i = 0; i < level; i++) write_string (d, dlen, &wlen, "  ");
+		write_string (d, dlen, &wlen, "<!DOCTYPE ");
+		write_string (d, dlen, &wlen, node->content);
+		write_string (d, dlen, &wlen, ">");
+		if (level >= 0) write_string (d, dlen, &wlen, "\n");
+	}
+	return wlen;
+}
+
+unsigned int
+write_document (char *d, unsigned int dlen, const Document *document, unsigned int indent)
+{
+	if (!document || !document->root) return 0;
+	unsigned int wlen = 0;
+	write_string (d, dlen, &wlen, "<?xml version=\"1.0\"?>");
+	if (indent) write_string (d, dlen, &wlen, "\n");
+	for (const Node *child = document->children; child; child = child->next) {
+		wlen += write_node (d, dlen, child, (indent) ? 0 : -1);
+	}
 	return wlen;
 }
 

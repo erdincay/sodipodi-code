@@ -142,14 +142,14 @@ public:
 	const char *getAttribute (const char *name) const;
 	bool setAttribute (const char *key, const char *value);
 
-	const char *getTextContent (void) { return content; }
+	const char *getTextContent (void) const { return content; }
 	bool setTextContent (const char *newcontent);
 
-	Node *getParent (void) { return parent; }
-	Node *getFirstChild (void) { return children; }
-	Node *getNextSibling (void) { return next; }
-	unsigned int getNumChildren (void);
-	Node *getChild (unsigned int childidx);
+	Node *getParent (void) const { return parent; }
+	Node *getFirstChild (void) const { return children; }
+	Node *getNextSibling (void) const { return next; }
+	unsigned int getNumChildren (void) const;
+	Node *getChild (unsigned int childidx) const;
 
 	bool addChild (Node *child, Node *ref);
 	bool appendChild (Node *child);
@@ -161,7 +161,7 @@ public:
 	void removeListener (void *data);
 
 	// Helper
-	Node *clone (Document *pdocument, bool recursive);
+	Node *clone (Document *pdocument, bool recursive) const;
 	// Convenience methods
 	bool setAttributeInt (const char *name, int value);
 	bool setAttributeUint (const char *name, unsigned int value);
@@ -194,6 +194,10 @@ Node *loadNode (Node *parent, const char *filename);
 Node *loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned char *uri);
 
 unsigned int save (const Document *document, const char *filename);
+
+// Negative level disables linefeeds
+unsigned int write_node (char *d, unsigned int dlen, const Node *node, int level);
+unsigned int write_document (char *d, unsigned int dlen, const Document *document, unsigned int indent);
 
 } // Namespace Thera
 

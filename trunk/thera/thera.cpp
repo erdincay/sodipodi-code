@@ -442,7 +442,7 @@ Node::emitDownstreamOrderChanged (Node *node, Node *child, Node *oldref, Node *n
 }
 
 unsigned int
-Node::getNumChildren (void)
+Node::getNumChildren (void) const
 {
 	unsigned int nchildren = 0;
 	for (Node *child = children; child; child = child->next) nchildren += 1;
@@ -450,7 +450,7 @@ Node::getNumChildren (void)
 }
 
 Node *
-Node::getChild (unsigned int childidx)
+Node::getChild (unsigned int childidx) const
 {
 	unsigned int childpos = 0;
 	for (Node *child = children; child; child = child->next) {
@@ -461,7 +461,7 @@ Node::getChild (unsigned int childidx)
 }
 
 Node *
-Node::clone (Document *pdocument, bool recursive)
+Node::clone (Document *pdocument, bool recursive) const
 {
 	Node *newnode = new Node(type, pdocument, name);
 	if (content) newnode->content = strdup (content);
