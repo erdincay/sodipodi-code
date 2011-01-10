@@ -39,7 +39,7 @@ sp_ui_menu_key_press (GtkMenuItem *item, GdkEventKey *event, void *data)
 		if (event->state & GDK_SHIFT_MASK) shortcut |= SP_SHORTCUT_SHIFT_MASK;
 		if (event->state & GDK_CONTROL_MASK) shortcut |= SP_SHORTCUT_CONTROL_MASK;
 		if (event->state & GDK_MOD1_MASK) shortcut |= SP_SHORTCUT_ALT_MASK;
-		verb = (unsigned int) data;
+		verb = GPOINTER_TO_UINT(data);
 		sp_shortcut_set_verb (shortcut, verb, TRUE);
 	}
 }
@@ -85,8 +85,8 @@ sp_ui_menu_item_new_from_verb (unsigned int verb, void *data)
 		}
 		gtk_widget_set_events (item, GDK_KEY_PRESS_MASK);
 		g_object_set_data (G_OBJECT(item), "userdata", data);
-		g_signal_connect (G_OBJECT(item), "activate", G_CALLBACK(sp_ui_menu_activate), (void *) verb);
-		g_signal_connect (G_OBJECT(item), "key_press_event", G_CALLBACK(sp_ui_menu_key_press), (void *) verb);
+		g_signal_connect (G_OBJECT(item), "activate", G_CALLBACK(sp_ui_menu_activate), GUINT_TO_POINTER(verb));
+		g_signal_connect (G_OBJECT(item), "key_press_event", G_CALLBACK(sp_ui_menu_key_press), GUINT_TO_POINTER(verb));
 	}
 
 	return item;
