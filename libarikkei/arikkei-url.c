@@ -86,16 +86,16 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 
 	ref_s = -1;
 	ref_e = -1;
-	/* Reference - from '#' to '&' */
+	/* Reference - from '#' to '?' */
 	if (address[next] == '#') {
 		ref_s = next + 1;
-		for (ref_e = ref_s; address[ref_e]; ref_e++) if (address[ref_e] == '&') break;
+		for (ref_e = ref_s; address[ref_e]; ref_e++) if (address[ref_e] == '?') break;
 		next = (address[ref_e]) ? ref_e + 1 : ref_e;
 	}
 
 	arg_s = -1;
-	/* Arguments - from '&' to the end of address */
-	if (address[next] == '&') {
+	/* Arguments - from '?' to the end of address */
+	if (address[next] == '?') {
 		arg_s = next + 1;
 	}
 
