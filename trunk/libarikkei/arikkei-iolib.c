@@ -174,7 +174,7 @@ arikkei_fopen (const unsigned char *filename, const unsigned char *mode)
 	free (ucs2mode);
 	return fs;
 #else
-	return fopen (filename, mode);
+	return fopen ((const char *) filename, (const char *) mode);
 #endif
 }
 
