@@ -38,6 +38,9 @@ void nr_image_unref (NRImage *image);
 /* It is allowed to call it with NULL image */
 NRImage *nr_image_ensure_private_empty (NRImage *image);
 
+/* NULL is allowed */
+unsigned int nr_image_is_empty (const NRImage *image);
+
 #ifdef __cplusplus
 };
 #endif

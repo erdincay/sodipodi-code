@@ -21,7 +21,7 @@ nr_image_new (void)
 	NRImage *image;
 	image = (NRImage *) malloc (sizeof (NRImage));
 	image->refcount = 1;
-	nr_pixblock_setup (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
+	nr_pixblock_setup_fast (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
 	return image;
 }
 
@@ -62,3 +62,11 @@ nr_image_ensure_private_empty (NRImage *image)
 	}
 	return nr_image_new ();
 }
+
+unsigned int
+nr_image_is_empty (const NRImage *image)
+{
+	if (!image) return 0;
+	return image->pixels.empty;
+}
+
