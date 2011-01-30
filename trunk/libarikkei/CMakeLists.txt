@@ -5,8 +5,9 @@ cmake_minimum_required(VERSION 2.6)
 #if you don't want the full compiler output, remove the following line
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
+#SET(CMAKE_BUILD_TYPE Debug)
 #add definitions, compiler switches, etc.
-ADD_DEFINITIONS(-Wall -O0 -g)
+#ADD_DEFINITIONS(-Wall -O0 -g)
 
 #list all source files here
 ADD_LIBRARY(libarikkei STATIC
