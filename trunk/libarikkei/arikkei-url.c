@@ -12,7 +12,16 @@
 
 #include "arikkei-url.h"
 
-static unsigned char *strdup_substr (const unsigned char *str, int start, int end);
+static unsigned char *
+strdup_substr (const unsigned char *str, int start, int end)
+{
+	unsigned char *d;
+	if (!str || (start < 0) || (end < 0) || (start > end)) return NULL;
+	d = (unsigned char *) malloc (end - start + 1);
+	if (end > start) memcpy (d, str + start, end - start);
+	d[end - start] = 0;
+	return d;
+}
 
 unsigned int
 arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned char *defaultprotocol)
@@ -76,7 +85,7 @@ arikkei_url_setup (ArikkeiURL *url, const unsigned char *address, const unsigned
 			file_s = i + 1;
 		}
 		if (address[i] == '#') break;
-		if (address[i] == '&') break;
+		if (address[i] == '?') break;
 	}
 	if (i > next) {
 		if (file_s < 0) file_s = next;
@@ -157,17 +166,6 @@ arikkei_url_release (ArikkeiURL *url)
 	memset (url, 0, sizeof (ArikkeiURL));
 }
 
-static unsigned char *
-strdup_substr (const unsigned char *str, int start, int end)
-{
-	unsigned char *d;
-	if (!str || (start < 0) || (end < 0) || (start > end)) return NULL;
-	d = (unsigned char *) malloc (end - start + 1);
-	if (end > start) memcpy (d, str + start, end - start);
-	d[end - start] = 0;
-	return d;
-}
-
 unsigned char *
 arikkei_build_file_url (const unsigned char *path)
 {
@@ -184,3 +182,123 @@ arikkei_build_file_url (const unsigned char *path)
 
 	return (unsigned char *) c;
 }
+
+static unsigned int
+path_is_absolute (const unsigned char *path)
+{
+	if (!path) return 0;
+	if (path[0] == '/') return 1;
+#ifdef WIN32
+	if (path[0] && (path[1] == ':')) return 1;
+#endif
+	return 0;
+}
+
+static unsigned char *
+build_url (const unsigned char *protocol, const unsigned char *directory, const unsigned char *filename, const unsigned char *reference, const unsigned char *arguments)
+{
+	size_t plen, dlen, flen, rlen, alen, p;
+	unsigned char *url;
+	plen = (protocol) ? strlen ((const char *) protocol) + 1 : 0;
+	dlen = (directory) ? strlen ((const char *) directory) : 0;
+	flen = (filename) ? strlen ((const char *) filename) : 0;
+	rlen = (reference) ? strlen ((const char *) reference) + 1 : 0;
+	alen = (arguments) ? strlen ((const char *) arguments) + 1 : 0;
+	url = (unsigned char *) malloc (plen + dlen + flen + rlen + alen + 1);
+	p = 0;
+	if (plen) {
+		memcpy (url + p, protocol, plen - 1);
+		url[plen - 1] = ':';
+		p += plen;
+	}
+	if (dlen) {
+		memcpy (url + p, directory, dlen);
+		p += dlen;
+	}
+	if (flen) {
+		memcpy (url + p, filename, flen);
+		p += flen;
+	}
+	if (rlen) {
+		url[p] = '#';
+		memcpy (url + p + 1, reference, rlen - 1);
+		p += rlen;
+	}
+	if (alen) {
+		url[p] = '?';
+		memcpy (url + p + 1, arguments, alen - 1);
+		p += alen;
+	}
+	url[p] = 0;
+	return url;
+}
+
+unsigned char *
+arikkei_build_relative_url (const unsigned char *parent, const unsigned char *path)
+{
+	ArikkeiURL purl, curl;
+	unsigned int p, n;
+	unsigned char *url;
+	if (!path) return NULL;
+	if (!parent) return (unsigned char *) strdup ((const char *) path);
+	arikkei_url_setup (&purl, parent, NULL);
+	arikkei_url_setup (&curl, path, purl.protocol);
+	if (!path_is_absolute (curl.directory) || (purl.protocol && strcmp ((const char *) purl.protocol, (const char *) curl.protocol))) {
+		/* Child has relative URL or protocols differ */
+		url = (unsigned char *) strdup ((const char *) curl.address);
+		arikkei_url_release (&purl);
+		arikkei_url_release (&curl);
+		return url;
+	}
+	if (!purl.directory) {
+		/* Parent or child does not have directory */
+		url = (unsigned char *) strdup ((const char *) curl.address);
+		arikkei_url_release (&purl);
+		arikkei_url_release (&curl);
+		return url;
+	}
+	p = 0;
+	n = 0;
+	while (purl.directory[p] && curl.directory[p] && (purl.directory[p] == curl.directory[p])) {
+		if (purl.directory[p] == '/') n = p + 1;
+		p += 1;
+	}
+	/* Now add protocol + directory[n] + filename + # + reference + ? + arguments */
+	url = build_url (purl.protocol, curl.directory + n, curl.filename, curl.reference, curl.arguments);
+	arikkei_url_release (&purl);
+	arikkei_url_release (&curl);
+	return url;
+}
+
+unsigned char *
+arkkkei_build_absolute_url (const unsigned char *parent, const unsigned char *path)
+{
+	ArikkeiURL purl, curl;
+	size_t plen, clen;
+	unsigned char *url, *c;
+	if (!path) return NULL;
+	if (!parent) return (unsigned char *) strdup ((const char *) path);
+	arikkei_url_setup (&purl, parent, NULL);
+	arikkei_url_setup (&curl, path, purl.protocol);
+	if (path_is_absolute (curl.directory) || (purl.protocol && strcmp ((const char *) purl.protocol, (const char *) curl.protocol))) {
+		/* Child has absolute URL or protocols differ */
+		url = (unsigned char *) strdup ((const char *) curl.address);
+		arikkei_url_release (&purl);
+		arikkei_url_release (&curl);
+		return url;
+	}
+	/* Append child directory to parent */
+	plen = (purl.directory) ? strlen ((const char *) purl.directory) : 0;
+	clen = (curl.directory) ? strlen ((const char *) curl.directory) : 0;
+	c = (unsigned char *) malloc (plen + clen + 1);
+	if (plen) memcpy (c, purl.directory, plen);
+	if (clen) memcpy (c + plen, curl.directory, clen);
+	c[plen + clen] = 0;
+	/* Now add protocol + pdirectory+cdirectory + filename + # + reference + ? + arguments */
+	url = build_url (purl.protocol, c, curl.filename, curl.reference, curl.arguments);
+	free (c);
+	arikkei_url_release (&purl);
+	arikkei_url_release (&curl);
+	return url;
+}
+
