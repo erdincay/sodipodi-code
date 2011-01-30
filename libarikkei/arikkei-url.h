@@ -39,6 +39,10 @@ void arikkei_url_release (ArikkeiURL *url);
 
 /* Build canonical file URL - i.e. "file:" prepended and separators set to "/" */
 unsigned char *arikkei_build_file_url (const unsigned char *path);
+/* Get url relative to parent */
+unsigned char *arikkei_build_relative_url (const unsigned char *parent, const unsigned char *path);
+/* Get absolute url from parent and relative path */
+unsigned char *arkkkei_build_absolute_url (const unsigned char *parent, const unsigned char *path);
 
 #ifdef __cplusplus
 }
