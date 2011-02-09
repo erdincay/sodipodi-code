@@ -210,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\nr-pixblock-transform.c"
+				>
+			</File>
+			<File
 				RelativePath=".\nr-pixblock.c"
 				>
 			</File>
@@ -309,6 +313,10 @@
 			</File>
 			<File
 				RelativePath=".\nr-pixblock-pixel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\nr-pixblock-transform.h"
 				>
 			</File>
 			<File
