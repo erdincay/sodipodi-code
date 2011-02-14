@@ -16,6 +16,7 @@ ADD_LIBRARY(libnr STATIC
 	nr-path.h              
 	nr-pathops.c nr-pathops.h
 	nr-pixblock-compose.c nr-pixblock-compose.h
+	nr-pixblock-transform.c nr-pixblock-transform.h
 	nr-rect.c nr-rect.h
 	nr-render.c nr-render.h       
 nr-types.h
