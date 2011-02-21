@@ -13,6 +13,8 @@
  *
  */
 
+#include <libarikkei/arikkei-dict.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
