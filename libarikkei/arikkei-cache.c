@@ -94,12 +94,8 @@ arikkei_cache_release (ArikkeiCache *cache)
 }
 
 static void
-arikkei_cache_remove_entry (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
+remove_entry_from_list (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
 {
-	if (cache->key_free) cache->key_free (entry->key);
-	if (cache->object_free) cache->object_free (entry->object);
-	cache->currentsize -= entry->size;
-	/* Detach entry */
 	if (entry->prev) {
 		entry->prev->next = entry->next;
 	} else {
@@ -110,6 +106,16 @@ arikkei_cache_remove_entry (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
 	} else {
 		cache->last = entry->prev;
 	}
+}
+
+static void
+arikkei_cache_remove_entry (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
+{
+	arikkei_dict_remove (&cache->dict, entry->key);
+	if (cache->key_free) cache->key_free (entry->key);
+	if (cache->object_free) cache->object_free (entry->object);
+	cache->currentsize -= entry->size;
+	remove_entry_from_list (cache, entry);
 	free (entry);
 }
 
@@ -126,23 +132,18 @@ void
 arikkei_cache_insert (ArikkeiCache *cache, const void *key, void *object, unsigned int size)
 {
 	ArikkeiCacheEntry *e;
-	if (size > cache->maxsize) return;
+	if (size > cache->maxsize) {
+		if (cache->object_free) cache->object_free (object);
+		return;
+	}
 	e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
 	if (e) {
 		/* Replace object */
+		arikkei_dict_remove (&cache->dict, e->key);
+		if (cache->key_free) cache->key_free (e->key);
 		if (cache->object_free) cache->object_free (e->object);
 		cache->currentsize -= e->size;
-		/* Detach entry */
-		if (e->prev) {
-			e->prev->next = e->next;
-		} else {
-			cache->entries = e->next;
-		}
-		if (e->next) {
-			e->next->prev = e->prev;
-		} else {
-			cache->last = e->prev;
-		}
+		remove_entry_from_list (cache, e);
 	} else {
 		e = (ArikkeiCacheEntry *) malloc (sizeof (ArikkeiCacheEntry));
 	}
@@ -154,8 +155,12 @@ arikkei_cache_insert (ArikkeiCache *cache, const void *key, void *object, unsign
 	e->size = size;
 	/* Attach entry */
 	e->next = cache->entries;
-	e->prev = NULL;
 	cache->entries = e;
+	if (e->next) e->next->prev = e;
+	e->prev = NULL;
+	if (!cache->last) cache->last = e;
+	arikkei_dict_insert (&cache->dict, e->key, e);
+	cache->currentsize += size;
 }
 
 void
@@ -172,20 +177,12 @@ arikkei_cache_lookup (ArikkeiCache *cache, const void *key)
 	ArikkeiCacheEntry *e;
 	e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
 	if (e) {
-		/* Touch it */
-		if (e->prev) {
-			e->prev->next = e->next;
-		} else {
-			cache->entries = e->next;
-		}
-		if (e->next) {
-			e->next->prev = e->prev;
-		} else {
-			cache->last = e->prev;
-		}
-		e->prev = NULL;
+		remove_entry_from_list (cache, e);
 		e->next = cache->entries;
 		cache->entries = e;
+		if (e->next) e->next->prev = e;
+		e->prev = NULL;
+		if (!cache->last) cache->last = e;
 	}
 	return (e) ? e->object : NULL;
 }
