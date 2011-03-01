@@ -252,6 +252,8 @@ arikkei_utf8_ucs2_strcpy (const unsigned char *s, unsigned short *d)
 			d[dp++] = ((s[0] & 0x01) << 30) | ((s[1] & 0x3f) << 24) | ((s[2] & 0x3f) << 18) |
 					  ((s[3] & 0x3f) << 12) | ((s[4] & 0x3f) << 6) | (s[5] & 0x3f);
 			s += 6;
+		} else {
+			break;
 		}
 	}
 	d[dp] = 0;
