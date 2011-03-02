@@ -25,6 +25,16 @@ nr_image_new (void)
 	return image;
 }
 
+NRImage *
+nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned int clear)
+{
+	NRImage *image;
+	image = (NRImage *) malloc (sizeof (NRImage));
+	image->refcount = 1;
+	nr_pixblock_setup (&image->pixels, mode, x0, y0, x1, y1, clear);
+	return image;
+}
+
 void
 nr_image_ref (NRImage *image)
 {
