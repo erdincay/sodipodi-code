@@ -31,6 +31,7 @@ struct _NRImage {
 };
 
 NRImage *nr_image_new (void);
+NRImage *nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned int clear);
 void nr_image_ref (NRImage *image);
 void nr_image_unref (NRImage *image);
 
