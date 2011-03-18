@@ -186,7 +186,6 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	attributes = AttributeArray::set (attributes, name, newvalue);
-	document->attributeChanged (this, name, oldvalue, newvalue);
 	// Emit attr_changed
 	bool emitted = false;
 	if (listeners) {
@@ -199,6 +198,8 @@ Node::setAttribute (const char *name, const char *newvalue)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamAttrChanged (this, name, oldvalue, newvalue);
+	// This has to be last, because document consumes oldvalue
+	document->attributeChanged (this, name, oldvalue, newvalue);
 	return true;
 }
 
@@ -216,7 +217,6 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	content = (newcontent) ? strdup (newcontent) : NULL;
-	document->contentChanged (this, oldcontent, newcontent);
 	// Emit content_changed
 	bool emitted = false;
 	if (listeners) {
@@ -229,6 +229,8 @@ Node::setTextContent (const char *newcontent)
 		}
 	}
 	if (!emitted && parent) parent->emitDownstreamContentChanged (this, oldcontent, newcontent);
+	// This has to be last because document consumes oldcontent
+	document->contentChanged (this, oldcontent, newcontent);
 	return true;
 }
 
