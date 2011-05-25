@@ -13,6 +13,10 @@
 #include <libnr/nr-macros.h>
 #include <libnr/nr-values.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* NULL rect is infinite */
 
 #define nr_rect_d_set_empty(r) (*(r) = NR_RECT_D_EMPTY)
@@ -63,5 +67,9 @@ NRRectF *nr_rect_f_matrix_f_transform (NRRectF *d, NRRectF *s, const NRMatrixF *
 
 NRRectD *nr_rect_d_translate_xy (NRRectD *d, double x, double y);
 NRRectF *nr_rect_f_translate_xy (NRRectF *d, double x, double y);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif
