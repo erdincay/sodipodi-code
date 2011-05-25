@@ -24,6 +24,10 @@ typedef struct _ArikkeiObjectClass ArikkeiObjectClass;
 typedef struct _ArikkeiActiveObject ArikkeiActiveObject;
 typedef struct _ArikkeiActiveObjectClass ArikkeiActiveObjectClass;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define arikkei_return_if_fail(expr) if (!(expr) && arikkei_emit_fail_warning ((const unsigned char *) __FILE__, __LINE__, (const unsigned char *) "?", (const unsigned char *) #expr)) return
 #define arikkei_return_val_if_fail(expr,val) if (!(expr) && arikkei_emit_fail_warning ((const unsigned char *) __FILE__, __LINE__, (const unsigned char *) "?", (const unsigned char *) #expr)) return (val)
 
@@ -120,6 +124,10 @@ unsigned int arikkei_active_object_get_type (void);
 
 void arikkei_active_object_add_listener (ArikkeiActiveObject *object, const ArikkeiObjectEventVector *vector, unsigned int size, void *data);
 void arikkei_active_object_remove_listener_by_data (ArikkeiActiveObject *object, void *data);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif
 
