@@ -13,6 +13,10 @@
 #include <libnrtype/nr-type-primitives.h>
 #include <libnrtype/nr-typeface.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 NRTypeFace *nr_type_directory_lookup (const unsigned char *name);
 NRTypeFace *nr_type_directory_lookup_fuzzy (const unsigned char *family, const unsigned char *description,
                                             int weight,
@@ -28,5 +32,9 @@ NRTypeFace *nr_type_build (const unsigned char *name, const unsigned char *famil
 			   unsigned int slant, unsigned int weight);
 
 void nr_type_directory_forget_face (NRTypeFace *tf);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

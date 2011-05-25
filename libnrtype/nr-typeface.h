@@ -11,8 +11,8 @@
  */
 
 #define NR_TYPE_TYPEFACE (nr_typeface_get_type ())
-#define NR_TYPEFACE(o) (NR_CHECK_INSTANCE_CAST ((o), NR_TYPE_TYPEFACE, NRTypeFace))
-#define NR_IS_TYPEFACE(o) (NR_CHECK_INSTANCE_TYPE ((o), NR_TYPE_TYPEFACE))
+#define NR_TYPEFACE(o) (ARIKKEI_CHECK_INSTANCE_CAST ((o), NR_TYPE_TYPEFACE, NRTypeFace))
+#define NR_IS_TYPEFACE(o) (ARIKKEI_CHECK_INSTANCE_TYPE ((o), NR_TYPE_TYPEFACE))
 
 typedef struct _NRTypeFace NRTypeFace;
 typedef struct _NRTypeFaceClass NRTypeFaceClass;
@@ -20,9 +20,10 @@ typedef struct _NRTypeFaceClass NRTypeFaceClass;
 typedef struct _NRTypeFaceDef NRTypeFaceDef;
 typedef struct _NRTypePosDef NRTypePosDef;
 
+#include <libarikkei/arikkei-object.h>
+
 #include <libnr/nr-types.h>
 #include <libnr/nr-path.h>
-#include <libnr/nr-object.h>
 #include <libnrtype/nr-font.h>
 #include <libnrtype/nr-rasterfont.h>
 
@@ -77,7 +78,7 @@ struct _NRTypeFaceDef {
 };
 
 struct _NRTypeFaceClass {
-	NRObjectClass parent_class;
+	ArikkeiObjectClass parent_class;
 
 	void (* setup) (NRTypeFace *tface, NRTypeFaceDef *def);
 
@@ -102,7 +103,7 @@ struct _NRTypeFaceClass {
 };
 
 struct _NRTypeFace {
-	NRObject object;
+	ArikkeiObject object;
 
 	NRTypeFaceDef *def;
 	unsigned int nglyphs;
@@ -120,8 +121,8 @@ unsigned int nr_typeface_get_type (void);
 
 NRTypeFace *nr_typeface_new (NRTypeFaceDef *def);
 
-#define nr_typeface_ref(t) (NRTypeFace *) nr_object_ref ((NRObject *) (t))
-#define nr_typeface_unref(t) (NRTypeFace *) nr_object_unref ((NRObject *) (t))
+#define nr_typeface_ref(t) (NRTypeFace *) arikkei_object_ref ((ArikkeiObject *) (t))
+#define nr_typeface_unref(t) (NRTypeFace *) arikkei_object_unref ((ArikkeiObject *) (t))
 
 unsigned int nr_typeface_name_get (NRTypeFace *tf, unsigned char *str, unsigned int size);
 unsigned int nr_typeface_family_name_get (NRTypeFace *tf, unsigned char *str, unsigned int size);

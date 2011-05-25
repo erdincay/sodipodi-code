@@ -15,7 +15,7 @@
 
 /* Transform incorporates initial position as well */
 NRPGL *
-nr_pgl_new_from_string (NRUShort *chars, unsigned int length, NRFont *font, NRMatrixF *transform)
+nr_pgl_new_from_string (NRUShort *chars, unsigned int length, NRFont *font, const NRMatrixF *transform)
 {
 	NRPGL *pgl;
 	unsigned int i;

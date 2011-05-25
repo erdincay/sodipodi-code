@@ -45,7 +45,7 @@
 
 static void nr_typeface_w32_class_init (NRTypeFaceW32Class *klass);
 static void nr_typeface_w32_init (NRTypeFaceW32 *tfw32);
-static void nr_typeface_w32_finalize (NRObject *object);
+static void nr_typeface_w32_finalize (ArikkeiObject *object);
 
 static void nr_typeface_w32_setup (NRTypeFace *tface, NRTypeFaceDef *def);
 
@@ -75,12 +75,12 @@ nr_typeface_w32_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		type = nr_object_register_type (NR_TYPE_TYPEFACE,
+		type = arikkei_object_register_type (NR_TYPE_TYPEFACE,
 						"NRTypeFaceW32",
 						sizeof (NRTypeFaceW32Class),
 						sizeof (NRTypeFaceW32),
-						(void (*) (NRObjectClass *)) nr_typeface_w32_class_init,
-						(void (*) (NRObject *)) nr_typeface_w32_init);
+						(void (*) (ArikkeiObjectClass *)) nr_typeface_w32_class_init,
+						(void (*) (ArikkeiObject *)) nr_typeface_w32_init);
 	}
 	return type;
 }
@@ -88,13 +88,13 @@ nr_typeface_w32_get_type (void)
 static void
 nr_typeface_w32_class_init (NRTypeFaceW32Class *klass)
 {
-	NRObjectClass *object_class;
+	ArikkeiObjectClass *object_class;
 	NRTypeFaceClass *tface_class;
 
-	object_class = (NRObjectClass *) klass;
+	object_class = (ArikkeiObjectClass *) klass;
 	tface_class = (NRTypeFaceClass *) klass;
 
-	parent_class = (NRTypeFaceClass *) (((NRObjectClass *) klass)->parent);
+	parent_class = (NRTypeFaceClass *) (((ArikkeiObjectClass *) klass)->parent);
 
 	object_class->finalize = nr_typeface_w32_finalize;
 
@@ -356,7 +356,7 @@ nr_typeface_w32_setup (NRTypeFace *tface, NRTypeFaceDef *def)
 }
 
 static void
-nr_typeface_w32_finalize (NRObject *object)
+nr_typeface_w32_finalize (ArikkeiObject *object)
 {
     NRTypeFaceW32 *tfw32;
 
@@ -378,7 +378,7 @@ nr_typeface_w32_finalize (NRObject *object)
     if (tfw32->hgidx) nr_free (tfw32->hgidx);
     if (tfw32->vgidx) nr_free (tfw32->vgidx);
 
-	((NRObjectClass *) (parent_class))->finalize (object);
+	((ArikkeiObjectClass *) (parent_class))->finalize (object);
 }
 
 static unsigned int

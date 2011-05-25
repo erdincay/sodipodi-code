@@ -30,7 +30,7 @@ nr_font_unref (NRFont *font)
 	font->refcount -= 1;
 
 	if (font->refcount < 1) {
-		((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->font_free (font);
+		((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->font_free (font);
 	}
 
 	return NULL;
@@ -39,31 +39,31 @@ nr_font_unref (NRFont *font)
 NRPath *
 nr_font_glyph_outline_get (NRFont *font, unsigned int glyph, unsigned int ref)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->font_glyph_outline_get (font, glyph, ref);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->font_glyph_outline_get (font, glyph, ref);
 }
 
 void
 nr_font_glyph_outline_unref (NRFont *font, unsigned int glyph)
 {
-	((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->font_glyph_outline_unref (font, glyph);
+	((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->font_glyph_outline_unref (font, glyph);
 }
 
 NRPointF *
 nr_font_glyph_advance_get (NRFont *font, unsigned int glyph, NRPointF *adv)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->font_glyph_advance_get (font, glyph, adv);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->font_glyph_advance_get (font, glyph, adv);
 }
 
 NRRectF *
 nr_font_glyph_area_get (NRFont *font, unsigned int glyph, NRRectF *area)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->font_glyph_area_get (font, glyph, area);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->font_glyph_area_get (font, glyph, area);
 }
 
 NRRasterFont *
 nr_rasterfont_new (NRFont *font, const NRMatrixF *transform)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->rasterfont_new (font, transform);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->rasterfont_new (font, transform);
 }
 
 /* Generic implementation */
@@ -150,7 +150,7 @@ nr_font_generic_glyph_outline_unref (NRFont *font, unsigned int glyph)
 NRPointF *
 nr_font_generic_glyph_advance_get (NRFont *font, unsigned int glyph, NRPointF *adv)
 {
-	((NRTypeFaceClass *) ((NRObject *) font->face)->klass)->glyph_advance_get (font->face, glyph, font->metrics, adv);
+	((NRTypeFaceClass *) ((ArikkeiObject *) font->face)->klass)->glyph_advance_get (font->face, glyph, font->metrics, adv);
 
 	adv->x *= (font->size / 1000.0F);
 	adv->y *= (font->size / 1000.0F);
