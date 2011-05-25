@@ -28,23 +28,23 @@
 
 static void nr_typeface_class_init (NRTypeFaceClass *klass);
 static void nr_typeface_init (NRTypeFace *tface);
-static void nr_typeface_finalize (NRObject *object);
+static void nr_typeface_finalize (ArikkeiObject *object);
 
 static void nr_typeface_setup (NRTypeFace *tface, NRTypeFaceDef *def);
 
-static NRObjectClass *parent_class;
+static ArikkeiObjectClass *parent_class;
 
 unsigned int
 nr_typeface_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		type = nr_object_register_type (NR_TYPE_OBJECT,
+		type = arikkei_object_register_type (ARIKKEI_TYPE_OBJECT,
 						"NRTypeFace",
 						sizeof (NRTypeFaceClass),
 						sizeof (NRTypeFace),
-						(void (*) (NRObjectClass *)) nr_typeface_class_init,
-						(void (*) (NRObject *)) nr_typeface_init);
+						(void (*) (ArikkeiObjectClass *)) nr_typeface_class_init,
+						(void (*) (ArikkeiObject *)) nr_typeface_init);
 	}
 	return type;
 }
@@ -52,11 +52,11 @@ nr_typeface_get_type (void)
 static void
 nr_typeface_class_init (NRTypeFaceClass *klass)
 {
-	NRObjectClass *object_class;
+	ArikkeiObjectClass *object_class;
 
-	object_class = (NRObjectClass *) klass;
+	object_class = (ArikkeiObjectClass *) klass;
 
-	parent_class = ((NRObjectClass *) klass)->parent;
+	parent_class = ((ArikkeiObjectClass *) klass)->parent;
 
 	object_class->finalize = nr_typeface_finalize;
 
@@ -81,7 +81,7 @@ nr_typeface_init (NRTypeFace *tface)
 }
 
 static void
-nr_typeface_finalize (NRObject *object)
+nr_typeface_finalize (ArikkeiObject *object)
 {
 	NRTypeFace *tface;
 
@@ -89,7 +89,7 @@ nr_typeface_finalize (NRObject *object)
 
 	nr_type_directory_forget_face (tface);
 
-	((NRObjectClass *) (parent_class))->finalize (object);
+	((ArikkeiObjectClass *) (parent_class))->finalize (object);
 }
 
 static void
@@ -103,9 +103,9 @@ nr_typeface_new (NRTypeFaceDef *def)
 {
 	NRTypeFace *tface;
 
-	tface = (NRTypeFace *) nr_object_new (def->type);
+	tface = (NRTypeFace *) arikkei_object_new (def->type);
 
-	((NRTypeFaceClass *) ((NRObject *) tface)->klass)->setup (tface, def);
+	((NRTypeFaceClass *) ((ArikkeiObject *) tface)->klass)->setup (tface, def);
 
 	return tface;
 }
@@ -125,31 +125,31 @@ nr_typeface_family_name_get (NRTypeFace *tf, unsigned char *str, unsigned int si
 unsigned int
 nr_typeface_attribute_get (NRTypeFace *tf, const unsigned char *key, unsigned char *str, unsigned int size)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) tf)->klass)->attribute_get (tf, key, str, size);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->attribute_get (tf, key, str, size);
 }
 
 NRPath *
 nr_typeface_glyph_outline_get (NRTypeFace *tf, unsigned int glyph, unsigned int metrics, unsigned int ref)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) tf)->klass)->glyph_outline_get (tf, glyph, metrics, ref);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->glyph_outline_get (tf, glyph, metrics, ref);
 }
 
 void
 nr_typeface_glyph_outline_unref (NRTypeFace *tf, unsigned int glyph, unsigned int metrics)
 {
-	((NRTypeFaceClass *) ((NRObject *) tf)->klass)->glyph_outline_unref (tf, glyph, metrics);
+	((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->glyph_outline_unref (tf, glyph, metrics);
 }
 
 NRPointF *
 nr_typeface_glyph_advance_get (NRTypeFace *tf, unsigned int glyph, unsigned int metrics, NRPointF *adv)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) tf)->klass)->glyph_advance_get (tf, glyph, metrics, adv);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->glyph_advance_get (tf, glyph, metrics, adv);
 }
 
 unsigned int
 nr_typeface_lookup_default (NRTypeFace *tf, unsigned int unival)
 {
-	return ((NRTypeFaceClass *) ((NRObject *) tf)->klass)->lookup (tf, NR_TYPEFACE_LOOKUP_RULE_DEFAULT, unival);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->lookup (tf, NR_TYPEFACE_LOOKUP_RULE_DEFAULT, unival);
 }
 
 NRFont *
@@ -159,7 +159,7 @@ nr_font_new_default (NRTypeFace *tf, unsigned int metrics, float size)
 
 	nr_matrix_f_set_scale (&scale, size, size);
 
-	return ((NRTypeFaceClass *) ((NRObject *) tf)->klass)->font_new (tf, metrics, &scale);
+	return ((NRTypeFaceClass *) ((ArikkeiObject *) tf)->klass)->font_new (tf, metrics, &scale);
 }
 
 /* NRTypeFaceEmpty */
@@ -181,7 +181,7 @@ static unsigned int nr_typeface_empty_get_type (void);
 
 static void nr_typeface_empty_class_init (NRTypeFaceEmptyClass *klass);
 static void nr_typeface_empty_init (NRTypeFaceEmpty *tfe);
-static void nr_typeface_empty_finalize (NRObject *object);
+static void nr_typeface_empty_finalize (ArikkeiObject *object);
 
 static unsigned int nr_typeface_empty_attribute_get (NRTypeFace *tf, const unsigned char *key, unsigned char *str, unsigned int size);
 static NRPath *nr_typeface_empty_glyph_outline_get (NRTypeFace *tf, unsigned int glyph, unsigned int metrics, unsigned int ref);
@@ -199,12 +199,12 @@ nr_typeface_empty_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		type = nr_object_register_type (NR_TYPE_TYPEFACE,
+		type = arikkei_object_register_type (NR_TYPE_TYPEFACE,
 						"NRTypeFaceEmpty",
 						sizeof (NRTypeFaceEmptyClass),
 						sizeof (NRTypeFaceEmpty),
-						(void (*) (NRObjectClass *)) nr_typeface_empty_class_init,
-						(void (*) (NRObject *)) nr_typeface_empty_init);
+						(void (*) (ArikkeiObjectClass *)) nr_typeface_empty_class_init,
+						(void (*) (ArikkeiObject *)) nr_typeface_empty_init);
 	}
 	return type;
 }
@@ -212,13 +212,13 @@ nr_typeface_empty_get_type (void)
 static void
 nr_typeface_empty_class_init (NRTypeFaceEmptyClass *klass)
 {
-	NRObjectClass *object_class;
+	ArikkeiObjectClass *object_class;
 	NRTypeFaceClass *tface_class;
 
-	object_class = (NRObjectClass *) klass;
+	object_class = (ArikkeiObjectClass *) klass;
 	tface_class = (NRTypeFaceClass *) klass;
 
-	empty_parent_class = (NRTypeFaceClass *) (((NRObjectClass *) klass)->parent);
+	empty_parent_class = (NRTypeFaceClass *) (((ArikkeiObjectClass *) klass)->parent);
 
 	object_class->finalize = nr_typeface_empty_finalize;
 
@@ -243,13 +243,13 @@ nr_typeface_empty_init (NRTypeFaceEmpty *tfe)
 }
 
 static void
-nr_typeface_empty_finalize (NRObject *object)
+nr_typeface_empty_finalize (ArikkeiObject *object)
 {
 	NRTypeFace *tface;
 
 	tface = (NRTypeFace *) object;
 
-	((NRObjectClass *) (parent_class))->finalize (object);
+	((ArikkeiObjectClass *) (parent_class))->finalize (object);
 }
 
 static NRFont *empty_fonts = NULL;

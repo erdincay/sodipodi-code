@@ -36,7 +36,7 @@ struct _NRPGL {
 };
 
 /* Transform incorporates initial position as well */
-NRPGL *nr_pgl_new_from_string (NRUShort *text, unsigned int length, NRFont *font, NRMatrixF *transform);
+NRPGL *nr_pgl_new_from_string (NRUShort *text, unsigned int length, NRFont *font, const NRMatrixF *transform);
 NRPGL *nr_pgl_free (NRPGL *pgl);
 
 void nr_pgl_set_origin (NRPGL *pgl, float x, float y);
