@@ -12,6 +12,10 @@
 
 #include <libnr/nr-types.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define NR_EPSILON_D 1e-24
 #define NR_EPSILON_F 1e-12F
 
@@ -34,12 +38,15 @@
 #define NR_EXPORT
 #endif
 
+#ifndef __NR_VALUES_C__
+extern NRRectL NR_RECT_L_EMPTY;
+#endif
+
 #if 1
 #define NR_MATRIX_D_IDENTITY (*nr_matrix_d_get_identity ())
 #define NR_MATRIX_F_IDENTITY (*nr_matrix_f_get_identity ())
 #define NR_RECT_D_EMPTY (*nr_rect_d_get_empty ())
 #define NR_RECT_F_EMPTY (*nr_rect_f_get_empty ())
-#define NR_RECT_L_EMPTY (*nr_rect_l_get_empty ())
 #define NR_RECT_S_EMPTY (*nr_rect_s_get_empty ())
 const NRMatrixD *nr_matrix_d_get_identity (void);
 const NRMatrixF *nr_matrix_f_get_identity (void);
@@ -63,6 +70,10 @@ extern NRRectF NR_RECT_F_EMPTY;
 extern NRRectL NR_RECT_L_EMPTY;
 extern NRRectS NR_RECT_S_EMPTY;
 #endif
+#endif
+
+#ifdef __cplusplus
+};
 #endif
 
 #endif

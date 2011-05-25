@@ -11,4 +11,6 @@
 
 #include "nr-values.h"
 
+NRRectL NR_RECT_L_EMPTY = {NR_HUGE_L, NR_HUGE_L, -NR_HUGE_L, -NR_HUGE_L};
+
 int vla;
