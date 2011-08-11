@@ -173,18 +173,38 @@ void
 nr_pixblock_get_channel_limits (const NRPixBlock *pb, unsigned int minv[], unsigned int maxv[])
 {
 	int x, y, bpp, c;
-	bpp = (pb->mode == NR_PIXBLOCK_MODE_G8) ? 1 : (pb->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = NR_PIXBLOCK_BPP(pb);
 	for (c = 0; c < bpp; c++) {
 		minv[c] = 255;
 		maxv[c] = 0;
 	}
 	for (y = pb->area.y0; y < pb->area.y1; y++) {
 		const unsigned char *s;
-		s = NR_PIXBLOCK_PX (pb) + y * pb->rs;
+		s = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
 		for (x = pb->area.x0; x < pb->area.x1; x++) {
 			for (c = 0; c < bpp; c++) {
 				if (s[c] < minv[c]) minv[c] = s[c];
 				if (s[c] > maxv[c]) maxv[c] = s[c];
+			}
+			s += bpp;
+		}
+	}
+}
+
+void
+nr_pixblock_get_histogram (const NRPixBlock *pb, unsigned int histogram[][256])
+{
+	int x, y, bpp, c, v;
+	bpp = NR_PIXBLOCK_BPP(pb);
+	for (c = 0; c < bpp; c++) {
+		for (v = 0; v < 256; v++) histogram[c][v] = 0;
+	}
+	for (y = pb->area.y0; y < pb->area.y1; y++) {
+		const unsigned char *s;
+		s = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
+		for (x = pb->area.x0; x < pb->area.x1; x++) {
+			for (c = 0; c < bpp; c++) {
+				histogram[c][s[c]] += 1;
 			}
 			s += bpp;
 		}

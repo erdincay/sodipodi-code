@@ -65,6 +65,7 @@ NRPixBlock *nr_pixblock_free (NRPixBlock *pb);
 
 unsigned int nr_pixblock_has_alpha (const NRPixBlock *pb);
 void nr_pixblock_get_channel_limits (const NRPixBlock *pb, unsigned int minv[], unsigned int maxv[]);
+void nr_pixblock_get_histogram (const NRPixBlock *pb, unsigned int histogram[][256]);
 
 /* Memory management */
 
