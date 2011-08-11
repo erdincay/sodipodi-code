@@ -1,4 +1,4 @@
-#define __ARIKKEI_url_C__
+#define __ARIKKEI_URL_C__
 
 /*
  * URL Handling
@@ -271,7 +271,7 @@ arikkei_build_relative_url (const unsigned char *parent, const unsigned char *pa
 }
 
 unsigned char *
-arkkkei_build_absolute_url (const unsigned char *parent, const unsigned char *path)
+arikkei_build_absolute_url (const unsigned char *parent, const unsigned char *path)
 {
 	ArikkeiURL purl, curl;
 	size_t plen, clen;
