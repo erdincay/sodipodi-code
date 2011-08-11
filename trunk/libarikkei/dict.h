@@ -38,6 +38,9 @@ public:
 		// arikkei_dict_setup_full (&_dict, hashsize, unsigned int (* hash) (const void *), unsigned int (* equal) (const void *, const void *));
 		arikkei_dict_setup_full (&_dict, hashsize, (unsigned int (*) (const void *)) hash, (unsigned int (*) (const void *, const void *)) equal);
 	}
+	~Dict (void) {
+		arikkei_dict_release (&_dict);
+	}
 	bool exists (K key) { return arikkei_dict_exists (&_dict, (const void *) key) != 0; }
 	V lookup (K key) { return p2a<V> (arikkei_dict_lookup (&_dict, (const void *) key)); }
 	void insert (K key, V val) { arikkei_dict_insert (&_dict, (const void *) key, (const void *) val); }
@@ -55,6 +58,9 @@ public:
 	Dict (unsigned int hashsize) {
 		arikkei_dict_setup_string (&_dict, hashsize);
 	}
+	~Dict (void) {
+		arikkei_dict_release (&_dict);
+	}
 	bool exists (const char *key) { return arikkei_dict_exists (&_dict, (const void *) key) != 0; }
 	V lookup (const char *key) { return p2a<V> (arikkei_dict_lookup (&_dict, (const void *) key)); }
 	void insert (const char *key, V val) { arikkei_dict_insert (&_dict, (const void *) key, (const void *) val); }
@@ -71,6 +77,9 @@ private:
 public:
 	Dict (unsigned int hashsize) {
 		arikkei_dict_setup_int (&_dict, hashsize);
+	}
+	~Dict (void) {
+		arikkei_dict_release (&_dict);
 	}
 	bool exists (int key) { return arikkei_dict_exists (&_dict, (const void *) key) != 0; }
 	V lookup (int key) { return p2a<V> (arikkei_dict_lookup (&_dict, (const void *) key)); }
