@@ -538,9 +538,9 @@ Node::AttributeArray::set (AttributeArray *aa, const char *name, const char *val
 		for (unsigned int i = 0; i < aa->length; i++) {
 			if (!strcmp (name, aa->elements[i].name)) {
 				if (value) {
-					// free (aa->elements[i].value);
 					aa->elements[i].value = strdup (value);
 				} else {
+					free (aa->elements[i].name);
 					for (unsigned int j = i + 1; j < aa->length; j++) {
 						aa->elements[j - 1] = aa->elements[j];
 					}
