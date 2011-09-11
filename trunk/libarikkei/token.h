@@ -292,7 +292,7 @@ public:
 	int tokenize (Token *tokenz, int ntokenz, const Token& separators, bool multi = false) const {
 		int idx = 0;
 		size_t s = 0;
-		while ((s < _len) && (idx < ntokenz)) {
+		while ((s <= _len) && (idx < ntokenz)) {
 			// Find end of token
 			size_t e;
 			if (idx != (ntokenz - 1)) {
@@ -308,10 +308,12 @@ public:
 			} else {
 				e = _len;
 			}
+			// e -> first separator   - found separator
+			// e -> len               - end of token
 			tokenz[idx].set (_cdata, s, e);
-			s = e + 1;
+			e += 1;
 			if (multi) {
-				while (s < _len) {
+				while (e < _len) {
 					size_t i;
 					for (i = 0; i < separators.getLength (); i++) {
 						if (_cdata[s] == separators[i]) break;
@@ -320,6 +322,9 @@ public:
 					s += 1;
 				}
 			}
+			// s -> first separator + 1   - found separator
+			// e -> len + 1               - end of token
+			s = e;
 			idx += 1;
 		}
 		return idx;
