@@ -27,24 +27,78 @@ void nr_mmx_R8G8B8_R8G8B8_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, c
 #endif
 
 void
-nr_A8_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+nr_A8_EMPTY_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
 {
 	int r, c;
+	if (alpha == 0) {
+		/* Clear destination */
+		for (r = 0; r < h; r++) {
+			memset (px, 0x0, w);
+			px += rs;
+		}
+	} else if (alpha == 255) {
+		/* Copy source */
+		for (r = 0; r < h; r++) {
+			memcpy (px, spx, w);
+			px += rs;
+			spx += srs;
+		}
+	} else {
+		/* Copy multiplied */
+		const unsigned char *s;
+		unsigned char *d;
+		d = px;
+		s = spx;
+		for (c = 0; c < w; c++) {
+			d[0] = (s[0] * alpha + 127) / 255;
+			d += 1;
+			s += 1;
+		}
+		px += rs;
+		spx += srs;
+	}
+}
 
-	for (r = 0; r < h; r++) {
-		if (alpha == 0) {
-			memset (px, 0x0, 4 * w);
-		} else {
+void
+nr_A8_EMPTY_R8G8B8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, unsigned int alpha)
+{
+	int r, c;
+	if (alpha == 0) {
+		/* Clear destination */
+		for (r = 0; r < h; r++) {
+			memset (px, 0x0, w);
+			px += rs;
+		}
+	} else if (alpha == 255) {
+		/* Copy average */
+		for (r = 0; r < h; r++) {
 			const unsigned char *s;
 			unsigned char *d;
 			d = px;
 			s = spx;
 			for (c = 0; c < w; c++) {
-				*d++ = (*s++ * alpha + 127) / 255;
+				d[0] = (s[0] + s[1] + s[2] + 1) / 3;
+				d += 1;
+				s += 3;
 			}
+			px += rs;
+			spx += srs;
 		}
-		px += rs;
-		spx += srs;
+	} else {
+		/* Copy average multiplied */
+		for (r = 0; r < h; r++) {
+			const unsigned char *s;
+			unsigned char *d;
+			d = px;
+			s = spx;
+			for (c = 0; c < w; c++) {
+				d[0] = ((s[0] + s[1] + s[2]) * alpha + 383) / 767;
+				d += 1;
+				s += 3;
+			}
+			px += rs;
+			spx += srs;
+		}
 	}
 }
 
@@ -401,10 +455,57 @@ nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P (unsigned char *px, int w, int h, int rs, co
 /* Masked operations */
 
 void
+nr_R8G8B8A8_N_EMPTY_A8_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, const unsigned char *mpx, int mrs)
+{
+	int x, y;
+	for (y = 0; y < h; y++) {
+		unsigned char *d, *s, *m;
+		d = (unsigned char *) px;
+		s = (unsigned char *) spx;
+		m = (unsigned char *) mpx;
+		for (x = 0; x < w; x++) {
+			d[0] = s[0];
+			d[1] = s[0];
+			d[2] = s[0];
+			d[3] = m[0];
+			d += 4;
+			s += 1;
+			m += 1;
+		}
+		px += rs;
+		spx += srs;
+		mpx += mrs;
+	}
+}
+
+void
+nr_R8G8B8A8_N_EMPTY_R8G8B8_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, const unsigned char *mpx, int mrs)
+{
+	int x, y;
+	for (y = 0; y < h; y++) {
+		unsigned char *d, *s, *m;
+		d = (unsigned char *) px;
+		s = (unsigned char *) spx;
+		m = (unsigned char *) mpx;
+		for (x = 0; x < w; x++) {
+			d[0] = s[0];
+			d[1] = s[1];
+			d[2] = s[2];
+			d[3] = m[0];
+			d += 4;
+			s += 3;
+			m += 1;
+		}
+		px += rs;
+		spx += srs;
+		mpx += mrs;
+	}
+}
+
+void
 nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N_A8 (unsigned char *px, int w, int h, int rs, const unsigned char *spx, int srs, const unsigned char *mpx, int mrs)
 {
 	int x, y;
-
 	for (y = 0; y < h; y++) {
 		unsigned char *d, *s, *m;
 		d = (unsigned char *) px;

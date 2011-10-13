@@ -13,6 +13,9 @@
 #include <string.h>
 #include <assert.h>
 
+#include "nr-pixblock-transform.h"
+#include "nr-blit.h"
+
 #include "nr-image.h"
 
 NRImage *
@@ -80,3 +83,57 @@ nr_image_is_empty (const NRImage *image)
 	return image->pixels.empty;
 }
 
+NRImage *
+nr_image_get_scaled (NRImage *image, unsigned int width, unsigned int height)
+{
+	unsigned int sw, sh;
+	NRImage *dst;
+	sw = image->pixels.area.x1 - image->pixels.area.x0;
+	sh = image->pixels.area.y1 - image->pixels.area.y0;
+	if ((sw == width) && (sh == height)) {
+		nr_image_ref (image);
+		return image;
+	}
+	dst = nr_image_new ();
+	nr_pixblock_release (&dst->pixels);
+	nr_pixblock_setup (&dst->pixels, image->pixels.mode, 0, 0, width, height, 0);
+	if (width && height) {
+		nr_pixblock_scale (&dst->pixels, &image->pixels);
+	}
+	return dst;
+}
+
+NRImage *
+nr_image_get_typed (NRImage *image, unsigned int mode)
+{
+	NRImage *dst;
+	if (mode == image->pixels.mode) {
+		nr_image_ref (image);
+		return image;
+	}
+	dst = nr_image_new ();
+	nr_pixblock_release (&dst->pixels);
+	nr_pixblock_setup (&dst->pixels, mode, image->pixels.area.x0, image->pixels.area.y0, image->pixels.area.x1, image->pixels.area.y1, 0);
+	if (!image->pixels.empty) return dst;
+	if ((image->pixels.area.x0 >= image->pixels.area.x1) && (image->pixels.area.y0 >= image->pixels.area.y1)) return dst;
+	nr_blit_pixblock_pixblock (&dst->pixels, &image->pixels);
+	dst->pixels.empty = 0;
+	return dst;
+}
+
+NRImage *
+nr_image_apply_mask (NRImage *image, NRImage *mask, unsigned int premultiply)
+{
+	NRImage *dst;
+	if ((image->pixels.area.x0 != mask->pixels.area.x0) || (image->pixels.area.y0 != mask->pixels.area.y0)) return NULL;
+	if ((image->pixels.area.x1 != mask->pixels.area.x1) || (image->pixels.area.y1 != mask->pixels.area.y1)) return NULL;
+	if ((mask->pixels.empty) || (image->pixels.area.x0 >= image->pixels.area.x1) || (image->pixels.area.y0 >= image->pixels.area.y1)) {
+		return nr_image_get_typed (image, (premultiply) ? NR_PIXBLOCK_MODE_R8G8B8A8P : NR_PIXBLOCK_MODE_R8G8B8A8N);
+	}
+	dst = nr_image_new ();
+	nr_pixblock_release (&dst->pixels);
+	nr_pixblock_setup (&dst->pixels, (premultiply) ? NR_PIXBLOCK_MODE_R8G8B8A8P : NR_PIXBLOCK_MODE_R8G8B8A8N, image->pixels.area.x0, image->pixels.area.y0, image->pixels.area.x1, image->pixels.area.y1, 0);
+	nr_blit_pixblock_pixblock_mask (&dst->pixels, &image->pixels, &mask->pixels);
+	dst->pixels.empty = 0;
+	return dst;
+}
