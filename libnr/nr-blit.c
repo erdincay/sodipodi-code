@@ -64,21 +64,31 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 
 	switch (d->mode) {
 	case NR_PIXBLOCK_MODE_G8:
-		if (s->mode == NR_PIXBLOCK_MODE_G8) {
-			nr_A8_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+		if (d->empty) {
+			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+				nr_A8_EMPTY_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+				nr_A8_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				/* fixme: Implement (Lauris) */
+			}
 		} else {
-			/* fixme: Implement color rendering (Lauris) */
+			/* fixme: Implement (Lauris) */
 		}
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8:
-		if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-			nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-		} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-			nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-		} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
-			nr_R8G8B8_R8G8B8_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+		if (d->empty) {
+			/* fixme: Implement (Lauris) */
 		} else {
-			/* fixme: Implement mask rendering (Lauris) */
+			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+				/* fixme: Implement mask rendering (Lauris) */
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+				nr_R8G8B8_R8G8B8_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
+				nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else {
+				nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+			}
 		}
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8A8P:
@@ -86,7 +96,7 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 				/* Case 8 */
 				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N){
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				/* Case C */
 				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
 			} else {
@@ -106,16 +116,14 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8A8N:
 		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* Case 9 */
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				/* Case D */
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else  if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+				/* fixme: Implement (Lauris) */
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
 				nr_R8G8B8A8_N_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
+				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
 			} else {
-				/* fixme: Implement mask rendering (Lauris) */
+				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
 			}
 		} else {
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
@@ -144,10 +152,6 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixB
 	int w, h;
 
 	if (s->empty) return;
-	/* fixme: */
-	if (s->mode == NR_PIXBLOCK_MODE_G8) return;
-	/* fixme: */
-	if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) return;
 
 	/*
 	 * Possible variants as of now:
@@ -217,12 +221,14 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixB
 		break;
 	case NR_PIXBLOCK_MODE_R8G8B8A8N:
 		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* Case 9 */
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-			} else {
-				/* Case D */
+			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+				nr_R8G8B8A8_N_EMPTY_A8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+				nr_R8G8B8A8_N_EMPTY_R8G8B8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+			} else {
+				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
 			}
 		} else {
 			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {

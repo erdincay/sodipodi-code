@@ -42,6 +42,17 @@ NRImage *nr_image_ensure_private_empty (NRImage *image);
 /* NULL is allowed */
 unsigned int nr_image_is_empty (const NRImage *image);
 
+/* Get scaled image (or original if scales match) */
+NRImage *nr_image_get_scaled (NRImage *image, unsigned int width, unsigned int height);
+
+/* Get specific type of image (or original if types match) */
+NRImage *nr_image_get_typed (NRImage *image, unsigned int mode);
+
+/* Apply mask to image */
+/* The sizes of image and mask must match */
+/* Resulting image is either R8G8B8A8_N or R8G8B8A8_P */
+NRImage *nr_image_apply_mask (NRImage *image, NRImage *mask, unsigned int premultiply);
+
 #ifdef __cplusplus
 };
 #endif
