@@ -27,6 +27,9 @@ void nr_pixblock_render_svl_mask_or (NRPixBlock *d, NRSVL *svl);
 /* Renders colored SVP into buffer (has to be RGB/RGBA) */
 void nr_pixblock_render_svl_rgba (NRPixBlock *d, NRSVL *svl, NRULong rgba);
 
+/* Get average value of pixels in SVP area */
+void nr_pixblock_read_svp_pixels (const NRPixBlock *s, NRSVP *svp, unsigned char values[]);
+
 #ifdef __cplusplus
 };
 #endif
