@@ -15,6 +15,16 @@
 #include "nr-pixops.h"
 #include "nr-svp-render.h"
 
+/*
+ * Run function parameters
+ *
+ * px - pixel pointer
+ * len - number of pixels
+ * c0_24 - starting coverage * (1 << 24)
+ * s0_24 - coverage delta * (1 << 24)
+ * data - data pointer
+ */
+
 static void nr_svp_render (NRSVP *svp, unsigned char *px, unsigned int bpp, unsigned int rs, int x0, int y0, int x1, int y1,
 			   void (* run) (unsigned char *px, int len, int c0_24, int s0_24, void *data), void *data);
 
@@ -26,6 +36,45 @@ static void nr_svp_run_R8G8B8 (unsigned char *d, int len, int c0_24, int s0_24, 
 static void nr_svp_run_R8G8B8A8P_EMPTY (unsigned char *d, int len, int c0_24, int s0_24, void *data);
 static void nr_svp_run_R8G8B8A8P_R8G8B8A8P (unsigned char *d, int len, int c0_24, int s0_24, void *data);
 static void nr_svp_run_R8G8B8A8N_R8G8B8A8N (unsigned char *d, int len, int c0_24, int s0_24, void *data);
+
+struct SVPReadData {
+	unsigned int bpp;
+	float pixel_sums[4];
+	float coverage_sum;
+};
+
+static void
+nr_svp_run_read_average (unsigned char *s, int len, int c0_24, int s0_24, void *data)
+{
+	struct SVPReadData *rd;
+
+	rd = (struct SVPReadData *) data;
+
+	while (len > 0) {
+		unsigned int c;
+		float coverage = c0_24 / 16777215.0f;
+		for (c = 0; c < rd->bpp; ++c) {
+			rd->pixel_sums[c] += s[c] * coverage;
+		}
+		rd->coverage_sum += coverage;
+		s += rd->bpp;
+		c0_24 += s0_24;
+		/* c24 = CLAMP (c24, 0, 16777216); */
+		len -= 1;
+	}
+}
+
+void
+nr_pixblock_read_svp_pixels (const NRPixBlock *s, NRSVP *svp, unsigned char values[])
+{
+	struct SVPReadData rd;
+	unsigned int bpp;
+	bpp = NR_PIXBLOCK_BPP (s);
+	rd.bpp = bpp;
+	rd.pixel_sums[0] = rd.pixel_sums[1] = rd.pixel_sums[2] = rd.pixel_sums[3] = 0;
+	rd.coverage_sum = 0;
+	nr_svp_render (svp, (unsigned char *) NR_PIXBLOCK_PX (s), bpp, s->rs, s->area.x0, s->area.y0, s->area.x1, s->area.y1, nr_svp_run_read_average, &rd);
+}
 
 /* Renders graymask of svl into buffer */
 

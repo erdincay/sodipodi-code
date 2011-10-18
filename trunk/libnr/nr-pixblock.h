@@ -49,6 +49,7 @@ struct _NRPixBlock {
 	} data;
 };
 
+#define NR_PIXBLOCK_MODE_BPP(m) ((m == NR_PIXBLOCK_MODE_G8) ? 1 : (m == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
 #define NR_PIXBLOCK_BPP(pb) (((pb)->mode == NR_PIXBLOCK_MODE_G8) ? 1 : ((pb)->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
 #define NR_PIXBLOCK_PX(pb) (((pb)->size == NR_PIXBLOCK_SIZE_TINY) ? (pb)->data.p : (pb)->data.px)
 #define NR_PIXBLOCK_ROW(pb,r) (NR_PIXBLOCK_PX (pb) + (r) * (pb)->rs)
