@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-#define NR_TINY_MAX 16
+#define NR_TINY_MAX 64
 
 enum {
 	NR_PIXBLOCK_SIZE_TINY, /* Fits in pixblock data */
@@ -36,6 +36,8 @@ enum {
 	NR_PIXBLOCK_MODE_R8G8B8A8N, /* Normal 8 bit RGBA */
 	NR_PIXBLOCK_MODE_R8G8B8A8P /* Premultiplied 8 bit RGBA */
 };
+
+// Automatically allocated rowstride is aligned at 4 bytes
 
 struct _NRPixBlock {
 	unsigned int size : 3;
