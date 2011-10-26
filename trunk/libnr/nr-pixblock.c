@@ -21,9 +21,16 @@ nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1
 
 	w = x1 - x0;
 	h = y1 - y0;
-	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = NR_PIXBLOCK_MODE_BPP (mode);
 
-	size = bpp * w * h;
+	pb->mode = mode;
+	pb->area.x0 = x0;
+	pb->area.y0 = y0;
+	pb->area.x1 = x1;
+	pb->area.y1 = y1;
+	pb->rs = (bpp * w + 3) & 0xfffffffc;
+
+	size = h * pb->rs;
 
 	if (size <= NR_TINY_MAX) {
 		pb->size = NR_PIXBLOCK_SIZE_TINY;
@@ -43,13 +50,7 @@ nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1
 		if (clear) memset (pb->data.px, 0x0, size);
 	}
 
-	pb->mode = mode;
 	pb->empty = 1;
-	pb->area.x0 = x0;
-	pb->area.y0 = y0;
-	pb->area.x1 = x1;
-	pb->area.y1 = y1;
-	pb->rs = bpp * w;
 }
 
 void
@@ -59,9 +60,16 @@ nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int
 
 	w = x1 - x0;
 	h = y1 - y0;
-	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = NR_PIXBLOCK_MODE_BPP (mode);
 
-	size = bpp * w * h;
+	pb->mode = mode;
+	pb->area.x0 = x0;
+	pb->area.y0 = y0;
+	pb->area.x1 = x1;
+	pb->area.y1 = y1;
+	pb->rs = (bpp * w + 3) & 0xfffffffc;
+
+	size = h * pb->rs;
 
 	if (size <= NR_TINY_MAX) {
 		pb->size = NR_PIXBLOCK_SIZE_TINY;
@@ -72,13 +80,7 @@ nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int
 		if (clear) memset (pb->data.px, 0x0, size);
 	}
 
-	pb->mode = mode;
 	pb->empty = 1;
-	pb->area.x0 = x0;
-	pb->area.y0 = y0;
-	pb->area.x1 = x1;
-	pb->area.y1 = y1;
-	pb->rs = bpp * w;
 }
 
 void
