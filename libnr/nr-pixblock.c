@@ -213,6 +213,115 @@ nr_pixblock_get_histogram (const NRPixBlock *pb, unsigned int histogram[][256])
 	}
 }
 
+unsigned int
+nr_pixblock_get_crc32 (const NRPixBlock *pb)
+{
+	unsigned int crc32, acc;
+	unsigned int width, height, bpp, x, y, c, cnt;
+	width = pb->area.x1 - pb->area.x0;
+	height = pb->area.y1 - pb->area.y0;
+	bpp = NR_PIXBLOCK_BPP(pb);
+	crc32 = 0;
+	acc = 0;
+	cnt = 0;
+	for (y = 0; y < height; y++) {
+		const unsigned char *s = NR_PIXBLOCK_ROW(pb, y);
+		for (x = 0; x < width; x++) {
+			for (c = 0; c < bpp; c++) {
+				acc <<= 8;
+				acc |= *s++;
+				if (++cnt >= 4) {
+					crc32 ^= acc;
+					acc = cnt = 0;
+				}
+			}
+		}
+		crc32 ^= acc;
+		acc = cnt = 0;
+	}
+	return crc32;
+}
+
+unsigned long long
+nr_pixblock_get_crc64 (const NRPixBlock *pb)
+{
+	unsigned long long crc64, acc;
+	unsigned int width, height, bpp, x, y, c, cnt;
+	width = pb->area.x1 - pb->area.x0;
+	height = pb->area.y1 - pb->area.y0;
+	bpp = NR_PIXBLOCK_BPP(pb);
+	crc64 = 0;
+	acc = 0;
+	cnt = 0;
+	for (y = 0; y < height; y++) {
+		const unsigned char *s = NR_PIXBLOCK_ROW(pb, y);
+		for (x = 0; x < width; x++) {
+			for (c = 0; c < bpp; c++) {
+				acc <<= 8;
+				acc |= *s++;
+				if (++cnt >= 8) {
+					crc64 ^= acc;
+					acc = cnt = 0;
+				}
+			}
+		}
+		crc64 ^= acc;
+		acc = cnt = 0;
+	}
+	return crc64;
+}
+
+unsigned int
+nr_pixblock_get_hash (const NRPixBlock *pb)
+{
+	unsigned int hval;
+	unsigned int width, height, bpp, x, y, c;
+	width = pb->area.x1 - pb->area.x0;
+	height = pb->area.y1 - pb->area.y0;
+	bpp = NR_PIXBLOCK_BPP(pb);
+	hval = pb->mode;
+	hval = (hval << 5) - hval + pb->empty;
+	hval = (hval << 5) - hval + pb->area.x0;
+	hval = (hval << 5) - hval + pb->area.y0;
+	hval = (hval << 5) - hval + pb->area.x1;
+	hval = (hval << 5) - hval + pb->area.y1;
+	for (y = 0; y < height; y++) {
+		const unsigned char *s = NR_PIXBLOCK_ROW(pb, y);
+		for (x = 0; x < width; x++) {
+			for (c = 0; c < bpp; c++) {
+				hval = (hval << 5) - hval + *s++;
+			}
+		}
+	}
+	return hval;
+}
+
+unsigned int
+nr_pixblock_is_equal (const NRPixBlock *a, const NRPixBlock *b)
+{
+	unsigned int width, height, bpp, x, y, c;
+	if (a == b) return 1;
+	if (a->mode != b->mode) return 0;
+	if (a->empty != b->empty) return 0;
+	if (a->area.x0 - b->area.x0) return 0;
+	if (a->area.y0 - b->area.y0) return 0;
+	if (a->area.x1 - b->area.x1) return 0;
+	if (a->area.y1 - b->area.y1) return 0;
+	width = a->area.x1 - a->area.x0;
+	height = a->area.y1 - a->area.y0;
+	bpp = NR_PIXBLOCK_BPP(a);
+	for (y = 0; y < height; y++) {
+		const unsigned char *pa = NR_PIXBLOCK_ROW(a, y);
+		const unsigned char *pb = NR_PIXBLOCK_ROW(b, y);
+		for (x = 0; x < width; x++) {
+			for (c = 0; c < bpp; c++) {
+				if (*pa++ != *pb++) return 0;
+			}
+		}
+	}
+	return 1;
+}
+
 /* PixelStore operations */
 
 #define NR_4K_BLOCK 32
