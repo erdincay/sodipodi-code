@@ -212,14 +212,7 @@ arikkei_string_equal (const void *l, const void *r)
 unsigned int
 arikkei_pointer_hash (const void *data)
 {
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
+	return arikkei_memory_hash (&data, sizeof (data));
 }
 
 unsigned int
