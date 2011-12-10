@@ -163,9 +163,10 @@ public:
 	// Helper
 	Node *clone (Document *pdocument, bool recursive) const;
 	// Convenience methods
-	bool setAttributeInt (const char *name, int value);
-	bool setAttributeUint (const char *name, unsigned int value);
-	bool setAttributeFloat (const char *name, float value, unsigned int precision);
+	bool setAttributeInt (const char *key, int value);
+	bool setAttributeUint (const char *key, unsigned int value);
+	bool setAttributeFloat (const char *key, float value, unsigned int precision);
+	bool setAttributeFloats (const char *key, const float *values, unsigned int nvalues, unsigned int precision);
 	// Get content of this node or single text child
 	const char *getContentOrChildText (void);
 
