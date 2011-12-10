@@ -632,6 +632,23 @@ Node::setAttributeFloat (const char *name, float value, unsigned int precision)
 	return setAttribute (name, c);
 }
 
+bool
+Node::setAttributeFloats (const char *key, const float *values, unsigned int nvalues, unsigned int precision)
+{
+	char c[4096];
+	char *s = c;
+	if (nvalues > 256) s = (char *) malloc (nvalues * 16);
+	char *p = s;
+	for (unsigned int i = 0; i < nvalues; i++) {
+		p += arikkei_dtoa_exp ((unsigned char *) p, 16, values[i], precision, 0);
+		*p++ = ' ';
+	}
+	*p++ = 0;
+	bool result = setAttribute (key, s);
+	if (s != c) free (s);
+	return result;
+}
+
 const char *
 Node::getContentOrChildText (void)
 {
