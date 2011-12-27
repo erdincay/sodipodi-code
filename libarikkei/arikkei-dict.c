@@ -183,7 +183,7 @@ arikkei_dict_forall (ArikkeiDict *dict, unsigned int (* forall) (const void *, c
 		if (dict->entries[i].key) {
 			int j;
 			for (j = i; j >= 0; j = dict->entries[j].next) {
-				if (!forall (dict->entries[i].key, dict->entries[i].val, data)) return 0;
+				if (!forall (dict->entries[j].key, dict->entries[j].val, data)) return 0;
 			}
 		}
 	}
