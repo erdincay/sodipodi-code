@@ -25,6 +25,10 @@ typedef struct _NRTypeFaceGlyphW32 NRTypeFaceGlyphW32;
 #include <libnrtype/nr-type-primitives.h>
 #include <libnrtype/nr-typeface.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum {
     NR_TYPE_W32_CP_1250,
     NR_TYPE_W32_CP_1251,
@@ -84,9 +88,9 @@ void nr_type_w32_build_def (NRTypeFaceDef *def, const unsigned char *name, const
 
 void nr_type_read_w32_list (void);
 
-/* Wrapper */
-char *nr_w32_mmap (const TCHAR *filename, int size, LPCTSTR name);
-void nr_w32_munmap (char *buffer, int size);
+#ifdef __cplusplus
+};
+#endif
 
 #endif
 
