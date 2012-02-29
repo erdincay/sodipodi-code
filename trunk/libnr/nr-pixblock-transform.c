@@ -118,12 +118,16 @@ void
 nr_pixblock_scale (NRPixBlock *dpx, const NRPixBlock *spx)
 {
 	NRMatrixF d2s;
-	d2s.c[0] = (float) (spx->area.x1 - spx->area.x0 - 1) / (dpx->area.x1 - dpx->area.x0 - 1);
+	// d2s.c[0] = (float) (spx->area.x1 - spx->area.x0 - 1) / (dpx->area.x1 - dpx->area.x0 - 1);
+	d2s.c[0] = (float) (spx->area.x1 - spx->area.x0) / (dpx->area.x1 - dpx->area.x0);
 	d2s.c[1] = 0;
 	d2s.c[2] = 0;
-	d2s.c[3] = (float) (spx->area.y1 - spx->area.y0 - 1) / (dpx->area.y1 - dpx->area.y0 - 1);
-	d2s.c[4] = 0.5f - 0.5f * d2s.c[0];
-	d2s.c[5] = 0.5f - 0.5f * d2s.c[3];
+	// d2s.c[3] = (float) (spx->area.y1 - spx->area.y0 - 1) / (dpx->area.y1 - dpx->area.y0 - 1);
+	d2s.c[3] = (float) (spx->area.y1 - spx->area.y0) / (dpx->area.y1 - dpx->area.y0);
+	// d2s.c[4] = 0.5f - 0.5f * d2s.c[0];
+	d2s.c[4] = 0;
+	// d2s.c[5] = 0.5f - 0.5f * d2s.c[3];
+	d2s.c[5] = 0;
 	nr_pixblock_transform (dpx, spx, &d2s, 0);
 }
 

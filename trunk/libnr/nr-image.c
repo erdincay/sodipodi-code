@@ -97,6 +97,7 @@ nr_image_get_scaled (NRImage *image, unsigned int width, unsigned int height)
 	dst = nr_image_new ();
 	nr_pixblock_release (&dst->pixels);
 	nr_pixblock_setup (&dst->pixels, image->pixels.mode, 0, 0, width, height, 0);
+	if (image->pixels.empty) return dst;
 	if (width && height) {
 		nr_pixblock_scale (&dst->pixels, &image->pixels);
 	}
@@ -114,7 +115,7 @@ nr_image_get_typed (NRImage *image, unsigned int mode)
 	dst = nr_image_new ();
 	nr_pixblock_release (&dst->pixels);
 	nr_pixblock_setup (&dst->pixels, mode, image->pixels.area.x0, image->pixels.area.y0, image->pixels.area.x1, image->pixels.area.y1, 0);
-	if (!image->pixels.empty) return dst;
+	if (image->pixels.empty) return dst;
 	if ((image->pixels.area.x0 >= image->pixels.area.x1) && (image->pixels.area.y0 >= image->pixels.area.y1)) return dst;
 	nr_blit_pixblock_pixblock (&dst->pixels, &image->pixels);
 	dst->pixels.empty = 0;
