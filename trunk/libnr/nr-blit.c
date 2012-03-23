@@ -69,8 +69,10 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 				nr_A8_EMPTY_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
 			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
 				nr_A8_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
-				/* fixme: Implement (Lauris) */
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
+				nr_A8_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
+				nr_A8_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
 			}
 		} else {
 			/* fixme: Implement (Lauris) */
