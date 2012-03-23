@@ -245,13 +245,14 @@ nr_pixblock_get_crc32 (const NRPixBlock *pb)
 unsigned long long
 nr_pixblock_get_crc64 (const NRPixBlock *pb)
 {
-	unsigned long long crc64, acc;
+	unsigned long long crc64, acc, carry;
 	unsigned int width, height, bpp, x, y, c, cnt;
 	width = pb->area.x1 - pb->area.x0;
 	height = pb->area.y1 - pb->area.y0;
 	bpp = NR_PIXBLOCK_BPP(pb);
 	crc64 = 0;
 	acc = 0;
+	carry = 0;
 	cnt = 0;
 	for (y = 0; y < height; y++) {
 		const unsigned char *s = NR_PIXBLOCK_ROW(pb, y);
@@ -260,12 +261,15 @@ nr_pixblock_get_crc64 (const NRPixBlock *pb)
 				acc <<= 8;
 				acc |= *s++;
 				if (++cnt >= 8) {
-					crc64 ^= acc;
-					acc = cnt = 0;
+					if ((crc64 & 0x8000000000000000) && (acc & 0x8000000000000000)) carry = 1;
+					crc64 += acc;
+					crc64 += carry;
+					acc = carry = 0;
+					cnt = 0;
 				}
 			}
 		}
-		crc64 ^= acc;
+		crc64 += acc;
 		acc = cnt = 0;
 	}
 	return crc64;
