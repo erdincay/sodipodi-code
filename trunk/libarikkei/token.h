@@ -316,10 +316,10 @@ public:
 				while (e < _len) {
 					size_t i;
 					for (i = 0; i < separators.getLength (); i++) {
-						if (_cdata[s] == separators[i]) break;
+						if (_cdata[e] == separators[i]) break;
 					}
 					if (i >= separators.getLength ()) break;
-					s += 1;
+					e += 1;
 				}
 			}
 			// s -> first separator + 1   - found separator

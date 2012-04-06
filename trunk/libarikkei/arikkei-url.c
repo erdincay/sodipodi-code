@@ -195,21 +195,28 @@ path_is_absolute (const unsigned char *path)
 }
 
 static unsigned char *
-build_url (const unsigned char *protocol, const unsigned char *directory, const unsigned char *filename, const unsigned char *reference, const unsigned char *arguments)
+build_url (const unsigned char *protocol, const unsigned char *domain, const unsigned char *directory, const unsigned char *filename, const unsigned char *reference, const unsigned char *arguments)
 {
-	size_t plen, dlen, flen, rlen, alen, p;
+	size_t plen, mlen, dlen, flen, rlen, alen, p;
 	unsigned char *url;
 	plen = (protocol) ? strlen ((const char *) protocol) + 1 : 0;
+	mlen = (domain) ? strlen ((const char *) domain) + 2: 0;
 	dlen = (directory) ? strlen ((const char *) directory) : 0;
 	flen = (filename) ? strlen ((const char *) filename) : 0;
 	rlen = (reference) ? strlen ((const char *) reference) + 1 : 0;
 	alen = (arguments) ? strlen ((const char *) arguments) + 1 : 0;
-	url = (unsigned char *) malloc (plen + dlen + flen + rlen + alen + 1);
+	url = (unsigned char *) malloc (plen + mlen + dlen + flen + rlen + alen + 1);
 	p = 0;
 	if (plen) {
 		memcpy (url + p, protocol, plen - 1);
 		url[plen - 1] = ':';
 		p += plen;
+	}
+	if (mlen) {
+		url[p] = '(';
+		memcpy (url + p + 1, domain, mlen - 2);
+		url[p + mlen - 1] = ')';
+		p += mlen;
 	}
 	if (dlen) {
 		memcpy (url + p, directory, dlen);
@@ -264,7 +271,7 @@ arikkei_build_relative_url (const unsigned char *parent, const unsigned char *pa
 		p += 1;
 	}
 	/* Now add protocol + directory[n] + filename + # + reference + ? + arguments */
-	url = build_url (purl.protocol, curl.directory + n, curl.filename, curl.reference, curl.arguments);
+	url = build_url (purl.protocol, purl.domain, curl.directory + n, curl.filename, curl.reference, curl.arguments);
 	arikkei_url_release (&purl);
 	arikkei_url_release (&curl);
 	return url;
@@ -294,8 +301,8 @@ arikkei_build_absolute_url (const unsigned char *parent, const unsigned char *pa
 	if (plen) memcpy (c, purl.directory, plen);
 	if (clen) memcpy (c + plen, curl.directory, clen);
 	c[plen + clen] = 0;
-	/* Now add protocol + pdirectory+cdirectory + filename + # + reference + ? + arguments */
-	url = build_url (purl.protocol, c, curl.filename, curl.reference, curl.arguments);
+	/* Now add base + pdirectory+cdirectory + filename + # + reference + ? + arguments */
+	url = build_url (purl.protocol, purl.domain, c, curl.filename, curl.reference, curl.arguments);
 	free (c);
 	arikkei_url_release (&purl);
 	arikkei_url_release (&curl);
