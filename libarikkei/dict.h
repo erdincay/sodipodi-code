@@ -26,6 +26,13 @@ inline unsigned int p2a (const void *P) { return (unsigned int) ((char *) P - (c
 template <>
 inline int p2a (const void *P) { return (int) ((char *) P - (char *) 0); }
 
+template <typename R>
+inline const void *a2p (R A) { return (const void *) A; }
+template <>
+inline const void *a2p (unsigned int A) { return (const void *) ((char *) 0 + A); }
+template <>
+inline const void *a2p (int A) { return (const void *) ((char *) 0 + A); }
+
 template <typename K, typename V>
 class Dict {
 private:
@@ -44,9 +51,9 @@ public:
 	}
 	bool exists (K key) { return arikkei_dict_exists (&dict, (const void *) key) != 0; }
 	V lookup (K key) { return p2a<V> (arikkei_dict_lookup (&dict, (const void *) key)); }
-	void insert (K key, V val) { arikkei_dict_insert (&dict, (const void *) key, (const void *) val); }
+	void insert (K key, V val) { arikkei_dict_insert (&dict, (const void *) key, a2p<V>(val)); }
 	void remove (K key) { arikkei_dict_remove (&dict, (const void *) key); }
-	void forall (unsigned int (* callback) (K, V, void *), void *data) { arikkei_dict_forall (&dict, (unsigned int (*) (const void *, const void *, void *)) callback); }
+	void forall (unsigned int (* callback) (K, V, void *), void *data) { arikkei_dict_forall (&dict, (unsigned int (*) (const void *, const void *, void *)) callback, data); }
 };
 
 template <typename V>
@@ -65,10 +72,10 @@ public:
 		arikkei_dict_release (&dict);
 	}
 	bool exists (const char *key) { return arikkei_dict_exists (&dict, (const void *) key) != 0; }
-	V lookup (const char *key) { return p2a<V> (arikkei_dict_lookup (&dict, (const void *) key)); }
-	void insert (const char *key, V val) { arikkei_dict_insert (&dict, (const void *) key, (const void *) val); }
+	V lookup (const char *key) { return p2a<V>(arikkei_dict_lookup (&dict, (const void *) key)); }
+	void insert (const char *key, V val) { arikkei_dict_insert (&dict, (const void *) key, a2p<V>(val)); }
 	void remove (const char *key) { arikkei_dict_remove (&dict, (const void *) key); }
-	void forall (unsigned int (* callback) (const char *, V, void *), void *data) { arikkei_dict_forall (&dict, (unsigned int (*) (const void *, const void *, void *)) callback); }
+	void forall (unsigned int (* callback) (const char *, V, void *), void *data) { arikkei_dict_forall (&dict, (unsigned int (*) (const void *, const void *, void *)) callback, data); }
 };
 
 template <typename V>
@@ -86,9 +93,9 @@ public:
 	~Dict (void) {
 		arikkei_dict_release (&dict);
 	}
-	bool exists (int key) { return arikkei_dict_exists (&dict, (const void *) key) != 0; }
-	V lookup (int key) { return p2a<V> (arikkei_dict_lookup (&dict, (const void *) key)); }
-	void insert (int key, const V val) { arikkei_dict_insert (&dict, (const void *) key, (const void *) val); }
+	bool exists (int key) { return arikkei_dict_exists (&dict, (const void *) ((char *) 0 + key)) != 0; }
+	V lookup (int key) { return p2a<V> (arikkei_dict_lookup (&dict, (const void *) ((char *) 0 + key))); }
+	void insert (int key, const V val) { arikkei_dict_insert (&dict, (const void *) ((char *) 0 + key), (const void *) val); }
 	void remove (int key) { arikkei_dict_remove (&dict, (const void *) key); }
 };
 
