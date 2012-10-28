@@ -141,6 +141,16 @@ arikkei_dict_remove (ArikkeiDict *dict, const void *key)
 	}
 }
 
+void
+arikkei_dict_clear (ArikkeiDict *dict)
+{
+	unsigned int i;
+	for (i = 0; i < dict->hashsize; i++) dict->entries[i].key = NULL;
+	for (i = dict->hashsize; i < dict->size - 1; i++) dict->entries[i].next = i + 1;
+	dict->entries[dict->size - 1].next = -1;
+	dict->free = dict->hashsize;
+}
+
 unsigned int
 arikkei_dict_exists (ArikkeiDict *dict, const void *key)
 {

@@ -39,6 +39,7 @@ void arikkei_dict_release (ArikkeiDict *dict);
 
 void arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val);
 void arikkei_dict_remove (ArikkeiDict *dict, const void *key);
+void arikkei_dict_clear (ArikkeiDict *dict);
 unsigned int arikkei_dict_exists (ArikkeiDict *dict, const void *key);
 const void *arikkei_dict_lookup (ArikkeiDict *dict, const void *key);
 /* Stop if forall returns 0 */
