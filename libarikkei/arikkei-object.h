@@ -24,6 +24,8 @@ typedef struct _ArikkeiObjectClass ArikkeiObjectClass;
 typedef struct _ArikkeiActiveObject ArikkeiActiveObject;
 typedef struct _ArikkeiActiveObjectClass ArikkeiActiveObjectClass;
 
+#include <libarikkei/arikkei-types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -56,12 +58,12 @@ unsigned int arikkei_object_register_type (unsigned int parent,
 
 /* ArikkeiObject */
 
-struct _ArikkeiObject {
+ARIKKEI_A16 struct _ArikkeiObject {
 	ArikkeiObjectClass *klass;
 	unsigned int refcount;
 };
 
-struct _ArikkeiObjectClass {
+ARIKKEI_A16 struct _ArikkeiObjectClass {
 	unsigned int type;
 	ArikkeiObjectClass *parent;
 
