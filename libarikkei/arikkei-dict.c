@@ -79,6 +79,7 @@ arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val)
 	if (dict->entries[hval].key) {
 		for (pos = hval; pos >= 0; pos = dict->entries[pos].next) {
 			if (dict->equal (dict->entries[pos].key, key)) {
+				dict->entries[pos].key = key;
 				dict->entries[pos].val = val;
 				return;
 			}
