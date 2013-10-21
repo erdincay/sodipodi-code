@@ -51,10 +51,11 @@ unsigned int arikkei_object_check_instance_type (void *ip, unsigned int tc);
 
 unsigned int arikkei_object_register_type (unsigned int parent,
 				      const unsigned char *name,
-				      unsigned int csize,
-				      unsigned int isize,
-				      void (* cinit) (ArikkeiObjectClass *),
-				      void (* iinit) (ArikkeiObject *));
+				      unsigned int class_size,
+				      unsigned int instance_size,
+				      void (* class_init) (ArikkeiObjectClass *),
+				      void (* instance_init) (ArikkeiObject *),
+					  void (* instance_finalize) (ArikkeiObject *));
 
 /* ArikkeiObject */
 
@@ -68,12 +69,11 @@ ARIKKEI_A16 struct _ArikkeiObjectClass {
 	ArikkeiObjectClass *parent;
 
 	unsigned char *name;
-	unsigned int csize;
-	unsigned int isize;
-	void (* cinit) (ArikkeiObjectClass *);
-	void (* iinit) (ArikkeiObject *);
-
-	void (* finalize) (ArikkeiObject *object);
+	unsigned int class_size;
+	unsigned int instance_size;
+	void (* class_init) (ArikkeiObjectClass *klass);
+	void (* instance_init) (ArikkeiObject *object);
+	void (* instance_finalize) (ArikkeiObject *object);
 };
 
 unsigned int arikkei_object_get_type (void);
