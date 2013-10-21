@@ -56,7 +56,7 @@ void *
 arikkei_object_check_instance_cast (void *ip, unsigned int tc)
 {
 	arikkei_return_val_if_fail (ip != NULL, NULL);
-	arikkei_return_val_if_fail (arikkei_type_is_a (((ArikkeiObject *) ip)->klass->type, tc), ip);
+	arikkei_return_val_if_fail (arikkei_type_is_a (((ArikkeiObject *) ip)->klass->type, tc), NULL);
 	return ip;
 }
 
@@ -70,10 +70,11 @@ arikkei_object_check_instance_type (void *ip, unsigned int tc)
 unsigned int
 arikkei_object_register_type (unsigned int parent,
 			 const unsigned char *name,
-			 unsigned int csize,
-			 unsigned int isize,
-			 void (* cinit) (ArikkeiObjectClass *),
-			 void (* iinit) (ArikkeiObject *))
+			 unsigned int class_size,
+			 unsigned int instance_size,
+			 void (* class_init) (ArikkeiObjectClass *),
+			 void (* instance_init) (ArikkeiObject *),
+			 void (* instance_finalize) (ArikkeiObject *))
 {
 	unsigned int type;
 	ArikkeiObjectClass *klass;
@@ -90,30 +91,27 @@ arikkei_object_register_type (unsigned int parent,
 	type = classes_len;
 	classes_len += 1;
 
-	classes[type] = malloc (csize);
+	classes[type] = (ArikkeiObjectClass *) malloc (class_size);
 	klass = classes[type];
-	memset (klass, 0, csize);
+	memset (klass, 0, class_size);
 
 	if (classes[parent]) {
-		memcpy (klass, classes[parent], classes[parent]->csize);
+		memcpy (klass, classes[parent], classes[parent]->class_size);
 	}
 
 	klass->type = type;
 	klass->parent = classes[parent];
 	klass->name = (unsigned char *) strdup ((const char *) name);
-	klass->csize = csize;
-	klass->isize = isize;
-	klass->cinit = cinit;
-	klass->iinit = iinit;
+	klass->class_size = class_size;
+	klass->instance_size = instance_size;
+	klass->class_init = class_init;
+	klass->instance_init = instance_init;
+	klass->instance_finalize = instance_finalize;
 
-	klass->cinit (klass);
+	if (klass->class_init) klass->class_init (klass);
 
 	return type;
 }
-
-static void arikkei_object_class_init (ArikkeiObjectClass *klass);
-static void arikkei_object_init (ArikkeiObject *object);
-static void arikkei_object_finalize (ArikkeiObject *object);
 
 unsigned int
 arikkei_object_get_type (void)
@@ -124,24 +122,9 @@ arikkei_object_get_type (void)
 						(const unsigned char *) "ArikkeiObject",
 						sizeof (ArikkeiObjectClass),
 						sizeof (ArikkeiObject),
-						(void (*) (ArikkeiObjectClass *)) arikkei_object_class_init,
-						(void (*) (ArikkeiObject *)) arikkei_object_init);
+						NULL, NULL, NULL);
 	}
 	return type;
-}
-
-static void
-arikkei_object_class_init (ArikkeiObjectClass *klass)
-{
-	klass->finalize = arikkei_object_finalize;
-}
-
-static void arikkei_object_init (ArikkeiObject *object)
-{
-}
-
-static void arikkei_object_finalize (ArikkeiObject *object)
-{
 }
 
 /* Dynamic lifecycle */
@@ -155,7 +138,7 @@ arikkei_object_new (unsigned int type)
 	arikkei_return_val_if_fail (type < classes_len, NULL);
 
 	klass = classes[type];
-	object = malloc (klass->isize);
+	object = (ArikkeiObject *) malloc (klass->instance_size);
 	arikkei_object_setup (object, type);
 
 	return object;
@@ -194,8 +177,18 @@ arikkei_class_tree_object_invoke_init (ArikkeiObjectClass *klass, ArikkeiObject 
 	if (klass->parent) {
 		arikkei_class_tree_object_invoke_init (klass->parent, object);
 	}
-	klass->iinit (object);
+	if (klass->instance_init) klass->instance_init (object);
 }
+
+static void
+arikkei_class_tree_object_invoke_finalize (ArikkeiObjectClass *klass, ArikkeiObject *object)
+{
+	if (klass->instance_finalize) klass->instance_finalize (object);
+	if (klass->parent) {
+		arikkei_class_tree_object_invoke_finalize (klass->parent, object);
+	}
+}
+
 
 ArikkeiObject *
 arikkei_object_setup (ArikkeiObject *object, unsigned int type)
@@ -206,7 +199,7 @@ arikkei_object_setup (ArikkeiObject *object, unsigned int type)
 
 	klass = classes[type];
 
-	memset (object, 0, klass->isize);
+	memset (object, 0, klass->instance_size);
 	object->klass = klass;
 	object->refcount = 1;
 
@@ -218,14 +211,13 @@ arikkei_object_setup (ArikkeiObject *object, unsigned int type)
 ArikkeiObject *
 arikkei_object_release (ArikkeiObject *object)
 {
-	object->klass->finalize (object);
+	arikkei_class_tree_object_invoke_finalize (object->klass, object);
 	return NULL;
 }
 
 /* ArikkeiActiveObject */
 
 static void arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass);
-static void arikkei_active_object_init (ArikkeiActiveObject *object);
 static void arikkei_active_object_finalize (ArikkeiObject *object);
 
 static ArikkeiObjectClass *parent_class;
@@ -240,7 +232,7 @@ arikkei_active_object_get_type (void)
 						sizeof (ArikkeiActiveObjectClass),
 						sizeof (ArikkeiActiveObject),
 						(void (*) (ArikkeiObjectClass *)) arikkei_active_object_class_init,
-						(void (*) (ArikkeiObject *)) arikkei_active_object_init);
+						NULL, NULL);
 	}
 	return type;
 }
@@ -248,38 +240,25 @@ arikkei_active_object_get_type (void)
 static void
 arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass)
 {
-	ArikkeiObjectClass *object_class;
-
-	object_class = (ArikkeiObjectClass *) klass;
-
 	parent_class = ((ArikkeiObjectClass *) klass)->parent;
-
-	object_class->finalize = arikkei_active_object_finalize;
-}
-
-static void
-arikkei_active_object_init (ArikkeiActiveObject *object)
-{
 }
 
 static void
 arikkei_active_object_finalize (ArikkeiObject *object)
 {
-	ArikkeiActiveObject *aobject;
+	ArikkeiActiveObject *active_object;
 
-	aobject = (ArikkeiActiveObject *) object;
+	active_object = (ArikkeiActiveObject *) object;
 
-	if (aobject->callbacks) {
+	if (active_object->callbacks) {
 		unsigned int i;
-		for (i = 0; i < aobject->callbacks->length; i++) {
+		for (i = 0; i < active_object->callbacks->length; i++) {
 			ArikkeiObjectListener *listener;
-			listener = aobject->callbacks->listeners + i;
+			listener = active_object->callbacks->listeners + i;
 			if (listener->vector->dispose) listener->vector->dispose (object, listener->data);
 		}
-		free (aobject->callbacks);
+		free (active_object->callbacks);
 	}
-
-	((ArikkeiObjectClass *) (parent_class))->finalize (object);
 }
 
 void
@@ -288,14 +267,14 @@ arikkei_active_object_add_listener (ArikkeiActiveObject *object, const ArikkeiOb
 	ArikkeiObjectListener *listener;
 
 	if (!object->callbacks) {
-		object->callbacks = malloc (sizeof (ArikkeiObjectCallbackBlock));
+		object->callbacks = (ArikkeiObjectCallbackBlock *) malloc (sizeof (ArikkeiObjectCallbackBlock));
 		object->callbacks->size = 1;
 		object->callbacks->length = 0;
 	}
 	if (object->callbacks->length >= object->callbacks->size) {
 		int newsize;
 		newsize = object->callbacks->size << 1;
-		object->callbacks = realloc (object->callbacks, sizeof (ArikkeiObjectCallbackBlock) + (newsize - 1) * sizeof (ArikkeiObjectListener));
+		object->callbacks = (ArikkeiObjectCallbackBlock *) realloc (object->callbacks, sizeof (ArikkeiObjectCallbackBlock) + (newsize - 1) * sizeof (ArikkeiObjectListener));
 		object->callbacks->size = newsize;
 	}
 	listener = object->callbacks->listeners + object->callbacks->length;
