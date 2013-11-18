@@ -121,8 +121,8 @@ unsigned int nr_typeface_get_type (void);
 
 NRTypeFace *nr_typeface_new (NRTypeFaceDef *def);
 
-#define nr_typeface_ref(t) (NRTypeFace *) arikkei_object_ref ((ArikkeiObject *) (t))
-#define nr_typeface_unref(t) (NRTypeFace *) arikkei_object_unref ((ArikkeiObject *) (t))
+#define nr_typeface_ref(t) arikkei_object_ref ((ArikkeiObject *) (t))
+#define nr_typeface_unref(t) arikkei_object_unref ((ArikkeiObject *) (t))
 
 unsigned int nr_typeface_name_get (NRTypeFace *tf, unsigned char *str, unsigned int size);
 unsigned int nr_typeface_family_name_get (NRTypeFace *tf, unsigned char *str, unsigned int size);

@@ -87,7 +87,8 @@ nr_font_generic_new (NRTypeFace *tf, unsigned int metrics, NRMatrixF *transform)
 
 	fg->font.refcount = 1;
 	fg->font.next = NULL;
-	fg->font.face = nr_typeface_ref (tf);
+	nr_typeface_ref (tf);
+	fg->font.face = tf;
 	fg->font.metrics = metrics;
 	fg->font.size = (float) NR_MATRIX_DF_EXPANSION (transform);
 

@@ -75,12 +75,13 @@ nr_typeface_w32_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		type = arikkei_object_register_type (NR_TYPE_TYPEFACE,
+		arikkei_register_type (&type, NR_TYPE_TYPEFACE,
 						"NRTypeFaceW32",
 						sizeof (NRTypeFaceW32Class),
 						sizeof (NRTypeFaceW32),
-						(void (*) (ArikkeiObjectClass *)) nr_typeface_w32_class_init,
-						(void (*) (ArikkeiObject *)) nr_typeface_w32_init);
+						(void (*) (ArikkeiClass *)) nr_typeface_w32_class_init,
+						(void (*) (void *)) nr_typeface_w32_init,
+						(void (*) (void *)) nr_typeface_w32_finalize);
 	}
 	return type;
 }
@@ -94,9 +95,7 @@ nr_typeface_w32_class_init (NRTypeFaceW32Class *klass)
 	object_class = (ArikkeiObjectClass *) klass;
 	tface_class = (NRTypeFaceClass *) klass;
 
-	parent_class = (NRTypeFaceClass *) (((ArikkeiObjectClass *) klass)->parent);
-
-	object_class->finalize = nr_typeface_w32_finalize;
+	parent_class = (NRTypeFaceClass *) (((ArikkeiClass *) klass)->parent);
 
 	tface_class->setup = nr_typeface_w32_setup;
 	tface_class->attribute_get = nr_typeface_w32_attribute_get;
@@ -377,8 +376,6 @@ nr_typeface_w32_finalize (ArikkeiObject *object)
     }
     if (tfw32->hgidx) nr_free (tfw32->hgidx);
     if (tfw32->vgidx) nr_free (tfw32->vgidx);
-
-	((ArikkeiObjectClass *) (parent_class))->finalize (object);
 }
 
 static unsigned int
