@@ -16,6 +16,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "arikkei-strlib.h"
 
@@ -260,7 +261,31 @@ arikkei_utf8_ucs2_strcpy (const unsigned char *s, unsigned short *d)
 	return dp;
 }
 
-#include <stdio.h>
+int
+arikkei_utf8_get_unicode (const unsigned char **str, unsigned int length)
+{
+	const unsigned char *s = *str;
+	if (((*s & 0x80) == 0x0) && (length >= 1)) {
+		*str += 1;
+		return s[0];
+	} else if (((*s & 0xe0) == 0xc0) && (length >= 2)) {
+		*str += 2;
+		return ((s[0] & 0x1f) << 6) | (s[1] & 0x3f);
+	} else if (((*s & 0xf0) == 0xe0) && (length >= 3)) {
+		*str += 3;
+		return ((s[0] & 0x0f) << 12) | ((s[1] & 0x3f) << 6) | (s[2] & 0x3f);
+	} else if (((*s & 0xf8) == 0xf0) && (length >= 4)) {
+		*str += 4;
+		return ((s[0] & 0x07) << 18) | ((s[1] & 0x3f) << 12) | ((s[2] & 0x3f) << 6) | (s[3] & 0x3f);
+	} else if (((*s & 0xfc) == 0xf8) && (length >= 5)) {
+		*str += 5;
+		return ((s[0] & 0x03) << 24) | ((s[1] & 0x3f) << 18) | ((s[2] & 0x3f) << 12) | ((s[3] & 0x3f) << 6) | (s[4] & 0x3f);
+	} else if (((*s & 0xfe) == 0xfc) && (length >= 6)) {
+		*str += 6;
+		return ((s[0] & 0x01) << 30) | ((s[1] & 0x3f) << 24) | ((s[2] & 0x3f) << 18) | ((s[3] & 0x3f) << 12) | ((s[4] & 0x3f) << 6) | (s[5] & 0x3f);
+	}
+	return -1;
+}
 
 unsigned short *
 arikkei_utf8_ucs2_strdup (const unsigned char *s)
