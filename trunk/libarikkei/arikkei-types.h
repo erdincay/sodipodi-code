@@ -13,8 +13,20 @@ typedef short i16;
 typedef unsigned short u16;
 typedef int i32;
 typedef unsigned int u32;
+typedef long long i64;
+typedef unsigned long long u64;
 typedef float f32;
 typedef double f64;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct _ArikkeiValue ArikkeiValue;
+typedef struct _ArikkeiString ArikkeiString;
+typedef struct _ArikkeiProperty ArikkeiProperty;
+typedef struct _ArikkeiClass ArikkeiClass;
+typedef struct _ArikkeiObject ArikkeiObject;
 
 /* Alignment */
 
@@ -22,6 +34,106 @@ typedef double f64;
 #define ARIKKEI_A16 __declspec(align(16))
 #else
 #define ARIKKEI_A16 __attribute__ ((aligned (8)))
+#endif
+
+/* Typecodes */
+
+enum {
+	ARIKKEI_TYPE_NONE,
+	ARIKKEI_TYPE_BOOLEAN,
+	ARIKKEI_TYPE_INT8,
+	ARIKKEI_TYPE_UINT8,
+	ARIKKEI_TYPE_INT16,
+	ARIKKEI_TYPE_UINT16,
+	ARIKKEI_TYPE_INT32,
+	ARIKKEI_TYPE_UINT32,
+	ARIKKEI_TYPE_INT64,
+	ARIKKEI_TYPE_UINT64,
+	ARIKKEI_TYPE_FLOAT,
+	ARIKKEI_TYPE_DOUBLE,
+	ARIKKEI_TYPE_POINTER,
+	ARIKKEI_TYPE_STRUCT,
+	ARIKKEI_TYPE_STRING,
+	ARIKKEI_TYPE_NUM_PRIMITIVES
+};
+
+struct _ArikkeiValue {
+	unsigned int type;
+	union {
+		unsigned int bvalue;
+		i32 ivalue;
+		i64 lvalue;
+		f32 fvalue;
+		f64 dvalue;
+		void *pvalue;
+		ArikkeiString *string;
+		ArikkeiObject *object;
+	};
+};
+
+struct _ArikkeiProperty {
+	const unsigned char *key;
+	unsigned int type;
+	unsigned int id : 16;
+	unsigned int is_static : 1;
+	unsigned int can_read : 1;
+	unsigned int can_write : 1;
+	unsigned int is_final : 1;
+	ArikkeiValue defval;
+};
+
+void arikkei_property_setup (ArikkeiProperty *prop, const unsigned char *key, unsigned int type, unsigned int id, unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value);
+
+ARIKKEI_A16 struct _ArikkeiClass {
+	unsigned int type;
+	ArikkeiClass *parent;
+	unsigned int firstproperty;
+	unsigned int nproperties;
+	ArikkeiProperty *properties;
+
+	const unsigned char *name;
+	unsigned int class_size;
+	unsigned int instance_size;
+	void (* class_init) (ArikkeiClass *klass);
+	void (* instance_init) (void *instance);
+	void (* instance_finalize) (void *instance);
+	unsigned int (*get_property) (void *instance, unsigned int idx, ArikkeiValue *val);
+	unsigned int (*set_property) (void *instance, unsigned int idx, const ArikkeiValue *val);
+	void *(* get_interface) (void *instance, unsigned int type);
+};
+
+void arikkei_types_init (void);
+
+/* Creates new class and assigns it a type */
+/* Type is guaranteed to be assigned before class constructors are invoked */
+void arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+							void (* class_init) (ArikkeiClass *),
+							void (* instance_init) (void *),
+							void (* instance_finalize) (void *));
+
+ArikkeiClass *arikkei_type_get_class (unsigned int type);
+unsigned int arikkei_type_is_a (unsigned int type, unsigned int test);
+unsigned int arikkei_class_is_of_type (ArikkeiClass *klass, unsigned int type);
+
+void arikkei_type_setup_instance (void *instance, unsigned int type);
+void arikkei_type_release_instance (void *instance, unsigned int type);
+
+const unsigned char *arikkei_type_get_name (unsigned int type);
+
+ArikkeiProperty *arikkei_class_lookup_property (ArikkeiClass *klass, const unsigned char *key);
+unsigned int arikkei_instance_set_property (ArikkeiClass *klass, void *instance, const unsigned char *key, const ArikkeiValue *val);
+unsigned int arikkei_instance_get_property (ArikkeiClass *klass, void *instance, const unsigned char *key, ArikkeiValue *val);
+unsigned int arikkei_instance_set_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, const ArikkeiValue *val);
+unsigned int arikkei_instance_get_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, ArikkeiValue *val);
+
+void *arikkei_instance_get_interface (ArikkeiClass *klass, void *instance, unsigned int type);
+
+/* Setup helpers, for class implementations */
+
+void arikkei_class_set_num_properties (ArikkeiClass *klass, unsigned int nproperties);
+
+#ifdef __cplusplus
+};
 #endif
 
 #endif

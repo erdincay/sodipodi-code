@@ -26,8 +26,8 @@
 #include "arikkei-cache.h"
 
 struct _ArikkeiCacheEntry {
-	ArikkeiCacheEntry *prev;
-	ArikkeiCacheEntry *next;
+	int prev;
+	int next;
 	void *key;
 	void *object;
 	unsigned int size;
@@ -55,8 +55,11 @@ void arikkei_cache_setup_full (ArikkeiCache *cache, unsigned int size,
 	arikkei_dict_setup_full (&cache->dict, 313, key_hash, key_equal);
 	cache->maxsize = size;
 	cache->currentsize = 0;
+	cache->nentries = 0;
 	cache->entries = NULL;
-	cache->last = NULL;
+	cache->first = -1;
+	cache->last = -1;
+	cache->free = -1;
 	cache->key_dup = key_dup;
 	cache->key_free = key_free;
 	cache->object_free = object_free;
@@ -83,47 +86,48 @@ arikkei_cache_setup_int (ArikkeiCache *cache, unsigned int size, void (* object_
 void
 arikkei_cache_release (ArikkeiCache *cache)
 {
+	int pos;
 	arikkei_dict_release (&cache->dict);
-	while (cache->entries) {
-		ArikkeiCacheEntry *e = cache->entries;
-		cache->entries = cache->entries->next;
-		if (cache->key_free) cache->key_free (e->key);
-		if (cache->object_free) cache->object_free (e->object);
-		free (e);
+	for (pos = cache->first; pos >= 0; pos = cache->entries[pos].next) {
+		if (cache->key_free) cache->key_free (cache->entries[pos].key);
+		if (cache->object_free) cache->object_free (cache->entries[pos].object);
 	}
+	if (cache->entries) free (cache->entries);
 }
 
 static void
-remove_entry_from_list (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
+remove_entry_from_list (ArikkeiCache *cache, int pos)
 {
-	if (entry->prev) {
-		entry->prev->next = entry->next;
+	if (cache->entries[pos].prev >= 0) {
+		cache->entries[cache->entries[pos].prev].next = cache->entries[pos].next;
 	} else {
-		cache->entries = entry->next;
+		cache->first = cache->entries[pos].next;
 	}
-	if (entry->next) {
-		entry->next->prev = entry->prev;
+	if (cache->entries[pos].next >= 0) {
+		cache->entries[cache->entries[pos].next].prev = cache->entries[pos].prev;
 	} else {
-		cache->last = entry->prev;
+		cache->last = cache->entries[pos].prev;
 	}
+	cache->entries[pos].next = cache->free;
+	cache->entries[pos].prev = -1;
+	cache->free = pos;
 }
 
 static void
-arikkei_cache_remove_entry (ArikkeiCache *cache, ArikkeiCacheEntry *entry)
+arikkei_cache_remove_entry (ArikkeiCache *cache, int pos)
 {
-	arikkei_dict_remove (&cache->dict, entry->key);
-	if (cache->key_free) cache->key_free (entry->key);
-	if (cache->object_free) cache->object_free (entry->object);
-	cache->currentsize -= entry->size;
-	remove_entry_from_list (cache, entry);
-	free (entry);
+	arikkei_dict_remove (&cache->dict, cache->entries[pos].key);
+	if (cache->key_free) cache->key_free (cache->entries[pos].key);
+	if (cache->object_free) cache->object_free (cache->entries[pos].object);
+	cache->currentsize -= cache->entries[pos].size;
+	remove_entry_from_list (cache, pos);
 }
 
 static void
 arikkei_cache_ensure_space (ArikkeiCache *cache, unsigned int requested)
 {
 	while (requested > (cache->maxsize - cache->currentsize)) {
-		assert (cache->last);
+		assert (cache->last >= 0);
 		arikkei_cache_remove_entry (cache, cache->last);
 	}
 }
@@ -131,67 +135,93 @@ arikkei_cache_ensure_space (ArikkeiCache *cache, unsigned int requested)
 void
 arikkei_cache_insert (ArikkeiCache *cache, const void *key, void *object, unsigned int size)
 {
-	ArikkeiCacheEntry *e;
+	int pos;
 	if (size > cache->maxsize) {
 		if (cache->object_free) cache->object_free (object);
 		return;
 	}
-	e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
-	if (e) {
-		/* Replace object */
-		arikkei_dict_remove (&cache->dict, e->key);
-		if (cache->key_free) cache->key_free (e->key);
-		if (cache->object_free) cache->object_free (e->object);
-		cache->currentsize -= e->size;
-		remove_entry_from_list (cache, e);
+	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	if (pos >= 0) {
+		/* There is existing entry with the same key */
+		if (cache->entries[pos].object == object) {
+			/* Set entry as first element */
+			remove_entry_from_list (cache, pos);
+			cache->free = cache->entries[pos].next;
+			cache->entries[pos].next = cache->first;
+			cache->first = pos;
+			if (cache->entries[pos].next >= 0) cache->entries[cache->entries[pos].next].prev = pos;
+			cache->entries[pos].prev = -1;
+			if (cache->last < 0) cache->last = pos;
+			return;
+		} else {
+			/* Remove existing object */
+			remove_entry_from_list (cache, pos);
+			arikkei_dict_remove (&cache->dict, cache->entries[pos].key);
+			if (cache->key_free) cache->key_free (cache->entries[pos].key);
+			if (cache->object_free) cache->object_free (cache->entries[pos].object);
+			cache->currentsize -= cache->entries[pos].size;
+		}
 	} else {
-		e = (ArikkeiCacheEntry *) malloc (sizeof (ArikkeiCacheEntry));
+		if (cache->free < 0) {
+			unsigned int i, newnentries;
+			newnentries = (cache->nentries) ? cache->nentries << 1 : 32;
+			cache->entries = (ArikkeiCacheEntry *) realloc (cache->entries, newnentries * sizeof (ArikkeiCacheEntry));
+			for (i = cache->nentries; i < newnentries - 1; i++) cache->entries[i].next = i + 1;
+			cache->entries[newnentries - 1].next = -1;
+			cache->free = cache->nentries;
+			cache->nentries = newnentries;
+		}
 	}
 	/* Ensure we have enough space */
+	/* It would be nice to pick new position here */
 	arikkei_cache_ensure_space (cache, size);
 	/* Set up entry */
-	e->key = (cache->key_dup) ? cache->key_dup (key) : (void *) key;
-	e->object = object;
-	e->size = size;
+	pos = cache->free;
+	cache->free = cache->entries[pos].next;
+	cache->entries[pos].key = (cache->key_dup) ? cache->key_dup (key) : (void *) key;
+	cache->entries[pos].object = object;
+	cache->entries[pos].size = size;
 	/* Attach entry */
-	e->next = cache->entries;
-	cache->entries = e;
-	if (e->next) e->next->prev = e;
-	e->prev = NULL;
-	if (!cache->last) cache->last = e;
-	arikkei_dict_insert (&cache->dict, e->key, e);
+	cache->entries[pos].next = cache->first;
+	cache->first = pos;
+	if (cache->entries[pos].next >= 0) cache->entries[cache->entries[pos].next].prev = pos;
+	cache->entries[pos].prev = -1;
+	if (cache->last < 0) cache->last = pos;
+	arikkei_dict_insert (&cache->dict, cache->entries[pos].key, (const char *) 0 + pos + 1);
 	cache->currentsize += size;
 }
 
 void
 arikkei_cache_remove (ArikkeiCache *cache, const void *key)
 {
-	ArikkeiCacheEntry *e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
-	if (!e) return;
-	arikkei_cache_remove_entry (cache, e);
+	int pos;
+	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	if (pos < 0) return;
+	arikkei_cache_remove_entry (cache, pos);
 }
 
 const void *
 arikkei_cache_lookup (ArikkeiCache *cache, const void *key)
 {
-	ArikkeiCacheEntry *e;
-	e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
-	if (e) {
-		remove_entry_from_list (cache, e);
-		e->next = cache->entries;
-		cache->entries = e;
-		if (e->next) e->next->prev = e;
-		e->prev = NULL;
-		if (!cache->last) cache->last = e;
+	int pos;
+	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	if (pos >= 0) {
+		remove_entry_from_list (cache, pos);
+		cache->free = cache->entries[pos].next;
+		cache->entries[pos].next = cache->first;
+		cache->first = pos;
+		if (cache->entries[pos].next >= 0) cache->entries[cache->entries[pos].next].prev = pos;
+		cache->entries[pos].prev = -1;
+		if (cache->last < 0) cache->last = pos;
 	}
-	return (e) ? e->object : NULL;
+	return (pos >= 0) ? cache->entries[pos].object : NULL;
 }
 
 const void *
 arikkei_cache_lookup_notouch (ArikkeiCache *cache, const void *key)
 {
-	ArikkeiCacheEntry *e;
-	e = (ArikkeiCacheEntry *) arikkei_dict_lookup (&cache->dict, key);
-	return (e) ? e->object : NULL;
+	int pos;
+	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	return (pos >= 0) ? cache->entries[pos].object : NULL;
 }
 

@@ -43,6 +43,9 @@ unsigned int arikkei_ucs2_utf8_strcpy (const unsigned short *s, unsigned char *d
 unsigned char *arikkei_ucs2_utf8_strdup (const unsigned short *s);
 unsigned int arikkei_ucs2_utf8_bytelen (const unsigned short *str);
 
+/* Return negative value and keep pointer if error */
+int arikkei_utf8_get_unicode (const unsigned char **str, unsigned int length);
+
 unsigned short *arikkei_ucs2_strdup (const unsigned short *s);
 unsigned int arikkei_ucs2_strncpy (const unsigned short *s, unsigned short *d, unsigned int maxlen);
 

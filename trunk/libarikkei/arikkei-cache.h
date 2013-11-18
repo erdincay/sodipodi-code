@@ -26,8 +26,11 @@ struct _ArikkeiCache {
 	ArikkeiDict dict;
 	unsigned int maxsize;
 	unsigned int currentsize;
+	unsigned int nentries;
 	ArikkeiCacheEntry *entries;
-	ArikkeiCacheEntry *last;
+	int first;
+	int last;
+	int free;
 	void *(* key_dup) (const void *key);
 	void (* key_free) (void *key);
 	void (* object_free) (const void *object);
