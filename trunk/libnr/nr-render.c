@@ -30,7 +30,6 @@ nr_renderer_delete (NRRenderer *renderer)
 }
 
 static void nr_paint_server_class_init (NRPaintServerClass *klass);
-static void nr_paint_server_init (NRPaintServer *server);
 
 static ArikkeiObjectClass *parent_class;
 
@@ -39,12 +38,12 @@ nr_paint_server_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		type = arikkei_object_register_type (ARIKKEI_TYPE_OBJECT,
+		arikkei_register_type (&type, ARIKKEI_TYPE_OBJECT,
 						(const unsigned char *) "NRPaintServer",
 						sizeof (NRPaintServerClass),
 						sizeof (NRPaintServer),
-						(void (*) (ArikkeiObjectClass *)) nr_paint_server_class_init,
-						(void (*) (ArikkeiObject *)) nr_paint_server_init);
+						(void (*) (ArikkeiClass *)) nr_paint_server_class_init,
+						NULL, NULL);
 	}
 	return type;
 }
@@ -52,12 +51,7 @@ nr_paint_server_get_type (void)
 static void
 nr_paint_server_class_init (NRPaintServerClass *klass)
 {
-	parent_class = ((ArikkeiObjectClass *) klass)->parent;
-}
-
-static void
-nr_paint_server_init (NRPaintServer *server)
-{
+	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
 }
 
 NRRenderer *

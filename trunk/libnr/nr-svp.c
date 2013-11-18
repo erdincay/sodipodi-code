@@ -380,7 +380,7 @@ nr_svl_path_endpath (float ex, float ey, float sx, float sy, unsigned int flags,
 {
 	NRSVLBuild *svlb;
 	svlb = (NRSVLBuild *) data;
-	if ((flags && NR_PATH_CLOSED) && ((ex != sx) || (ey != sy))) {
+	if ((flags & NR_PATH_CLOSED) && ((ex != sx) || (ey != sy))) {
 		nr_svl_build_lineto (svlb, sx, sy);
 	}
 	return TRUE;
@@ -747,8 +747,7 @@ nr_svl_new_full (NRVertex *vertex, NRRectF *bbox, int dir)
 
 	svl->vertex = vertex;
 	svl->bbox = *bbox;
-	svl->dir = dir;
-	svl->wind = svl->dir;
+	svl->wind = svl->dir = (short) dir;
 
 	return svl;
 }

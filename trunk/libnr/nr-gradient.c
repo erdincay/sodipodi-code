@@ -52,6 +52,7 @@ nr_lgradient_renderer_setup (NRLGradientRenderer *lgr, NRPaintServer *server,
 
 #ifndef hypot
 #define hypot(a,b) sqrt ((a) * (a) + (b) * (b))
+#define hypotf(a,b) sqrtf ((a) * (a) + (b) * (b))
 #endif
 
 #define NRG_MASK (NR_GRADIENT_VECTOR_LENGTH - 1)
@@ -468,7 +469,7 @@ nr_rgradient_render_block_end (NRRGradientRenderer *rgr, NRPixBlock *pb, NRPixBl
 static void
 nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 {
-	double dx, dy;
+	float dx, dy;
 	int x, y;
 	unsigned char *d;
 	const unsigned char *s;
@@ -479,13 +480,13 @@ nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 
 	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
-			double gx, gy;
+			float gx, gy;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
 			gx = rgr->px2gs.c[0] * pb->area.x0 + rgr->px2gs.c[2] * y + rgr->px2gs.c[4];
 			gy = rgr->px2gs.c[1] * pb->area.x0 + rgr->px2gs.c[3] * y + rgr->px2gs.c[5];
 			for (x = pb->area.x0; x < pb->area.x1; x++) {
-				double pos;
-				pos = hypot (gx, gy);
+				float pos;
+				pos = hypotf (gx, gy);
 				if (rgr->spread == NR_GRADIENT_SPREAD_REFLECT) {
 					idx = ((int) pos) & NRG_2MASK;
 					if (idx > NRG_MASK) idx = NRG_2MASK - idx;
@@ -506,13 +507,13 @@ nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 		}
 	} else if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
-			double gx, gy;
+			float gx, gy;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
 			gx = rgr->px2gs.c[0] * pb->area.x0 + rgr->px2gs.c[2] * y + rgr->px2gs.c[4];
 			gy = rgr->px2gs.c[1] * pb->area.x0 + rgr->px2gs.c[3] * y + rgr->px2gs.c[5];
 			for (x = pb->area.x0; x < pb->area.x1; x++) {
-				double pos;
-				pos = hypot (gx, gy);
+				float pos;
+				pos = hypotf (gx, gy);
 				if (rgr->spread == NR_GRADIENT_SPREAD_REFLECT) {
 					idx = ((int) pos) & NRG_2MASK;
 					if (idx > NRG_MASK) idx = NRG_2MASK - idx;
