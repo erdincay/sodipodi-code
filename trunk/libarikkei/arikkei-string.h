@@ -8,6 +8,8 @@
  * 
  */
 
+typedef struct _ArikkeiClass ArikkeiStringClass;
+
 #include <libarikkei/arikkei-types.h>
 
 #ifdef __cplusplus

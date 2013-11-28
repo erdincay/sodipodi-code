@@ -32,7 +32,7 @@ typedef struct _ArikkeiObjectCallbackBlock ArikkeiObjectCallbackBlock;
 typedef struct _ArikkeiObjectEventVector ArikkeiObjectEventVector;
 
 struct _ArikkeiObjectAttribute {
-	unsigned char *key;
+	ArikkeiString *key;
 	ArikkeiValue value;
 };
 

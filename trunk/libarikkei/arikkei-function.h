@@ -32,6 +32,9 @@ struct _ArikkeiFunction {
 	unsigned int *argtypes;
 	/* Return type */
 	unsigned int rettype;
+	/* Function pointer */
+	/* Default implementation */
+	unsigned int (* call) (ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
 };
 
 struct _ArikkeiFunctionClass {
@@ -41,6 +44,13 @@ struct _ArikkeiFunctionClass {
 };
 
 unsigned int arikkei_function_get_type (void);
+
+ArikkeiFunction *arikkei_function_new (unsigned int thistype, unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+									   unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
+
+/* Return true if arguments can be submitted as is */
+unsigned int arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int *canconvert);
+unsigned int arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, ArikkeiValue *src);
 
 unsigned int arikkei_function_invoke (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes);
 unsigned int arikkei_function_invoke_direct (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ...);

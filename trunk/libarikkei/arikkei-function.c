@@ -15,10 +15,13 @@
 
 #include "arikkei-function.h"
 
-/* ArikkeiActiveObject */
+/* ArikkeiFunction */
 
 static void arikkei_function_class_init (ArikkeiFunctionClass *klass);
 static void arikkei_function_finalize (ArikkeiFunction *func);
+
+/* ArikkeiFunction implementation */
+static unsigned int arikkei_function_invoke_default (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
 
 static ArikkeiObjectClass *parent_class;
 
@@ -42,12 +45,74 @@ static void
 arikkei_function_class_init (ArikkeiFunctionClass *klass)
 {
 	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
+	klass->invoke = arikkei_function_invoke_default;
 }
 
 static void
 arikkei_function_finalize (ArikkeiFunction *func)
 {
 	if (func->argtypes) free (func->argtypes);
+}
+
+static unsigned int
+arikkei_function_invoke_default (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args)
+{
+	if (func->call) {
+		return func->call (thisval, retval, args);
+	}
+	return 0;
+}
+
+ArikkeiFunction *
+arikkei_function_new (unsigned int thistype, unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+					  unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *))
+{
+	ArikkeiFunction *func;
+	func = (ArikkeiFunction *) arikkei_object_new (ARIKKEI_TYPE_FUNCTION);
+	func->thistype = thistype;
+	func->rettype = rettype;
+	if (nargs) {
+		func->nargs = nargs;
+		func->argtypes = (unsigned int *) malloc (nargs * sizeof (unsigned int));
+		memcpy (func->argtypes, argtypes, nargs * sizeof (unsigned int));
+	}
+	func->call = call;
+	return func;
+}
+
+unsigned int
+arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int *canconvert)
+{
+	unsigned int compatible, i;
+	arikkei_return_val_if_fail (func != NULL, 0);
+	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
+	if ((func->thistype != ARIKKEI_TYPE_NONE) && !arikkei_type_is_a (thisval->type, func->thistype)) {
+		*canconvert = 0;
+		return 0;
+	}
+	compatible = 1;
+	*canconvert = 1;
+	for (i = 0; i < func->nargs; i++) {
+		if (arikkei_type_is_a (args[i].type, func->argtypes[i])) continue;
+		compatible = 0;
+		if (canconvert && !arikkei_value_can_convert (func->argtypes[i], args[i].type)) {
+			*canconvert = 0;
+			return 0;
+		}
+	}
+	return compatible;
+}
+
+unsigned int
+arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, ArikkeiValue *src)
+{
+	unsigned int i;
+	arikkei_return_val_if_fail (func != NULL, 0);
+	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
+	for (i = 0; i < func->nargs; i++) {
+		if (!arikkei_value_convert (&dst[i], func->argtypes[i], &src[i])) return 0;
+	}
+	return 1;
 }
 
 unsigned int
