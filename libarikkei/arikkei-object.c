@@ -13,6 +13,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "arikkei-function.h"
+
 #ifdef WIN32
 #define strdup _strdup
 #endif
@@ -41,7 +43,7 @@ arikkei_object_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_NONE, (const unsigned char *) "ArikkeiObject", sizeof (ArikkeiObjectClass), sizeof (ArikkeiObject), NULL, NULL, NULL);
+		arikkei_register_type (&type, ARIKKEI_TYPE_ANY, (const unsigned char *) "ArikkeiObject", sizeof (ArikkeiObjectClass), sizeof (ArikkeiObject), NULL, NULL, NULL);
 	}
 	return type;
 }
@@ -136,7 +138,30 @@ arikkei_object_get_interface (ArikkeiObject *object, unsigned int type)
 }
 
 void
-arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type, unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value)
+arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type,
+									 unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value)
 {
 	arikkei_property_setup (((ArikkeiClass *) klass)->properties + idx, key, type, ((ArikkeiClass *) klass)->firstproperty + idx, isstatic, canread, canwrite, isfinal, value);
+}
+
+void
+arikkei_object_class_method_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key,
+									unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+									unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *))
+{
+	ArikkeiFunction *func;
+	func = arikkei_function_new (klass->klass.type, rettype, nargs, argtypes, call);
+	arikkei_object_class_property_setup (klass, idx, key, ARIKKEI_TYPE_FUNCTION, 0, 1, 0, 1, func);
+	arikkei_object_unref ((ArikkeiObject *) func);
+}
+
+void
+arikkei_object_class_static_method_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key,
+										   unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+										   unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *))
+{
+	ArikkeiFunction *func;
+	func = arikkei_function_new (ARIKKEI_TYPE_NONE, rettype, nargs, argtypes, call);
+	arikkei_object_class_property_setup (klass, idx, key, ARIKKEI_TYPE_FUNCTION, 1, 1, 0, 1, func);
+	arikkei_object_unref ((ArikkeiObject *) func);
 }

@@ -12,6 +12,8 @@
 #include <malloc.h>
 #include <string.h>
 
+#include "arikkei-string.h"
+
 #ifdef WIN32
 #define strdup _strdup
 #endif
@@ -75,7 +77,7 @@ arikkei_active_object_get_attribute_slot (ArikkeiActiveObject *aobj, const unsig
 	if (aobj->attributes) {
 		unsigned int i;
 		for (i = 0; i < aobj->attributes->length; i++) {
-			if (!strcmp ((const char *) aobj->attributes->attribs[i].key, (const char *) key)) {
+			if (!strcmp ((const char *) aobj->attributes->attribs[i].key->str, (const char *) key)) {
 				return &aobj->attributes->attribs[i];
 			}
 		}
@@ -91,7 +93,7 @@ arikkei_active_object_get_attribute_slot (ArikkeiActiveObject *aobj, const unsig
 		aobj->attributes = (ArikkeiObjectAttributeArray *) realloc (aobj->attributes, sizeof (ArikkeiObjectAttributeArray) + (aobj->attributes->size - 1) * sizeof (ArikkeiObjectAttribute));
 		memset (aobj->attributes, 0, sizeof (ArikkeiObjectAttributeArray) + (aobj->attributes->size - aobj->attributes->length) * sizeof (ArikkeiObjectAttribute));
 	}
-	aobj->attributes->attribs[aobj->attributes->length].key = (unsigned char *) strdup ((const char *) key);
+	aobj->attributes->attribs[aobj->attributes->length].key = arikkei_string_new (key);
 	return &aobj->attributes->attribs[aobj->attributes->length++];
 }
 
@@ -130,7 +132,8 @@ arikkei_active_object_clear_attribute (ArikkeiActiveObject *aobj, const unsigned
 	arikkei_return_val_if_fail (key != NULL, 0);
 	if (!aobj->attributes) return 0;
 	for (i = 0; i < aobj->attributes->length; i++) {
-		if (!strcmp ((const char *) aobj->attributes->attribs[i].key, (const char *) key)) {
+		if (!strcmp ((const char *) aobj->attributes->attribs[i].key->str, (const char *) key)) {
+			arikkei_string_unref (aobj->attributes->attribs[i].key);
 			arikkei_value_clear (&aobj->attributes->attribs[i].value);
 			if ((i + 1) < aobj->attributes->length) {
 				memcpy (&aobj->attributes->attribs[i], &aobj->attributes->attribs[i + 1], (aobj->attributes->length - (i + 1)) * sizeof (ArikkeiObjectAttribute));

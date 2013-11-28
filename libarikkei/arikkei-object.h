@@ -76,7 +76,16 @@ void arikkei_object_release (ArikkeiObject *object);
 void *arikkei_object_get_interface (ArikkeiObject *object, unsigned int type);
 
 /* Helper for propoerty setup */
-void arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type, unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value);
+void arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type,
+										  unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value);
+/* Create new function as default value of property */
+void arikkei_object_class_method_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key,
+										unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+										unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
+void arikkei_object_class_static_method_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key,
+											   unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
+											   unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
+
 
 #ifdef __cplusplus
 };
