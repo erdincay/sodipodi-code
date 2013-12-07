@@ -43,7 +43,7 @@ arikkei_object_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_ANY, (const unsigned char *) "ArikkeiObject", sizeof (ArikkeiObjectClass), sizeof (ArikkeiObject), NULL, NULL, NULL);
+		arikkei_register_type (&type, ARIKKEI_TYPE_STRUCT, (const unsigned char *) "ArikkeiObject", sizeof (ArikkeiObjectClass), sizeof (ArikkeiObject), NULL, NULL, NULL);
 	}
 	return type;
 }

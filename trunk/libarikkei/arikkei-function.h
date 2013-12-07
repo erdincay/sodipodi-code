@@ -49,7 +49,7 @@ ArikkeiFunction *arikkei_function_new (unsigned int thistype, unsigned int retty
 									   unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
 
 /* Return true if arguments can be submitted as is */
-unsigned int arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int *canconvert);
+unsigned int arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert);
 unsigned int arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, ArikkeiValue *src);
 
 unsigned int arikkei_function_invoke (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes);

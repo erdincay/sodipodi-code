@@ -74,11 +74,11 @@ arikkei_value_set_f64 (ArikkeiValue *value, f64 val)
 }
 
 inline void
-arikkei_value_set_pointer (ArikkeiValue *value, void *val)
+arikkei_value_set_pointer (ArikkeiValue *value, const void *val)
 {
 	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
 	value->type = ARIKKEI_TYPE_POINTER;
-	value->pvalue = val;
+	value->pvalue = (void *) val;
 }
 
 void arikkei_value_set_reference (ArikkeiValue *value, unsigned int type, ArikkeiReference *ref);
@@ -94,18 +94,17 @@ arikkei_value_set_class (ArikkeiValue *value, ArikkeiClass *val)
 void arikkei_value_set_string (ArikkeiValue *value, ArikkeiString *str);
 void arikkei_value_set_object (ArikkeiValue *value, ArikkeiObject *obj);
 
+void arikkei_value_copy_indirect (ArikkeiValue *dst, const ArikkeiValue *src);
+
 inline void
 arikkei_value_copy (ArikkeiValue *dst, const ArikkeiValue *src)
 {
+	if (dst == src) return;
 	if (dst->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (dst);
 	if (src->type < ARIKKEI_TYPE_REFERENCE) {
 		*dst = *src;
-	} else if (src->type == ARIKKEI_TYPE_STRING) {
-		arikkei_value_set_string (dst, src->string);
-	} else if (src->type == ARIKKEI_TYPE_REFERENCE) {
-		arikkei_value_set_reference (dst, src->type, src->reference);
 	} else {
-		arikkei_value_set_object (dst, src->object);
+		arikkei_value_copy_indirect (dst, src);
 	}
 }
 
@@ -114,6 +113,8 @@ void arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val);
 
 unsigned int arikkei_value_can_convert (unsigned int to, unsigned int from);
 unsigned int arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue *from);
+
+void *arikkei_value_get_instance (ArikkeiValue *value);
 
 #ifdef __cplusplus
 };

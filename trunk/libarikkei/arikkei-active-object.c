@@ -91,7 +91,7 @@ arikkei_active_object_get_attribute_slot (ArikkeiActiveObject *aobj, const unsig
 	} else if (aobj->attributes->length >= aobj->attributes->size) {
 		aobj->attributes->size <<= 1;
 		aobj->attributes = (ArikkeiObjectAttributeArray *) realloc (aobj->attributes, sizeof (ArikkeiObjectAttributeArray) + (aobj->attributes->size - 1) * sizeof (ArikkeiObjectAttribute));
-		memset (aobj->attributes, 0, sizeof (ArikkeiObjectAttributeArray) + (aobj->attributes->size - aobj->attributes->length) * sizeof (ArikkeiObjectAttribute));
+		memset (&aobj->attributes->attribs[aobj->attributes->length], 0, (aobj->attributes->size - aobj->attributes->length) * sizeof (ArikkeiObjectAttribute));
 	}
 	aobj->attributes->attribs[aobj->attributes->length].key = arikkei_string_new (key);
 	return &aobj->attributes->attribs[aobj->attributes->length++];
