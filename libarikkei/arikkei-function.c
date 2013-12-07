@@ -81,11 +81,15 @@ arikkei_function_new (unsigned int thistype, unsigned int rettype, unsigned int 
 }
 
 unsigned int
-arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int *canconvert)
+arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert)
 {
 	unsigned int compatible, i;
 	arikkei_return_val_if_fail (func != NULL, 0);
 	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
+	if (nargs != func->nargs) {
+		*canconvert = 0;
+		return 0;
+	}
 	if ((func->thistype != ARIKKEI_TYPE_NONE) && !arikkei_type_is_a (thisval->type, func->thistype)) {
 		*canconvert = 0;
 		return 0;

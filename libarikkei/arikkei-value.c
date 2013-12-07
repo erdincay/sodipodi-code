@@ -53,8 +53,23 @@ arikkei_value_set_object (ArikkeiValue *value, ArikkeiObject *obj)
 }
 
 void
+arikkei_value_copy_indirect (ArikkeiValue *dst, const ArikkeiValue *src)
+{
+	if (dst == src) return;
+	if (dst->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (dst);
+	if (src->type < ARIKKEI_TYPE_REFERENCE) {
+		*dst = *src;
+	} else if (arikkei_type_is_a (src->type, ARIKKEI_TYPE_REFERENCE)) {
+		arikkei_value_set_reference (dst, src->type, src->reference);
+	} else if (arikkei_type_is_a (src->type, ARIKKEI_TYPE_OBJECT)) {
+		arikkei_value_set_object (dst, src->object);
+	}
+}
+
+void
 arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 {
+	int ivalue;
 	switch (type) {
 	case ARIKKEI_TYPE_NONE:
 		arikkei_value_clear (dst);
@@ -63,24 +78,28 @@ arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 		arikkei_value_set_boolean (dst, ARIKKEI_POINTER_TO_INT(val));
 		break;
 	case ARIKKEI_TYPE_INT8:
+		ivalue = ARIKKEI_POINTER_TO_INT(val);
 		arikkei_value_clear (dst);
 		dst->type = type;
-		dst->ivalue = (i8) ARIKKEI_POINTER_TO_INT(val);
+		dst->ivalue = (i8) ivalue;
 		break;
 	case ARIKKEI_TYPE_UINT8:
+		ivalue = ARIKKEI_POINTER_TO_INT(val);
 		arikkei_value_clear (dst);
 		dst->type = type;
-		dst->ivalue = (u8) ARIKKEI_POINTER_TO_INT(val);
+		dst->ivalue = (u8) ivalue;
 		break;
 	case ARIKKEI_TYPE_INT16:
+		ivalue = ARIKKEI_POINTER_TO_INT(val);
 		arikkei_value_clear (dst);
 		dst->type = type;
-		dst->ivalue = (i16) ARIKKEI_POINTER_TO_INT(val);
+		dst->ivalue = (i16) ivalue;
 		break;
 	case ARIKKEI_TYPE_UINT16:
+		ivalue = ARIKKEI_POINTER_TO_INT(val);
 		arikkei_value_clear (dst);
 		dst->type = type;
-		dst->ivalue = (u16) ARIKKEI_POINTER_TO_INT(val);
+		dst->ivalue = (u16) ivalue;
 		break;
 	case ARIKKEI_TYPE_INT32:
 		arikkei_value_set_i32 (dst, (i32) ARIKKEI_POINTER_TO_INT(val));
@@ -89,6 +108,7 @@ arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 		arikkei_value_set_u32 (dst, (u32) ARIKKEI_POINTER_TO_INT(val));
 		break;
 	case ARIKKEI_TYPE_INT64:
+		/* fixme */
 		arikkei_value_set_i64 (dst, (i64) ARIKKEI_POINTER_TO_INT(val));
 		break;
 	case ARIKKEI_TYPE_UINT64:
@@ -136,6 +156,8 @@ arikkei_value_can_convert (unsigned int to, unsigned int from)
 		return 1;
 	case ARIKKEI_TYPE_ANY:
 		return (from == ARIKKEI_TYPE_NONE) ? 0 : 1;
+	case ARIKKEI_TYPE_BOOLEAN:
+		return (from >= ARIKKEI_TYPE_BOOLEAN);
 	case ARIKKEI_TYPE_INT8:
 	case ARIKKEI_TYPE_UINT8:
 	case ARIKKEI_TYPE_INT16:
@@ -159,12 +181,34 @@ arikkei_value_can_convert (unsigned int to, unsigned int from)
 unsigned int
 arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue *from)
 {
+	unsigned int bvalue;
+	int ivalue;
+	long long lvalue;
+	float fvalue;
+	double dvalue;
 	switch (type) {
 	case ARIKKEI_TYPE_NONE:
 		arikkei_value_clear (dst);
 		return 1;
 	case ARIKKEI_TYPE_ANY:
 		arikkei_value_copy (dst, from);
+		return 1;
+	case ARIKKEI_TYPE_BOOLEAN:
+		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
+			bvalue = from->ivalue != 0;
+		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
+			bvalue = from->lvalue != 0;
+		} else if (from->type == ARIKKEI_TYPE_FLOAT) {
+			bvalue = from->fvalue != 0;
+		} else if (from->type == ARIKKEI_TYPE_DOUBLE) {
+			bvalue = from->dvalue != 0;
+		} else {
+			ivalue = from->pvalue != NULL;
+			break;
+		}
+		arikkei_value_clear (dst);
+		dst->bvalue = bvalue;
+		dst->type = type;
 		return 1;
 	case ARIKKEI_TYPE_INT8:
 	case ARIKKEI_TYPE_UINT8:
@@ -173,93 +217,78 @@ arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue 
 	case ARIKKEI_TYPE_INT32:
 	case ARIKKEI_TYPE_UINT32:
 		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
-			arikkei_value_clear (dst);
-			dst->ivalue = from->ivalue;
-			dst->type = type;
+			ivalue = from->ivalue;
 		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
-			arikkei_value_clear (dst);
-			dst->ivalue = (i32) from->lvalue;
-			dst->type = type;
+			ivalue = (i32) from->lvalue;
 		} else if (from->type == ARIKKEI_TYPE_FLOAT) {
-			arikkei_value_clear (dst);
-			dst->ivalue = (i32) from->fvalue;
-			dst->type = type;
+			ivalue = (i32) from->fvalue;
 		} else if (from->type == ARIKKEI_TYPE_DOUBLE) {
-			arikkei_value_clear (dst);
-			dst->ivalue = (i32) from->dvalue;
-			dst->type = type;
+			ivalue = (i32) from->dvalue;
 		} else {
+			ivalue = 0;
 			break;
 		}
+		arikkei_value_clear (dst);
+		dst->ivalue = ivalue;
+		dst->type = type;
 		return 1;
 	case ARIKKEI_TYPE_INT64:
 	case ARIKKEI_TYPE_UINT64:
 		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
-			arikkei_value_clear (dst);
-			dst->lvalue = from->ivalue;
-			dst->type = type;
+			lvalue = from->ivalue;
 		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
-			arikkei_value_clear (dst);
-			dst->lvalue = (i64) from->lvalue;
-			dst->type = type;
+			lvalue = (i64) from->lvalue;
 		} else if (from->type == ARIKKEI_TYPE_FLOAT) {
-			arikkei_value_clear (dst);
-			dst->lvalue = (i64) from->fvalue;
-			dst->type = type;
+			lvalue = (i64) from->fvalue;
 		} else if (from->type == ARIKKEI_TYPE_DOUBLE) {
-			arikkei_value_clear (dst);
-			dst->lvalue = (i64) from->dvalue;
-			dst->type = type;
+			lvalue = (i64) from->dvalue;
 		} else {
+			lvalue = 0;
 			break;
 		}
+		arikkei_value_clear (dst);
+		dst->lvalue = lvalue;
+		dst->type = type;
 		return 1;
 	case ARIKKEI_TYPE_FLOAT:
 		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
-			arikkei_value_clear (dst);
-			dst->fvalue = (f32) from->ivalue;
-			dst->type = type;
+			fvalue = (f32) from->ivalue;
 		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
-			arikkei_value_clear (dst);
-			dst->fvalue = (f32) from->lvalue;
-			dst->type = type;
+			fvalue = (f32) from->lvalue;
 		} else if (from->type == ARIKKEI_TYPE_FLOAT) {
-			arikkei_value_clear (dst);
-			dst->fvalue = (f32) from->fvalue;
-			dst->type = type;
+			fvalue = from->fvalue;
 		} else if (from->type == ARIKKEI_TYPE_DOUBLE) {
-			arikkei_value_clear (dst);
-			dst->fvalue = (f32) from->dvalue;
-			dst->type = type;
+			fvalue = (f32) from->dvalue;
 		} else {
+			fvalue = 0;
 			break;
 		}
+		arikkei_value_clear (dst);
+		dst->fvalue = fvalue;
+		dst->type = type;
 		return 1;
 	case ARIKKEI_TYPE_DOUBLE:
 		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
-			arikkei_value_clear (dst);
-			dst->dvalue = (f64) from->ivalue;
-			dst->type = type;
+			dvalue = (f64) from->ivalue;
 		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
-			arikkei_value_clear (dst);
-			dst->dvalue = (f64) from->lvalue;
-			dst->type = type;
+			dvalue = (f64) from->lvalue;
 		} else if (from->type == ARIKKEI_TYPE_FLOAT) {
-			arikkei_value_clear (dst);
-			dst->dvalue = (f64) from->fvalue;
-			dst->type = type;
+			dvalue = (f64) from->fvalue;
 		} else if (from->type == ARIKKEI_TYPE_DOUBLE) {
-			arikkei_value_clear (dst);
-			dst->dvalue = (f64) from->dvalue;
-			dst->type = type;
+			dvalue = from->dvalue;
 		} else {
+			dvalue = 0;
 			break;
 		}
+		arikkei_value_clear (dst);
+		dst->dvalue = dvalue;
+		dst->type = type;
 		return 1;
 	case ARIKKEI_TYPE_POINTER:
 		if (from->type >= ARIKKEI_TYPE_POINTER) {
+			void *pvalue = from->pvalue;
 			arikkei_value_clear (dst);
-			dst->pvalue = from->pvalue;
+			dst->pvalue = pvalue;
 			dst->type = type;
 		} else {
 			break;
@@ -274,3 +303,31 @@ arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue 
 	}
 	return 0;
 }
+
+void *
+arikkei_value_get_instance (ArikkeiValue *value)
+{
+	switch (value->type) {
+	case ARIKKEI_TYPE_NONE:
+	case ARIKKEI_TYPE_ANY:
+		break;
+	case ARIKKEI_TYPE_INT8:
+	case ARIKKEI_TYPE_UINT8:
+	case ARIKKEI_TYPE_INT16:
+	case ARIKKEI_TYPE_UINT16:
+	case ARIKKEI_TYPE_INT32:
+	case ARIKKEI_TYPE_UINT32:
+		return &value->ivalue;
+	case ARIKKEI_TYPE_INT64:
+	case ARIKKEI_TYPE_UINT64:
+		return &value->lvalue;
+	case ARIKKEI_TYPE_FLOAT:
+		return &value->fvalue;
+	case ARIKKEI_TYPE_DOUBLE:
+		return &value->dvalue;
+	default:
+		return value->pvalue;
+	}
+	return NULL;
+}
+

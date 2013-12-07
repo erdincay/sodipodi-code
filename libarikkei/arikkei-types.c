@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "arikkei-strlib.h"
 #include "arikkei-reference.h"
 #include "arikkei-string.h"
 #include "arikkei-function.h"
@@ -37,12 +38,12 @@ const struct _ClassDef defs[] = {
 	{ ARIKKEI_TYPE_UINT64, ARIKKEI_TYPE_ANY , "u64", 8 },
 	{ ARIKKEI_TYPE_FLOAT, ARIKKEI_TYPE_ANY, "float", 4 },
 	{ ARIKKEI_TYPE_DOUBLE, ARIKKEI_TYPE_ANY, "double", 8 },
-	{ ARIKKEI_TYPE_STRUCT, ARIKKEI_TYPE_ANY, "struct", 4 },
 	{ ARIKKEI_TYPE_POINTER, ARIKKEI_TYPE_ANY, "pointer", sizeof (void *) },
+	{ ARIKKEI_TYPE_STRUCT, ARIKKEI_TYPE_POINTER, "struct", 4 },
 	{ ARIKKEI_TYPE_CLASS, ARIKKEI_TYPE_STRUCT, "class", sizeof (ArikkeiClass) },
-	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_ANY, "interface", 0 },
+	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_STRUCT, "interface", 0 },
 	{ ARIKKEI_TYPE_COLLECTION, ARIKKEI_TYPE_INTERFACE, "collection", 0 },
-	{ ARIKKEI_TYPE_REFERENCE, ARIKKEI_TYPE_POINTER, "reference", sizeof (ArikkeiReference) },
+	{ ARIKKEI_TYPE_REFERENCE, ARIKKEI_TYPE_STRUCT, "reference", sizeof (ArikkeiReference) },
 	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "string", sizeof (ArikkeiString) }
 };
 
@@ -84,6 +85,29 @@ arikkei_any_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, 
 	return tlen + nlen + 1 + alen;
 }
 
+static unsigned int
+arikkei_float_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int pos = 0;
+	pos += arikkei_dtoa_exp (buf + pos, len - pos, *((float *) instance), 6, 0);
+	if (pos < len) buf[pos] = 0;
+	return pos;
+}
+
+static unsigned int
+arikkei_string_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int pos = 0;
+	if (instance) {
+		ArikkeiString *str = (ArikkeiString *) instance;
+		unsigned int slen = (str->length > len) ? len : str->length;
+		memcpy (buf + pos, str->str, slen);
+		pos += slen;
+	}
+	if (pos < len) buf[pos] = 0;
+	return pos;
+}
+
 static void
 arikkei_reference_instance_init (void *instance)
 {
@@ -110,6 +134,8 @@ void arikkei_types_init (void)
 		classes[i]->class_size = sizeof (ArikkeiClass);
 		classes[i]->instance_size = defs[i].instance_size;
 		if (i == ARIKKEI_TYPE_ANY) classes[i]->to_string = arikkei_any_to_string;
+		if (i == ARIKKEI_TYPE_FLOAT) classes[i]->to_string = arikkei_float_to_string;
+		if (i == ARIKKEI_TYPE_STRING) classes[i]->to_string = arikkei_string_to_string;
 		if (i == ARIKKEI_TYPE_REFERENCE) classes[i]->instance_init = arikkei_reference_instance_init;
 		nclasses += 1;
 	}
