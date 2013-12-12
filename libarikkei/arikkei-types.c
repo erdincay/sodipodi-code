@@ -142,36 +142,22 @@ void arikkei_types_init (void)
 }
 
 void
-arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-				       void (* class_init) (ArikkeiClass *),
-					   void (* instance_init) (void *),
-					   void (* instance_finalize) (void *))
+arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+						void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *))
 {
-	ArikkeiClass *klass;
-
 	if (!classes) arikkei_types_init ();
-
+	arikkei_return_if_fail (klass != NULL);
 	arikkei_return_if_fail ((parent == ARIKKEI_TYPE_NONE) || (class_size >= classes[parent]->class_size));
 	arikkei_return_if_fail ((parent == ARIKKEI_TYPE_NONE) || (instance_size >= classes[parent]->instance_size));
-
 	if (nclasses >= classes_size) {
 		classes_size += 32;
 		classes = (ArikkeiClass **) realloc (classes, classes_size * sizeof (ArikkeiClass *));
-#if 0
-		if (classes_len == 0) {
-			classes[0] = NULL;
-			classes_len = 1;
-		}
-#endif
 	}
-
 	*type = nclasses;
 	nclasses += 1;
 
-	classes[*type] = (ArikkeiClass *) malloc (class_size);
-	klass = classes[*type];
+	classes[*type] = klass;
 	memset (klass, 0, class_size);
-
 	if (parent != ARIKKEI_TYPE_NONE) {
 		memcpy (klass, classes[parent], classes[parent]->class_size);
 		klass->parent = classes[parent];
@@ -188,6 +174,20 @@ arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned c
 	klass->instance_finalize = instance_finalize;
 
 	if (klass->class_init) klass->class_init (klass);
+}
+
+void
+arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+				       void (* class_init) (ArikkeiClass *),
+					   void (* instance_init) (void *),
+					   void (* instance_finalize) (void *))
+{
+	ArikkeiClass *klass;
+	if (!classes) arikkei_types_init ();
+	arikkei_return_if_fail ((parent == ARIKKEI_TYPE_NONE) || (class_size >= classes[parent]->class_size));
+	arikkei_return_if_fail ((parent == ARIKKEI_TYPE_NONE) || (instance_size >= classes[parent]->instance_size));
+	klass = (ArikkeiClass *) malloc (class_size);
+	arikkei_register_class (type, klass, parent, name, class_size, instance_size, class_init, instance_init, instance_finalize);
 }
 
 ArikkeiClass *

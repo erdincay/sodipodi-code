@@ -118,10 +118,10 @@ void arikkei_types_init (void);
 
 /* Creates new class and assigns it a type */
 /* Type is guaranteed to be assigned before class constructors are invoked */
+void arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
 void arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-							void (* class_init) (ArikkeiClass *),
-							void (* instance_init) (void *),
-							void (* instance_finalize) (void *));
+							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
 
 ArikkeiClass *arikkei_type_get_class (unsigned int type);
 unsigned int arikkei_type_is_a (unsigned int type, unsigned int test);

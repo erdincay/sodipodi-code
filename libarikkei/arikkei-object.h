@@ -74,6 +74,7 @@ void arikkei_object_release (ArikkeiObject *object);
 
 /* Does not increase reference count of owner object */
 void *arikkei_object_get_interface (ArikkeiObject *object, unsigned int type);
+void *arikkei_object_interface_get_owner (ArikkeiObject *object);
 
 /* Helper for propoerty setup */
 void arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type,
