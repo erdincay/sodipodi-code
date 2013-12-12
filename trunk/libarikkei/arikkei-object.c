@@ -137,6 +137,14 @@ arikkei_object_get_interface (ArikkeiObject *object, unsigned int type)
 	return arikkei_instance_get_interface ((ArikkeiClass *) object->klass, object, type);
 }
 
+void *
+arikkei_object_interface_get_owner (ArikkeiObject *object)
+{
+	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), NULL);
+	arikkei_return_val_if_fail (object->is_interface, NULL);
+	return (ArikkeiObject *) ((const char *) object - object->refcount);
+}
+
 void
 arikkei_object_class_property_setup (ArikkeiObjectClass *klass, unsigned int idx, const unsigned char *key, unsigned int type,
 									 unsigned int isstatic, unsigned int canread, unsigned int canwrite, unsigned int isfinal, void *value)
