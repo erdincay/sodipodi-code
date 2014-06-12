@@ -103,11 +103,25 @@ ARIKKEI_A16 struct _ArikkeiClass {
 	ArikkeiProperty *properties;
 
 	const unsigned char *name;
+	/* Size of class structure */
 	unsigned int class_size;
+	/* Size of instance */
 	unsigned int instance_size;
-	void (* class_init) (ArikkeiClass *klass);
+	/* Size of instance in arrays (rounded to 16 bytes for aligned types) */
+	unsigned int element_size;
+	/* Memory management */
+	void * (* allocate) (ArikkeiClass *klass);
+	void * (* allocate_array) (ArikkeiClass *klass, unsigned int nelements);
+	void (* free) (ArikkeiClass *klass, void *location);
+	void (* free_array) (ArikkeiClass *klass, void *location, unsigned int nelements);
+	/* Constructors and destructors */
 	void (* instance_init) (void *instance);
 	void (* instance_finalize) (void *instance);
+	/* Duplicate creates a copy in uninitialized memory */
+	void (* duplicate) (ArikkeiClass *klass, void *destination, void *instance);
+	/* Assign overwrites existing initialized instance */
+	void (* assign) (ArikkeiClass *klass, void *destination, void *instance);
+
 	unsigned int (* to_string) (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
 	unsigned int (*get_property) (ArikkeiClass *klass, void *instance, unsigned int idx, ArikkeiValue *val);
 	unsigned int (*set_property) (ArikkeiClass *klass, void *instance, unsigned int idx, const ArikkeiValue *val);
@@ -127,6 +141,10 @@ ArikkeiClass *arikkei_type_get_class (unsigned int type);
 unsigned int arikkei_type_is_a (unsigned int type, unsigned int test);
 unsigned int arikkei_class_is_of_type (ArikkeiClass *klass, unsigned int type);
 
+void *arikkei_type_new (unsigned int type);
+void *arikkei_type_new_array (unsigned int type, unsigned int nelements);
+void arikkei_type_delete (unsigned int type, void *instance);
+void arikkei_type_delete_array (unsigned int type, void *elements, unsigned int nelements);
 void arikkei_type_setup_instance (void *instance, unsigned int type);
 void arikkei_type_release_instance (void *instance, unsigned int type);
 
