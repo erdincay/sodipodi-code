@@ -141,6 +141,43 @@ void arikkei_types_init (void)
 	}
 }
 
+static void *
+allocate_default (ArikkeiClass *klass)
+{
+	return malloc (klass->instance_size);
+}
+
+static void *
+allocate_array_default (ArikkeiClass *klass, unsigned int nelements)
+{
+	return malloc (nelements * klass->element_size);
+}
+
+static void
+free_default (ArikkeiClass *klass, void *location)
+{
+	free (location);
+}
+
+static void 
+free_array_default (ArikkeiClass *klass, void *location, unsigned int nelements)
+{
+	free (location);
+}
+
+static void
+duplicate_default (ArikkeiClass *klass, void *destination, void *instance)
+{
+	memcpy (destination, instance, klass->instance_size);
+}
+
+static void
+assign_default (ArikkeiClass *klass, void *destination, void *instance)
+{
+	klass->instance_finalize (destination);
+	memcpy (destination, instance, klass->instance_size);
+}
+
 void
 arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
 						void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *))
@@ -158,7 +195,14 @@ arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int pa
 
 	classes[*type] = klass;
 	memset (klass, 0, class_size);
-	if (parent != ARIKKEI_TYPE_NONE) {
+	if (parent == ARIKKEI_TYPE_NONE) {
+		/* Default methods */
+		/* Memory management */
+		klass->allocate = allocate_default;
+		klass->allocate_array = allocate_array_default;
+		klass->free = free_default;
+		klass->free_array = free_array_default;
+	} else {
 		memcpy (klass, classes[parent], classes[parent]->class_size);
 		klass->parent = classes[parent];
 		klass->firstproperty = klass->parent->firstproperty + klass->parent->nproperties;
@@ -167,13 +211,15 @@ arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int pa
 	}
 	klass->type = *type;
 	klass->name = (unsigned char *) strdup ((const char *) name);
+	/* Sizes */
 	klass->class_size = class_size;
 	klass->instance_size = instance_size;
-	klass->class_init = class_init;
+	klass->element_size = instance_size;
+	/* Constructors and destructors */
 	klass->instance_init = instance_init;
 	klass->instance_finalize = instance_finalize;
 
-	if (klass->class_init) klass->class_init (klass);
+	if (class_init) class_init (klass);
 }
 
 void
@@ -240,11 +286,58 @@ arikkei_class_tree_instance_invoke_finalize (ArikkeiClass *klass, void *instance
 	}
 }
 
+void *
+arikkei_type_new (unsigned int type)
+{
+	void *instance;
+	ArikkeiClass *klass = arikkei_type_get_class (type);
+	arikkei_return_val_if_fail (klass != NULL, NULL);
+	instance = klass->allocate (klass);
+	memset (instance, 0, klass->instance_size);
+	arikkei_class_tree_instance_invoke_init (klass, instance);
+	return instance;
+}
+
+void *
+arikkei_type_new_array (unsigned int type, unsigned int nelements)
+{
+	void *elements;
+	unsigned int i;
+	ArikkeiClass *klass = arikkei_type_get_class (type);
+	arikkei_return_val_if_fail (klass != NULL, NULL);
+	elements = klass->allocate_array (klass, nelements);
+	memset (elements, 0, nelements * klass->element_size);
+	for (i = 0; i < nelements; i++) {
+		void *instance = (char *) elements + i * klass->element_size;
+		arikkei_class_tree_instance_invoke_init (klass, instance);
+	}
+	return elements;
+}
+
+void
+arikkei_type_delete (unsigned int type, void *instance)
+{
+	ArikkeiClass *klass = arikkei_type_get_class (type);
+	arikkei_return_if_fail (klass != NULL);
+	arikkei_class_tree_instance_invoke_finalize (klass, instance);
+}
+
+void
+arikkei_type_delete_array (unsigned int type, void *elements, unsigned int nelements)
+{
+	unsigned int i;
+	ArikkeiClass *klass = arikkei_type_get_class (type);
+	arikkei_return_if_fail (klass != NULL);
+	for (i = 0; i < nelements; i++) {
+		void *instance = (char *) elements + i * klass->element_size;
+		arikkei_class_tree_instance_invoke_finalize (klass, instance);
+	}
+}
+
 void
 arikkei_type_setup_instance (void *instance, unsigned int type)
 {
-	ArikkeiClass *klass;
-	klass = arikkei_type_get_class (type);
+	ArikkeiClass *klass = arikkei_type_get_class (type);
 	arikkei_return_if_fail (klass != NULL);
 	memset (instance, 0, klass->instance_size);
 	arikkei_class_tree_instance_invoke_init (klass, instance);
