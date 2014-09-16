@@ -56,6 +56,8 @@ ARIKKEI_A16 struct _ArikkeiObjectClass {
 
 unsigned int arikkei_object_get_type (void);
 
+#define arikkei_object_is_a(object, type) arikkei_object_check_instance_type (object, type)
+
 /* Dynamic lifecycle */
 
 ArikkeiObject *arikkei_object_new (unsigned int type);
