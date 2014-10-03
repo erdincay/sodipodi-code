@@ -2,20 +2,17 @@
 #define __ARIKKEI_FUNCTION_H__
 
 /*
- * Generic object system
- *
- * Author:
- *   Lauris Kaplinski <lauris@kaplinski.com>
- *
- * This code is in public domain
+ * Generic function interface
  */
 
 #define ARIKKEI_TYPE_FUNCTION (arikkei_function_get_type ())
-#define ARIKKEI_FUNCTION(o) (ARIKKEI_CHECK_INSTANCE_CAST ((o), ARIKKEI_TYPE_FUNCTION, ArikkeiFunction))
-#define ARIKKEI_IS_FUNCTION(o) (ARIKKEI_CHECK_INSTANCE_TYPE ((o), ARIKKEI_TYPE_FUNCTION))
+/* This casts containing instance to unspecified type */
+#define ARIKKEI_FUNCTION(o) ((ArikkeiFunction *) (o))
 
 typedef struct _ArikkeiFunction ArikkeiFunction;
 typedef struct _ArikkeiFunctionClass ArikkeiFunctionClass;
+typedef struct _ArikkeiFunctionImplementation ArikkeiFunctionImplementation;
+typedef struct _ArikkeiFunctionInstance ArikkeiFunctionInstance;
 
 #include <libarikkei/arikkei-object.h>
 
@@ -23,8 +20,7 @@ typedef struct _ArikkeiFunctionClass ArikkeiFunctionClass;
 extern "C" {
 #endif
 
-struct _ArikkeiFunction {
-	ArikkeiObject object;
+struct _ArikkeiFunctionInstance {
 	/* This object type */
 	unsigned int thistype;
 	/* Arguments */
@@ -32,28 +28,29 @@ struct _ArikkeiFunction {
 	unsigned int *argtypes;
 	/* Return type */
 	unsigned int rettype;
-	/* Function pointer */
-	/* Default implementation */
-	unsigned int (* call) (ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
 };
 
 struct _ArikkeiFunctionClass {
-	ArikkeiObjectClass parent_class;
+	ArikkeiInterfaceClass parent_class;
+};
+
+struct _ArikkeiFunctionImplementation {
+	ArikkeiInterfaceImplementation iface;
 	/* All values can be NULL */
-	unsigned int (* invoke) (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
+	unsigned int (* invoke) (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
 };
 
 unsigned int arikkei_function_get_type (void);
 
-ArikkeiFunction *arikkei_function_new (unsigned int thistype, unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
-									   unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
-
 /* Return true if arguments can be submitted as is */
-unsigned int arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert);
-unsigned int arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, ArikkeiValue *src);
+unsigned int arikkei_function_check_arguments (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert);
+unsigned int arikkei_function_convert_arguments (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *func, ArikkeiValue *dst, ArikkeiValue *src);
 
-unsigned int arikkei_function_invoke (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes);
-unsigned int arikkei_function_invoke_direct (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ...);
+unsigned int arikkei_function_invoke (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes);
+unsigned int arikkei_function_invoke_direct (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ...);
+
+/* Helper */
+unsigned int arikkei_function_invoke_by_type_instance (unsigned int type, void *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes);
 
 #ifdef __cplusplus
 };

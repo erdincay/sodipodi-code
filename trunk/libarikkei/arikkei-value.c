@@ -1,7 +1,10 @@
 #define __ARIKKEI_VALUE_C__
 
 /*
- * Basic cross-platform functionality
+ * An universal container encapsulating value and class
+ *
+ * Copyright Lauris Kaplinski <lauris@kaplinski.com> 2014
+ * 
  */
 
 #include <string.h>
@@ -329,5 +332,59 @@ arikkei_value_get_instance (ArikkeiValue *value)
 		return value->pvalue;
 	}
 	return NULL;
+}
+
+void
+arikkei_value_set_from_instance (ArikkeiValue *value, unsigned int type, const void *instance)
+{
+	arikkei_value_clear (value);
+	value->type = type;
+	switch (type) {
+	case ARIKKEI_TYPE_NONE:
+	case ARIKKEI_TYPE_ANY:
+		break;
+	case ARIKKEI_TYPE_INT8:
+	case ARIKKEI_TYPE_UINT8:
+		value->ivalue = *((i8 *) instance);
+		break;
+	case ARIKKEI_TYPE_INT16:
+	case ARIKKEI_TYPE_UINT16:
+		value->ivalue = *((i16 *) instance);
+		break;
+	case ARIKKEI_TYPE_INT32:
+	case ARIKKEI_TYPE_UINT32:
+		value->ivalue = *((i32 *) instance);
+		break;
+	case ARIKKEI_TYPE_INT64:
+	case ARIKKEI_TYPE_UINT64:
+		value->lvalue = *((i64 *) instance);
+		break;
+	case ARIKKEI_TYPE_FLOAT:
+		value->fvalue = *((float *) instance);
+		break;
+	case ARIKKEI_TYPE_DOUBLE:
+		value->dvalue = *((double *) instance);
+		break;
+	default:
+		if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT)) {
+			value->object = (ArikkeiObject *) instance;
+			arikkei_object_ref (value->object);
+			break;
+		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT_INTERFACE)) {
+			value->pvalue = (void *) instance;
+			arikkei_object_instance_ref ((ArikkeiObjectInstance *) value->pvalue);
+			break;
+		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_REFERENCE)) {
+			value->reference = (ArikkeiReference *) instance;
+			arikkei_reference_ref (arikkei_type_get_class (type), value->reference);
+			break;
+		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_STRING)) {
+			value->string = (ArikkeiString *) instance;
+			arikkei_string_ref (value->string);
+			break;
+		} else {
+			value->pvalue = (void *) instance;
+		}
+	}
 }
 
