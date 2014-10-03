@@ -4,31 +4,46 @@
 /*
  * Pure collection interface
  *
- * Copyright Lauris Kaplinski <lauris@kaplinski.com> 2013
+ * Copyright Lauris Kaplinski <lauris@kaplinski.com> 2013-2014
  * 
  */
 
-#include <libarikkei/arikkei-types.h>
+#define ARIKKEI_TYPE_COLLECTION (arikkei_collection_get_type ())
+#define ARIKKEI_COLLECTION(c) ((ArikkeiCollection *) (c))
+
+typedef struct _ArikkeiCollection ArikkeiCollection;
+typedef struct _ArikkeiCollectionClass ArikkeiCollectionClass;
+
+#include <libarikkei/arikkei-interface.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/*
+ * Normally you cannot make a collection of pure interfaces because you will need per-element implementation details
+ */
+
 struct _ArikkeiCollection {
-	unsigned int is_static : 1;
-	unsigned int can_read : 1;
-	unsigned int can_write : 1;
-	unsigned int is_final : 1;
-	unsigned int (* get_element_type) (ArikkeiCollection *iface, void *instance);
-	unsigned int (* get_length) (ArikkeiCollection *iface, void *instance);
-	void (* get_element) (ArikkeiCollection *iface, void *instance, unsigned int idx, ArikkeiValue *val);
-	void (* set_element) (ArikkeiCollection *iface, void *instance, unsigned int idx, const ArikkeiValue *val);
+	ArikkeiInterfaceImplementation implementation;
+	unsigned int (* get_element_type) (ArikkeiCollection *collection, void *collection_instance);
+	unsigned int (* get_size) (ArikkeiCollection *collection, void *collection_instance);
+	unsigned int (* get_iterator) (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
+	unsigned int (* iterator_next) (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
+	const void *(* get_element) (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
 };
 
-unsigned int arikkei_collection_get_element_type (ArikkeiCollection *iface, void *instance);
-unsigned int arikkei_collection_get_length (ArikkeiCollection *iface, void *instance);
-void arikkei_collection_get_element (ArikkeiCollection *iface, void *instance, unsigned int idx, ArikkeiValue *val);
-void arikkei_collection_set_element (ArikkeiCollection *iface, void *instance, unsigned int idx, const ArikkeiValue *val);
+struct _ArikkeiCollectionClass {
+	ArikkeiInterfaceClass interface_class;
+};
+
+unsigned int arikkei_collection_get_type (void);
+
+unsigned int arikkei_collection_get_element_type (ArikkeiCollection *collection, void *collection_instance);
+unsigned int arikkei_collection_get_size (ArikkeiCollection *collection, void *collection_instance);
+unsigned int arikkei_collection_get_iterator (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
+unsigned int arikkei_collection_iterator_next (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
+const void *arikkei_collection_get_element (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
 
 #ifdef __cplusplus
 };

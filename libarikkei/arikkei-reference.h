@@ -10,7 +10,7 @@
 
 #define ARIKKEI_REFERENCE(i) ((ArikkeiReference *) (i))
 
-typedef struct _ArikkeiClass ArikkeiReferenceClass;
+typedef struct __ArikkeiClass ArikkeiReferenceClass;
 
 #include <libarikkei/arikkei-types.h>
 

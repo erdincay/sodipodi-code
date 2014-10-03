@@ -2,7 +2,10 @@
 #define __ARIKKEI_VALUE_H__
 
 /*
- * Basic cross-platform functionality
+ * An universal container encapsulating value and class
+ *
+ * Copyright Lauris Kaplinski <lauris@kaplinski.com> 2014
+ * 
  */
 
 #ifdef WIN32
@@ -14,6 +17,22 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+struct _ArikkeiValue {
+	unsigned int type;
+	union {
+		unsigned int bvalue;
+		i32 ivalue;
+		u32 uvalue;
+		i64 lvalue;
+		f32 fvalue;
+		f64 dvalue;
+		void *pvalue;
+		ArikkeiReference *reference;
+		ArikkeiString *string;
+		ArikkeiObject *object;
+	};
+};
 
 void arikkei_value_clear (ArikkeiValue *value);
 
@@ -114,7 +133,9 @@ void arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val);
 unsigned int arikkei_value_can_convert (unsigned int to, unsigned int from);
 unsigned int arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue *from);
 
+/* Return memory address of value or dereference */
 void *arikkei_value_get_instance (ArikkeiValue *value);
+void arikkei_value_set_from_instance (ArikkeiValue *value, unsigned int type, const void *instance);
 
 #ifdef __cplusplus
 };

@@ -18,74 +18,35 @@
 /* ArikkeiFunction */
 
 static void arikkei_function_class_init (ArikkeiFunctionClass *klass);
-static void arikkei_function_finalize (ArikkeiFunction *func);
-
-/* ArikkeiFunction implementation */
-static unsigned int arikkei_function_invoke_default (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args);
-
-static ArikkeiObjectClass *parent_class;
+static void arikkei_function_finalize (ArikkeiInterfaceImplementation *implementation, ArikkeiFunctionInstance *func);
 
 unsigned int
 arikkei_function_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_OBJECT,
-						(const unsigned char *) "ArikkeiFunction",
-						sizeof (ArikkeiFunctionClass),
-						sizeof (ArikkeiFunction),
-						(void (*) (ArikkeiClass *)) arikkei_function_class_init,
+		arikkei_register_interface_type (&type, ARIKKEI_TYPE_INTERFACE, (const unsigned char *) "ArikkeiFunction",
+						sizeof (ArikkeiFunctionClass), sizeof (ArikkeiFunctionImplementation), sizeof (ArikkeiFunctionInstance),
 						NULL,
-						(void (*) (void *)) arikkei_function_finalize);
+						NULL,
+						NULL, (void (*) (ArikkeiInterfaceImplementation *, void *)) arikkei_function_finalize);
 	}
 	return type;
 }
 
 static void
-arikkei_function_class_init (ArikkeiFunctionClass *klass)
-{
-	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
-	klass->invoke = arikkei_function_invoke_default;
-}
-
-static void
-arikkei_function_finalize (ArikkeiFunction *func)
+arikkei_function_finalize (ArikkeiInterfaceImplementation *implementation, ArikkeiFunctionInstance *func)
 {
 	if (func->argtypes) free (func->argtypes);
 }
 
-static unsigned int
-arikkei_function_invoke_default (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args)
-{
-	if (func->call) {
-		return func->call (thisval, retval, args);
-	}
-	return 0;
-}
-
-ArikkeiFunction *
-arikkei_function_new (unsigned int thistype, unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
-					  unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *))
-{
-	ArikkeiFunction *func;
-	func = (ArikkeiFunction *) arikkei_object_new (ARIKKEI_TYPE_FUNCTION);
-	func->thistype = thistype;
-	func->rettype = rettype;
-	if (nargs) {
-		func->nargs = nargs;
-		func->argtypes = (unsigned int *) malloc (nargs * sizeof (unsigned int));
-		memcpy (func->argtypes, argtypes, nargs * sizeof (unsigned int));
-	}
-	func->call = call;
-	return func;
-}
-
 unsigned int
-arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert)
+arikkei_function_check_arguments (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *func, ArikkeiValue *thisval, ArikkeiValue *args, unsigned int nargs, unsigned int *canconvert)
 {
 	unsigned int compatible, i;
+	arikkei_return_val_if_fail (implementation != NULL, 0);
+	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (func != NULL, 0);
-	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
 	if (nargs != func->nargs) {
 		*canconvert = 0;
 		return 0;
@@ -108,11 +69,12 @@ arikkei_function_check_arguments (ArikkeiFunction *func, ArikkeiValue *thisval, 
 }
 
 unsigned int
-arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, ArikkeiValue *src)
+arikkei_function_convert_arguments (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *func, ArikkeiValue *dst, ArikkeiValue *src)
 {
 	unsigned int i;
+	arikkei_return_val_if_fail (implementation != NULL, 0);
+	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (func != NULL, 0);
-	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
 	for (i = 0; i < func->nargs; i++) {
 		if (!arikkei_value_convert (&dst[i], func->argtypes[i], &src[i])) return 0;
 	}
@@ -120,44 +82,46 @@ arikkei_function_convert_arguments (ArikkeiFunction *func, ArikkeiValue *dst, Ar
 }
 
 unsigned int
-arikkei_function_invoke (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes)
+arikkei_function_invoke (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes)
 {
-	arikkei_return_val_if_fail (func != NULL, 0);
-	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
+	arikkei_return_val_if_fail (implementation != NULL, 0);
+	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (instance != NULL, 0);
 	if (checktypes) {
 		unsigned int i;
-		if (func->thistype != ARIKKEI_TYPE_NONE) {
-			arikkei_return_val_if_fail (arikkei_type_is_a (thisval->type, func->thistype), 0);
+		if (instance->thistype != ARIKKEI_TYPE_NONE) {
+			arikkei_return_val_if_fail (arikkei_type_is_a (thisval->type, instance->thistype), 0);
 		}
-		arikkei_return_val_if_fail ((func->rettype == ARIKKEI_TYPE_NONE) || (retval != NULL), 0);
-		for (i = 0; i < func->nargs; i++) {
-			arikkei_return_val_if_fail (arikkei_type_is_a (args[i].type, func->argtypes[i]), 0);
+		arikkei_return_val_if_fail ((instance->rettype == ARIKKEI_TYPE_NONE) || (retval != NULL), 0);
+		for (i = 0; i < instance->nargs; i++) {
+			arikkei_return_val_if_fail (arikkei_type_is_a (args[i].type, instance->argtypes[i]), 0);
 		}
 	}
-	if (((ArikkeiFunctionClass *) ((ArikkeiObject *) func)->klass)->invoke) {
-		return ((ArikkeiFunctionClass *) ((ArikkeiObject *) func)->klass)->invoke (func, thisval, retval, args);
+	if (implementation->invoke) {
+		return implementation->invoke (implementation, instance, thisval, retval, args);
 	}
 	return 0;
 }
 
 unsigned int
-arikkei_function_invoke_direct (ArikkeiFunction *func, ArikkeiValue *thisval, ArikkeiValue *retval, ...)
+arikkei_function_invoke_direct (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ...)
 {
 	ArikkeiValue *vals;
 	va_list ap;
 	unsigned int result, i;
-	arikkei_return_val_if_fail (func != NULL, 0);
-	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION (func), 0);
-	if (func->thistype != ARIKKEI_TYPE_NONE) {
-		arikkei_return_val_if_fail (arikkei_type_is_a (thisval->type, func->thistype), 0);
+	arikkei_return_val_if_fail (implementation != NULL, 0);
+	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (instance != NULL, 0);
+	if (instance->thistype != ARIKKEI_TYPE_NONE) {
+		arikkei_return_val_if_fail (arikkei_type_is_a (thisval->type, instance->thistype), 0);
 	}
-	arikkei_return_val_if_fail ((func->rettype == ARIKKEI_TYPE_NONE) || (retval != NULL), 0);
-	vals = (ArikkeiValue *) malloc (func->nargs * sizeof (ArikkeiValue));
-	memset (vals, 0, func->nargs * sizeof (ArikkeiValue));
-	va_start (ap, func->nargs);
-	for (i = 0; i < func->nargs; i++) {
-		vals[i].type = func->argtypes[i];
-		switch (func->argtypes[i]) {
+	arikkei_return_val_if_fail ((instance->rettype == ARIKKEI_TYPE_NONE) || (retval != NULL), 0);
+	vals = (ArikkeiValue *) malloc (instance->nargs * sizeof (ArikkeiValue));
+	memset (vals, 0, instance->nargs * sizeof (ArikkeiValue));
+	va_start (ap, instance->nargs);
+	for (i = 0; i < instance->nargs; i++) {
+		vals[i].type = instance->argtypes[i];
+		switch (instance->argtypes[i]) {
 		case ARIKKEI_TYPE_NONE:
 			break;
 		case ARIKKEI_TYPE_BOOLEAN:
@@ -193,9 +157,21 @@ arikkei_function_invoke_direct (ArikkeiFunction *func, ArikkeiValue *thisval, Ar
 		}
 	}
     va_end (ap);
-	result = arikkei_function_invoke (func, thisval, retval, vals, 0);
+	result = arikkei_function_invoke (implementation, instance, thisval, retval, vals, 0);
 	free (vals);
 	return result;
 }
 
-
+unsigned int
+arikkei_function_invoke_by_type_instance (unsigned int type, void *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes)
+{
+	ArikkeiClass *klass;
+	ArikkeiFunctionImplementation *impl;
+	ArikkeiFunctionInstance *inst;
+	arikkei_return_val_if_fail (arikkei_type_implements_a (type, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (instance != NULL, 0);
+	klass = arikkei_type_get_class (type);
+	impl = (ArikkeiFunctionImplementation *) arikkei_class_get_interface_implementation (klass, ARIKKEI_TYPE_FUNCTION);
+	inst = (ArikkeiFunctionInstance *) arikkei_interface_get_instance ((ArikkeiInterfaceImplementation *) impl, instance);
+	return arikkei_function_invoke (impl, inst, thisval, retval, args, checktypes);
+}
