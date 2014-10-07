@@ -9,9 +9,9 @@
  */
 
 #define ARIKKEI_TYPE_ARRAY (arikkei_array_get_type ())
-#define ARIKKEI_ARRAY(c) ((ArikkeiArray *) (c))
+#define ARIKKEI_ARRAY(c) ((ArikkeiArrayImplementation *) (c))
 
-typedef struct _ArikkeiArray ArikkeiArray;
+typedef struct _ArikkeiArrayImplementation ArikkeiArrayImplementation;
 typedef struct _ArikkeiArrayClass ArikkeiArrayClass;
 
 #include <libarikkei/arikkei-collection.h>
@@ -25,9 +25,9 @@ extern "C" {
  * The iterator of an array is always unsigned integer
  */
 
-struct _ArikkeiArray {
-	ArikkeiCollection collection;
-	void *(* get_element) (ArikkeiArray *array, void *array_instance, unsigned int index);
+struct _ArikkeiArrayImplementation {
+	ArikkeiCollectionImplementation collection_implementation;
+	unsigned int (* get_element) (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value);
 };
 
 struct _ArikkeiArrayClass {
@@ -36,7 +36,7 @@ struct _ArikkeiArrayClass {
 
 unsigned int arikkei_array_get_type (void);
 
-void *arikkei_array_get_element (ArikkeiArray *array, void *attay_instance, unsigned int index);
+unsigned int arikkei_array_get_element (ArikkeiArrayImplementation *impl, void *attay_instance, unsigned int index, ArikkeiValue *value);
 
 #ifdef __cplusplus
 };

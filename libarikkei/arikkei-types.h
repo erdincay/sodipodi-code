@@ -59,9 +59,8 @@ enum {
 	ARIKKEI_TYPE_UINT64,
 	ARIKKEI_TYPE_FLOAT,
 	ARIKKEI_TYPE_DOUBLE,
-	ARIKKEI_TYPE_STRUCT,
-
 	ARIKKEI_TYPE_POINTER,
+	ARIKKEI_TYPE_STRUCT,
 
 	ARIKKEI_TYPE_CLASS,
 	ARIKKEI_TYPE_INTERFACE,
@@ -74,6 +73,11 @@ enum {
 #define ARIKKEI_OFFSET(b,m) ARIKKEI_POINTER_TO_INT(&((b *) 0)->m)
 #define ARIKKEI_INT_TO_POINTER(v) (void *) ((char *) 0 + (v))
 #define ARIKKEI_POINTER_TO_INT(p) ((char *) p - (char *) 0)
+
+#define ARIKKEI_TYPE_IS_ARITHMETIC(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_DOUBLE))
+#define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
+#define ARIKKEI_TYPE_IS_SIGNED(t) (((t) == ARIKKEI_TYPE_INT8) || ((t) == ARIKKEI_TYPE_INT16) || ((t) == ARIKKEI_TYPE_INT32) || ((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_FLOAT) || ((t) == ARIKKEI_TYPE_DOUBLE))
+#define ARIKKEI_TYPE_IS_UNSIGNED(t) (((t) == ARIKKEI_TYPE_UINT8) || ((t) == ARIKKEI_TYPE_UINT16) || ((t) == ARIKKEI_TYPE_UINT32) || ((t) == ARIKKEI_TYPE_UINT64))
 
 ARIKKEI_A16 struct __ArikkeiClass {
 	unsigned int type;
@@ -133,6 +137,8 @@ unsigned int arikkei_type_is_a (unsigned int type, unsigned int test);
 unsigned int arikkei_type_implements_a (unsigned int type, unsigned int test);
 /* Returns true if either test is object and type is a subtype or test is interface and object implements it */
 unsigned int arikkei_type_is_assignable_to (unsigned int type, unsigned int test);
+/* Returns most specific builtin parent type for this object */
+unsigned int arikkei_type_get_parent_primitive (unsigned int type);
 
 unsigned int arikkei_class_is_of_type (ArikkeiClass *klass, unsigned int type);
 
