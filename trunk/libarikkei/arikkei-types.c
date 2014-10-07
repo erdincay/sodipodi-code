@@ -41,9 +41,8 @@ const struct _ClassDef defs[] = {
 	{ ARIKKEI_TYPE_UINT64, ARIKKEI_TYPE_ANY , "u64", 8 },
 	{ ARIKKEI_TYPE_FLOAT, ARIKKEI_TYPE_ANY, "float", 4 },
 	{ ARIKKEI_TYPE_DOUBLE, ARIKKEI_TYPE_ANY, "double", 8 },
-	{ ARIKKEI_TYPE_STRUCT, ARIKKEI_TYPE_ANY, "struct", 0 },
-
 	{ ARIKKEI_TYPE_POINTER, ARIKKEI_TYPE_ANY, "pointer", sizeof (void *) },
+	{ ARIKKEI_TYPE_STRUCT, ARIKKEI_TYPE_ANY, "struct", 0 },
 
 	{ ARIKKEI_TYPE_CLASS, ARIKKEI_TYPE_STRUCT, "class", sizeof (ArikkeiClass) },
 	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_STRUCT, "interface", 0 },
@@ -90,12 +89,72 @@ arikkei_any_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, 
 }
 
 static unsigned int
+arikkei_none_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int i;
+	static const char *t = "None";
+	for (i = 0; i < len; i++) {
+		buf[i] = t[i];
+		if (!t[i]) break;
+	}
+	return i;
+}
+
+static unsigned int
+arikkei_i32_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int i;
+	char c[32];
+	itoa (*((int *) instance), c, 10);
+	for (i = 0; i < len; i++) {
+		buf[i] = c[i];
+		if (!buf[i]) return i;
+	}
+	return len;
+}
+
+static unsigned int
 arikkei_float_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
 {
 	unsigned int pos = 0;
 	pos += arikkei_dtoa_exp (buf + pos, len - pos, *((float *) instance), 6, 0);
 	if (pos < len) buf[pos] = 0;
 	return pos;
+}
+
+static unsigned int
+arikkei_double_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int pos = 0;
+	pos += arikkei_dtoa_exp (buf + pos, len - pos, *((double *) instance), 6, 0);
+	if (pos < len) buf[pos] = 0;
+	return pos;
+}
+
+static unsigned int
+arikkei_pointer_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int i;
+	const char *t;
+	char b[32];
+	if (instance) {
+		static const char *c = "0123456789abcdef";
+		unsigned long long v = (unsigned long long) instance;
+		unsigned int l = 2 * sizeof (void *);
+		for (i = 0; i < l; i++) {
+			b[l - 1 - i] = c[v & 0xf];
+			v = v >> 4;
+		}
+		b[i] = 0;
+		t = b;
+	} else {
+		t = "Null";
+	}
+	for (i = 0; i < len; i++) {
+		buf[i] = t[i];
+		if (!t[i]) break;
+	}
+	return i;
 }
 
 static unsigned int
@@ -145,8 +204,18 @@ void arikkei_types_init (void)
 		classes[i]->element_size = classes[i]->instance_size;
 		classes[i]->zero_memory = 0;
 
+		if (i == ARIKKEI_TYPE_NONE) classes[i]->to_string = arikkei_none_to_string;
 		if (i == ARIKKEI_TYPE_ANY) classes[i]->to_string = arikkei_any_to_string;
-		if (i == ARIKKEI_TYPE_FLOAT) classes[i]->to_string = arikkei_float_to_string;
+		if (i == ARIKKEI_TYPE_INT32) {
+			classes[i]->to_string = arikkei_i32_to_string;
+		}
+		if (i == ARIKKEI_TYPE_FLOAT) {
+			classes[i]->to_string = arikkei_float_to_string;
+		}
+		if (i == ARIKKEI_TYPE_DOUBLE) {
+			classes[i]->to_string = arikkei_double_to_string;
+		}
+		if (i == ARIKKEI_TYPE_POINTER) classes[i]->to_string = arikkei_pointer_to_string;
 		if (i == ARIKKEI_TYPE_STRING) classes[i]->to_string = arikkei_string_to_string;
 		if (i == ARIKKEI_TYPE_REFERENCE) classes[i]->instance_init = arikkei_reference_instance_init;
 		if (i == ARIKKEI_TYPE_INTERFACE) {
@@ -293,6 +362,20 @@ arikkei_type_is_assignable_to (unsigned int type, unsigned int test)
 	} else {
 		return arikkei_type_is_a (type, test);
 	}
+}
+
+unsigned int
+arikkei_type_get_parent_primitive (unsigned int type)
+{
+	ArikkeiClass *klass;
+	arikkei_return_val_if_fail (type < nclasses, 0);
+	if (type < ARIKKEI_TYPE_NUM_PRIMITIVES) return type;
+	klass = classes[type]->parent;
+	while (klass) {
+		if (klass->type < ARIKKEI_TYPE_NUM_PRIMITIVES) return klass->type;
+		klass = klass->parent;
+	}
+	return 0;
 }
 
 unsigned int

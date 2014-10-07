@@ -50,7 +50,11 @@ void
 arikkei_value_set_object (ArikkeiValue *value, ArikkeiObject *obj)
 {
 	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = (obj) ? obj->klass->klass.type : ARIKKEI_TYPE_OBJECT;
+	if (obj) {
+		value->type = obj->klass->klass.type;
+	} else {
+		value->type = ARIKKEI_TYPE_OBJECT;
+	}
 	value->object = obj;
 	if (obj) arikkei_object_ref (obj);
 }
@@ -124,27 +128,23 @@ arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 		arikkei_value_set_f64 (dst, *((f64 *) val));
 		break;
 	case ARIKKEI_TYPE_POINTER:
+	case ARIKKEI_TYPE_STRUCT:
 	case ARIKKEI_TYPE_CLASS:
+	case ARIKKEI_TYPE_INTERFACE:
 		arikkei_value_clear (dst);
 		dst->type = type;
 		dst->pvalue = val;
-		break;
-	case ARIKKEI_TYPE_STRUCT:
-		arikkei_value_clear (dst);
-		dst->type = type;
 		break;
 	case ARIKKEI_TYPE_STRING:
 		arikkei_value_set_string (dst, (ArikkeiString *) val);
 		break;
 	default:
-		if (arikkei_type_is_a (type, ARIKKEI_TYPE_REFERENCE)) {
-			arikkei_value_set_reference (dst, type, (ArikkeiReference *) val);
-		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT)) {
+		/* fixme: Make object primitive type? reference? */
+		if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT)) {
 			arikkei_value_set_object (dst, (ArikkeiObject *) val);
-		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_POINTER)) {
-			arikkei_value_clear (dst);
-			dst->type = type;
-			dst->pvalue = val;
+		} else {
+			type = arikkei_type_get_parent_primitive (type);
+			arikkei_value_set (dst, type, val);
 		}
 		break;
 	}

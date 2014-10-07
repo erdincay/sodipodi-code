@@ -16,8 +16,8 @@ arikkei_collection_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_interface_type (&type, ARIKKEI_TYPE_INTERFACE, (const unsigned char *) "ArikkeiArray",
-			sizeof (ArikkeiCollectionClass), sizeof (ArikkeiCollection), 0,
+		arikkei_register_interface_type (&type, ARIKKEI_TYPE_INTERFACE, (const unsigned char *) "ArikkeiCollection",
+			sizeof (ArikkeiCollectionClass), sizeof (ArikkeiCollectionImplementation), 0,
 			NULL,
 			NULL,
 			NULL, NULL);
@@ -26,48 +26,48 @@ arikkei_collection_get_type (void)
 }
 
 unsigned int
-arikkei_collection_get_element_type (ArikkeiCollection *collection, void *collection_instance)
+arikkei_collection_get_element_type (ArikkeiCollectionImplementation *impl, void *collection_instance)
 {
-	if (collection->get_element_type) {
-		return collection->get_element_type (collection, collection_instance);
+	if (impl->get_element_type) {
+		return impl->get_element_type (impl, collection_instance);
 	}
 	return ARIKKEI_TYPE_NONE;
 }
 
 unsigned int
-arikkei_collection_get_size (ArikkeiCollection *collection, void *collection_instance)
+arikkei_collection_get_size (ArikkeiCollectionImplementation *impl, void *collection_instance)
 {
-	if (collection->get_size) {
-		return collection->get_size (collection, collection_instance);
+	if (impl->get_size) {
+		return impl->get_size (impl, collection_instance);
 	}
 	return 0;
 }
 
 unsigned int
-arikkei_collection_get_iterator (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator)
+arikkei_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator)
 {
-	if (collection->get_iterator) {
-		return collection->get_iterator (collection, collection_instance, iterator);
+	if (impl->get_iterator) {
+		return impl->get_iterator (impl, collection_instance, iterator);
 	}
 	return 0;
 }
 
 unsigned int
-arikkei_collection_iterator_next (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator)
+arikkei_collection_iterator_next (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator)
 {
-	if (collection->iterator_next) {
-		return collection->iterator_next (collection, collection_instance, iterator);
+	if (impl->iterator_next) {
+		return impl->iterator_next (impl, collection_instance, iterator);
 	}
 	return 0;
 }
 
-const void *
-arikkei_collection_get_element (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator)
+unsigned int
+arikkei_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value)
 {
-	if (collection->get_element) {
-		return collection->get_element (collection, collection_instance, iterator);
+	if (impl->get_element) {
+		return impl->get_element (impl, collection_instance, iterator, value);
 	}
-	return NULL;
+	return 0;
 }
 
 

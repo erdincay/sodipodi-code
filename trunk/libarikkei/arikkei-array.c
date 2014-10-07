@@ -14,8 +14,8 @@
 #include "arikkei-array.h"
 
 static void arikkei_array_implementation_init (ArikkeiInterfaceImplementation *implementation);
-static unsigned int arikkei_array_collection_get_iterator (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
-const void *arikkei_array_collection_get_element (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator);
+static unsigned int arikkei_array_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
+unsigned int arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
 
 unsigned int
 arikkei_array_get_type (void)
@@ -24,7 +24,7 @@ arikkei_array_get_type (void)
 	if (!type) {
 		ArikkeiInterfaceClass *ifklass;
 		ifklass = arikkei_register_interface_type (&type, ARIKKEI_TYPE_COLLECTION, (const unsigned char *) "ArikkeiArray",
-			sizeof (ArikkeiInterfaceClass), sizeof (ArikkeiArray), 0,
+			sizeof (ArikkeiInterfaceClass), sizeof (ArikkeiArrayImplementation), 0,
 			NULL,
 			arikkei_array_implementation_init,
 			NULL, NULL);
@@ -36,29 +36,29 @@ arikkei_array_get_type (void)
 static void
 arikkei_array_implementation_init (ArikkeiInterfaceImplementation *implementation)
 {
-	ArikkeiCollection *collection = (ArikkeiCollection *) implementation;
+	ArikkeiCollectionImplementation *collection = (ArikkeiCollectionImplementation *) implementation;
 	collection->get_iterator = arikkei_array_collection_get_iterator;
 	collection->get_element = arikkei_array_collection_get_element;
 }
 
 static unsigned int
-arikkei_array_collection_get_iterator (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator)
+arikkei_array_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator)
 {
 	arikkei_value_set_u32 (iterator, 0);
 	return 1;
 }
 
-const void *
-arikkei_array_collection_get_element (ArikkeiCollection *collection, void *collection_instance, ArikkeiValue *iterator)
+unsigned int
+arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value)
 {
-	return arikkei_array_get_element (ARIKKEI_ARRAY(collection), collection_instance, (unsigned int) iterator->ivalue);
+	return arikkei_array_get_element (ARIKKEI_ARRAY(impl), collection_instance, (unsigned int) iterator->ivalue, value);
 }
 
-void *
-arikkei_array_get_element (ArikkeiArray *array, void *array_instance, unsigned int index)
+unsigned int
+arikkei_array_get_element (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value)
 {
-	if (array->get_element) {
-		return array->get_element (array, array_instance, index);
+	if (impl->get_element) {
+		return impl->get_element (impl, array_instance, index, value);
 	}
 	return 0;
 }
