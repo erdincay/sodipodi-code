@@ -151,16 +151,16 @@ arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 }
 
 unsigned int
-arikkei_value_can_convert (unsigned int to, unsigned int from)
+arikkei_value_can_convert (unsigned int to, const ArikkeiValue *from)
 {
-	if (to == from) return 1;
+	if (to == from->type) return 1;
 	switch (to) {
 	case ARIKKEI_TYPE_NONE:
 		return 1;
 	case ARIKKEI_TYPE_ANY:
-		return (from == ARIKKEI_TYPE_NONE) ? 0 : 1;
+		return (from->type == ARIKKEI_TYPE_NONE) ? 0 : 1;
 	case ARIKKEI_TYPE_BOOLEAN:
-		return (from >= ARIKKEI_TYPE_BOOLEAN);
+		return (from->type >= ARIKKEI_TYPE_BOOLEAN);
 	case ARIKKEI_TYPE_INT8:
 	case ARIKKEI_TYPE_UINT8:
 	case ARIKKEI_TYPE_INT16:
@@ -171,11 +171,12 @@ arikkei_value_can_convert (unsigned int to, unsigned int from)
 	case ARIKKEI_TYPE_UINT64:
 	case ARIKKEI_TYPE_FLOAT:
 	case ARIKKEI_TYPE_DOUBLE:
-		return ((from >= ARIKKEI_TYPE_INT8) && (from <= ARIKKEI_TYPE_DOUBLE));
+		return ARIKKEI_TYPE_IS_ARITHMETIC(from->type);
 	case ARIKKEI_TYPE_POINTER:
-		return (from >= ARIKKEI_TYPE_POINTER);
+		return (from->type >= ARIKKEI_TYPE_POINTER);
 	default:
-		if (arikkei_type_is_a (from, to)) return 1;
+		if (ARIKKEI_VALUE_IS_NULL (from)) return 1;
+		if (arikkei_type_is_a (from->type, to)) return 1;
 		break;
 	}
 	return 0;
@@ -298,7 +299,11 @@ arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue 
 		}
 		return 1;
 	default:
-		if (arikkei_type_is_a (from->type, type)) {
+		if (ARIKKEI_VALUE_IS_NULL (from)) {
+			dst->type = type;
+			dst->pvalue = NULL;
+			return 1;
+		} else if (arikkei_type_is_a (from->type, type)) {
 			arikkei_value_copy (dst, from);
 			return 1;
 		}

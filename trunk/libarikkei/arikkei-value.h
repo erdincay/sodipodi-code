@@ -18,6 +18,8 @@
 extern "C" {
 #endif
 
+/* Struct with pvalue NULL functions as NULL value */
+
 struct _ArikkeiValue {
 	unsigned int type;
 	union {
@@ -35,6 +37,8 @@ struct _ArikkeiValue {
 };
 
 void arikkei_value_clear (ArikkeiValue *value);
+
+#define ARIKKEI_VALUE_IS_NULL(v) (((v)->type == ARIKKEI_TYPE_STRUCT) && ((v)->pvalue == NULL))
 
 inline void
 arikkei_value_set_boolean (ArikkeiValue *value, unsigned int val)
@@ -130,7 +134,7 @@ arikkei_value_copy (ArikkeiValue *dst, const ArikkeiValue *src)
 /* Everything but float/double are by value */
 void arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val);
 
-unsigned int arikkei_value_can_convert (unsigned int to, unsigned int from);
+unsigned int arikkei_value_can_convert (unsigned int to, const ArikkeiValue *from);
 unsigned int arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue *from);
 
 /* Return memory address of value or dereference */
