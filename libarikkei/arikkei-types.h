@@ -75,9 +75,10 @@ enum {
 #define ARIKKEI_POINTER_TO_INT(p) ((char *) p - (char *) 0)
 
 #define ARIKKEI_TYPE_IS_ARITHMETIC(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_DOUBLE))
-#define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
+#define ARIKKEI_TYPE_IS_INTEGRAL(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_UINT64))
 #define ARIKKEI_TYPE_IS_SIGNED(t) (((t) == ARIKKEI_TYPE_INT8) || ((t) == ARIKKEI_TYPE_INT16) || ((t) == ARIKKEI_TYPE_INT32) || ((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_FLOAT) || ((t) == ARIKKEI_TYPE_DOUBLE))
 #define ARIKKEI_TYPE_IS_UNSIGNED(t) (((t) == ARIKKEI_TYPE_UINT8) || ((t) == ARIKKEI_TYPE_UINT16) || ((t) == ARIKKEI_TYPE_UINT32) || ((t) == ARIKKEI_TYPE_UINT64))
+#define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
 
 ARIKKEI_A16 struct __ArikkeiClass {
 	unsigned int type;

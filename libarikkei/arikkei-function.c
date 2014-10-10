@@ -48,23 +48,30 @@ arikkei_function_check_arguments (ArikkeiFunctionImplementation *implementation,
 	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (func != NULL, 0);
 	if (nargs != func->nargs) {
-		*canconvert = 0;
+		if (canconvert) *canconvert = 0;
 		return 0;
 	}
-	if ((func->thistype != ARIKKEI_TYPE_NONE) && !arikkei_type_is_a (thisval->type, func->thistype)) {
-		*canconvert = 0;
-		return 0;
-	}
-	compatible = 1;
-	*canconvert = 1;
-	for (i = 0; i < func->nargs; i++) {
-		if (arikkei_type_is_a (args[i].type, func->argtypes[i])) continue;
-		compatible = 0;
-		if (canconvert && !arikkei_value_can_convert (func->argtypes[i], args[i].type)) {
-			*canconvert = 0;
-			return 0;
+	if (func->thistype != ARIKKEI_TYPE_NONE) {
+		if (!arikkei_type_is_a (thisval->type, func->thistype)) {
+			if (!canconvert) return 0;
+			if (!arikkei_value_can_convert (func->thistype, thisval)) {
+				*canconvert = 0;
+				return 0;
+			}
 		}
 	}
+	compatible = 1;
+	for (i = 0; i < func->nargs; i++) {
+		if (!arikkei_type_is_a (args[i].type, func->argtypes[i])) {
+			if (!canconvert) return 0;
+			if (!arikkei_value_can_convert (func->argtypes[i], &args[i])) {
+				*canconvert = 0;
+				return 0;
+			}
+			compatible = 0;
+		}
+	}
+	*canconvert = 1;
 	return compatible;
 }
 
