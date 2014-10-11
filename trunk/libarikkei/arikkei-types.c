@@ -31,14 +31,14 @@ const struct _ClassDef defs[] = {
 	{ ARIKKEI_TYPE_ANY, ARIKKEI_TYPE_NONE , "any", 0 },
 	/* True primitives */
 	{ ARIKKEI_TYPE_BOOLEAN, ARIKKEI_TYPE_ANY, "bool", sizeof (unsigned int) },
-	{ ARIKKEI_TYPE_INT8, ARIKKEI_TYPE_ANY , "i8", 1 },
-	{ ARIKKEI_TYPE_UINT8, ARIKKEI_TYPE_ANY, "u8", 1 },
-	{ ARIKKEI_TYPE_INT16, ARIKKEI_TYPE_ANY , "i16", 2 },
-	{ ARIKKEI_TYPE_UINT16, ARIKKEI_TYPE_ANY , "u16", 2 },
-	{ ARIKKEI_TYPE_INT32, ARIKKEI_TYPE_ANY , "i32", 4 },
-	{ ARIKKEI_TYPE_UINT32, ARIKKEI_TYPE_ANY , "u32", 4 },
-	{ ARIKKEI_TYPE_INT64, ARIKKEI_TYPE_ANY , "i64", 8 },
-	{ ARIKKEI_TYPE_UINT64, ARIKKEI_TYPE_ANY , "u64", 8 },
+	{ ARIKKEI_TYPE_INT8, ARIKKEI_TYPE_ANY , "int8", 1 },
+	{ ARIKKEI_TYPE_UINT8, ARIKKEI_TYPE_ANY, "uint8", 1 },
+	{ ARIKKEI_TYPE_INT16, ARIKKEI_TYPE_ANY , "int16", 2 },
+	{ ARIKKEI_TYPE_UINT16, ARIKKEI_TYPE_ANY , "uint16", 2 },
+	{ ARIKKEI_TYPE_INT32, ARIKKEI_TYPE_ANY , "int32", 4 },
+	{ ARIKKEI_TYPE_UINT32, ARIKKEI_TYPE_ANY , "uint32", 4 },
+	{ ARIKKEI_TYPE_INT64, ARIKKEI_TYPE_ANY , "int64", 8 },
+	{ ARIKKEI_TYPE_UINT64, ARIKKEI_TYPE_ANY , "uint64", 8 },
 	{ ARIKKEI_TYPE_FLOAT, ARIKKEI_TYPE_ANY, "float", 4 },
 	{ ARIKKEI_TYPE_DOUBLE, ARIKKEI_TYPE_ANY, "double", 8 },
 	{ ARIKKEI_TYPE_POINTER, ARIKKEI_TYPE_ANY, "pointer", sizeof (void *) },
@@ -47,7 +47,7 @@ const struct _ClassDef defs[] = {
 	{ ARIKKEI_TYPE_CLASS, ARIKKEI_TYPE_STRUCT, "class", sizeof (ArikkeiClass) },
 	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_STRUCT, "interface", 0 },
 	{ ARIKKEI_TYPE_REFERENCE, ARIKKEI_TYPE_STRUCT, "reference", sizeof (ArikkeiReference) },
-	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "string", sizeof (ArikkeiString) }
+	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "String", sizeof (ArikkeiString) }
 };
 
 static unsigned int classes_size = 0;
