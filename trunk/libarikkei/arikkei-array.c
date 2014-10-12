@@ -15,7 +15,8 @@
 
 static void arikkei_array_implementation_init (ArikkeiInterfaceImplementation *implementation);
 static unsigned int arikkei_array_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
-unsigned int arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
+static unsigned int arikkei_array_collection_iterator_next (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
+static unsigned int arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
 
 unsigned int
 arikkei_array_get_type (void)
@@ -38,6 +39,7 @@ arikkei_array_implementation_init (ArikkeiInterfaceImplementation *implementatio
 {
 	ArikkeiCollectionImplementation *collection = (ArikkeiCollectionImplementation *) implementation;
 	collection->get_iterator = arikkei_array_collection_get_iterator;
+	collection->iterator_next = arikkei_array_collection_iterator_next;
 	collection->get_element = arikkei_array_collection_get_element;
 }
 
@@ -48,7 +50,15 @@ arikkei_array_collection_get_iterator (ArikkeiCollectionImplementation *impl, vo
 	return 1;
 }
 
-unsigned int
+static unsigned int
+arikkei_array_collection_iterator_next (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator)
+{
+	if (iterator->uvalue >= arikkei_collection_get_size (impl, collection_instance)) return 0;
+	iterator->uvalue += 1;
+	return 1;
+}
+
+static unsigned int
 arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value)
 {
 	return arikkei_array_get_element (ARIKKEI_ARRAY(impl), collection_instance, (unsigned int) iterator->ivalue, value);
