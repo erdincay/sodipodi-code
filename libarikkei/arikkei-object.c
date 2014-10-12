@@ -53,23 +53,6 @@ arikkei_object_check_interface_type (void *ip, unsigned int tc)
 	return arikkei_type_implements_a (((ArikkeiObject *) ip)->klass->klass.type, tc);
 }
 
-#if 0
-void *
-arikkei_object_check_interface_cast (void *ip, unsigned int tc)
-{
-	arikkei_return_val_if_fail (ip != NULL, NULL);
-	arikkei_return_val_if_fail (arikkei_type_is_a (((ArikkeiObjectInterface *) ip)->implementation->implementation.klass->klass.type, tc), NULL);
-	return ip;
-}
-
-unsigned int
-arikkei_object_check_interface_type (void *ip, unsigned int tc)
-{
-	if (ip == NULL) return 0;
-	return arikkei_type_is_a (((ArikkeiObjectInterface *) ip)->implementation->implementation.klass->klass.type, tc);
-}
-#endif
-
 unsigned int
 arikkei_object_get_type (void)
 {
@@ -135,9 +118,13 @@ arikkei_object_ref (ArikkeiObject *object)
 void
 arikkei_object_unref (ArikkeiObject *object)
 {
-	object->refcount -= 1;
-	if (object->refcount < 1) {
-		arikkei_object_delete (object);
+	arikkei_return_if_fail (object->refcount > 0);
+	if (object->refcount == 1) {
+		if (!object->klass->drop || !object->klass->drop (object)) {
+			arikkei_object_delete (object);
+		}
+	} else {
+		object->refcount -= 1;
 	}
 }
 
@@ -168,41 +155,20 @@ arikkei_object_setup (ArikkeiObject *object, unsigned int type)
 	object->refcount = 1;
 }
 
-#if 0
-void
-arikkei_object_setup_interface (ArikkeiObject *object, ArikkeiObject *owner, unsigned int type)
-{
-	ArikkeiClass *klass;
-	arikkei_return_if_fail (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT));
-	klass = arikkei_type_get_class (type);
-	arikkei_instance_setup (object, type);
-	object->klass = (ArikkeiObjectClass *) klass;
-	object->is_interface = 1;
-	if (owner) object->refcount = (const char *) object - (const char *) owner;
-}
-#endif
-
 void
 arikkei_object_release (ArikkeiObject *object)
 {
 	arikkei_return_if_fail (ARIKKEI_IS_OBJECT (object));
+	arikkei_object_dispose (object);
 	arikkei_instance_release (object, object->klass->klass.type);
 }
 
-#if 0
-void *
-arikkei_object_get_interface (ArikkeiObject *object, unsigned int type)
+void
+arikkei_object_dispose (ArikkeiObject *object)
 {
-	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), NULL);
-	return arikkei_instance_get_interface ((ArikkeiClass *) object->klass, object, type);
+	arikkei_return_if_fail (object != NULL);
+	arikkei_return_if_fail (ARIKKEI_IS_OBJECT (object));
+	if (object->klass->dispose) {
+		object->klass->dispose (object);
+	}
 }
-
-void *
-arikkei_object_interface_get_owner (ArikkeiObject *object)
-{
-	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), NULL);
-	arikkei_return_val_if_fail (object->is_interface, NULL);
-	return (ArikkeiObject *) ((const char *) object - object->refcount);
-}
-#endif
-

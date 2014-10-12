@@ -63,6 +63,11 @@ struct __ArikkeiObject {
 
 struct __ArikkeiObjectClass {
 	ArikkeiClass klass;
+	/* Inform object that the last references to it is about to be dropped */
+	/* Returning false means that reference is transferred to another holder */
+	unsigned int (* drop) (ArikkeiObject *object);
+	/* Dispose should drop resources and references hold by this object */
+	void (* dispose) (ArikkeiObject *object);
 };
 
 unsigned int arikkei_object_get_type (void);
@@ -86,8 +91,6 @@ struct _ArikkeiObjectInterfaceClass {
 
 unsigned int arikkei_object_interface_get_type (void);
 
-ArikkeiObject *arikkei_object_instance_get_object (ArikkeiObjectInstance *instance);
-
 /* Dynamic lifecycle */
 
 ArikkeiObject *arikkei_object_new (unsigned int type);
@@ -102,17 +105,9 @@ void arikkei_object_instance_unref (ArikkeiObjectInstance *iface);
 
 /* Setup initializes refcount to 1 */
 void arikkei_object_setup (ArikkeiObject *object, unsigned int type);
-#if 0
-/* Does not reference owner */
-void arikkei_object_setup_interface (ArikkeiObject *object, ArikkeiObject *owner, unsigned int type);
-#endif
 void arikkei_object_release (ArikkeiObject *object);
 
-#if 0
-/* Does not increase reference count of owner object */
-void *arikkei_object_get_interface (ArikkeiObject *object, unsigned int type);
-void *arikkei_object_interface_get_owner (ArikkeiObject *object);
-#endif
+void arikkei_object_dispose (ArikkeiObject *object);
 
 #define arikkei_object_instance_get_object(i) ((ArikkeiObject *) ((char *) (i) - ((ArikkeiObjectInstance *) (i))->instance_offset))
 #define arikkei_object_instance_get_implementation(i) ((ArikkeiObjectImplementation *) ((char *) arikkei_object_instance_get_object(i)->klass + ((ArikkeiObjectInstance *) (i))->class_offset))

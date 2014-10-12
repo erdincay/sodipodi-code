@@ -47,7 +47,8 @@ const struct _ClassDef defs[] = {
 	{ ARIKKEI_TYPE_CLASS, ARIKKEI_TYPE_STRUCT, "class", sizeof (ArikkeiClass) },
 	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_STRUCT, "interface", 0 },
 	{ ARIKKEI_TYPE_REFERENCE, ARIKKEI_TYPE_STRUCT, "reference", sizeof (ArikkeiReference) },
-	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "String", sizeof (ArikkeiString) }
+	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "String", sizeof (ArikkeiString) },
+	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_STRUCT, "Value", sizeof (ArikkeiValue) }
 };
 
 static unsigned int classes_size = 0;
@@ -220,6 +221,9 @@ void arikkei_types_init (void)
 		if (i == ARIKKEI_TYPE_REFERENCE) classes[i]->instance_init = arikkei_reference_instance_init;
 		if (i == ARIKKEI_TYPE_INTERFACE) {
 			((ArikkeiInterfaceClass *) classes[i])->implementation_size = sizeof (ArikkeiInterfaceImplementation);
+		}
+		if (i == ARIKKEI_TYPE_VALUE) {
+			classes[i]->zero_memory = 1;
 		}
 		nclasses += 1;
 	}

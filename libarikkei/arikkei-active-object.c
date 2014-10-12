@@ -20,10 +20,11 @@
 
 #include "arikkei-active-object.h"
 
-/* ArikkeiActiveObject */
-
 static void arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass);
 static void arikkei_active_object_finalize (ArikkeiActiveObject *aobj);
+
+/* ArikkeiObject implementation */
+static void arikkei_active_object_dispose (ArikkeiObject *object);
 
 static ArikkeiObjectClass *parent_class;
 
@@ -47,19 +48,19 @@ static void
 arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass)
 {
 	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
+	/* ArikkeiObject implementation */
+	((ArikkeiObjectClass *) klass)->dispose = arikkei_active_object_dispose;
 }
 
 static void
 arikkei_active_object_finalize (ArikkeiActiveObject *aobj)
 {
-	if (aobj->attributes) {
-		unsigned int i;
-		for (i = 0; i < aobj->attributes->length; i++) {
-			free (aobj->attributes->attribs[i].key);
-			arikkei_value_clear (&aobj->attributes->attribs[i].value);
-		}
-		free (aobj->attributes);
-	}
+}
+
+static void
+arikkei_active_object_dispose (ArikkeiObject *object)
+{
+	ArikkeiActiveObject *aobj = (ArikkeiActiveObject *) object;
 	if (aobj->callbacks) {
 		unsigned int i;
 		for (i = 0; i < aobj->callbacks->length; i++) {
@@ -68,6 +69,16 @@ arikkei_active_object_finalize (ArikkeiActiveObject *aobj)
 			if (listener->vector->dispose) listener->vector->dispose (aobj, listener->data);
 		}
 		free (aobj->callbacks);
+		aobj->callbacks = NULL;
+	}
+	if (aobj->attributes) {
+		unsigned int i;
+		for (i = 0; i < aobj->attributes->length; i++) {
+			free (aobj->attributes->attribs[i].key);
+			arikkei_value_clear (&aobj->attributes->attribs[i].value);
+		}
+		free (aobj->attributes);
+		aobj->attributes = NULL;
 	}
 }
 
