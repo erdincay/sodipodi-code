@@ -11,8 +11,46 @@
 
 #include <string.h>
 #include <stdlib.h>
+
+#include <libarikkei/arikkei-types.h>
+
 #include "nr-macros.h"
 #include "nr-pixblock.h"
+
+struct _NRPixBlockClass {
+	ArikkeiClass klass;
+};
+
+static void nr_pixblock_class_init (NRPixBlockClass *klass);
+static void nr_pixblock_finalize (NRPixBlock *pb);
+
+unsigned int
+nr_pixblock_get_type (void)
+{
+	static unsigned int type = 0;
+	if (!type) {
+		arikkei_register_type (&type, ARIKKEI_TYPE_STRUCT,
+						(const unsigned char *) "NRPixBlock",
+						sizeof (NRPixBlockClass),
+						sizeof (NRPixBlock),
+						(void (*) (ArikkeiClass *)) nr_pixblock_class_init,
+						NULL,
+						(void (*) (void *)) nr_pixblock_finalize);
+	}
+	return type;
+}
+
+static void
+nr_pixblock_class_init (NRPixBlockClass *klass)
+{
+	((ArikkeiClass *) klass)->zero_memory = 1;
+}
+
+static void
+nr_pixblock_finalize (NRPixBlock *pb)
+{
+	nr_pixblock_release (pb);
+}
 
 void
 nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear)
