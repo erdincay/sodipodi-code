@@ -18,12 +18,44 @@
 
 #include "nr-image.h"
 
+static void nr_image_class_init (NRImageClass *klass);
+static void nr_image_finalize (NRImage *image);
+
+static NRImageClass *image_class;
+
+unsigned int
+nr_image_get_type (void)
+{
+	static unsigned int type = 0;
+	if (!type) {
+		arikkei_register_type (&type, ARIKKEI_TYPE_REFERENCE,
+						(const unsigned char *) "NRImage",
+						sizeof (NRImageClass),
+						sizeof (NRImage),
+						(void (*) (ArikkeiClass *)) nr_image_class_init,
+						NULL,
+						(void (*) (void *)) nr_image_finalize);
+	}
+	return type;
+}
+
+static void
+nr_image_class_init (NRImageClass *klass)
+{
+	image_class = klass;
+	((ArikkeiClass *) klass)->zero_memory = 1;
+}
+
+static void
+nr_image_finalize (NRImage *image)
+{
+	nr_pixblock_release (&image->pixels);
+}
+
 NRImage *
 nr_image_new (void)
 {
-	NRImage *image;
-	image = (NRImage *) malloc (sizeof (NRImage));
-	image->refcount = 1;
+	NRImage *image = (NRImage *) arikkei_instance_new (NR_TYPE_IMAGE);
 	nr_pixblock_setup_fast (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
 	return image;
 }
@@ -31,9 +63,7 @@ nr_image_new (void)
 NRImage *
 nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned int clear)
 {
-	NRImage *image;
-	image = (NRImage *) malloc (sizeof (NRImage));
-	image->refcount = 1;
+	NRImage *image = (NRImage *) arikkei_instance_new (NR_TYPE_IMAGE);
 	nr_pixblock_setup (&image->pixels, mode, x0, y0, x1, y1, clear);
 	return image;
 }
@@ -41,37 +71,26 @@ nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned 
 void
 nr_image_ref (NRImage *image)
 {
-	assert (image != NULL);
-	assert (image->refcount > 0);
-
-	image->refcount += 1;
+	arikkei_reference_ref ((ArikkeiClass *) image_class, ARIKKEI_REFERENCE(image));
 }
 
 void
 nr_image_unref (NRImage *image)
 {
-	assert (image != NULL);
-	assert (image->refcount > 0);
-
-	if (image->refcount > 1) {
-		image->refcount -= 1;
-	} else {
-		nr_pixblock_release (&image->pixels);
-		free (image);
-	}
+	arikkei_reference_unref ((ArikkeiClass *) image_class, ARIKKEI_REFERENCE(image));
 }
 
 NRImage *
 nr_image_ensure_private_empty (NRImage *image)
 {
-	assert (!image || (image->refcount > 0));
+	assert (!image || (((ArikkeiReference *) image)->refcount > 0));
 
 	if (image) {
-		if (image->refcount == 1) {
+		if (((ArikkeiReference *) image)->refcount == 1) {
 			nr_pixblock_setup (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
 			return image;
 		}
-		image->refcount -= 1;
+		nr_image_unref (image);
 	}
 	return nr_image_new ();
 }

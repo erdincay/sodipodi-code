@@ -10,6 +10,14 @@
  * This code is in public domain
  */
 
+#define NR_IMAGE(i) ((NRImage *) (i))
+#define NR_TYPE_IMAGE (nr_image_get_type ())
+
+typedef struct _NRImage NRImage;
+typedef struct _NRImageClass NRImageClass;
+
+#include <libarikkei/arikkei-reference.h>
+
 #include <libnr/nr-types.h>
 #include <libnr/nr-pixblock.h>
 
@@ -25,10 +33,16 @@ extern "C" {
  */
 
 struct _NRImage {
-	unsigned int refcount;
+	ArikkeiReference reference;
 
 	NRPixBlock pixels;
 };
+
+struct _NRImageClass {
+	ArikkeiReferenceClass reference_class;
+};
+
+unsigned int nr_image_get_type (void);
 
 NRImage *nr_image_new (void);
 NRImage *nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned int clear);

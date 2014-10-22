@@ -10,6 +10,12 @@
  * This code is in public domain
  */
 
+#define NR_PIXBLOCK(p) ((NRPixBlock *) (p))
+#define NR_TYPE_PIXBLOCK (nr_pixblock_get_type ())
+
+typedef struct _NRPixBlock NRPixBlock;
+typedef struct _NRPixBlockClass NRPixBlockClass;
+
 #include <assert.h>
 
 #include <libnr/nr-types.h>
@@ -50,6 +56,8 @@ struct _NRPixBlock {
 		unsigned char p[NR_TINY_MAX];
 	} data;
 };
+
+unsigned int nr_pixblock_get_type (void);
 
 #define NR_PIXBLOCK_MODE_BPP(m) ((m == NR_PIXBLOCK_MODE_G8) ? 1 : (m == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
 #define NR_PIXBLOCK_BPP(pb) (((pb)->mode == NR_PIXBLOCK_MODE_G8) ? 1 : ((pb)->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
