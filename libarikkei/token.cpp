@@ -18,7 +18,7 @@
 
 #include "token.h"
 
-#ifndef WIN32
+#ifndef _WIN32
 #define _strnicmp strncasecmp
 #define g_strdup ::strdup
 #else

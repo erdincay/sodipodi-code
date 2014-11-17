@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{bd5fdfd4-d4dd-4f00-83ff-f97e24c34dd1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arikkei-cache.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-dict.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-iolib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-strlib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-token.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-url.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="token.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-string.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-object.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-value.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-value-array.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-active-object.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-array.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-collection.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-function.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-function-object.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-interface.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-property.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-reference.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-types.c">
+      <Filter>Types</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="arikkei-cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-dict.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-iolib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-strlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-url.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dict.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="token.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-object.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-value.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-value-array.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-active-object.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-array.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-collection.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-function.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-function-object.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-interface.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-property.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-reference.h">
+      <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

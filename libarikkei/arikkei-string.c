@@ -16,7 +16,7 @@ ArikkeiString *
 arikkei_string_new (const unsigned char *str)
 {
 	if (!str) return NULL;
-	return arikkei_string_new_length (str, strlen ((const char *) str));
+	return arikkei_string_new_length (str, (unsigned int) strlen ((const char *) str));
 }
 
 ArikkeiString *

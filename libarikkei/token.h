@@ -421,7 +421,7 @@ template <>
 inline int
 Token<char>::_tnicmp (const char *lhs, const char *rhs, size_t len)
 {
-#ifdef WIN32
+#ifdef _WIN32
 	return ::_strnicmp (lhs, rhs, len);
 #else
 	return ::strncasecmp (lhs, rhs, len);

@@ -20,7 +20,7 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS 1
 #endif
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #include <sys/mman.h>
 #endif
@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #include <tchar.h>
 #include <stdio.h>
@@ -47,7 +47,7 @@
 static size_t total = 0;
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
 
 const unsigned char *
 arikkei_mmap (const unsigned char *filename, size_t *size, const unsigned char *mapname)
