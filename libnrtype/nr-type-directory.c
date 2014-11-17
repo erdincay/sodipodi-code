@@ -15,11 +15,7 @@
 #include <config.h>
 #endif
 
-#ifdef WIN32
-/* For MSVC 2005 */
-#ifndef _CRT_SECURE_NO_DEPRECATE
-#define _CRT_SECURE_NO_DEPRECATE 1
-#endif
+#ifdef _WIN32
 #define strcasecmp _stricmp
 #define strncasecmp _strnicmp
 #endif
@@ -30,7 +26,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <unistd.h>
 #endif
 #include <stdio.h>
@@ -53,7 +49,7 @@
 #ifdef WITH_XFT
 #include "nr-type-xft.h"
 #endif
-#ifdef WIN32
+#ifdef _WIN32
 #include "nr-type-w32.h"
 #endif
 
@@ -309,7 +305,7 @@ nr_type_register (NRTypeFaceDef *def)
 	fdef = nr_type_dict_lookup (familydict, def->family);
 	if (!fdef) {
 		fdef = nr_new (NRFamilyDef, 1);
-#ifndef WIN32
+#ifndef _WIN32
 		fdef->name = strdup (def->family);
 #else
 		/* Suppress MSVC complaining */
