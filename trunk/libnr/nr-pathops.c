@@ -24,7 +24,7 @@
 #include <string.h>
 #include <assert.h>
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <alloca.h>
 #else
 #define alloca _alloca
