@@ -63,9 +63,9 @@ arikkei_any_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, 
 	unsigned int l;
 	/* Instance of NAME 0xADDRESS */
 	tlen = 12;
-	nlen = strlen ((const char *) klass->name);
+	nlen = (unsigned int) strlen ((const char *) klass->name);
 	sprintf (c, "%p", instance);
-	alen = strlen (c);
+	alen = (unsigned int) strlen(c);
 	l = (tlen < len) ? tlen : len;
 	if (l > 0) memcpy (buf, "Instance of ", l);
 	buf += l;

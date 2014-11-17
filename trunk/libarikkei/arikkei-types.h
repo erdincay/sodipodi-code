@@ -34,7 +34,7 @@ typedef struct __ArikkeiObject ArikkeiObject;
 
 /* Alignment */
 
-#ifdef WIN32
+#ifdef _WIN32
 #define ARIKKEI_A16 __declspec(align(16))
 #else
 #define ARIKKEI_A16 __attribute__ ((aligned (8)))
@@ -73,7 +73,7 @@ enum {
 
 #define ARIKKEI_OFFSET(b,m) ARIKKEI_POINTER_TO_INT(&((b *) 0)->m)
 #define ARIKKEI_INT_TO_POINTER(v) (void *) ((char *) 0 + (v))
-#define ARIKKEI_POINTER_TO_INT(p) ((char *) p - (char *) 0)
+#define ARIKKEI_POINTER_TO_INT(p) ((int) ((char *) p - (char *) 0))
 
 #define ARIKKEI_TYPE_IS_ARITHMETIC(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_DOUBLE))
 #define ARIKKEI_TYPE_IS_INTEGRAL(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_UINT64))

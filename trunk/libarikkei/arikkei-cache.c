@@ -140,7 +140,7 @@ arikkei_cache_insert (ArikkeiCache *cache, const void *key, void *object, unsign
 		if (cache->object_free) cache->object_free (object);
 		return;
 	}
-	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	pos = (int) ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
 	if (pos >= 0) {
 		/* There is existing entry with the same key */
 		if (cache->entries[pos].object == object) {
@@ -195,7 +195,7 @@ void
 arikkei_cache_remove (ArikkeiCache *cache, const void *key)
 {
 	int pos;
-	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	pos = (int) ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
 	if (pos < 0) return;
 	arikkei_cache_remove_entry (cache, pos);
 }
@@ -204,7 +204,7 @@ const void *
 arikkei_cache_lookup (ArikkeiCache *cache, const void *key)
 {
 	int pos;
-	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	pos = (int) ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
 	if (pos >= 0) {
 		remove_entry_from_list (cache, pos);
 		cache->free = cache->entries[pos].next;
@@ -221,7 +221,7 @@ const void *
 arikkei_cache_lookup_notouch (ArikkeiCache *cache, const void *key)
 {
 	int pos;
-	pos = ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
+	pos = (int) ((const char *) arikkei_dict_lookup (&cache->dict, key) - (const char *) 0) - 1;
 	return (pos >= 0) ? cache->entries[pos].object : NULL;
 }
 
