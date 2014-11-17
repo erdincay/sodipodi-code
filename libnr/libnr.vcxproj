@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EC16EA89-2C94-419D-85A2-97DD79F32A18}</ProjectGuid>
+    <RootNamespace>libnr</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>libnrd</TargetName>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>libnr</TargetName>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)libnrd.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)libnr.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="nr-blit.c" />
+    <ClCompile Include="nr-compose-transform.c" />
+    <ClCompile Include="nr-compose.c" />
+    <ClCompile Include="nr-gradient.c" />
+    <ClCompile Include="nr-image.c" />
+    <ClCompile Include="nr-matrix.c" />
+    <ClCompile Include="nr-object.c" />
+    <ClCompile Include="nr-path.c" />
+    <ClCompile Include="nr-pathops.c" />
+    <ClCompile Include="nr-pixblock-compose.c" />
+    <ClCompile Include="nr-pixblock-line.c" />
+    <ClCompile Include="nr-pixblock-pattern.c" />
+    <ClCompile Include="nr-pixblock-pixel.c" />
+    <ClCompile Include="nr-pixblock-transform.c" />
+    <ClCompile Include="nr-pixblock.c" />
+    <ClCompile Include="nr-rect.c" />
+    <ClCompile Include="nr-render.c" />
+    <ClCompile Include="nr-stroke.c" />
+    <ClCompile Include="nr-svp-render.c" />
+    <ClCompile Include="nr-svp-uncross.c" />
+    <ClCompile Include="nr-svp.c" />
+    <ClCompile Include="nr-uta.c" />
+    <ClCompile Include="nr-values.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nr-blit.h" />
+    <ClInclude Include="nr-compose-transform.h" />
+    <ClInclude Include="nr-compose.h" />
+    <ClInclude Include="nr-forward.h" />
+    <ClInclude Include="nr-gradient.h" />
+    <ClInclude Include="nr-image.h" />
+    <ClInclude Include="nr-macros.h" />
+    <ClInclude Include="nr-matrix.h" />
+    <ClInclude Include="nr-object.h" />
+    <ClInclude Include="nr-path.h" />
+    <ClInclude Include="nr-pathops.h" />
+    <ClInclude Include="nr-pixblock-compose.h" />
+    <ClInclude Include="nr-pixblock-line.h" />
+    <ClInclude Include="nr-pixblock-pattern.h" />
+    <ClInclude Include="nr-pixblock-pixel.h" />
+    <ClInclude Include="nr-pixblock-transform.h" />
+    <ClInclude Include="nr-pixblock.h" />
+    <ClInclude Include="nr-pixops.h" />
+    <ClInclude Include="nr-rect.h" />
+    <ClInclude Include="nr-render.h" />
+    <ClInclude Include="nr-stroke.h" />
+    <ClInclude Include="nr-svp-private.h" />
+    <ClInclude Include="nr-svp-render.h" />
+    <ClInclude Include="nr-svp-uncross.h" />
+    <ClInclude Include="nr-svp.h" />
+    <ClInclude Include="nr-types.h" />
+    <ClInclude Include="nr-uta.h" />
+    <ClInclude Include="nr-values.h" />
+    <ClInclude Include="pixblock.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
