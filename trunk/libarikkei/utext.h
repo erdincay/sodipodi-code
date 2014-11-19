@@ -21,7 +21,7 @@
 namespace Arikkei {
 
 // Suppress MSVC 2005 nagging
-#ifdef WIN32
+#ifdef _WIN32
 inline char *strdup (const char *str) { return ::_strdup (str); }
 #else
 inline char *strdup (const char *str) { return ::strdup (str); }
