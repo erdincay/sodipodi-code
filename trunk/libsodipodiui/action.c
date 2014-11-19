@@ -11,7 +11,7 @@
  * This code is in public domain
  */
 
-#ifdef WIN32
+#ifdef _WIN32
 /* Disable nagging */
 #include <windows.h>
 #define strdup _strdup
