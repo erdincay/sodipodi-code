@@ -165,8 +165,8 @@ load (const unsigned char *cdata, size_t csize, const unsigned char *uri)
 
 	xmlBuffer b = {
 		(xmlChar *) cdata, // Content
-		csize, // Use
-		csize, // Size
+		(unsigned int) csize, // Use
+		(unsigned int) csize, // Size
 		XML_BUFFER_ALLOC_IMMUTABLE // Alloc
 	};
 
@@ -228,8 +228,8 @@ loadNode (Node *parent, const unsigned char *cdata, size_t csize, const unsigned
 
 	xmlBuffer b = {
 		(xmlChar *) cdata, // Content
-		csize, // Use
-		csize, // Size
+		(unsigned int) csize, // Use
+		(unsigned int) csize, // Size
 		XML_BUFFER_ALLOC_IMMUTABLE // Alloc
 	};
 
