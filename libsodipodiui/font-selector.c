@@ -280,7 +280,7 @@ sp_font_selector_family_select_row (GtkCList *clist, gint row, gint column, GdkE
 				int len;
 				w = nr_type_weight_to_string (face->weight);
 				s = nr_type_slant_to_string (face->slant);
-				len = strlen (w) + strlen (s) + 1;
+				len = (int) strlen (w) + (int) strlen (s) + 1;
 				p = (unsigned char *) (malloc (len + 1));
 				sprintf(p,"%s %s", w, s);
 

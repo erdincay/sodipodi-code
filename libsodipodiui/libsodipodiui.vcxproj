@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8B4F7F0A-0095-43D3-BDC0-4540F4C71A86}</ProjectGuid>
+    <RootNamespace>libsodipodiui</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libsodipodiuid</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir);$(SolutionDir)gtk\2.0\lib\glib-2.0\include;$(SolutionDir)gtk\2.0\include\glib-2.0;$(SolutionDir)gtk\2.0\include\cairo;$(SolutionDir)gtk\2.0\include\pango-1.0;$(SolutionDir)gtk\2.0\include\atk-1.0;$(SolutionDir)gtk\2.0\include\gdk-pixbuf-2.0;$(SolutionDir)gtk\2.0\lib\gtk-2.0\include;$(SolutionDir)gtk\2.0\include\gtk-2.0;$(SolutionDir)gtk\2.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)lib\</OutDir>
+    <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>libsodipodiui</TargetName>
+    <IncludePath>$(SolutionDir)include;$(SolutionDir);$(SolutionDir)gtk\2.0\lib\glib-2.0\include;$(SolutionDir)gtk\2.0\include\glib-2.0;$(SolutionDir)gtk\2.0\include\cairo;$(SolutionDir)gtk\2.0\include\pango-1.0;$(SolutionDir)gtk\2.0\include\atk-1.0;$(SolutionDir)gtk\2.0\include\gdk-pixbuf-2.0;$(SolutionDir)gtk\2.0\lib\gtk-2.0\include;$(SolutionDir)gtk\2.0\include\gtk-2.0;$(SolutionDir)gtk\2.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="action.c" />
+    <ClCompile Include="button.c" />
+    <ClCompile Include="color.c" />
+    <ClCompile Include="font-selector.c" />
+    <ClCompile Include="icon.c" />
+    <ClCompile Include="interface.c" />
+    <ClCompile Include="menu.c" />
+    <ClCompile Include="shortcuts.c" />
+    <ClCompile Include="sp-color-preview.c" />
+    <ClCompile Include="sp-color-selector.c" />
+    <ClCompile Include="sp-color-slider.c" />
+    <ClCompile Include="sp-marshal.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="action.h" />
+    <ClInclude Include="button.h" />
+    <ClInclude Include="color.h" />
+    <ClInclude Include="font-selector.h" />
+    <ClInclude Include="icon.h" />
+    <ClInclude Include="interface.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="shortcuts.h" />
+    <ClInclude Include="sp-color-preview.h" />
+    <ClInclude Include="sp-color-selector.h" />
+    <ClInclude Include="sp-color-slider.h" />
+    <ClInclude Include="sp-marshal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sp-marshal.list" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libnr\libnr.vcxproj">
+      <Project>{ec16ea89-2c94-419d-85a2-97dd79f32a18}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
