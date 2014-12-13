@@ -68,8 +68,13 @@ arikkei_value_copy_indirect (ArikkeiValue *dst, const ArikkeiValue *src)
 		*dst = *src;
 	} else if (arikkei_type_is_a (src->type, ARIKKEI_TYPE_REFERENCE)) {
 		arikkei_value_set_reference (dst, src->type, src->reference);
+	} else if (arikkei_type_is_a (src->type, ARIKKEI_TYPE_STRING)) {
+		/* String is final */
+		arikkei_value_set_string (dst, src->string);
 	} else if (arikkei_type_is_a (src->type, ARIKKEI_TYPE_OBJECT)) {
 		arikkei_value_set_object (dst, src->object);
+	} else {
+		*dst = *src;
 	}
 }
 
@@ -142,6 +147,11 @@ arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val)
 		/* fixme: Make object primitive type? reference? */
 		if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT)) {
 			arikkei_value_set_object (dst, (ArikkeiObject *) val);
+		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_STRUCT)) {
+			arikkei_value_clear (dst);
+			dst->type = type;
+			dst->pvalue = val;
+			break;
 		} else {
 			type = arikkei_type_get_parent_primitive (type);
 			arikkei_value_set (dst, type, val);
@@ -198,7 +208,9 @@ arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue 
 		arikkei_value_copy (dst, from);
 		return 1;
 	case ARIKKEI_TYPE_BOOLEAN:
-		if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
+		if (from->type == ARIKKEI_TYPE_BOOLEAN) {
+			bvalue = from->bvalue;
+		} else if ((from->type >= ARIKKEI_TYPE_INT8) && (from->type <= ARIKKEI_TYPE_UINT32)) {
 			bvalue = from->ivalue != 0;
 		} else if ((from->type >= ARIKKEI_TYPE_INT64) && (from->type <= ARIKKEI_TYPE_UINT64)) {
 			bvalue = from->lvalue != 0;

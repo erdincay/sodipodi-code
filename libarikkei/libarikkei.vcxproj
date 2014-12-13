@@ -121,6 +121,7 @@
     <ClInclude Include="arikkei-string.h" />
     <ClInclude Include="arikkei-strlib.h" />
     <ClInclude Include="arikkei-token.h" />
+    <ClInclude Include="arikkei-types.h" />
     <ClInclude Include="arikkei-url.h" />
     <ClInclude Include="arikkei-utils.h" />
     <ClInclude Include="arikkei-value-array.h" />
