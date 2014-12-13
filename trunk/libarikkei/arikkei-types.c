@@ -115,6 +115,19 @@ arikkei_i32_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, 
 }
 
 static unsigned int
+arikkei_u32_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
+{
+	unsigned int i;
+	char c[32];
+	itoa (*((int *) instance), c, 10);
+	for (i = 0; i < len; i++) {
+		buf[i] = c[i];
+		if (!buf[i]) return i;
+	}
+	return len;
+}
+
+static unsigned int
 arikkei_float_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len)
 {
 	unsigned int pos = 0;
@@ -209,6 +222,9 @@ void arikkei_types_init (void)
 		if (i == ARIKKEI_TYPE_ANY) classes[i]->to_string = arikkei_any_to_string;
 		if (i == ARIKKEI_TYPE_INT32) {
 			classes[i]->to_string = arikkei_i32_to_string;
+		}
+		if (i == ARIKKEI_TYPE_UINT32) {
+			classes[i]->to_string = arikkei_u32_to_string;
 		}
 		if (i == ARIKKEI_TYPE_FLOAT) {
 			classes[i]->to_string = arikkei_float_to_string;

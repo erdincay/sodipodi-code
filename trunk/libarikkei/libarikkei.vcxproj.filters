@@ -152,5 +152,8 @@
     <ClInclude Include="arikkei-utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="arikkei-types.h">
+      <Filter>Types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
