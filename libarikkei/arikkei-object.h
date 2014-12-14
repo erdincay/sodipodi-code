@@ -104,7 +104,7 @@ struct _ArikkeiObjectImplementation {
 };
 
 struct _ArikkeiObjectInterfaceClass {
-	ArikkeiClass klass;
+	ArikkeiInterfaceClass klass;
 };
 
 unsigned int arikkei_object_interface_get_type (void);
