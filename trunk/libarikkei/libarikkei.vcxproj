@@ -92,7 +92,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="arikkei-active-object.c" />
-    <ClCompile Include="arikkei-array.c" />
+    <ClCompile Include="arikkei-array-interface.c" />
+    <ClCompile Include="arikkei-array-of.c" />
     <ClCompile Include="arikkei-cache.c" />
     <ClCompile Include="arikkei-collection.c" />
     <ClCompile Include="arikkei-dict.c" />
@@ -115,7 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arikkei-active-object.h" />
-    <ClInclude Include="arikkei-array.h" />
+    <ClInclude Include="arikkei-array-interface.h" />
+    <ClInclude Include="arikkei-array-of.h" />
     <ClInclude Include="arikkei-cache.h" />
     <ClInclude Include="arikkei-collection.h" />
     <ClInclude Include="arikkei-dict.h" />

@@ -46,7 +46,9 @@ const struct _ClassDef defs[] = {
 
 	{ ARIKKEI_TYPE_CLASS, ARIKKEI_TYPE_STRUCT, "class", sizeof (ArikkeiClass) },
 	{ ARIKKEI_TYPE_INTERFACE, ARIKKEI_TYPE_STRUCT, "interface", 0 },
+	{ ARIKKEI_TYPE_ARRAY, ARIKKEI_TYPE_STRUCT, "array", 0 },
 	{ ARIKKEI_TYPE_REFERENCE, ARIKKEI_TYPE_STRUCT, "reference", sizeof (ArikkeiReference) },
+
 	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_REFERENCE, "String", sizeof (ArikkeiString) },
 	{ ARIKKEI_TYPE_STRING, ARIKKEI_TYPE_STRUCT, "Value", sizeof (ArikkeiValue) }
 };
@@ -283,7 +285,7 @@ assign_default (ArikkeiClass *klass, void *destination, void *instance)
 }
 
 void
-arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+arikkei_register_class (ArikkeiClass *klass, unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
 						void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *))
 {
 	if (!classes) arikkei_types_init ();
@@ -298,7 +300,6 @@ arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int pa
 	nclasses += 1;
 
 	classes[*type] = klass;
-	memset (klass, 0, class_size);
 	if (parent == ARIKKEI_TYPE_NONE) {
 		/* Default methods */
 		/* Memory management */
@@ -340,7 +341,8 @@ arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned c
 	arikkei_return_val_if_fail ((parent == ARIKKEI_TYPE_NONE) || (class_size >= classes[parent]->class_size), NULL);
 	arikkei_return_val_if_fail ((parent == ARIKKEI_TYPE_NONE) || (instance_size >= classes[parent]->instance_size), NULL);
 	klass = (ArikkeiClass *) malloc (class_size);
-	arikkei_register_class (type, klass, parent, name, class_size, instance_size, class_init, instance_init, instance_finalize);
+	memset (klass, 0, class_size);
+	arikkei_register_class (klass, type, parent, name, class_size, instance_size, class_init, instance_init, instance_finalize);
 	return klass;
 }
 
@@ -430,6 +432,9 @@ arikkei_class_tree_instance_invoke_init (ArikkeiClass *klass, void *instance)
 	if (klass->instance_init) klass->instance_init (instance);
 	for (i = 0; i < klass->ninterfaces; i++) {
 		ArikkeiInterfaceImplementation *impl = (ArikkeiInterfaceImplementation *) ((char *) klass + klass->implementations[i]);
+		if (((ArikkeiClass *) impl->klass)->zero_memory) {
+			memset ((char *) instance + impl->instance_offset, 0, ((ArikkeiClass *) impl->klass)->instance_size);
+		}
 		arikkei_class_tree_interface_invoke_init (impl->klass, impl, (char *) instance + impl->instance_offset);
 	}
 }

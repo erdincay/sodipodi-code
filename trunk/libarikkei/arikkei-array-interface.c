@@ -11,7 +11,7 @@
 
 #include "arikkei-value.h"
 
-#include "arikkei-array.h"
+#include "arikkei-array-interface.h"
 
 static void arikkei_array_implementation_init (ArikkeiInterfaceImplementation *implementation);
 static unsigned int arikkei_array_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
@@ -19,13 +19,13 @@ static unsigned int arikkei_array_collection_iterator_next (ArikkeiCollectionImp
 static unsigned int arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
 
 unsigned int
-arikkei_array_get_type (void)
+arikkei_array_interface_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
 		ArikkeiInterfaceClass *ifklass;
-		ifklass = arikkei_register_interface_type (&type, ARIKKEI_TYPE_COLLECTION, (const unsigned char *) "ArikkeiArray",
-			sizeof (ArikkeiInterfaceClass), sizeof (ArikkeiArrayImplementation), 0,
+		ifklass = arikkei_register_interface_type (&type, ARIKKEI_TYPE_COLLECTION, (const unsigned char *) "ArikkeiArrayInterface",
+			sizeof (ArikkeiArrayInterfaceClass), sizeof (ArikkeiArrayImplementation), 0,
 			NULL,
 			arikkei_array_implementation_init,
 			NULL, NULL);
@@ -61,11 +61,11 @@ arikkei_array_collection_iterator_next (ArikkeiCollectionImplementation *impl, v
 static unsigned int
 arikkei_array_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value)
 {
-	return arikkei_array_get_element (ARIKKEI_ARRAY(impl), collection_instance, (unsigned int) iterator->ivalue, value);
+	return arikkei_array_interface_get_element ((ArikkeiArrayImplementation *) impl, collection_instance, (unsigned int) iterator->ivalue, value);
 }
 
 unsigned int
-arikkei_array_get_element (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value)
+arikkei_array_interface_get_element (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value)
 {
 	if (impl->get_element) {
 		return impl->get_element (impl, array_instance, index, value);
