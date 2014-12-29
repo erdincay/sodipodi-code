@@ -9,7 +9,6 @@
  */
 
 #define ARIKKEI_TYPE_COLLECTION (arikkei_collection_get_type ())
-#define ARIKKEI_COLLECTION(c) ((ArikkeiCollectionImplementation *) (c))
 
 typedef struct _ArikkeiCollectionImplementation ArikkeiCollectionImplementation;
 typedef struct _ArikkeiCollectionClass ArikkeiCollectionClass;

@@ -51,7 +51,7 @@ static void
 arikkei_value_array_class_init (ArikkeiValueArrayClass *klass)
 {
 	arikkei_class_set_num_interfaces ((ArikkeiClass *) klass, 1);
-	arikkei_interface_implementation_setup ((ArikkeiClass *) klass, 0, ARIKKEI_TYPE_ARRAY, ARIKKEI_OFFSET(ArikkeiValueArrayClass, array_implementation), 0);
+	arikkei_interface_implementation_setup ((ArikkeiClass *) klass, 0, ARIKKEI_TYPE_ARRAY_INTERFACE, ARIKKEI_OFFSET(ArikkeiValueArrayClass, array_implementation), 0);
 	arikkei_class_set_num_properties ((ArikkeiClass *) klass, NUM_PROPERTIES);
 	arikkei_class_property_setup ((ArikkeiClass *) klass, PROP_LENGTH, (const unsigned char *) "length", ARIKKEI_TYPE_UINT32, 0, 1, 0, 1, 0, ARIKKEI_TYPE_NONE, NULL);
 	((ArikkeiClass *) klass)->get_property = arikkei_value_array_get_property;

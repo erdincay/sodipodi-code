@@ -16,7 +16,7 @@
 typedef struct _ArikkeiValueArray ArikkeiValueArray;
 typedef struct _ArikkeiValueArrayClass ArikkeiValueArrayClass;
 
-#include <libarikkei/arikkei-array.h>
+#include <libarikkei/arikkei-array-interface.h>
 #include <libarikkei/arikkei-reference.h>
 
 #ifdef __cplusplus

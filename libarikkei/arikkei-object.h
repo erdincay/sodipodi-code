@@ -10,8 +10,8 @@
  * This code is in public domain
  */
 
-typedef struct __ArikkeiObject ArikkeiObject;
-typedef struct __ArikkeiObjectClass ArikkeiObjectClass;
+typedef struct _ArikkeiObject ArikkeiObject;
+typedef struct _ArikkeiObjectClass ArikkeiObjectClass;
 
 #define ARIKKEI_TYPE_OBJECT (arikkei_object_get_type ())
 #define ARIKKEI_OBJECT(o) (ARIKKEI_CHECK_INSTANCE_CAST ((o), ARIKKEI_TYPE_OBJECT, ArikkeiObject))
@@ -47,7 +47,7 @@ extern "C" {
 /* Indicates that object is set up and not yet disposed */
 #define ARIKKEI_OBJECT_ALIVE 1
 
-struct __ArikkeiObject {
+struct _ArikkeiObject {
 	ArikkeiObjectClass *klass;
 	/* Standalone objects have reference count */
 	unsigned int refcount;
@@ -55,7 +55,7 @@ struct __ArikkeiObject {
 	unsigned int flags;
 };
 
-struct __ArikkeiObjectClass {
+struct _ArikkeiObjectClass {
 	ArikkeiClass klass;
 	/* Inform object that the last references to it is about to be dropped */
 	/* Returning false means that reference is transferred to another holder */

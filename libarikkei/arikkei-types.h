@@ -22,7 +22,7 @@ typedef double f64;
 extern "C" {
 #endif
 
-typedef struct __ArikkeiClass ArikkeiClass;
+typedef struct _ArikkeiClass ArikkeiClass;
 typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
 typedef struct _ArikkeiInterfaceImplementation ArikkeiInterfaceImplementation;
 
@@ -30,7 +30,7 @@ typedef struct _ArikkeiValue ArikkeiValue;
 typedef struct _ArikkeiReference ArikkeiReference;
 typedef struct _ArikkeiString ArikkeiString;
 typedef struct _ArikkeiProperty ArikkeiProperty;
-typedef struct __ArikkeiObject ArikkeiObject;
+typedef struct _ArikkeiObject ArikkeiObject;
 
 /* Alignment */
 
@@ -61,11 +61,12 @@ enum {
 	ARIKKEI_TYPE_DOUBLE,
 	ARIKKEI_TYPE_POINTER,
 	ARIKKEI_TYPE_STRUCT,
-
+	/* Special types */
 	ARIKKEI_TYPE_CLASS,
 	ARIKKEI_TYPE_INTERFACE,
-
+	ARIKKEI_TYPE_ARRAY,
 	ARIKKEI_TYPE_REFERENCE,
+
 	ARIKKEI_TYPE_STRING,
 	ARIKKEI_TYPE_VALUE,
 	ARIKKEI_TYPE_NUM_PRIMITIVES
@@ -81,7 +82,7 @@ enum {
 #define ARIKKEI_TYPE_IS_UNSIGNED(t) (((t) == ARIKKEI_TYPE_UINT8) || ((t) == ARIKKEI_TYPE_UINT16) || ((t) == ARIKKEI_TYPE_UINT32) || ((t) == ARIKKEI_TYPE_UINT64))
 #define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
 
-ARIKKEI_A16 struct __ArikkeiClass {
+ARIKKEI_A16 struct _ArikkeiClass {
 	unsigned int type;
 	ArikkeiClass *parent;
 
@@ -125,9 +126,11 @@ ARIKKEI_A16 struct __ArikkeiClass {
 
 void arikkei_types_init (void);
 
-/* Creates new class and assigns it a type */
+/* For special subtype implementations */
+/* Register class in type system */
+/* Class has to be zeroed and relevant fields of subclasses set up */
 /* Type is guaranteed to be assigned before class constructors are invoked */
-void arikkei_register_class (unsigned int *type, ArikkeiClass *klass, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+void arikkei_register_class (ArikkeiClass *klass, unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
 							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
 /* Returns allocated class */
 ArikkeiClass *arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,

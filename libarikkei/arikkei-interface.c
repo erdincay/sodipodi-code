@@ -14,7 +14,7 @@
 #include "arikkei-interface.h"
 
 ArikkeiInterfaceClass *arikkei_register_interface_type (unsigned int *type, unsigned int parent, const unsigned char *name,
-							unsigned int class_size, unsigned int instance_size, unsigned int implementation_size,
+							unsigned int class_size, unsigned int implementation_size, unsigned int instance_size,
 							void (* class_init) (ArikkeiClass *),
 							void (* implementation_init) (ArikkeiInterfaceImplementation *),
 							void (* instance_init) (ArikkeiInterfaceImplementation *, void *), void (* instance_finalize) (ArikkeiInterfaceImplementation *, void *))
