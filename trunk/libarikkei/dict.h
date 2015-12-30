@@ -79,6 +79,28 @@ public:
 };
 
 template <typename V>
+class Dict<const unsigned char *, V> {
+private:
+	// Forbidden
+	Dict (const Dict& dict) { assert (false); }
+	Dict& operator= (const Dict& dict) { assert (false); return *this; }
+public:
+	ArikkeiDict dict;
+
+	Dict (unsigned int hashsize) {
+		arikkei_dict_setup_string (&dict, hashsize);
+	}
+	~Dict (void) {
+		arikkei_dict_release (&dict);
+	}
+	bool exists (const unsigned char *key) { return arikkei_dict_exists (&dict, (const void *) key) != 0; }
+	V lookup (const unsigned char *key) { return p2a<V> (arikkei_dict_lookup (&dict, (const void *) key)); }
+	void insert (const unsigned char *key, V val) { arikkei_dict_insert (&dict, (const void *) key, a2p<V> (val)); }
+	void remove (const unsigned char *key) { arikkei_dict_remove (&dict, (const void *) key); }
+	void forall (unsigned int (*callback) (const unsigned char *, V, void *), void *data) { arikkei_dict_forall (&dict, (unsigned int (*) (const void *, const void *, void *)) callback, data); }
+};
+
+template <typename V>
 class Dict<int, V> {
 private:
 	// Forbidden

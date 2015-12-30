@@ -120,6 +120,22 @@ arikkei_object_check_instance_type (void *ip, unsigned int tc)
 	return arikkei_type_is_a (((ArikkeiObject *) ip)->klass->klass.type, tc);
 }
 
+unsigned int
+arikkei_object_implements (ArikkeiObject *object, unsigned int type)
+{
+	arikkei_return_val_if_fail (object != NULL, 0);
+	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), 0);
+	return arikkei_type_implements_a (object->klass->klass.type, type);
+}
+
+void *
+arikkei_object_get_interface (ArikkeiObject *object, unsigned int type, ArikkeiInterfaceImplementation **impl)
+{
+	arikkei_return_val_if_fail (object != NULL, NULL);
+	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), NULL);
+	return arikkei_instance_get_interface (object, object->klass->klass.type, type, impl);
+}
+
 void
 arikkei_object_instance_ref (ArikkeiObjectInstance *iface)
 {

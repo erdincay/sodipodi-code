@@ -35,7 +35,8 @@ struct _ArikkeiInterfaceClass {
 };
 
 struct _ArikkeiInterfaceImplementation {
-	ArikkeiInterfaceClass *klass;
+	/*ArikkeiInterfaceClass *klass;*/
+	unsigned int type;
 	unsigned int class_offset;
 	unsigned int instance_offset;
 };

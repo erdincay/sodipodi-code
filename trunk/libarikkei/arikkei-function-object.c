@@ -52,7 +52,7 @@ arikkei_function_object_invoke_private (ArikkeiFunctionImplementation *implement
 {
 	ArikkeiFunctionObject *fobj;
 	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
 	fobj = (ArikkeiFunctionObject *) arikkei_interface_get_containing_instance ((ArikkeiInterfaceImplementation *) implementation, instance);
 	arikkei_return_val_if_fail (arikkei_object_is_a (fobj, ARIKKEI_TYPE_FUNCTION_OBJECT), 0);
