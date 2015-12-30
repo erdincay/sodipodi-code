@@ -91,6 +91,8 @@ void *arikkei_object_check_instance_cast (void *ip, unsigned int tc);
 unsigned int arikkei_object_check_instance_type (void *ip, unsigned int tc);
 
 #define arikkei_object_is_a(object, type) arikkei_object_check_instance_type (object, type)
+unsigned int arikkei_object_implements_a (ArikkeiObject *object, unsigned int type);
+void *arikkei_object_get_interface (ArikkeiObject *object, unsigned int type, ArikkeiInterfaceImplementation **impl);
 
 /* ArikkeiObjectInterface */
 

@@ -160,6 +160,8 @@ const unsigned char *arikkei_type_get_name (unsigned int type);
 unsigned int arikkei_instance_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
 
 ArikkeiInterfaceImplementation *arikkei_class_get_interface_implementation (ArikkeiClass *klass, unsigned int type);
+/* Convenience */
+void *arikkei_instance_get_interface (void *containing_instance, unsigned int containing_type, unsigned int interface_type, ArikkeiInterfaceImplementation **interface_implementation);
 
 ArikkeiProperty *arikkei_class_lookup_property (ArikkeiClass *klass, const unsigned char *key);
 unsigned int arikkei_instance_set_property (ArikkeiClass *klass, void *instance, const unsigned char *key, const ArikkeiValue *val);

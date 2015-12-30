@@ -45,7 +45,7 @@ arikkei_function_check_arguments (ArikkeiFunctionImplementation *implementation,
 {
 	unsigned int compatible, i;
 	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a(implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (func != NULL, 0);
 	if (nargs != func->nargs) {
 		if (canconvert) *canconvert = 0;
@@ -80,7 +80,7 @@ arikkei_function_convert_arguments (ArikkeiFunctionImplementation *implementatio
 {
 	unsigned int i;
 	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (func != NULL, 0);
 	for (i = 0; i < func->nargs; i++) {
 		if (!arikkei_value_convert (&dst[i], func->argtypes[i], &src[i])) return 0;
@@ -92,7 +92,7 @@ unsigned int
 arikkei_function_invoke (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes)
 {
 	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
 	if (checktypes) {
 		unsigned int i;
@@ -117,7 +117,7 @@ arikkei_function_invoke_direct (ArikkeiFunctionImplementation *implementation, A
 	va_list ap;
 	unsigned int result, i;
 	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_class_is_of_type ((ArikkeiClass *) implementation->iface.klass, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
 	if (instance->thistype != ARIKKEI_TYPE_NONE) {
 		arikkei_return_val_if_fail (arikkei_type_is_a (thisval->type, instance->thistype), 0);

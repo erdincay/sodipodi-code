@@ -426,17 +426,21 @@ static void
 arikkei_class_tree_instance_invoke_init (ArikkeiClass *klass, void *instance)
 {
 	unsigned int i;
+	/* Initialize parent instances */
 	if (klass->parent && (klass->parent->type != ARIKKEI_TYPE_NONE)) {
 		arikkei_class_tree_instance_invoke_init (klass->parent, instance);
 	}
-	if (klass->instance_init) klass->instance_init (instance);
+	/* Interfaces */
 	for (i = 0; i < klass->ninterfaces; i++) {
 		ArikkeiInterfaceImplementation *impl = (ArikkeiInterfaceImplementation *) ((char *) klass + klass->implementations[i]);
-		if (((ArikkeiClass *) impl->klass)->zero_memory) {
-			memset ((char *) instance + impl->instance_offset, 0, ((ArikkeiClass *) impl->klass)->instance_size);
+		ArikkeiClass *ifclass = arikkei_type_get_class (impl->type);
+		if (ifclass->zero_memory) {
+			memset ((char *)instance + impl->instance_offset, 0, ifclass->instance_size);
 		}
-		arikkei_class_tree_interface_invoke_init (impl->klass, impl, (char *) instance + impl->instance_offset);
+		arikkei_class_tree_interface_invoke_init ((ArikkeiInterfaceClass *) ifclass, impl, (char *) instance + impl->instance_offset);
 	}
+	/* Instance itself */
+	if (klass->instance_init) klass->instance_init (instance);
 }
 
 static void
@@ -446,7 +450,7 @@ arikkei_class_tree_instance_invoke_finalize (ArikkeiClass *klass, void *instance
 	if (klass->instance_finalize) klass->instance_finalize (instance);
 	for (i = 0; i < klass->ninterfaces; i++) {
 		ArikkeiInterfaceImplementation *impl = (ArikkeiInterfaceImplementation *) ((char *) klass + klass->implementations[i]);
-		ArikkeiInterfaceClass *ifclass = (ArikkeiInterfaceClass *) impl->klass;
+		ArikkeiInterfaceClass *ifclass = (ArikkeiInterfaceClass *) arikkei_type_get_class(impl->type);
 		/* Every interface has to be subclass of ArikkeiInterface */
 		while (ifclass->klass.type >= ARIKKEI_TYPE_INTERFACE) {
 			if (ifclass->instance_finalize) ifclass->instance_finalize (impl, (char *) instance + impl->instance_offset);
@@ -662,13 +666,29 @@ arikkei_class_get_interface_implementation (ArikkeiClass *klass, unsigned int ty
 		unsigned int i;
 		for (i = 0; i < ref->ninterfaces; i++) {
 			ArikkeiInterfaceImplementation *impl = (ArikkeiInterfaceImplementation *) ((char *) klass + ref->implementations[i]);
-			if (arikkei_class_is_of_type ((ArikkeiClass *) impl->klass, type)) {
+			if (arikkei_type_is_a (impl->type, type)) {
 				return impl;
 			}
 		}
 		ref = ref->parent;
 	}
 	return NULL;
+}
+
+void *
+arikkei_instance_get_interface (void *containing_instance, unsigned int containing_type, unsigned int interface_type, ArikkeiInterfaceImplementation **interface_implementation)
+{
+	ArikkeiClass *klass;
+	arikkei_return_val_if_fail (containing_instance != NULL, NULL);
+	arikkei_return_val_if_fail (containing_type != 0, NULL);
+	arikkei_return_val_if_fail (containing_type < nclasses, NULL);
+	arikkei_return_val_if_fail (interface_type != 0, NULL);
+	arikkei_return_val_if_fail (interface_type < nclasses, NULL);
+	arikkei_return_val_if_fail (interface_implementation != NULL, NULL);
+	klass = classes[containing_type];
+	*interface_implementation = arikkei_class_get_interface_implementation (klass, interface_type);
+	if (!*interface_implementation) return NULL;
+	return arikkei_interface_get_instance (*interface_implementation, containing_instance);
 }
 
 void
@@ -683,18 +703,18 @@ arikkei_class_set_num_interfaces (ArikkeiClass *klass, unsigned int ninterfaces)
 void
 arikkei_interface_implementation_setup (ArikkeiClass *klass, unsigned int idx, unsigned int type, unsigned int class_offset, unsigned int instance_offset)
 {
-	ArikkeiInterfaceClass *interface_class;
 	ArikkeiInterfaceImplementation *impl;
-	arikkei_return_if_fail (klass != NULL);
+	ArikkeiInterfaceClass *ifclass;
+	arikkei_return_if_fail(klass != NULL);
 	arikkei_return_if_fail (idx < klass->ninterfaces);
 	arikkei_return_if_fail (arikkei_type_is_a (type, ARIKKEI_TYPE_INTERFACE));
-	interface_class = (ArikkeiInterfaceClass *) arikkei_type_get_class (type);
 	klass->implementations[idx] = class_offset;
 	impl = (ArikkeiInterfaceImplementation *) ((char *) klass + class_offset);
-	impl->klass = interface_class;
+	impl->type = type;
 	impl->class_offset = class_offset;
 	impl->instance_offset = instance_offset;
-	arikkei_class_tree_implementation_invoke_init (interface_class, impl);
+	ifclass = (ArikkeiInterfaceClass *)arikkei_type_get_class (type);
+	arikkei_class_tree_implementation_invoke_init (ifclass, impl);
 }
 
 void

@@ -105,7 +105,10 @@
     <ClCompile Include="arikkei-property.c" />
     <ClCompile Include="arikkei-reference.c" />
     <ClCompile Include="arikkei-string.c" />
-    <ClCompile Include="arikkei-strlib.c" />
+    <ClCompile Include="arikkei-strlib.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Full</Optimization>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</BasicRuntimeChecks>
+    </ClCompile>
     <ClCompile Include="arikkei-token.c" />
     <ClCompile Include="arikkei-types.c" />
     <ClCompile Include="arikkei-url.c" />
