@@ -93,7 +93,7 @@ arikkei_value_array_get_element_type (ArikkeiCollectionImplementation *impl, voi
 static unsigned int
 arikkei_value_array_get_size (ArikkeiCollectionImplementation *impl, void *collection_instance)
 {
-	ArikkeiValueArray *varray = (ArikkeiValueArray *) arikkei_interface_get_containing_instance ((ArikkeiInterfaceImplementation *) impl, collection_instance);
+	ArikkeiValueArray *varray = (ArikkeiValueArray *) arikkei_get_containing_instance ((ArikkeiImplementation *) impl, (ArikkeiInstance *) collection_instance);
 	return varray->length;
 }
 
@@ -104,7 +104,7 @@ arikkei_value_array_get_element (ArikkeiArrayImplementation *impl, void *array_i
 	arikkei_return_val_if_fail (impl != NULL, 0);
 	arikkei_return_val_if_fail (array_instance != NULL, 0);
 	arikkei_return_val_if_fail (value != NULL, 0);
-	varray = (ArikkeiValueArray *) arikkei_interface_get_containing_instance ((ArikkeiInterfaceImplementation *) impl, array_instance);
+	varray = (ArikkeiValueArray *) arikkei_get_containing_instance ((ArikkeiImplementation *) impl, (ArikkeiInstance *) array_instance);
 	arikkei_return_val_if_fail (index < varray->length, 0);
 	arikkei_value_copy (value, &varray->values[index]);
 	return 1;

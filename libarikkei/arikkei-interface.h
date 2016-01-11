@@ -34,23 +34,12 @@ struct _ArikkeiInterfaceClass {
 	void (* instance_finalize) (ArikkeiInterfaceImplementation *implementation, void *iface);
 };
 
-struct _ArikkeiInterfaceImplementation {
-	/*ArikkeiInterfaceClass *klass;*/
-	unsigned int type;
-	unsigned int class_offset;
-	unsigned int instance_offset;
-};
-
 /* Register new interface type */
 ArikkeiInterfaceClass *arikkei_register_interface_type (unsigned int *type, unsigned int parent, const unsigned char *name,
 							unsigned int class_size, unsigned int implementation_size, unsigned int instance_size,
 							void (* class_init) (ArikkeiClass *),
 							void (* implementation_init) (ArikkeiInterfaceImplementation *),
 							void (* instance_init) (ArikkeiInterfaceImplementation *, void *), void (* instance_finalize) (ArikkeiInterfaceImplementation *, void *));
-
-void *arikkei_interface_get_instance (ArikkeiInterfaceImplementation *implementation, void *containing_instance);
-ArikkeiClass *arikkei_interface_get_containing_class (ArikkeiInterfaceImplementation *implementation);
-void *arikkei_interface_get_containing_instance (ArikkeiInterfaceImplementation *implementation, void *instance);
 
 #ifdef __cplusplus
 };

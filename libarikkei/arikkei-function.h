@@ -14,7 +14,7 @@ typedef struct _ArikkeiFunctionClass ArikkeiFunctionClass;
 typedef struct _ArikkeiFunctionImplementation ArikkeiFunctionImplementation;
 typedef struct _ArikkeiFunctionInstance ArikkeiFunctionInstance;
 
-#include <libarikkei/arikkei-object.h>
+#include <libarikkei/arikkei-interface.h>
 
 #ifdef __cplusplus
 extern "C" {
