@@ -51,7 +51,7 @@ arikkei_value_set_object (ArikkeiValue *value, ArikkeiObject *obj)
 {
 	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
 	if (obj) {
-		value->type = obj->klass->klass.type;
+		value->type = obj->klass->klass.implementation.type;
 	} else {
 		value->type = ARIKKEI_TYPE_OBJECT;
 	}
@@ -386,10 +386,6 @@ arikkei_value_set_from_instance (ArikkeiValue *value, unsigned int type, const v
 		if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT)) {
 			value->object = (ArikkeiObject *) instance;
 			arikkei_object_ref (value->object);
-			break;
-		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_OBJECT_INTERFACE)) {
-			value->pvalue = (void *) instance;
-			arikkei_object_instance_ref ((ArikkeiObjectInstance *) value->pvalue);
 			break;
 		} else if (arikkei_type_is_a (type, ARIKKEI_TYPE_REFERENCE)) {
 			value->reference = (ArikkeiReference *) instance;

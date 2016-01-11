@@ -18,20 +18,6 @@ typedef unsigned long long u64;
 typedef float f32;
 typedef double f64;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct _ArikkeiClass ArikkeiClass;
-typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
-typedef struct _ArikkeiInterfaceImplementation ArikkeiInterfaceImplementation;
-
-typedef struct _ArikkeiValue ArikkeiValue;
-typedef struct _ArikkeiReference ArikkeiReference;
-typedef struct _ArikkeiString ArikkeiString;
-typedef struct _ArikkeiProperty ArikkeiProperty;
-typedef struct _ArikkeiObject ArikkeiObject;
-
 /* Alignment */
 
 #ifdef _WIN32
@@ -39,6 +25,41 @@ typedef struct _ArikkeiObject ArikkeiObject;
 #else
 #define ARIKKEI_A16 __attribute__ ((aligned (8)))
 #endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Instance is a data unit in memory */
+typedef struct _ArikkeiInstance ArikkeiInstance;
+/* Implementation-dependent aspects of instance */
+typedef struct _ArikkeiImplementation ArikkeiImplementation;
+
+struct _ArikkeiImplementation {
+	unsigned int type;
+	unsigned int parent_offset;
+	unsigned int instance_offset;
+};
+
+/*
+ * Class describes implementation-independent aspects of instance
+ * Class is the default static implementation of a type
+ * Thus all non-interface types form a single tree
+ */
+typedef struct _ArikkeiClass ArikkeiClass;
+
+/*
+ * To use an instance we need pointer to it and pointer to its implementation
+ * From the latter we can get type and pointers to all containing implementations
+ */
+typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
+typedef struct _ArikkeiImplementation ArikkeiInterfaceImplementation;
+
+typedef struct _ArikkeiValue ArikkeiValue;
+typedef struct _ArikkeiReference ArikkeiReference;
+typedef struct _ArikkeiString ArikkeiString;
+typedef struct _ArikkeiProperty ArikkeiProperty;
+typedef struct _ArikkeiObject ArikkeiObject;
 
 /* Typecodes */
 
@@ -72,9 +93,11 @@ enum {
 	ARIKKEI_TYPE_NUM_PRIMITIVES
 };
 
-#define ARIKKEI_OFFSET(b,m) ARIKKEI_POINTER_TO_INT(&((b *) 0)->m)
+#define ARIKKEI_OFFSET(b,m) ((char *) &((b *) 0)->m - (char *) 0)
 #define ARIKKEI_INT_TO_POINTER(v) (void *) ((char *) 0 + (v))
 #define ARIKKEI_POINTER_TO_INT(p) ((int) ((char *) p - (char *) 0))
+
+#define ARIKKEI_CONTAINING_INSTANCE(i,C,N) (C *) ((char *) (i) - ARIKKEI_OFFSET (C, N))
 
 #define ARIKKEI_TYPE_IS_ARITHMETIC(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_DOUBLE))
 #define ARIKKEI_TYPE_IS_INTEGRAL(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_UINT64))
@@ -83,7 +106,9 @@ enum {
 #define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
 
 ARIKKEI_A16 struct _ArikkeiClass {
-	unsigned int type;
+
+	ArikkeiImplementation implementation;
+
 	ArikkeiClass *parent;
 
 	/* All implemented interfaces */
@@ -121,20 +146,11 @@ ARIKKEI_A16 struct _ArikkeiClass {
 	unsigned int (* to_string) (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
 	unsigned int (*get_property) (ArikkeiClass *klass, void *instance, unsigned int idx, ArikkeiValue *val);
 	unsigned int (*set_property) (ArikkeiClass *klass, void *instance, unsigned int idx, const ArikkeiValue *val);
-	/* void *(* get_interface) (ArikkeiClass *klass, void *instance, unsigned int type); */
+
+	void *padding;
 };
 
-void arikkei_types_init (void);
-
-/* For special subtype implementations */
-/* Register class in type system */
-/* Class has to be zeroed and relevant fields of subclasses set up */
-/* Type is guaranteed to be assigned before class constructors are invoked */
-void arikkei_register_class (ArikkeiClass *klass, unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
-/* Returns allocated class */
-ArikkeiClass *arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
+/* General purpose methods */
 
 ArikkeiClass *arikkei_type_get_class (unsigned int type);
 
@@ -159,8 +175,9 @@ const unsigned char *arikkei_type_get_name (unsigned int type);
 /* Returns length of string not counting terminating zero, writes zero if there is room */
 unsigned int arikkei_instance_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
 
-ArikkeiInterfaceImplementation *arikkei_class_get_interface_implementation (ArikkeiClass *klass, unsigned int type);
-/* Convenience */
+/* This is the most basic variant */
+ArikkeiImplementation *arikkei_implementation_get_interface (ArikkeiImplementation *impl, unsigned int type);
+/* Convenience, return interface instance */
 void *arikkei_instance_get_interface (void *containing_instance, unsigned int containing_type, unsigned int interface_type, ArikkeiInterfaceImplementation **interface_implementation);
 
 ArikkeiProperty *arikkei_class_lookup_property (ArikkeiClass *klass, const unsigned char *key);
@@ -168,6 +185,23 @@ unsigned int arikkei_instance_set_property (ArikkeiClass *klass, void *instance,
 unsigned int arikkei_instance_get_property (ArikkeiClass *klass, void *instance, const unsigned char *key, ArikkeiValue *val);
 unsigned int arikkei_instance_set_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, const ArikkeiValue *val);
 unsigned int arikkei_instance_get_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, ArikkeiValue *val);
+
+/* For type system use */
+
+void arikkei_types_init (void);
+
+/* Returns allocated class */
+/* Type is guaranteed to be assigned before class constructors are invoked */
+ArikkeiClass *arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
+
+/* fixme: These are dangerous and messy and should not be used */
+void *arikkei_get_instance_from_containing_instance (ArikkeiImplementation *impl, void *containing_instance);
+void *arikkei_get_instance_from_outmost_instance (ArikkeiImplementation *impl, void *outmost_instance);
+ArikkeiImplementation *arikkei_get_containing_implementation (ArikkeiImplementation *impl);
+ArikkeiImplementation *arikkei_get_outmost_implementation (ArikkeiImplementation *impl);
+void *arikkei_get_containing_instance (ArikkeiImplementation *impl, void *inst);
+void *arikkei_get_outmost_instance (ArikkeiImplementation *impl, void *inst);
 
 /* Setup helpers, for class implementations */
 
@@ -184,6 +218,13 @@ void arikkei_class_method_setup (ArikkeiClass *klass, unsigned int idx, const un
 void arikkei_class_static_method_setup (ArikkeiClass *klass, unsigned int idx, const unsigned char *key,
 										unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
 										unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
+
+/* For special subtype implementations */
+/* Register class in type system */
+/* Class has to be zeroed and relevant fields of subclasses set up */
+/* Type is guaranteed to be assigned before class constructors are invoked */
+void arikkei_register_class (ArikkeiClass *klass, unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
+	void (*class_init) (ArikkeiClass *), void (*instance_init) (void *), void (*instance_finalize) (void *));
 
 #ifdef __cplusplus
 };

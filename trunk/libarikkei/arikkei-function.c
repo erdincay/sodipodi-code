@@ -13,6 +13,8 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "arikkei-utils.h"
+#include "arikkei-value.h"
 #include "arikkei-function.h"
 
 /* ArikkeiFunction */
@@ -178,7 +180,7 @@ arikkei_function_invoke_by_type_instance (unsigned int type, void *instance, Ari
 	arikkei_return_val_if_fail (arikkei_type_implements_a (type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
 	klass = arikkei_type_get_class (type);
-	impl = (ArikkeiFunctionImplementation *) arikkei_class_get_interface_implementation (klass, ARIKKEI_TYPE_FUNCTION);
-	inst = (ArikkeiFunctionInstance *) arikkei_interface_get_instance ((ArikkeiInterfaceImplementation *) impl, instance);
+	impl = (ArikkeiFunctionImplementation *) arikkei_implementation_get_interface (&klass->implementation, ARIKKEI_TYPE_FUNCTION);
+	inst = (ArikkeiFunctionInstance *) arikkei_get_instance_from_containing_instance ((ArikkeiImplementation *) impl, instance);
 	return arikkei_function_invoke (impl, inst, thisval, retval, args, checktypes);
 }

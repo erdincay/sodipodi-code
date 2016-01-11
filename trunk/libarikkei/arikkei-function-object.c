@@ -54,7 +54,7 @@ arikkei_function_object_invoke_private (ArikkeiFunctionImplementation *implement
 	arikkei_return_val_if_fail (implementation != NULL, 0);
 	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
-	fobj = (ArikkeiFunctionObject *) arikkei_interface_get_containing_instance ((ArikkeiInterfaceImplementation *) implementation, instance);
+	fobj = (ArikkeiFunctionObject *) arikkei_get_containing_instance ((ArikkeiInterfaceImplementation *) implementation, instance);
 	arikkei_return_val_if_fail (arikkei_object_is_a (fobj, ARIKKEI_TYPE_FUNCTION_OBJECT), 0);
 	if (fobj->call) {
 		return fobj->call (thisval, retval, args);
@@ -85,8 +85,8 @@ arikkei_function_object_invoke (ArikkeiFunctionObject *fobj, ArikkeiValue *thisv
 	ArikkeiFunctionInstance *instance;
 	arikkei_return_val_if_fail (fobj != NULL, 0);
 	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION_OBJECT (fobj), 0);
-	fimpl = (ArikkeiFunctionImplementation *) arikkei_class_get_interface_implementation ((ArikkeiClass *) fobj->object.klass, ARIKKEI_TYPE_FUNCTION);
-	instance = (ArikkeiFunctionInstance *) arikkei_interface_get_instance ((ArikkeiInterfaceImplementation *) fimpl, fobj);
+	fimpl = (ArikkeiFunctionImplementation *) arikkei_implementation_get_interface (&((ArikkeiClass *) fobj->object.klass)->implementation, ARIKKEI_TYPE_FUNCTION);
+	instance = (ArikkeiFunctionInstance *) arikkei_get_instance_from_containing_instance ((ArikkeiInterfaceImplementation *) fimpl, fobj);
 	return arikkei_function_invoke (fimpl, instance, thisval, retval, args, checktypes);
 }
 

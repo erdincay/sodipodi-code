@@ -28,22 +28,3 @@ ArikkeiInterfaceClass *arikkei_register_interface_type (unsigned int *type, unsi
 	ifklass->instance_finalize = instance_finalize;
 	return ifklass;
 }
-
-void *
-arikkei_interface_get_instance (ArikkeiInterfaceImplementation *implementation, void *containing_instance)
-{
-	return (char *) containing_instance + implementation->instance_offset;
-}
-
-ArikkeiClass *
-arikkei_interface_get_containing_class (ArikkeiInterfaceImplementation *implementation)
-{
-	return (ArikkeiClass *) ((char *) implementation - implementation->class_offset);
-}
-
-void *
-arikkei_interface_get_containing_instance (ArikkeiInterfaceImplementation *implementation, void *instance)
-{
-	return (char *) instance - implementation->instance_offset;
-}
-

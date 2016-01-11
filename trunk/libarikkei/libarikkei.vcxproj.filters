@@ -57,9 +57,6 @@
     <ClCompile Include="arikkei-active-object.c">
       <Filter>Types</Filter>
     </ClCompile>
-    <ClCompile Include="arikkei-function-object.c">
-      <Filter>Types</Filter>
-    </ClCompile>
     <ClCompile Include="arikkei-property.c">
       <Filter>Types</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="arikkei-array-interface.c">
       <Filter>Types\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="arikkei-function-object.c">
+      <Filter>Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +134,6 @@
     <ClInclude Include="arikkei-active-object.h">
       <Filter>Types</Filter>
     </ClInclude>
-    <ClInclude Include="arikkei-function-object.h">
-      <Filter>Types</Filter>
-    </ClInclude>
     <ClInclude Include="arikkei-property.h">
       <Filter>Types</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="arikkei-array-interface.h">
       <Filter>Types\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-function-object.h">
+      <Filter>Types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
