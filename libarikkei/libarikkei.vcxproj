@@ -74,7 +74,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
@@ -91,30 +91,16 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="arikkei-active-object.c" />
-    <ClCompile Include="arikkei-array-interface.c" />
-    <ClCompile Include="arikkei-array-of.c" />
     <ClCompile Include="arikkei-cache.c" />
-    <ClCompile Include="arikkei-collection.c" />
     <ClCompile Include="arikkei-dict.c" />
-    <ClCompile Include="arikkei-function-object.c" />
-    <ClCompile Include="arikkei-function.c" />
-    <ClCompile Include="arikkei-interface.c" />
     <ClCompile Include="arikkei-iolib.c" />
-    <ClCompile Include="arikkei-object.c" />
-    <ClCompile Include="arikkei-property.c" />
-    <ClCompile Include="arikkei-reference.c" />
-    <ClCompile Include="arikkei-string.c" />
     <ClCompile Include="arikkei-strlib.c">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Full</Optimization>
       <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Default</BasicRuntimeChecks>
     </ClCompile>
     <ClCompile Include="arikkei-token.c" />
-    <ClCompile Include="arikkei-types.c" />
     <ClCompile Include="arikkei-url.c" />
     <ClCompile Include="arikkei-utils.c" />
-    <ClCompile Include="arikkei-value-array.c" />
-    <ClCompile Include="arikkei-value.c" />
     <ClCompile Include="token.cpp" />
   </ItemGroup>
   <ItemGroup>

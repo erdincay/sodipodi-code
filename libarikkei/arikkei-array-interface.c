@@ -10,6 +10,7 @@
 #include <stdlib.h>
 
 #include "arikkei-value.h"
+#include "arikkei-interface.h"
 
 #include "arikkei-array-interface.h"
 
@@ -29,7 +30,7 @@ arikkei_array_interface_get_type (void)
 			NULL,
 			arikkei_array_implementation_init,
 			NULL, NULL);
-		((ArikkeiClass *) ifklass)->zero_memory = 1;
+		((ArikkeiClass *) ifklass)->flags |= ARIKKEI_CLASS_ZERO_MEMORY;
 	}
 	return type;
 }

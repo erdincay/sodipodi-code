@@ -5,99 +5,64 @@
  * Basic cross-platform functionality
  */
 
-/* Basic types */
+#include <az/types.h>
 
-typedef char i8;
-typedef unsigned char u8;
-typedef short i16;
-typedef unsigned short u16;
-typedef int i32;
-typedef unsigned int u32;
-typedef long long i64;
-typedef unsigned long long u64;
-typedef float f32;
-typedef double f64;
-
-/* Alignment */
-
-#ifdef _WIN32
-#define ARIKKEI_A16 __declspec(align(16))
-#else
-#define ARIKKEI_A16 __attribute__ ((aligned (8)))
-#endif
+#define ARIKKEI_A16 AZ_ALIGN_16
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Instance is a data unit in memory */
-typedef struct _ArikkeiInstance ArikkeiInstance;
+typedef struct _AZInstance ArikkeiInstance;
 /* Implementation-dependent aspects of instance */
-typedef struct _ArikkeiImplementation ArikkeiImplementation;
-
-struct _ArikkeiImplementation {
-	unsigned int type;
-	unsigned int parent_offset;
-	unsigned int instance_offset;
-};
+typedef struct _AZImplementation ArikkeiImplementation;
 
 /*
  * Class describes implementation-independent aspects of instance
  * Class is the default static implementation of a type
  * Thus all non-interface types form a single tree
  */
-typedef struct _ArikkeiClass ArikkeiClass;
+typedef struct _AZClass ArikkeiClass;
 
 /*
  * To use an instance we need pointer to it and pointer to its implementation
  * From the latter we can get type and pointers to all containing implementations
  */
-typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
-typedef struct _ArikkeiImplementation ArikkeiInterfaceImplementation;
+typedef struct _AZInterfaceClass ArikkeiInterfaceClass;
+typedef struct _AZImplementation ArikkeiInterfaceImplementation;
 
-typedef struct _ArikkeiValue ArikkeiValue;
-typedef struct _ArikkeiReference ArikkeiReference;
-typedef struct _ArikkeiString ArikkeiString;
-typedef struct _ArikkeiProperty ArikkeiProperty;
-typedef struct _ArikkeiObject ArikkeiObject;
+typedef struct _AZValue ArikkeiValue;
+typedef struct _AZReference ArikkeiReference;
+typedef struct _AZString ArikkeiString;
+typedef struct _AZField ArikkeiProperty;
+typedef struct _AZObject ArikkeiObject;
 
 /* Typecodes */
+#define ARIKKEI_TYPE_NONE AZ_TYPE_NONE
+#define ARIKKEI_TYPE_ANY AZ_TYPE_ANY
+#define ARIKKEI_TYPE_BOOLEAN AZ_TYPE_BOOLEAN
+#define ARIKKEI_TYPE_INT8 AZ_TYPE_INT8
+#define ARIKKEI_TYPE_UINT8 AZ_TYPE_UINT8
+#define ARIKKEI_TYPE_INT16 AZ_TYPE_INT16
+#define ARIKKEI_TYPE_UINT16 AZ_TYPE_UINT16
+#define ARIKKEI_TYPE_INT32 AZ_TYPE_INT32
+#define ARIKKEI_TYPE_UINT32 AZ_TYPE_UINT32
+#define ARIKKEI_TYPE_INT64 AZ_TYPE_INT64
+#define ARIKKEI_TYPE_UINT64 AZ_TYPE_UINT64
+#define ARIKKEI_TYPE_FLOAT AZ_TYPE_FLOAT
+#define ARIKKEI_TYPE_DOUBLE AZ_TYPE_DOUBLE
+#define ARIKKEI_TYPE_POINTER AZ_TYPE_POINTER
+#define ARIKKEI_TYPE_STRUCT AZ_TYPE_STRUCT
+#define ARIKKEI_TYPE_CLASS AZ_TYPE_CLASS
+#define ARIKKEI_TYPE_INTERFACE AZ_TYPE_INTERFACE
+#define ARIKKEI_TYPE_ARRAY AZ_TYPE_ARRAY
+#define ARIKKEI_TYPE_REFERENCE AZ_TYPE_REFERENCE
+#define ARIKKEI_TYPE_STRING AZ_TYPE_STRING
+#define ARIKKEI_TYPE_VALUE AZ_TYPE_VALUE
+#define ARIKKEI_TYPE_NUM_PRIMITIVES AZ_NUM_TYPE_PRIMITIVES
 
-enum {
-	/* Invalid or missing type, typecode 0 */
-	ARIKKEI_TYPE_NONE,
-	/* Universal base class */
-	ARIKKEI_TYPE_ANY,
-	/* True primitives */
-	ARIKKEI_TYPE_BOOLEAN,
-	ARIKKEI_TYPE_INT8,
-	ARIKKEI_TYPE_UINT8,
-	ARIKKEI_TYPE_INT16,
-	ARIKKEI_TYPE_UINT16,
-	ARIKKEI_TYPE_INT32,
-	ARIKKEI_TYPE_UINT32,
-	ARIKKEI_TYPE_INT64,
-	ARIKKEI_TYPE_UINT64,
-	ARIKKEI_TYPE_FLOAT,
-	ARIKKEI_TYPE_DOUBLE,
-	ARIKKEI_TYPE_POINTER,
-	ARIKKEI_TYPE_STRUCT,
-	/* Special types */
-	ARIKKEI_TYPE_CLASS,
-	ARIKKEI_TYPE_INTERFACE,
-	ARIKKEI_TYPE_ARRAY,
-	ARIKKEI_TYPE_REFERENCE,
-
-	ARIKKEI_TYPE_STRING,
-	ARIKKEI_TYPE_VALUE,
-	ARIKKEI_TYPE_NUM_PRIMITIVES
-};
-
-#define ARIKKEI_OFFSET(b,m) ((char *) &((b *) 0)->m - (char *) 0)
-#define ARIKKEI_INT_TO_POINTER(v) (void *) ((char *) 0 + (v))
-#define ARIKKEI_POINTER_TO_INT(p) ((int) ((char *) p - (char *) 0))
-
-#define ARIKKEI_CONTAINING_INSTANCE(i,C,N) (C *) ((char *) (i) - ARIKKEI_OFFSET (C, N))
+#define _ARIKKEI_CONTAINING_INSTANCE(i,C,N) (C *) ((char *) (i) - ARIKKEI_OFFSET (C, N))
 
 #define ARIKKEI_TYPE_IS_ARITHMETIC(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_DOUBLE))
 #define ARIKKEI_TYPE_IS_INTEGRAL(t) (((t) >= ARIKKEI_TYPE_INT8) && ((t) <= ARIKKEI_TYPE_UINT64))
@@ -105,126 +70,73 @@ enum {
 #define ARIKKEI_TYPE_IS_UNSIGNED(t) (((t) == ARIKKEI_TYPE_UINT8) || ((t) == ARIKKEI_TYPE_UINT16) || ((t) == ARIKKEI_TYPE_UINT32) || ((t) == ARIKKEI_TYPE_UINT64))
 #define ARIKKEI_TYPE_IS_64(t) (((t) == ARIKKEI_TYPE_INT64) || ((t) == ARIKKEI_TYPE_UINT64))
 
-ARIKKEI_A16 struct _ArikkeiClass {
+/* Class flags */
 
-	ArikkeiImplementation implementation;
-
-	ArikkeiClass *parent;
-
-	/* All implemented interfaces */
-	unsigned int firstinterface;
-	unsigned int ninterfaces;
-	unsigned int *implementations;
-
-	unsigned int firstproperty;
-	unsigned int nproperties;
-	ArikkeiProperty *properties;
-
-	const unsigned char *name;
-	/* Size of class structure */
-	unsigned int class_size;
-	/* Size of instance */
-	unsigned int instance_size;
-	/* Size of instance in arrays (rounded to 16 bytes for aligned types) */
-	unsigned int element_size;
-	/* Subclasses should not remove flag set by parent */
-	unsigned int zero_memory : 1;
-
-	/* Memory management */
-	void *(* allocate) (ArikkeiClass *klass);
-	void *(* allocate_array) (ArikkeiClass *klass, unsigned int nelements);
-	void (* free) (ArikkeiClass *klass, void *location);
-	void (* free_array) (ArikkeiClass *klass, void *location, unsigned int nelements);
-	/* Constructors and destructors */
-	void (* instance_init) (void *instance);
-	void (* instance_finalize) (void *instance);
-	/* Duplicate creates a copy in uninitialized memory */
-	void (* duplicate) (ArikkeiClass *klass, void *destination, void *instance);
-	/* Assign overwrites existing initialized instance */
-	void (* assign) (ArikkeiClass *klass, void *destination, void *instance);
-
-	unsigned int (* to_string) (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
-	unsigned int (*get_property) (ArikkeiClass *klass, void *instance, unsigned int idx, ArikkeiValue *val);
-	unsigned int (*set_property) (ArikkeiClass *klass, void *instance, unsigned int idx, const ArikkeiValue *val);
-
-	void *padding;
-};
+#define ARIKKEI_CLASS_IS_ABSTRACT AZ_CLASS_IS_ABSTRACT
+#define ARIKKEI_CLASS_ZERO_MEMORY AZ_CLASS_ZERO_MEMORY
 
 /* General purpose methods */
 
-ArikkeiClass *arikkei_type_get_class (unsigned int type);
+#define arikkei_type_get_class az_type_get_class
 
-unsigned int arikkei_type_is_a (unsigned int type, unsigned int test);
-unsigned int arikkei_type_implements_a (unsigned int type, unsigned int test);
+#define arikkei_type_is_a az_type_is_a
+#define arikkei_type_implements_a az_type_implements_a
 /* Returns true if either test is object and type is a subtype or test is interface and object implements it */
-unsigned int arikkei_type_is_assignable_to (unsigned int type, unsigned int test);
+#define arikkei_type_is_assignable_to az_type_is_assignable_to
 /* Returns most specific builtin parent type for this object */
-unsigned int arikkei_type_get_parent_primitive (unsigned int type);
+#define arikkei_type_get_parent_primitive az_type_get_parent_primitive
 
-unsigned int arikkei_class_is_of_type (ArikkeiClass *klass, unsigned int type);
+#define arikkei_class_is_of_type az_class_is_of_type
 
-void *arikkei_instance_new (unsigned int type);
-void *arikkei_instance_new_array (unsigned int type, unsigned int nelements);
-void arikkei_instance_delete (unsigned int type, void *instance);
-void arikkei_instance_delete_array (unsigned int type, void *elements, unsigned int nelements);
-void arikkei_instance_setup (void *instance, unsigned int type);
-void arikkei_instance_release (void *instance, unsigned int type);
+#define arikkei_instance_new az_instance_new
+#define arikkei_instance_new_array az_instance_new_array
+#define arikkei_instance_delete az_instance_delete
+#define arikkei_instance_delete_array az_instance_delete_array
+#define arikkei_instance_setup az_instance_setup
+#define arikkei_instance_release az_instance_release
 
-const unsigned char *arikkei_type_get_name (unsigned int type);
+#define arikkei_type_get_name az_type_get_name
 
-/* Returns length of string not counting terminating zero, writes zero if there is room */
-unsigned int arikkei_instance_to_string (ArikkeiClass *klass, void *instance, unsigned char *buf, unsigned int len);
+#define arikkei_instance_to_string az_instance_to_string
 
-/* This is the most basic variant */
-ArikkeiImplementation *arikkei_implementation_get_interface (ArikkeiImplementation *impl, unsigned int type);
-/* Convenience, return interface instance */
-void *arikkei_instance_get_interface (void *containing_instance, unsigned int containing_type, unsigned int interface_type, ArikkeiInterfaceImplementation **interface_implementation);
+/* Get the topmost interface that implements given type; sub_inst can be NULL if not needed */
+#define arikkei_get_interface az_get_interface
+#define arikkei_get_interface_from_type az_get_interface_from_type
 
-ArikkeiProperty *arikkei_class_lookup_property (ArikkeiClass *klass, const unsigned char *key);
-unsigned int arikkei_instance_set_property (ArikkeiClass *klass, void *instance, const unsigned char *key, const ArikkeiValue *val);
-unsigned int arikkei_instance_get_property (ArikkeiClass *klass, void *instance, const unsigned char *key, ArikkeiValue *val);
-unsigned int arikkei_instance_set_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, const ArikkeiValue *val);
-unsigned int arikkei_instance_get_property_by_id (ArikkeiClass *klass, void *instance, unsigned int id, ArikkeiValue *val);
+#define arikkei_class_lookup_property az_class_lookup_property
+#define arikkei_instance_set_property az_instance_set_property
+#define arikkei_instance_get_property az_instance_get_property
+#define arikkei_instance_set_property_by_id az_instance_set_property_by_id
+#define arikkei_instance_get_property_by_id az_instance_get_property_by_id
 
 /* For type system use */
 
-void arikkei_types_init (void);
+void _arikkei_types_init (void);
 
 /* Returns allocated class */
 /* Type is guaranteed to be assigned before class constructors are invoked */
-ArikkeiClass *arikkei_register_type (unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-							void (* class_init) (ArikkeiClass *), void (* instance_init) (void *), void (* instance_finalize) (void *));
-
-/* fixme: These are dangerous and messy and should not be used */
-void *arikkei_get_instance_from_containing_instance (ArikkeiImplementation *impl, void *containing_instance);
-void *arikkei_get_instance_from_outmost_instance (ArikkeiImplementation *impl, void *outmost_instance);
-ArikkeiImplementation *arikkei_get_containing_implementation (ArikkeiImplementation *impl);
-ArikkeiImplementation *arikkei_get_outmost_implementation (ArikkeiImplementation *impl);
-void *arikkei_get_containing_instance (ArikkeiImplementation *impl, void *inst);
-void *arikkei_get_outmost_instance (ArikkeiImplementation *impl, void *inst);
+#define arikkei_register_type az_register_type
 
 /* Setup helpers, for class implementations */
 
-void arikkei_class_set_num_interfaces (ArikkeiClass *klass, unsigned int ninterfaces);
-void arikkei_interface_implementation_setup (ArikkeiClass *klass, unsigned int idx, unsigned int type, unsigned int class_offset, unsigned int instance_offset);
+#define arikkei_class_set_num_interfaces az_class_set_num_interfaces
+/* Set up interface inside another interface type */
+#define arikkei_implementation_declare az_implementation_declare
+/* Set up interface inside standalone type and initializes implementations */
+#define arikkei_implementation_setup az_implementation_setup
+#define arikkei_interface_implementation_setup az_implementation_setup
 
-void arikkei_class_set_num_properties (ArikkeiClass *klass, unsigned int nproperties);
-void arikkei_class_property_setup (ArikkeiClass *klass, unsigned int idx, const unsigned char *key, unsigned int type,
-							  unsigned int is_static, unsigned int can_read, unsigned int can_write, unsigned int is_final, unsigned int is_value,
-							  unsigned int value_type, void *value);
-void arikkei_class_method_setup (ArikkeiClass *klass, unsigned int idx, const unsigned char *key,
-								 unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
-								 unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
-void arikkei_class_static_method_setup (ArikkeiClass *klass, unsigned int idx, const unsigned char *key,
-										unsigned int rettype, unsigned int nargs, const unsigned int argtypes[],
-										unsigned int (*call) (ArikkeiValue *, ArikkeiValue *, ArikkeiValue *));
+#define arikkei_class_set_num_properties az_class_set_num_properties
+#define arikkei_class_property_setup az_class_property_setup
+
+#define arikkei_class_method_setup az_class_method_setup
+#define arikkei_class_static_method_setup az_class_static_method_setup
 
 /* For special subtype implementations */
 /* Register class in type system */
 /* Class has to be zeroed and relevant fields of subclasses set up */
 /* Type is guaranteed to be assigned before class constructors are invoked */
-void arikkei_register_class (ArikkeiClass *klass, unsigned int *type, unsigned int parent, const unsigned char *name, unsigned int class_size, unsigned int instance_size,
-	void (*class_init) (ArikkeiClass *), void (*instance_init) (void *), void (*instance_finalize) (void *));
+#define arikkei_register_class az_register_class
 
 #ifdef __cplusplus
 };

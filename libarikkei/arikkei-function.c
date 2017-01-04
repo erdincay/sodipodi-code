@@ -161,7 +161,7 @@ arikkei_function_invoke_direct (ArikkeiFunctionImplementation *implementation, A
 			arikkei_value_set_string (&vals[i], (ArikkeiString *) va_arg (ap, void *));
 			break;
 		default:
-			arikkei_value_set_object (&vals[i], (ArikkeiObject *) va_arg (ap, void *));
+			arikkei_value_set_reference (&vals[i], instance->argtypes[i] , (ArikkeiReference *) va_arg (ap, void *));
 			break;
 		}
 	}
@@ -180,7 +180,6 @@ arikkei_function_invoke_by_type_instance (unsigned int type, void *instance, Ari
 	arikkei_return_val_if_fail (arikkei_type_implements_a (type, ARIKKEI_TYPE_FUNCTION), 0);
 	arikkei_return_val_if_fail (instance != NULL, 0);
 	klass = arikkei_type_get_class (type);
-	impl = (ArikkeiFunctionImplementation *) arikkei_implementation_get_interface (&klass->implementation, ARIKKEI_TYPE_FUNCTION);
-	inst = (ArikkeiFunctionInstance *) arikkei_get_instance_from_containing_instance ((ArikkeiImplementation *) impl, instance);
+	impl = (ArikkeiFunctionImplementation *) arikkei_get_interface (&klass->implementation, instance, ARIKKEI_TYPE_FUNCTION, (void **) &inst);
 	return arikkei_function_invoke (impl, inst, thisval, retval, args, checktypes);
 }

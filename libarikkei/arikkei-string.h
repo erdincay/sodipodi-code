@@ -10,25 +10,20 @@
 
 typedef struct _ArikkeiClass ArikkeiStringClass;
 
+#include <az/string.h>
 #include <libarikkei/arikkei-types.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct _ArikkeiString {
-	u32 refcount;
-	u32 length;
-	const unsigned char str[1];
-};
+#define arikkei_string_new az_string_new
+#define arikkei_string_new_length az_string_new_length
 
-ArikkeiString *arikkei_string_new (const unsigned char *str);
-ArikkeiString *arikkei_string_new_length (const unsigned char *str, unsigned int length);
+#define arikkei_string_ref az_string_ref
+#define arikkei_string_unref az_string_unref
 
-void arikkei_string_ref (ArikkeiString *astring);
-void arikkei_string_unref (ArikkeiString *astring);
-
-ArikkeiString *arikkei_string_concat (ArikkeiString *lhs, ArikkeiString *rhs);
+#define arikkei_string_concat az_string_concat
 
 #ifdef __cplusplus
 };

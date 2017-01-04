@@ -10,24 +10,15 @@
 
 #define ARIKKEI_REFERENCE(i) ((ArikkeiReference *) (i))
 
-typedef struct _ArikkeiClass ArikkeiReferenceClass;
+typedef struct _AZReferenceClass ArikkeiReferenceClass;
+
+#include <az/reference.h>
 
 #include <libarikkei/arikkei-types.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-struct _ArikkeiReference {
-	unsigned int refcount;
-};
-
-void arikkei_reference_ref (ArikkeiClass *klass, ArikkeiReference *reference);
-void arikkei_reference_unref (ArikkeiClass *klass, ArikkeiReference *reference);
-
-#ifdef __cplusplus
-};
-#endif
+#define arikkei_reference_ref az_reference_ref
+#define arikkei_reference_unref az_reference_unref
+#define arikkei_reference_dispose az_reference_dispose
 
 #endif
 

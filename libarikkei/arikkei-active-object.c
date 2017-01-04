@@ -12,6 +12,7 @@
 #include <malloc.h>
 #include <string.h>
 
+#include "arikkei-value.h"
 #include "arikkei-string.h"
 
 #ifdef WIN32
@@ -24,7 +25,7 @@ static void arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass);
 static void arikkei_active_object_finalize (ArikkeiActiveObject *aobj);
 
 /* ArikkeiObject implementation */
-static void arikkei_active_object_dispose (ArikkeiObject *object);
+static void arikkei_active_object_shutdown (ArikkeiObject *object);
 
 static ArikkeiObjectClass *parent_class;
 
@@ -49,7 +50,7 @@ arikkei_active_object_class_init (ArikkeiActiveObjectClass *klass)
 {
 	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
 	/* ArikkeiObject implementation */
-	((ArikkeiObjectClass *) klass)->dispose = arikkei_active_object_dispose;
+	((ArikkeiObjectClass *) klass)->shutdown = arikkei_active_object_shutdown;
 }
 
 static void
@@ -58,7 +59,7 @@ arikkei_active_object_finalize (ArikkeiActiveObject *aobj)
 }
 
 static void
-arikkei_active_object_dispose (ArikkeiObject *object)
+arikkei_active_object_shutdown (ArikkeiObject *object)
 {
 	ArikkeiActiveObject *aobj = (ArikkeiActiveObject *) object;
 	if (aobj->callbacks) {

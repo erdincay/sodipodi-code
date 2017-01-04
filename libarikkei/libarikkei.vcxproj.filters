@@ -42,50 +42,8 @@
     <ClCompile Include="token.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="arikkei-string.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-object.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-value.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-value-array.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-active-object.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-property.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-reference.c">
-      <Filter>Types</Filter>
-    </ClCompile>
     <ClCompile Include="arikkei-utils.c">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-types.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-array-of.c">
-      <Filter>Types</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-collection.c">
-      <Filter>Types\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-function.c">
-      <Filter>Types\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-interface.c">
-      <Filter>Types\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-array-interface.c">
-      <Filter>Types\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="arikkei-function-object.c">
-      <Filter>Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

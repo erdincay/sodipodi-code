@@ -8,9 +8,9 @@
  * 
  */
 
-typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
-
 #include <libarikkei/arikkei-types.h>
+
+#include <az/interface.h>
 
 /*
  * Interface has three parts
@@ -23,23 +23,7 @@ typedef struct _ArikkeiInterfaceClass ArikkeiInterfaceClass;
 extern "C" {
 #endif
 
-struct _ArikkeiInterfaceClass {
-	ArikkeiClass klass;
-	/* Size of implementation */
-	unsigned int implementation_size;
-	/* Constructors and destructors */
-	void (* implementation_init) (ArikkeiInterfaceImplementation *implementation);
-	/* Instance initialization and cleanup method */
-	void (* instance_init) (ArikkeiInterfaceImplementation *implementation, void *iface);
-	void (* instance_finalize) (ArikkeiInterfaceImplementation *implementation, void *iface);
-};
-
-/* Register new interface type */
-ArikkeiInterfaceClass *arikkei_register_interface_type (unsigned int *type, unsigned int parent, const unsigned char *name,
-							unsigned int class_size, unsigned int implementation_size, unsigned int instance_size,
-							void (* class_init) (ArikkeiClass *),
-							void (* implementation_init) (ArikkeiInterfaceImplementation *),
-							void (* instance_init) (ArikkeiInterfaceImplementation *, void *), void (* instance_finalize) (ArikkeiInterfaceImplementation *, void *));
+#define arikkei_register_interface_type az_register_interface_type
 
 #ifdef __cplusplus
 };

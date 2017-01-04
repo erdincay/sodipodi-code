@@ -10,35 +10,21 @@
  * This code is in public domain
  */
 
-#define ARIKKEI_TYPE_VALUE_ARRAY (arikkei_value_array_get_type ())
+#define ARIKKEI_TYPE_VALUE_ARRAY az_value_array_get_type ()
 #define ARIKKEI_VALUE_ARRAY(o) ((ArikkeiValueArray *) (o))
 
-typedef struct _ArikkeiValueArray ArikkeiValueArray;
-typedef struct _ArikkeiValueArrayClass ArikkeiValueArrayClass;
+typedef struct _AZValueArray ArikkeiValueArray;
+typedef struct _AZValueArrayClass ArikkeiValueArrayClass;
 
-#include <libarikkei/arikkei-array-interface.h>
-#include <libarikkei/arikkei-reference.h>
+#include <az/value-array.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct _ArikkeiValueArray {
-	ArikkeiReference reference;
-	unsigned int length;
-	ArikkeiValue *values;
-};
+#define arikkei_value_array_new az_value_array_new
 
-struct _ArikkeiValueArrayClass {
-	ArikkeiReferenceClass reference_klass;
-	ArikkeiArrayImplementation array_implementation;
-};
-
-unsigned int arikkei_value_array_get_type (void);
-
-ArikkeiValueArray *arikkei_value_array_new (unsigned int length);
-
-void arikkei_value_array_set_element (ArikkeiValueArray *varray, unsigned int idx, const ArikkeiValue *value);
+#define arikkei_value_array_set_element az_value_array_set_element
 
 #ifdef __cplusplus
 };
