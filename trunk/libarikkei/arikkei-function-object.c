@@ -48,13 +48,13 @@ arikkei_function_object_class_init (ArikkeiFunctionObjectClass *klass)
 }
 
 static unsigned int
-arikkei_function_object_invoke_private (ArikkeiFunctionImplementation *implementation, ArikkeiFunctionInstance *instance, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args)
+arikkei_function_object_invoke_private (ArikkeiFunctionImplementation *impl, ArikkeiFunctionInstance *inst, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args)
 {
 	ArikkeiFunctionObject *fobj;
-	arikkei_return_val_if_fail (implementation != NULL, 0);
-	arikkei_return_val_if_fail (arikkei_type_is_a (implementation->iface.type, ARIKKEI_TYPE_FUNCTION), 0);
-	arikkei_return_val_if_fail (instance != NULL, 0);
-	fobj = (ArikkeiFunctionObject *) arikkei_get_containing_instance ((ArikkeiInterfaceImplementation *) implementation, instance);
+	arikkei_return_val_if_fail (impl != NULL, 0);
+	arikkei_return_val_if_fail (arikkei_type_is_a (impl->implementation.type, ARIKKEI_TYPE_FUNCTION), 0);
+	arikkei_return_val_if_fail (inst != NULL, 0);
+	fobj = (ArikkeiFunctionObject *) ((char *) inst - ARIKKEI_OFFSET (ArikkeiFunctionObject, function));
 	arikkei_return_val_if_fail (arikkei_object_is_a (fobj, ARIKKEI_TYPE_FUNCTION_OBJECT), 0);
 	if (fobj->call) {
 		return fobj->call (thisval, retval, args);
@@ -67,12 +67,12 @@ arikkei_function_object_new (unsigned int thistype, unsigned int rettype, unsign
 {
 	ArikkeiFunctionObject *fobj;
 	fobj = (ArikkeiFunctionObject *) arikkei_object_new (ARIKKEI_TYPE_FUNCTION_OBJECT);
-	fobj->function.thistype = thistype;
-	fobj->function.rettype = rettype;
+	fobj->function.this_type = thistype;
+	fobj->function.ret_type = rettype;
 	if (nargs) {
-		fobj->function.nargs = nargs;
-		fobj->function.argtypes = (unsigned int *) malloc (nargs * sizeof (unsigned int));
-		memcpy (fobj->function.argtypes, argtypes, nargs * sizeof (unsigned int));
+		fobj->function.n_args = nargs;
+		fobj->function.arg_types = (unsigned int *) malloc (nargs * sizeof (unsigned int));
+		memcpy (fobj->function.arg_types, argtypes, nargs * sizeof (unsigned int));
 	}
 	fobj->call = call;
 	return fobj;
@@ -81,12 +81,8 @@ arikkei_function_object_new (unsigned int thistype, unsigned int rettype, unsign
 unsigned int
 arikkei_function_object_invoke (ArikkeiFunctionObject *fobj, ArikkeiValue *thisval, ArikkeiValue *retval, ArikkeiValue *args, unsigned int checktypes)
 {
-	ArikkeiFunctionImplementation *fimpl;
-	ArikkeiFunctionInstance *instance;
 	arikkei_return_val_if_fail (fobj != NULL, 0);
 	arikkei_return_val_if_fail (ARIKKEI_IS_FUNCTION_OBJECT (fobj), 0);
-	fimpl = (ArikkeiFunctionImplementation *) arikkei_implementation_get_interface (&((ArikkeiClass *) fobj->object.klass)->implementation, ARIKKEI_TYPE_FUNCTION);
-	instance = (ArikkeiFunctionInstance *) arikkei_get_instance_from_containing_instance ((ArikkeiInterfaceImplementation *) fimpl, fobj);
-	return arikkei_function_invoke (fimpl, instance, thisval, retval, args, checktypes);
+	return arikkei_function_invoke (&((ArikkeiFunctionObjectClass *) fobj->object.klass)->function, &fobj->function, thisval, retval, args, checktypes);
 }
 

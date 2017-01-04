@@ -19,17 +19,18 @@
 
 #include "arikkei-object.h"
 
-/* ArikkeiObject */
-
+/* ArikkeiInstance implementation */
 static void arikkei_object_class_init (ArikkeiObjectClass *klass);
 static void arikkei_object_init (ArikkeiObject *object);
+/* ArikkeiReference implementation */
+void object_dispose (ArikkeiReferenceClass *klass, ArikkeiReference *ref);
 
 unsigned int
 arikkei_object_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_STRUCT, (const unsigned char *) "ArikkeiObject",
+		arikkei_register_type (&type, ARIKKEI_TYPE_REFERENCE, (const unsigned char *) "ArikkeiObject",
 			sizeof (ArikkeiObjectClass), sizeof (ArikkeiObject),
 			(void (*) (ArikkeiClass *klass)) arikkei_object_class_init,
 			(void (*) (void *)) arikkei_object_init,
@@ -41,37 +42,27 @@ arikkei_object_get_type (void)
 static void
 arikkei_object_class_init (ArikkeiObjectClass *klass)
 {
-	((ArikkeiClass *) klass)->zero_memory = 1;
+	((ArikkeiClass *) klass)->flags |= ARIKKEI_CLASS_ZERO_MEMORY;
+	klass->reference_klass.dispose = object_dispose;
 }
 
 static void
 arikkei_object_init (ArikkeiObject *object)
 {
+#if 0
 	object->refcount = 1;
+#endif
 	object->flags |= ARIKKEI_OBJECT_ALIVE;
 }
 
 void
-arikkei_object_ref (ArikkeiObject *object)
+object_dispose (ArikkeiReferenceClass *klass, ArikkeiReference *ref)
 {
-	object->refcount += 1;
-}
-
-void
-arikkei_object_unref (ArikkeiObject *object)
-{
-	arikkei_return_if_fail (object->refcount > 0);
-	if (object->refcount == 1) {
-		if (!object->klass->drop || object->klass->drop (object)) {
-			if (object->flags & ARIKKEI_OBJECT_ALIVE) {
-				if (object->klass->dispose) {
-					object->klass->dispose (object);
-				}
-			}
-			arikkei_instance_delete (object->klass->klass.implementation.type, object);
+	ArikkeiObject *obj = ARIKKEI_OBJECT (ref);
+	if (obj->flags & ARIKKEI_OBJECT_ALIVE) {
+		if (obj->klass->shutdown) {
+			obj->klass->shutdown (obj);
 		}
-	} else {
-		object->refcount -= 1;
 	}
 }
 
@@ -86,16 +77,16 @@ arikkei_object_new (unsigned int type)
 }
 
 void
-arikkei_object_dispose (ArikkeiObject *object)
+arikkei_object_shutdown (ArikkeiObject *obj)
 {
-	arikkei_return_if_fail (object != NULL);
-	arikkei_return_if_fail (ARIKKEI_IS_OBJECT (object));
-	arikkei_return_if_fail (object->flags & ARIKKEI_OBJECT_ALIVE);
-	if (object->klass->dispose) {
-		object->klass->dispose (object);
+	arikkei_return_if_fail (obj != NULL);
+	arikkei_return_if_fail (ARIKKEI_IS_OBJECT (obj));
+	arikkei_return_if_fail (obj->flags & ARIKKEI_OBJECT_ALIVE);
+	if (obj->klass->shutdown) {
+		obj->klass->shutdown (obj);
 	}
-	object->flags &= ~ARIKKEI_OBJECT_ALIVE;
-	arikkei_object_unref (object);
+	obj->flags &= ~ARIKKEI_OBJECT_ALIVE;
+	arikkei_object_unref (obj);
 }
 
 void *
@@ -105,9 +96,9 @@ arikkei_object_check_instance_cast (void *ip, unsigned int tc)
 		fprintf (stderr, "arikkei_object_check_instance_cast: ip == NULL\n");
 		return NULL;
 	}
-	if (!arikkei_type_is_a (((ArikkeiObject *) ip)->klass->klass.implementation.type, tc)) {
+	if (!arikkei_type_is_a (((ArikkeiObject *) ip)->klass->reference_klass.klass.implementation.type, tc)) {
 		ArikkeiClass *klass = arikkei_type_get_class (tc);
-		fprintf (stderr, "arikkei_object_check_instance_cast: %s is not %s\n", ((ArikkeiObject *) ip)->klass->klass.name, klass->name);
+		fprintf (stderr, "arikkei_object_check_instance_cast: %s is not %s\n", ((ArikkeiObject *) ip)->klass->reference_klass.klass.name, klass->name);
 		return NULL;
 	}
 	return ip;
@@ -117,7 +108,7 @@ unsigned int
 arikkei_object_check_instance_type (void *ip, unsigned int tc)
 {
 	if (ip == NULL) return 0;
-	return arikkei_type_is_a (((ArikkeiObject *) ip)->klass->klass.implementation.type, tc);
+	return arikkei_type_is_a (((ArikkeiObject *) ip)->klass->reference_klass.klass.implementation.type, tc);
 }
 
 unsigned int
@@ -125,14 +116,23 @@ arikkei_object_implements (ArikkeiObject *object, unsigned int type)
 {
 	arikkei_return_val_if_fail (object != NULL, 0);
 	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), 0);
-	return arikkei_type_implements_a (object->klass->klass.implementation.type, type);
+	return arikkei_type_implements_a (object->klass->reference_klass.klass.implementation.type, type);
 }
 
-void *
-arikkei_object_get_interface (ArikkeiObject *object, unsigned int type, ArikkeiInterfaceImplementation **impl)
+ArikkeiImplementation *
+arikkei_object_get_interface (ArikkeiObject *object, unsigned int type, void **inst)
 {
 	arikkei_return_val_if_fail (object != NULL, NULL);
 	arikkei_return_val_if_fail (ARIKKEI_IS_OBJECT (object), NULL);
-	return arikkei_instance_get_interface (object, object->klass->klass.implementation.type, type, impl);
+	return arikkei_get_interface (&object->klass->reference_klass.klass.implementation, object, type, inst);
 }
 
+void
+arikkei_value_set_object (ArikkeiValue *val, ArikkeiObject *obj)
+{
+	if (!obj) {
+		arikkei_value_set_reference (val, ARIKKEI_TYPE_OBJECT, (ArikkeiReference *) obj);
+	} else {
+		arikkei_value_set_reference (val, obj->klass->reference_klass.klass.implementation.type, (ArikkeiReference *) obj);
+	}
+}

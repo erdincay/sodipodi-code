@@ -42,7 +42,7 @@ arikkei_value_array_get_type (void)
 			(void (*) (ArikkeiClass *)) arikkei_value_array_class_init,
 			NULL,
 			(void (*) (void *)) arikkei_value_array_finalize);
-		klass->zero_memory = 1;
+		klass->flags |= ARIKKEI_CLASS_ZERO_MEMORY;
 	}
 	return type;
 }
@@ -91,20 +91,20 @@ arikkei_value_array_get_element_type (ArikkeiCollectionImplementation *impl, voi
 }
 
 static unsigned int
-arikkei_value_array_get_size (ArikkeiCollectionImplementation *impl, void *collection_instance)
+arikkei_value_array_get_size (ArikkeiCollectionImplementation *impl, void *inst)
 {
-	ArikkeiValueArray *varray = (ArikkeiValueArray *) arikkei_get_containing_instance ((ArikkeiImplementation *) impl, (ArikkeiInstance *) collection_instance);
+	ArikkeiValueArray *varray = (ArikkeiValueArray *) inst;
 	return varray->length;
 }
 
 static unsigned int
-arikkei_value_array_get_element (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value)
+arikkei_value_array_get_element (ArikkeiArrayImplementation *impl, void *inst, unsigned int index, ArikkeiValue *value)
 {
 	ArikkeiValueArray *varray;
 	arikkei_return_val_if_fail (impl != NULL, 0);
-	arikkei_return_val_if_fail (array_instance != NULL, 0);
+	arikkei_return_val_if_fail (inst != NULL, 0);
 	arikkei_return_val_if_fail (value != NULL, 0);
-	varray = (ArikkeiValueArray *) arikkei_get_containing_instance ((ArikkeiImplementation *) impl, (ArikkeiInstance *) array_instance);
+	varray = (ArikkeiValueArray *) inst;
 	arikkei_return_val_if_fail (index < varray->length, 0);
 	arikkei_value_copy (value, &varray->values[index]);
 	return 1;

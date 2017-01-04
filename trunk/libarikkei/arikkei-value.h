@@ -8,11 +8,7 @@
  * 
  */
 
-#ifdef _WIN32
-#define ARIKKEI_INLINE __inline
-#else
-#define ARIKKEI_INLINE inline
-#endif
+#include <az/value.h>
 
 #include <libarikkei/arikkei-types.h>
 
@@ -22,141 +18,39 @@ extern "C" {
 
 /* Struct with pvalue NULL functions as NULL value */
 
-struct _ArikkeiValue {
-	unsigned int type;
-	union {
-		unsigned int bvalue;
-		i32 ivalue;
-		u32 uvalue;
-		i64 lvalue;
-		f32 fvalue;
-		f64 dvalue;
-		void *pvalue;
-		ArikkeiReference *reference;
-		ArikkeiString *string;
-		ArikkeiObject *object;
-	};
-};
-
-void arikkei_value_clear (ArikkeiValue *value);
+#define arikkei_value_clear az_value_clear
 
 #define ARIKKEI_VALUE_IS_NULL(v) (((v)->type == ARIKKEI_TYPE_STRUCT) && ((v)->pvalue == NULL))
 
-ARIKKEI_INLINE void
-arikkei_value_set_boolean (ArikkeiValue *value, unsigned int val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_BOOLEAN;
-	value->bvalue = val;
-}
+#define arikkei_value_set_boolean az_value_set_boolean
 
-ARIKKEI_INLINE void
-arikkei_value_set_i32 (ArikkeiValue *value, i32 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_INT32;
-	value->ivalue = val;
-}
+#define arikkei_value_set_i32(v,i) az_value_set_int (v, AZ_TYPE_INT32, i)
+#define arikkei_value_set_u32(v,u) az_value_set_unsigned_int (v, AZ_TYPE_UINT32, u)
 
-ARIKKEI_INLINE void
-arikkei_value_set_u32 (ArikkeiValue *value, u32 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_UINT32;
-	value->ivalue = (i32) val;
-}
+#define arikkei_value_set_i64 az_value_set_i64
+#define arikkei_value_set_u64 az_value_set_u64
+#define arikkei_value_set_f32 az_value_set_f32
+#define arikkei_value_set_f64 az_value_set_f64
+#define arikkei_value_set_pointer az_value_set_pointer
 
-ARIKKEI_INLINE void
-arikkei_value_set_i64 (ArikkeiValue *value, i64 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_INT64;
-	value->lvalue = val;
-}
+#define arikkei_value_set_class az_value_set_class
+#define arikkei_value_set_reference az_value_set_reference
+#define arikkei_value_set_string az_value_set_string
 
-ARIKKEI_INLINE void
-arikkei_value_set_u64 (ArikkeiValue *value, u64 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_UINT64;
-	value->lvalue = (i64) val;
-}
+#define arikkei_value_transfer_reference az_value_transfer_reference
+#define arikkei_value_transfer_string az_value_transfer_string
 
-ARIKKEI_INLINE void
-arikkei_value_set_f32 (ArikkeiValue *value, f32 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_FLOAT;
-	value->fvalue = val;
-}
-
-ARIKKEI_INLINE void
-arikkei_value_set_f64 (ArikkeiValue *value, f64 val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_DOUBLE;
-	value->dvalue = val;
-}
-
-ARIKKEI_INLINE void
-arikkei_value_set_pointer (ArikkeiValue *value, const void *val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_POINTER;
-	value->pvalue = (void *) val;
-}
-
-ARIKKEI_INLINE void
-arikkei_value_set_class (ArikkeiValue *value, ArikkeiClass *val)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_CLASS;
-	value->pvalue = val;
-}
-
-void arikkei_value_set_reference (ArikkeiValue *value, unsigned int type, ArikkeiReference *ref);
-void arikkei_value_set_string (ArikkeiValue *value, ArikkeiString *str);
-void arikkei_value_set_object (ArikkeiValue *value, ArikkeiObject *obj);
-
-ARIKKEI_INLINE void
-arikkei_value_transfer_reference (ArikkeiValue *value, unsigned int type, ArikkeiReference *ref)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = type;
-	value->reference = ref;
-}
-
-ARIKKEI_INLINE void
-arikkei_value_transfer_string (ArikkeiValue *value, ArikkeiString *str)
-{
-	if (value->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (value);
-	value->type = ARIKKEI_TYPE_STRING;
-	value->string = str;
-}
-
-void arikkei_value_copy_indirect (ArikkeiValue *dst, const ArikkeiValue *src);
-
-ARIKKEI_INLINE void
-arikkei_value_copy (ArikkeiValue *dst, const ArikkeiValue *src)
-{
-	if (dst == src) return;
-	if (dst->type >= ARIKKEI_TYPE_REFERENCE) arikkei_value_clear (dst);
-	if (src->type < ARIKKEI_TYPE_REFERENCE) {
-		*dst = *src;
-	} else {
-		arikkei_value_copy_indirect (dst, src);
-	}
-}
+#define arikkei_value_copy az_value_copy
 
 /* Everything but float/double are by value */
-void arikkei_value_set (ArikkeiValue *dst, unsigned int type, void *val);
+#define arikkei_value_set az_value_set
 
-unsigned int arikkei_value_can_convert (unsigned int to, const ArikkeiValue *from);
-unsigned int arikkei_value_convert (ArikkeiValue *dst, unsigned int type, const ArikkeiValue *from);
+#define arikkei_value_can_convert az_value_can_convert
+#define arikkei_value_convert az_value_convert
 
 /* Return memory address of value or dereference */
-void *arikkei_value_get_instance (ArikkeiValue *value);
-void arikkei_value_set_from_instance (ArikkeiValue *value, unsigned int type, const void *instance);
+#define arikkei_value_get_instance az_value_get_instance
+#define arikkei_value_set_from_instance az_value_set_from_instance
 
 #ifdef __cplusplus
 };

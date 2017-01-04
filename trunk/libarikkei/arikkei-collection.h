@@ -8,44 +8,25 @@
  * 
  */
 
-#define ARIKKEI_TYPE_COLLECTION (arikkei_collection_get_type ())
+#define ARIKKEI_TYPE_COLLECTION (az_collection_get_type ())
 
-typedef struct _ArikkeiCollectionImplementation ArikkeiCollectionImplementation;
-typedef struct _ArikkeiCollectionClass ArikkeiCollectionClass;
+typedef struct _AZCollectionImplementation ArikkeiCollectionImplementation;
+typedef struct _AZCollectionClass ArikkeiCollectionClass;
 
-#include <libarikkei/arikkei-interface.h>
+#include <az/collection.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*
- * Normally you cannot make a collection of pure interfaces because you will need per-element implementation details
- */
-
-struct _ArikkeiCollectionImplementation {
-	ArikkeiInterfaceImplementation implementation;
-	unsigned int (* get_element_type) (ArikkeiCollectionImplementation *impl, void *collection_instance);
-	unsigned int (* get_size) (ArikkeiCollectionImplementation *impl, void *collection_instance);
-	unsigned int (* get_iterator) (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
-	unsigned int (* iterator_next) (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
-	unsigned int (* get_element) (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
-};
-
-struct _ArikkeiCollectionClass {
-	ArikkeiInterfaceClass interface_class;
-};
-
-unsigned int arikkei_collection_get_type (void);
-
 /* Returns base type that all elements are guaranteed to be assignable to */
-unsigned int arikkei_collection_get_element_type (ArikkeiCollectionImplementation *impl, void *collection_instance);
-unsigned int arikkei_collection_get_size (ArikkeiCollectionImplementation *impl, void *collection_instance);
+#define arikkei_collection_get_element_type az_collection_get_element_type
+#define arikkei_collection_get_size az_collection_get_size
 /* Return 0 if unusuccessful */
-unsigned int arikkei_collection_get_iterator (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
-unsigned int arikkei_collection_iterator_next (ArikkeiCollectionImplementation *impl, void *collection_instance, ArikkeiValue *iterator);
+#define arikkei_collection_get_iterator az_collection_get_iterator
+#define arikkei_collection_iterator_next az_collection_iterator_next
 /* Value will contain the proper type of given element */
-unsigned int arikkei_collection_get_element (ArikkeiCollectionImplementation *impl, void *collection_instance, const ArikkeiValue *iterator, ArikkeiValue *value);
+#define arikkei_collection_get_element az_collection_get_element
 
 #ifdef __cplusplus
 };

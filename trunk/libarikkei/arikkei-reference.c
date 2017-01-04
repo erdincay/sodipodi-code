@@ -10,23 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "arikkei-utils.h"
 #include "arikkei-reference.h"
-
-void
-arikkei_reference_ref (ArikkeiClass *klass, ArikkeiReference *reference)
-{
-	reference->refcount += 1;
-}
-
-void
-arikkei_reference_unref (ArikkeiClass *klass, ArikkeiReference *reference)
-{
-	reference->refcount -= 1;
-	if (!reference->refcount) {
-		if (klass->instance_finalize) {
-			klass->instance_finalize (reference);
-		}
-		free (reference);
-	}
-}
 

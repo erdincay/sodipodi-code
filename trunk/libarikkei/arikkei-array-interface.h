@@ -8,12 +8,15 @@
  * 
  */
 
-#define ARIKKEI_TYPE_ARRAY_INTERFACE (arikkei_array_interface_get_type ())
+#define ARIKKEI_TYPE_ARRAY_INTERFACE az_list_get_type ()
 
-typedef struct _ArikkeiArrayImplementation ArikkeiArrayImplementation;
-typedef struct _ArikkeiArrayInterfaceClass ArikkeiArrayInterfaceClass;
+typedef struct _AZListImplementation ArikkeiArrayImplementation;
+typedef struct _AZListClass ArikkeiArrayInterfaceClass;
 
 #include <libarikkei/arikkei-collection.h>
+#include <libarikkei/arikkei-value.h>
+
+#include <az/list.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,18 +27,7 @@ extern "C" {
  * The iterator of an array is always unsigned integer
  */
 
-struct _ArikkeiArrayImplementation {
-	ArikkeiCollectionImplementation collection_implementation;
-	unsigned int (*get_element) (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value);
-};
-
-struct _ArikkeiArrayInterfaceClass {
-	ArikkeiCollectionClass collection_class;
-};
-
-unsigned int arikkei_array_interface_get_type (void);
-
-unsigned int arikkei_array_interface_get_element (ArikkeiArrayImplementation *impl, void *array_instance, unsigned int index, ArikkeiValue *value);
+#define arikkei_array_interface_get_element az_list_get_element
 
 #ifdef __cplusplus
 };

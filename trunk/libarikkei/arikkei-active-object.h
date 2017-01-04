@@ -10,14 +10,18 @@
  * This code is in public domain
  */
 
-#define ARIKKEI_TYPE_ACTIVE_OBJECT (arikkei_active_object_get_type ())
-#define ARIKKEI_ACTIVE_OBJECT(o) (ARIKKEI_CHECK_INSTANCE_CAST ((o), ARIKKEI_TYPE_ACTIVE_OBJECT, ArikkeiActiveObject))
-#define ARIKKEI_IS_ACTIVE_OBJECT(o) (ARIKKEI_CHECK_INSTANCE_TYPE ((o), ARIKKEI_TYPE_ACTIVE_OBJECT))
+#define ARIKKEI_TYPE_ACTIVE_OBJECT AZ_TYPE_ACTIVE_OBJECT
+#define ARIKKEI_ACTIVE_OBJECT AZ_ACTIVE_OBJECT
+#define ARIKKEI_IS_ACTIVE_OBJECT AZ_IS_ACTIVE_OBJECT
 
-typedef struct _ArikkeiActiveObject ArikkeiActiveObject;
-typedef struct _ArikkeiActiveObjectClass ArikkeiActiveObjectClass;
+typedef struct _AZActiveObject ArikkeiActiveObject;
+typedef struct _AZActiveObjectClass ArikkeiActiveObjectClass;
 
 #include <libarikkei/arikkei-object.h>
+#include <libarikkei/arikkei-string.h>
+#include <libarikkei/arikkei-value.h>
+
+#include <az/active-object.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,61 +29,22 @@ extern "C" {
 
 /* ArikkeiActiveObject */
 
-typedef struct _ArikkeiObjectAttribute ArikkeiObjectAttribute;
-typedef struct _ArikkeiObjectAttributeArray ArikkeiObjectAttributeArray;
-typedef struct _ArikkeiObjectListener ArikkeiObjectListener;
-typedef struct _ArikkeiObjectCallbackBlock ArikkeiObjectCallbackBlock;
-typedef struct _ArikkeiObjectEventVector ArikkeiObjectEventVector;
+typedef struct _AZObjectAttribute ArikkeiObjectAttribute;
+typedef struct _AZObjectAttributeArray ArikkeiObjectAttributeArray;
+typedef struct _AZObjectListener ArikkeiObjectListener;
+typedef struct _AZObjectCallbackBlock ArikkeiObjectCallbackBlock;
+typedef struct _AZObjectEventVector ArikkeiObjectEventVector;
 
-struct _ArikkeiObjectAttribute {
-	ArikkeiString *key;
-	ArikkeiValue value;
-};
+#define arikkei_active_object_get_attribute az_active_object_get_attribute
+#define arikkei_active_object_set_attribute az_active_object_set_attribute
+#define arikkei_active_object_clear_attribute az_active_object_clear_attribute
 
-struct _ArikkeiObjectAttributeArray {
-	unsigned int size;
-	unsigned int length;
-	ArikkeiObjectAttribute attribs[1];
-};
-
-struct _ArikkeiObjectEventVector {
-	void (* dispose) (ArikkeiActiveObject *object, void *data);
-};
-
-struct _ArikkeiObjectListener {
-	const ArikkeiObjectEventVector *vector;
-	unsigned int size;
-	void *data;
-};
-
-struct _ArikkeiObjectCallbackBlock {
-	unsigned int size;
-	unsigned int length;
-	ArikkeiObjectListener listeners[1];
-};
-
-struct _ArikkeiActiveObject {
-	ArikkeiObject object;
-	ArikkeiObjectCallbackBlock *callbacks;
-	ArikkeiObjectAttributeArray *attributes;
-};
-
-struct _ArikkeiActiveObjectClass {
-	ArikkeiObjectClass parent_class;
-};
-
-unsigned int arikkei_active_object_get_type (void);
-
-unsigned int arikkei_active_object_get_attribute (ArikkeiActiveObject *aobj, const unsigned char *key, ArikkeiValue *val);
-unsigned int arikkei_active_object_set_attribute (ArikkeiActiveObject *aobj, const unsigned char *key, const ArikkeiValue *val);
-unsigned int arikkei_active_object_clear_attribute (ArikkeiActiveObject *aobj, const unsigned char *key);
-
-void arikkei_active_object_add_listener (ArikkeiActiveObject *aobj, const ArikkeiObjectEventVector *vector, unsigned int size, void *data);
-void arikkei_active_object_remove_listener_by_data (ArikkeiActiveObject *aobj, void *data);
+#define arikkei_active_object_add_listener az_active_object_add_listener
+#define arikkei_active_object_remove_listener_by_data az_active_object_remove_listener_by_data
 
 /* Helpers */
-unsigned int arikkei_active_object_set_attribute_i32 (ArikkeiActiveObject *aobj, const unsigned char *key, int value);
-unsigned int arikkei_active_object_set_attribute_object (ArikkeiActiveObject *aobj, const unsigned char *key, ArikkeiObject *value);
+#define arikkei_active_object_set_attribute_i32 az_active_object_set_attribute_i32
+#define arikkei_active_object_set_attribute_object az_active_object_set_attribute_object
 
 #ifdef __cplusplus
 };
