@@ -24,12 +24,6 @@
 #include <libarikkei/arikkei-dict.h>
 #include <libarikkei/arikkei-strlib.h>
 
-#if 0
-#include <libart_lgpl/art_misc.h>
-#include <libart_lgpl/art_affine.h>
-#include <libart_lgpl/art_bpath.h>
-#endif
-
 #include <libnr/nr-macros.h>
 #include <libnr/nr-matrix.h>
 
@@ -44,8 +38,8 @@
 #define NR_SLOTS_BLOCK 32
 
 static void nr_typeface_w32_class_init (NRTypeFaceW32Class *klass);
-static void nr_typeface_w32_init (NRTypeFaceW32 *tfw32);
-static void nr_typeface_w32_finalize (ArikkeiObject *object);
+static void nr_typeface_w32_init (NRTypeFaceW32Class *klass, NRTypeFaceW32 *tfw32);
+static void nr_typeface_w32_finalize (NRTypeFaceW32Class *klass, AZObject *object);
 
 static void nr_typeface_w32_setup (NRTypeFace *tface, NRTypeFaceDef *def);
 
@@ -75,13 +69,13 @@ nr_typeface_w32_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, NR_TYPE_TYPEFACE,
+		az_register_type (&type, NR_TYPE_TYPEFACE,
 						"NRTypeFaceW32",
 						sizeof (NRTypeFaceW32Class),
 						sizeof (NRTypeFaceW32),
-						(void (*) (ArikkeiClass *)) nr_typeface_w32_class_init,
-						(void (*) (void *)) nr_typeface_w32_init,
-						(void (*) (void *)) nr_typeface_w32_finalize);
+						(void (*) (AZClass *)) nr_typeface_w32_class_init,
+						(void (*) (AZImplementation *, void *)) nr_typeface_w32_init,
+						(void (*) (AZImplementation *, void *)) nr_typeface_w32_finalize);
 	}
 	return type;
 }
@@ -89,13 +83,13 @@ nr_typeface_w32_get_type (void)
 static void
 nr_typeface_w32_class_init (NRTypeFaceW32Class *klass)
 {
-	ArikkeiObjectClass *object_class;
+	AZObjectClass *object_class;
 	NRTypeFaceClass *tface_class;
 
-	object_class = (ArikkeiObjectClass *) klass;
+	object_class = (AZObjectClass *) klass;
 	tface_class = (NRTypeFaceClass *) klass;
 
-	parent_class = (NRTypeFaceClass *) (((ArikkeiClass *) klass)->parent);
+	parent_class = (NRTypeFaceClass *) (((AZClass *) klass)->parent);
 
 	tface_class->setup = nr_typeface_w32_setup;
 	tface_class->attribute_get = nr_typeface_w32_attribute_get;
@@ -109,13 +103,37 @@ nr_typeface_w32_class_init (NRTypeFaceW32Class *klass)
 }
 
 static void
-nr_typeface_w32_init (NRTypeFaceW32 *tfw32)
+nr_typeface_w32_init (NRTypeFaceW32Class *klass, NRTypeFaceW32 *tfw32)
 {
 	NRTypeFace *tface;
 
 	tface = (NRTypeFace *) tfw32;
 
 	tface->nglyphs = 1;
+}
+
+static void
+nr_typeface_w32_finalize (NRTypeFaceW32Class *klass, AZObject *object)
+{
+	NRTypeFaceW32 *tfw32;
+
+	tfw32 = (NRTypeFaceW32 *) object;
+
+	nr_free (tfw32->otm);
+	DeleteFont (tfw32->hfont);
+
+
+	if (tfw32->slots) {
+		unsigned int i;
+		for (i = 0; i < tfw32->slots_length; i++) {
+			if (tfw32->slots[i].outline > 0) {
+				free (tfw32->slots[i].outline);
+			}
+		}
+		nr_free (tfw32->slots);
+	}
+	if (tfw32->hgidx) nr_free (tfw32->hgidx);
+	if (tfw32->vgidx) nr_free (tfw32->vgidx);
 }
 
 static unsigned int w32i = FALSE;
@@ -352,30 +370,6 @@ nr_typeface_w32_setup (NRTypeFace *tface, NRTypeFaceDef *def)
 	tfw32->slots = NULL;
 	tfw32->slots_length = 0;
 	tfw32->slots_size = 0;
-}
-
-static void
-nr_typeface_w32_finalize (ArikkeiObject *object)
-{
-    NRTypeFaceW32 *tfw32;
-
-    tfw32 = (NRTypeFaceW32 *) object;
-
-    nr_free (tfw32->otm);
-    DeleteFont (tfw32->hfont);
-
-
-    if (tfw32->slots) {
-        unsigned int i;
-        for (i = 0; i < tfw32->slots_length; i++) {
-            if (tfw32->slots[i].outline > 0) {
-				free (tfw32->slots[i].outline);
-            }
-        }
-		nr_free (tfw32->slots);
-    }
-    if (tfw32->hgidx) nr_free (tfw32->hgidx);
-    if (tfw32->vgidx) nr_free (tfw32->vgidx);
 }
 
 static unsigned int
