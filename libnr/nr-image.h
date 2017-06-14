@@ -16,7 +16,7 @@
 typedef struct _NRImage NRImage;
 typedef struct _NRImageClass NRImageClass;
 
-#include <libarikkei/arikkei-reference.h>
+#include <az/reference.h>
 
 #include <libnr/nr-types.h>
 #include <libnr/nr-pixblock.h>
@@ -33,13 +33,13 @@ extern "C" {
  */
 
 struct _NRImage {
-	ArikkeiReference reference;
+	AZReference reference;
 
 	NRPixBlock pixels;
 };
 
 struct _NRImageClass {
-	ArikkeiReferenceClass reference_class;
+	AZReferenceClass reference_class;
 };
 
 unsigned int nr_image_get_type (void);
