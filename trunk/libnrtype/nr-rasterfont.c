@@ -38,7 +38,7 @@ nr_rasterfont_unref (NRRasterFont *rf)
 	rf->refcount -= 1;
 
 	if (rf->refcount < 1) {
-		((NRTypeFaceClass *) ((ArikkeiObject *) rf->font->face)->klass)->rasterfont_free (rf);
+		((NRTypeFaceClass *) ((AZObject *) rf->font->face)->klass)->rasterfont_free (rf);
 	}
 
 	return NULL;
@@ -47,19 +47,19 @@ nr_rasterfont_unref (NRRasterFont *rf)
 NRPointF *
 nr_rasterfont_glyph_advance_get (NRRasterFont *rf, int glyph, NRPointF *adv)
 {
-	return ((NRTypeFaceClass *) ((ArikkeiObject *) rf->font->face)->klass)->rasterfont_glyph_advance_get (rf, glyph, adv);
+	return ((NRTypeFaceClass *) ((AZObject *) rf->font->face)->klass)->rasterfont_glyph_advance_get (rf, glyph, adv);
 }
 
 NRRectF *
 nr_rasterfont_glyph_area_get (NRRasterFont *rf, int glyph, NRRectF *area)
 {
-	return ((NRTypeFaceClass *) ((ArikkeiObject *) rf->font->face)->klass)->rasterfont_glyph_area_get (rf, glyph, area);
+	return ((NRTypeFaceClass *) ((AZObject *) rf->font->face)->klass)->rasterfont_glyph_area_get (rf, glyph, area);
 }
 
 void
 nr_rasterfont_glyph_mask_render (NRRasterFont *rf, int glyph, NRPixBlock *mask, float x, float y)
 {
-	((NRTypeFaceClass *) ((ArikkeiObject *) rf->font->face)->klass)->rasterfont_glyph_mask_render (rf, glyph, mask, x, y);
+	((NRTypeFaceClass *) ((AZObject *) rf->font->face)->klass)->rasterfont_glyph_mask_render (rf, glyph, mask, x, y);
 }
 
 /* Generic implementation */
