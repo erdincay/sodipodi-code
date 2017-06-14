@@ -12,30 +12,30 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <libarikkei/arikkei-types.h>
+#include <az/types.h>
 
 #include "nr-macros.h"
 #include "nr-pixblock.h"
 
 struct _NRPixBlockClass {
-	ArikkeiClass klass;
+	AZClass klass;
 };
 
 static void nr_pixblock_class_init (NRPixBlockClass *klass);
-static void nr_pixblock_finalize (NRPixBlock *pb);
+static void nr_pixblock_finalize (NRPixBlockClass *klass, NRPixBlock *pb);
 
 unsigned int
 nr_pixblock_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_STRUCT,
+		az_register_type (&type, AZ_TYPE_STRUCT,
 						(const unsigned char *) "NRPixBlock",
 						sizeof (NRPixBlockClass),
 						sizeof (NRPixBlock),
-						(void (*) (ArikkeiClass *)) nr_pixblock_class_init,
+						(void (*) (AZClass *)) nr_pixblock_class_init,
 						NULL,
-						(void (*) (void *)) nr_pixblock_finalize);
+						(void (*) (AZImplementation *, void *)) nr_pixblock_finalize);
 	}
 	return type;
 }
@@ -43,11 +43,11 @@ nr_pixblock_get_type (void)
 static void
 nr_pixblock_class_init (NRPixBlockClass *klass)
 {
-	((ArikkeiClass *) klass)->zero_memory = 1;
+	((AZClass *) klass)->flags |= AZ_CLASS_ZERO_MEMORY;
 }
 
 static void
-nr_pixblock_finalize (NRPixBlock *pb)
+nr_pixblock_finalize (NRPixBlockClass *klass, NRPixBlock *pb)
 {
 	nr_pixblock_release (pb);
 }

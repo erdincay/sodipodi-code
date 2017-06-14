@@ -23,26 +23,26 @@ nr_renderer_render (NRRenderer *renderer, NRPixBlock *dest, NRPixBlock *mask)
 void
 nr_renderer_delete (NRRenderer *renderer)
 {
-	if (((NRPaintServerClass *) (((ArikkeiObject *) renderer->server)->klass))->release_renderer)
-		((NRPaintServerClass *) (((ArikkeiObject *) renderer->server)->klass))->release_renderer (renderer->server, renderer);
-	arikkei_object_unref (ARIKKEI_OBJECT(renderer->server));
+	if (((NRPaintServerClass *) (((AZObject *) renderer->server)->klass))->release_renderer)
+		((NRPaintServerClass *) (((AZObject *) renderer->server)->klass))->release_renderer (renderer->server, renderer);
+	az_object_unref (AZ_OBJECT(renderer->server));
 	free (renderer);
 }
 
 static void nr_paint_server_class_init (NRPaintServerClass *klass);
 
-static ArikkeiObjectClass *parent_class;
+static AZObjectClass *parent_class;
 
 unsigned int
 nr_paint_server_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		arikkei_register_type (&type, ARIKKEI_TYPE_OBJECT,
+		az_register_type (&type, AZ_TYPE_OBJECT,
 						(const unsigned char *) "NRPaintServer",
 						sizeof (NRPaintServerClass),
 						sizeof (NRPaintServer),
-						(void (*) (ArikkeiClass *)) nr_paint_server_class_init,
+						(void (*) (AZClass *)) nr_paint_server_class_init,
 						NULL, NULL);
 	}
 	return type;
@@ -51,7 +51,7 @@ nr_paint_server_get_type (void)
 static void
 nr_paint_server_class_init (NRPaintServerClass *klass)
 {
-	parent_class = (ArikkeiObjectClass *) ((ArikkeiClass *) klass)->parent;
+	parent_class = (AZObjectClass *) ((AZClass *) klass)->parent;
 }
 
 NRRenderer *
@@ -59,10 +59,10 @@ nr_paint_server_get_renderer (NRPaintServer *server, const NRMatrixF *transform,
 {
 	NRRenderer *renderer;
 	renderer = NULL;
-	if (((NRPaintServerClass *) (((ArikkeiObject *) server)->klass))->new_renderer)
-		renderer = ((NRPaintServerClass *) (((ArikkeiObject *) server)->klass))->new_renderer (server, transform, paintbox);
+	if (((NRPaintServerClass *) (((AZObject *) server)->klass))->new_renderer)
+		renderer = ((NRPaintServerClass *) (((AZObject *) server)->klass))->new_renderer (server, transform, paintbox);
 	if (renderer) {
-		arikkei_object_ref (ARIKKEI_OBJECT(server));
+		az_object_ref (AZ_OBJECT(server));
 	}
 	return renderer;
 }

@@ -19,7 +19,7 @@ typedef struct _NRPaintServerClass NRPaintServerClass;
 
 typedef struct _NRRenderer NRRenderer;
 
-#include <libarikkei/arikkei-object.h>
+#include <az/object.h>
 
 #include <libnr/nr-pixblock.h>
 
@@ -32,11 +32,11 @@ void nr_renderer_render (NRRenderer *renderer, NRPixBlock *dest, NRPixBlock *mas
 void nr_renderer_delete (NRRenderer *renderer);
 
 struct _NRPaintServer {
-	ArikkeiObject object;
+	AZObject object;
 };
 
 struct _NRPaintServerClass {
-	ArikkeiObjectClass parent_class;
+	AZObjectClass parent_class;
 
 	NRRenderer *(* new_renderer) (NRPaintServer *server, const NRMatrixF *transform, const NRRectF *paintbox);
 	/* This has to free allocated resources but not the actual object */
