@@ -117,7 +117,6 @@
     <ClInclude Include="arikkei-object.h" />
     <ClInclude Include="arikkei-property.h" />
     <ClInclude Include="arikkei-reference.h" />
-    <ClInclude Include="arikkei-string.h" />
     <ClInclude Include="arikkei-strlib.h" />
     <ClInclude Include="arikkei-token.h" />
     <ClInclude Include="arikkei-types.h" />

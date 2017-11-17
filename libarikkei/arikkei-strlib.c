@@ -21,6 +21,31 @@
 #include "arikkei-strlib.h"
 
 unsigned int
+arikkei_memcpy (unsigned char *d, unsigned int d_len, const unsigned char *s, unsigned int s_len)
+{
+	unsigned int len = s_len;
+	if (len > d_len) len = d_len;
+	if ((len > 0) && d) memcpy (d, s, len);
+	return s_len;
+}
+
+unsigned int
+arikkei_memcpy_str (unsigned char *d, unsigned int d_len, const unsigned char *s)
+{
+	unsigned int s_len = (unsigned int) strlen (s);
+	arikkei_memcpy (d, d_len, s, s_len);
+	return s_len;
+}
+
+unsigned int
+arikkei_strncpy (unsigned char *d, unsigned int d_len, const unsigned char *s)
+{
+	unsigned int len = arikkei_memcpy_str (d, d_len, s);
+	if ((len < d_len) && d) d[len] = 0;
+	return len + 1;
+}
+
+unsigned int
 arikkei_strtod_simple (const unsigned char *str, unsigned int len, double *val)
 {
 	const unsigned char *p;
