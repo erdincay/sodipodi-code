@@ -77,9 +77,6 @@
     <ClInclude Include="utext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="arikkei-string.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="arikkei-object.h">
       <Filter>Types</Filter>
     </ClInclude>

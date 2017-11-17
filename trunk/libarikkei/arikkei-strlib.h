@@ -17,6 +17,17 @@
 extern "C" {
 #endif
 
+/*
+ * All methods return the number of bytes that would have been copied if there would have been enough room
+ * Destination can be NULL
+ */
+
+unsigned int arikkei_memcpy (unsigned char *d, unsigned int d_len, const unsigned char *s, unsigned int s_len);
+/* Does not terminate sequence with \0 */
+unsigned int arikkei_memcpy_str (unsigned char *d, unsigned int d_len, const unsigned char *s);
+/* Terminates if there is room, returns the length in bytes (inlcuding \0) */
+unsigned int arikkei_strncpy (unsigned char *d, unsigned int d_len, const unsigned char *s);
+
 unsigned int arikkei_strtod_simple (const unsigned char *str, unsigned int len, double *val);
 unsigned int arikkei_strtod_exp (const unsigned char *str, unsigned int len, double *val);
 
