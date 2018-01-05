@@ -15,7 +15,7 @@
 #ifdef _WIN32
 #define ARIKKEI_INLINE __inline
 #else
-#define AZ_INLINE inline
+#define ARIKKEI_INLINE static __inline__
 #endif
 
 /* Alignment */
