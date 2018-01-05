@@ -32,7 +32,7 @@ arikkei_memcpy (unsigned char *d, unsigned int d_len, const unsigned char *s, un
 unsigned int
 arikkei_memcpy_str (unsigned char *d, unsigned int d_len, const unsigned char *s)
 {
-	unsigned int s_len = (unsigned int) strlen (s);
+	unsigned int s_len = (unsigned int) strlen ((const char *) s);
 	arikkei_memcpy (d, d_len, s, s_len);
 	return s_len;
 }
