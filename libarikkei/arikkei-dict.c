@@ -17,12 +17,8 @@
 
 #include "arikkei-dict.h"
 
-#ifndef NULL
-#define NULL 0L
-#endif
-
 struct _ArikkeiDictEntry {
-	int next;
+	unsigned int next;
 	const void *key;
 	const void *val;
 };
@@ -34,15 +30,52 @@ arikkei_dict_setup_full (ArikkeiDict *dict, unsigned int hashsize,
 {
 	unsigned int i;
 	if (hashsize < 1) hashsize = 1;
-	dict->size = hashsize << 1;
-	dict->hashsize = hashsize;
+	dict->root_size = hashsize;
+	dict->size = 3 * hashsize;
 	dict->entries = (ArikkeiDictEntry *) malloc (dict->size * sizeof (ArikkeiDictEntry));
-	for (i = 0; i < dict->hashsize; i++) dict->entries[i].key = NULL;
-	for (i = dict->hashsize; i < dict->size - 1; i++) dict->entries[i].next = i + 1;
-	dict->entries[dict->size - 1].next = -1;
-	dict->free = dict->hashsize;
+	memset (dict->entries, 0, dict->size * sizeof (ArikkeiDictEntry));
+	for (i = dict->root_size; i < dict->size - 1; i++) dict->entries[i].next = i + 1;
+	dict->entries[dict->size - 1].next = 0;
+	dict->free = dict->root_size;
 	dict->hash = hash;
 	dict->equal = equal;
+}
+
+static void
+dict_reallocate (ArikkeiDict *dict, unsigned int hash_size)
+{
+	ArikkeiDictEntry *entries;
+	unsigned int size, next_free, i;
+	size = 3 * hash_size;
+	entries = (ArikkeiDictEntry *) malloc (size * sizeof (ArikkeiDictEntry));
+	memset (entries, 0, size * sizeof (ArikkeiDictEntry));
+	for (i = hash_size; i < size - 1; i++) entries[i].next = i + 1;
+	entries[size - 1].next = 0;
+	next_free = hash_size;
+	for (i = 0; i < dict->root_size; i++) {
+		unsigned int pos;
+		if (!dict->entries[i].key) continue;
+		pos = i;
+		do {
+			unsigned int hval = dict->hash (dict->entries[pos].key) % hash_size;
+			if (!entries[hval].key) {
+				entries[hval].key = dict->entries[pos].key;
+				entries[hval].val = dict->entries[pos].val;
+			} else {
+				unsigned int next = next_free;
+				next_free = entries[next_free].next;
+				entries[next].key = dict->entries[pos].key;
+				entries[next].val = dict->entries[pos].val;
+				entries[next].next = entries[hval].next;
+				entries[hval].next = next;
+			}
+		} while (pos);
+	}
+	free (dict->entries);
+	dict->entries = entries;
+	dict->root_size = hash_size;
+	dict->size = size;
+	dict->free = next_free;
 }
 
 void
@@ -72,65 +105,73 @@ arikkei_dict_release (ArikkeiDict *dict)
 void
 arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val)
 {
-	unsigned int hval;
-	int pos;
+	unsigned int root, pos;
 	if (!key) return;
-	hval = dict->hash (key) % dict->hashsize;
-	if (dict->entries[hval].key) {
-		for (pos = hval; pos >= 0; pos = dict->entries[pos].next) {
-			if (dict->equal (dict->entries[pos].key, key)) {
-				dict->entries[pos].key = key;
-				dict->entries[pos].val = val;
-				return;
-			}
-		}
-		/* Have to prepend new element */
-		if (dict->free < 0) {
-			int newsize, i;
-			newsize = dict->size << 1;
-			dict->entries = (ArikkeiDictEntry *) realloc (dict->entries, newsize * sizeof (ArikkeiDictEntry));
-			for (i = dict->size; i < newsize - 1; i++) dict->entries[i].next = i + 1;
-			dict->entries[newsize - 1].next = -1;
-			dict->free = dict->size;
-			dict->size = newsize;
-		}
-		pos = dict->free;
-		dict->free = dict->entries[pos].next;
-		dict->entries[pos].next = dict->entries[hval].next;
-		dict->entries[pos].key = key;
-		dict->entries[pos].val = val;
-		dict->entries[hval].next = pos;
-	} else {
-		/* Insert root element */
-		dict->entries[hval].next = -1;
-		dict->entries[hval].key = key;
-		dict->entries[hval].val = val;
+	root = dict->hash (key) % dict->root_size;
+	if (!dict->entries[root].key) {
+		/* Add root element */
+		dict->entries[root].key = key;
+		dict->entries[root].val = val;
 		return;
 	}
+	pos = root;
+	do {
+		if (dict->equal (key, dict->entries[pos].key)) {
+			/* Replace element */
+			dict->entries[pos].key = key;
+			dict->entries[pos].val = val;
+			return;
+		}
+		pos = dict->entries[pos].next;
+	} while (pos);
+	/* Prepend new element */
+	if (dict->free) {
+		pos = dict->free;
+		dict->free = dict->entries[pos].next;
+		dict->entries[pos].key = key;
+		dict->entries[pos].val = val;
+		dict->entries[pos].next = dict->entries[root].next;
+		dict->entries[root].next = pos;
+		return;
+	}
+	dict_reallocate (dict, dict->root_size << 1);
+	root = dict->hash (key) % dict->root_size;
+	if (!dict->entries[root].key) {
+		/* Add root element */
+		dict->entries[root].key = key;
+		dict->entries[root].val = val;
+		return;
+	}
+	pos = dict->free;
+	dict->free = dict->entries[pos].next;
+	dict->entries[pos].key = key;
+	dict->entries[pos].val = val;
+	dict->entries[pos].next = dict->entries[root].next;
+	dict->entries[root].next = pos;
 }
 
 void
 arikkei_dict_remove (ArikkeiDict *dict, const void *key)
 {
-	unsigned int hval;
+	unsigned int root;
 	if (!key) return;
-	hval = dict->hash (key) % dict->hashsize;
-	if (!dict->entries[hval].key) return;
-	if (dict->equal (dict->entries[hval].key, key)) {
+	root = dict->hash (key) % dict->root_size;
+	if (!dict->entries[root].key) return;
+	if (dict->equal (dict->entries[root].key, key)) {
 		/* Have to remove root key */
-		if (dict->entries[hval].next >= 0) {
+		if (dict->entries[root].next) {
 			int pos;
-			pos = dict->entries[hval].next;
-			dict->entries[hval] = dict->entries[pos];
+			pos = dict->entries[root].next;
+			dict->entries[root] = dict->entries[pos];
 			dict->entries[pos].next = dict->free;
 			dict->free = pos;
 		} else {
-			dict->entries[hval].key = NULL;
+			dict->entries[root].key = NULL;
 		}
 	} else {
 		int pos, prev;
-		prev = hval;
-		for (pos = dict->entries[hval].next; pos >= 0; pos = dict->entries[pos].next) {
+		prev = root;
+		for (pos = dict->entries[root].next; pos; pos = dict->entries[pos].next) {
 			if (dict->equal (dict->entries[pos].key, key)) {
 				dict->entries[prev].next = dict->entries[pos].next;
 				dict->entries[pos].next = dict->free;
@@ -146,59 +187,110 @@ void
 arikkei_dict_clear (ArikkeiDict *dict)
 {
 	unsigned int i;
-	for (i = 0; i < dict->hashsize; i++) dict->entries[i].key = NULL;
-	for (i = dict->hashsize; i < dict->size - 1; i++) dict->entries[i].next = i + 1;
-	dict->entries[dict->size - 1].next = -1;
-	dict->free = dict->hashsize;
+	for (i = 0; i < dict->root_size; i++) dict->entries[i].key = NULL;
+	for (i = dict->root_size; i < dict->size - 1; i++) dict->entries[i].next = i + 1;
+	dict->entries[dict->size - 1].next = 0;
+	dict->free = dict->root_size;
 }
 
 unsigned int
 arikkei_dict_exists (ArikkeiDict *dict, const void *key)
 {
-	unsigned int hval;
-	int pos;
+	unsigned int hval, pos;
 	if (!key) return 0;
-	hval = dict->hash (key) % dict->hashsize;
-	if (dict->entries[hval].key) {
-		for (pos = hval; pos >= 0; pos = dict->entries[pos].next) {
-			if (dict->equal (dict->entries[pos].key, key)) {
-				return 1;
-			}
-		}
-	}
+	hval = dict->hash (key) % dict->root_size;
+	if (!dict->entries[hval].key) return 0;
+	pos = hval;
+	do {
+		if (dict->equal (dict->entries[pos].key, key)) return 1;
+		pos = dict->entries[pos].next;
+	} while (pos);
 	return 0;
 }
 
 const void *
 arikkei_dict_lookup (ArikkeiDict *dict, const void *key)
 {
-	unsigned int hval;
-	int pos;
+	unsigned int hval, pos;
 	if (!key) return NULL;
-	hval = dict->hash (key) % dict->hashsize;
-	if (dict->entries[hval].key) {
-		for (pos = hval; pos >= 0; pos = dict->entries[pos].next) {
-			if (dict->equal (dict->entries[pos].key, key)) {
-				return dict->entries[pos].val;
-			}
-		}
-	}
+	hval = dict->hash (key) % dict->root_size;
+	if (!dict->entries[hval].key) return NULL;
+	pos = hval;
+	do {
+		if (dict->equal (dict->entries[pos].key, key)) return dict->entries[pos].val;
+		pos = dict->entries[pos].next;
+	} while (pos);
+	return NULL;
+}
+
+const void *
+arikkei_dict_lookup_foreign (ArikkeiDict *dict, const void *key, unsigned int (*hash) (const void *key), unsigned int (*equal) (const void *lhs, const void *rhs))
+{
+	unsigned int hval, pos;
+	if (!key) return NULL;
+	hval = hash (key) % dict->root_size;
+	if (!dict->entries[hval].key) return NULL;
+	pos = hval;
+	do {
+		if (equal (key, dict->entries[pos].key)) return dict->entries[pos].val;
+		pos = dict->entries[pos].next;
+	} while (pos);
 	return NULL;
 }
 
 unsigned int
 arikkei_dict_forall (ArikkeiDict *dict, unsigned int (* forall) (const void *, const void *, void *), void *data)
 {
-	unsigned int i;
-	for (i = 0; i < dict->hashsize; i++) {
-		if (dict->entries[i].key) {
-			int j;
-			for (j = i; j >= 0; j = dict->entries[j].next) {
-				if (!forall (dict->entries[j].key, dict->entries[j].val, data)) return 0;
-			}
-		}
+	unsigned int i, pos;
+	for (i = 0; i < dict->root_size; i++) {
+		if (!dict->entries[i].key) continue;
+		pos = i;
+		do {
+			if (!forall (dict->entries[pos].key, dict->entries[pos].val, data)) return 0;
+			pos = dict->entries[pos].next;
+		} while (pos);
 	}
 	return 1;
+}
+
+unsigned int
+arikkei_dict_remove_all (ArikkeiDict *dict, unsigned int (*remove) (const void *, const void *, void *), void *data)
+{
+	unsigned int hash, n_removed;
+	n_removed = 0;
+	for (hash = 0; hash < dict->root_size; hash++) {
+		if (!dict->entries[hash].key) continue;
+		if (remove (dict->entries[hash].key, dict->entries[hash].val, data)) {
+			/* Remove root entry */
+			if (dict->entries[hash].next > 0) {
+				int pos;
+				pos = dict->entries[hash].next;
+				dict->entries[hash] = dict->entries[pos];
+				dict->entries[pos].next = dict->free;
+				dict->free = pos;
+			} else {
+				dict->entries[hash].key = NULL;
+			}
+			n_removed += 1;
+		} else {
+			int pos, prev;
+			prev = hash;
+			pos = dict->entries[hash].next;
+			while (pos) {
+				if (remove (dict->entries[pos].key, dict->entries[pos].val, data)) {
+					dict->entries[prev].next = dict->entries[pos].next;
+					dict->entries[pos].next = dict->free;
+					dict->free = pos;
+					n_removed += 1;
+				} else {
+					prev = pos;
+					pos = dict->entries[pos].next;
+				}
+			}
+
+		}
+	}
+	return n_removed;
 }
 
 unsigned int

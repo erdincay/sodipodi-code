@@ -30,6 +30,8 @@
 #define ARIKKEI_OFFSET(b,m) ((char *) &((b *) 0)->m - (char *) 0)
 #define ARIKKEI_INT_TO_POINTER(v) (void *) ((char *) 0 + (v))
 #define ARIKKEI_POINTER_TO_INT(p) ((int) ((char *) p - (char *) 0))
+#define ARIKKEI_POINTER_TO_UINT32(p) ((unsigned int) ((char *) p - (char *) 0))
+#define ARIKKEI_POINTER_TO_UINT64(p) ((unsigned long long) ((char *) p - (char *) 0))
 
 #define ARIKKEI_BASE_ADDRESS(klass,member,addr) ((char *) (addr) - ARIKKEI_OFFSET (klass, member))
 #define ARIKKEI_MEMBER_ADDRESS(klass,member,addr) ((char *) (addr) + ARIKKEI_OFFSET (klass, member))
