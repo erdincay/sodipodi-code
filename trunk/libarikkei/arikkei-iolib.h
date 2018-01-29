@@ -26,6 +26,9 @@ void arikkei_munmap (const unsigned char *buffer, size_t size);
 
 FILE *arikkei_fopen (const unsigned char *filename, const unsigned char *mode);
 
+/* Get current wall time as double with maximum supported precision */
+double arikkei_get_time (void);
+
 #ifdef __cplusplus
 }
 #endif

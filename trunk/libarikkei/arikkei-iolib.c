@@ -34,6 +34,12 @@
 #include <stdio.h>
 #endif
 
+#include <sys/timeb.h>
+#ifndef _WIN32
+#include <sys/time.h>
+#include <time.h>
+#endif
+
 #include "arikkei-strlib.h"
 #include "arikkei-dict.h"
 
@@ -178,3 +184,17 @@ arikkei_fopen (const unsigned char *filename, const unsigned char *mode)
 #endif
 }
 
+double
+arikkei_get_time (void)
+{
+#ifdef _WIN32
+	struct _timeb t;
+	_ftime (&t);
+	double dtval = (t.time + t.millitm / 1000.0);
+#else
+	struct timeval tv;
+	gettimeofday (&tv, NULL);
+	double dtval = (tv.tv_sec + tv.tv_usec / 1000000.0);
+#endif
+	return dtval;
+}
