@@ -13,6 +13,8 @@
  *
  */
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -28,6 +30,9 @@ unsigned int arikkei_memcpy_str (unsigned char *d, unsigned int d_len, const uns
 /* Terminates if there is room, returns the length in bytes (inlcuding \0) */
 unsigned int arikkei_strncpy (unsigned char *d, unsigned int d_len, const unsigned char *s);
 
+/* Return number of bytes consumed */
+unsigned int arikkei_strtoll (const unsigned char *str, unsigned int len, int64_t *val);
+unsigned int arikkei_strtoull (const unsigned char *str, unsigned int len, uint64_t *val);
 unsigned int arikkei_strtod_simple (const unsigned char *str, unsigned int len, double *val);
 unsigned int arikkei_strtod_exp (const unsigned char *str, unsigned int len, double *val);
 

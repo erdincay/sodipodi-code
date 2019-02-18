@@ -34,7 +34,8 @@ void arikkei_dict_setup_full (ArikkeiDict *dict, unsigned int hashsize,
 			      unsigned int (* equal) (const void *lhs, const void *rhs));
 void arikkei_dict_setup_string (ArikkeiDict *dict, unsigned int hashsize);
 void arikkei_dict_setup_pointer (ArikkeiDict *dict, unsigned int hashsize);
-void arikkei_dict_setup_int (ArikkeiDict *dict, unsigned int hashsize);
+void arikkei_dict_setup_int32 (ArikkeiDict *dict, unsigned int hashsize);
+void arikkei_dict_setup_int64 (ArikkeiDict *dict, unsigned int hashsize);
 void arikkei_dict_release (ArikkeiDict *dict);
 
 void arikkei_dict_insert (ArikkeiDict *dict, const void *key, const void *val);
@@ -54,8 +55,10 @@ unsigned int arikkei_string_hash (const void *data);
 unsigned int arikkei_string_equal (const void *l, const void *r);
 unsigned int arikkei_pointer_hash (const void *data);
 unsigned int arikkei_pointer_equal (const void *l, const void *r);
-unsigned int arikkei_int_hash (const void *data);
-unsigned int arikkei_int_equal (const void *l, const void *r);
+unsigned int arikkei_int32_hash (const void *data);
+unsigned int arikkei_int32_equal (const void *l, const void *r);
+unsigned int arikkei_int64_hash (const void *data);
+unsigned int arikkei_int64_equal (const void *l, const void *r);
 
 unsigned int arikkei_memory_hash (const void *data, unsigned int size);
 unsigned int arikkei_memory_equal (const void *l, const void *r, unsigned int size);
