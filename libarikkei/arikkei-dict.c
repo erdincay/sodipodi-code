@@ -13,6 +13,7 @@
  */
 
 #include <malloc.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "arikkei-dict.h"
@@ -91,9 +92,15 @@ arikkei_dict_setup_pointer (ArikkeiDict *dict, unsigned int hashsize)
 }
 
 void
-arikkei_dict_setup_int (ArikkeiDict *dict, unsigned int hashsize)
+arikkei_dict_setup_int32 (ArikkeiDict *dict, unsigned int hashsize)
 {
-	arikkei_dict_setup_full (dict, hashsize, arikkei_int_hash, arikkei_int_equal);
+	arikkei_dict_setup_full (dict, hashsize, arikkei_int32_hash, arikkei_int32_equal);
+}
+
+void
+arikkei_dict_setup_int64 (ArikkeiDict *dict, unsigned int hashsize)
+{
+	arikkei_dict_setup_full (dict, hashsize, arikkei_int64_hash, arikkei_int64_equal);
 }
 
 void
@@ -325,22 +332,35 @@ arikkei_pointer_equal (const void *l, const void *r)
 }
 
 unsigned int
-arikkei_int_hash (const void *data)
+arikkei_int32_hash (const void *data)
 {
-	unsigned int hval, p;
-	hval = 0;
-	p = (unsigned int) ((const char *) data - (const char *) 0);
-	while (p) {
-		hval ^= p;
-		p /= 17;
-	}
-	return hval;
+	uint32_t x = (uint32_t) ((const char *) data - (const char *) 0);
+	x = ((x >> 16) ^ x) * 0x45d9f3b;
+	x = ((x >> 16) ^ x) * 0x45d9f3b;
+	x = (x >> 16) ^ x;
+	return x;
 }
 
 unsigned int
-arikkei_int_equal (const void *l, const void *r)
+arikkei_int32_equal (const void *l, const void *r)
 {
-	return (unsigned int) ((const char *) l - (const char *) 0) == (unsigned int) ((const char *) r - (const char *) 0);
+	return (uint32_t) ((const char *) l - (const char *) 0) == (uint32_t) ((const char *) r - (const char *) 0);
+}
+
+unsigned int
+arikkei_int64_hash (const void *data)
+{
+	uint64_t x = (uint64_t) ((const char *) data - (const char *) 0);
+	x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+	x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+	x = x ^ (x >> 31);
+	return (unsigned int) x;
+}
+
+unsigned int
+arikkei_int64_equal (const void *l, const void *r)
+{
+	return (uint32_t) ((const char *) l - (const char *) 0) == (uint32_t) ((const char *) r - (const char *) 0);
 }
 
 unsigned int

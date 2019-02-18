@@ -13,6 +13,7 @@
  */
 
 #include <math.h>
+#include <stdint.h>
 #include <string.h>
 #include <malloc.h>
 #include <assert.h>
@@ -43,6 +44,47 @@ arikkei_strncpy (unsigned char *d, unsigned int d_len, const unsigned char *s)
 	unsigned int len = arikkei_memcpy_str (d, d_len, s);
 	if ((len < d_len) && d) d[len] = 0;
 	return len + 1;
+}
+
+unsigned int
+arikkei_strtoll (const unsigned char *str, unsigned int len, int64_t *val)
+{
+	int sign = 1;
+	unsigned int p = 0;
+	if (!len) return 0;
+	if (str[0] == '-') {
+		sign = -1;
+		p = 1;
+	} else if (str[0] == '+') {
+		p = 1;
+	}
+	if ((p >= len) || (str[p] < '0') || (str[p] > '9')) return 0;
+	*val = 0;
+	while ((p < len) && (str[p] >= '0') && (str[p] <= '9')) {
+		*val = *val * 10 + (str[p] - '0');
+		if (*val > (INT64_MAX / 10 + 1)) break;
+		p += 1;
+	}
+	*val = *val *sign;
+	return p;
+}
+
+unsigned int
+arikkei_strtoull (const unsigned char *str, unsigned int len, uint64_t *val)
+{
+	unsigned int p = 0;
+	if (!len) return 0;
+	if (str[0] == '+') {
+		p = 1;
+	}
+	if ((p >= len) || (str[p] < '0') || (str[p] > '9')) return 0;
+	*val = 0;
+	while ((p < len) && (str[p] >= '0') && (str[p] <= '9')) {
+		*val = *val * 10 + (str[p] - '0');
+		if (*val > (UINT64_MAX / 10 + 1)) break;
+		p += 1;
+	}
+	return p;
 }
 
 unsigned int

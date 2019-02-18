@@ -80,7 +80,7 @@ arikkei_cache_setup_pointer (ArikkeiCache *cache, unsigned int size, void (* obj
 void
 arikkei_cache_setup_int (ArikkeiCache *cache, unsigned int size, void (* object_free) (const void *object))
 {
-	arikkei_cache_setup_full (cache, size, arikkei_int_hash, arikkei_int_equal, NULL, NULL, object_free);
+	arikkei_cache_setup_full (cache, size, arikkei_int32_hash, arikkei_int32_equal, NULL, NULL, object_free);
 }
 
 void
