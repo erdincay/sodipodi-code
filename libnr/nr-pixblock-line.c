@@ -9,8 +9,9 @@
  * This code is in public domain
  */
 
-#include <math.h>
 #include <assert.h>
+#include <math.h>
+#include <stdint.h>
 
 #include <libnr/nr-pixops.h>
 #include <libnr/nr-matrix.h>
@@ -30,6 +31,7 @@ nr_pixblock_draw_line_rgba32 (NRPixBlock *pb, int x0, int y0, int x1, int y1,
 	NRPixBlock spb;
 	unsigned char *dpx, *spx;
 	unsigned int last;
+	uint8_t b[4];
 
 	if ((x0 < pb->area.x0) && (x1 < pb->area.x0)) return;
 	if ((x0 >= pb->area.x1) && (x1 >= pb->area.x1)) return;
@@ -183,7 +185,7 @@ nr_pixblock_draw_line_rgba32 (NRPixBlock *pb, int x0, int y0, int x1, int y1,
 	}
 
 	/* We can be quite sure 1x1 pixblock is TINY */
-	nr_pixblock_setup_fast (&spb, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 1, 1, 0);
+	nr_pixblock_setup_extern (&spb, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 1, 1, b, 4, 0, 0);
 	spb.empty = 0;
 	spx = NR_PIXBLOCK_PX (&spb);
 	spx[0] = NR_RGBA32_R (rgba);
@@ -191,15 +193,15 @@ nr_pixblock_draw_line_rgba32 (NRPixBlock *pb, int x0, int y0, int x1, int y1,
 	spx[2] = NR_RGBA32_B (rgba);
 	spx[3] = NR_RGBA32_A (rgba);
 
-	dbpp = NR_PIXBLOCK_BPP (pb);
+	dbpp = pb->n_channels;
 
 	x = x0;
 	y = y0;
 
 	num0 = num;
-	dpx = NR_PIXBLOCK_PX (pb) + (y0 - pb->area.y0) * pb->rs + (x0 - pb->area.x0) * NR_PIXBLOCK_BPP (pb);
-	dstep1 = yinc1 * pb->rs + xinc1 * NR_PIXBLOCK_BPP (pb);
-	dstep2 = yinc2 * pb->rs + xinc2 * NR_PIXBLOCK_BPP (pb);
+	dpx = NR_PIXBLOCK_PX (pb) + (y0 - pb->area.y0) * pb->rs + (x0 - pb->area.x0) * pb->n_channels;
+	dstep1 = yinc1 * pb->rs + xinc1 * pb->n_channels;
+	dstep2 = yinc2 * pb->rs + xinc2 * pb->n_channels;
 	for (curpixel = 0; curpixel < numpixels; curpixel++) {
 		int cx, cy;
 		if (den != 0) {

@@ -69,7 +69,7 @@ nr_pixblock_read_svp_pixels (const NRPixBlock *s, NRSVP *svp, unsigned char valu
 {
 	struct SVPReadData rd;
 	unsigned int bpp;
-	bpp = NR_PIXBLOCK_BPP (s);
+	bpp = s->n_channels;
 	rd.bpp = bpp;
 	rd.pixel_sums[0] = rd.pixel_sums[1] = rd.pixel_sums[2] = rd.pixel_sums[3] = 0;
 	rd.coverage_sum = 0;
@@ -98,30 +98,26 @@ nr_pixblock_render_svp_rgba (NRPixBlock *d, NRSVP *svp, NRULong rgba)
 	c[2] = NR_RGBA32_B (rgba);
 	c[3] = NR_RGBA32_A (rgba);
 
-	switch (d->mode) {
-	case NR_PIXBLOCK_MODE_R8G8B8:
+	if (d->n_channels == 3) {
 		nr_svp_render (svp, NR_PIXBLOCK_PX (d), 3, d->rs,
-			       d->area.x0, d->area.y0, d->area.x1, d->area.y1,
-			       nr_svp_run_R8G8B8, c);
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8P:
-		if (d->empty) {
-			nr_svp_render (svp, NR_PIXBLOCK_PX (d), 4, d->rs,
-				       d->area.x0, d->area.y0, d->area.x1, d->area.y1,
-				       nr_svp_run_R8G8B8A8P_EMPTY, c);
+			d->area.x0, d->area.y0, d->area.x1, d->area.y1,
+			nr_svp_run_R8G8B8, c);
+	} else if (d->n_channels == 4) {
+		if (d->premultiplied) {
+			if (d->empty) {
+				nr_svp_render (svp, NR_PIXBLOCK_PX (d), 4, d->rs,
+					d->area.x0, d->area.y0, d->area.x1, d->area.y1,
+					nr_svp_run_R8G8B8A8P_EMPTY, c);
+			} else {
+				nr_svp_render (svp, NR_PIXBLOCK_PX (d), 4, d->rs,
+					d->area.x0, d->area.y0, d->area.x1, d->area.y1,
+					nr_svp_run_R8G8B8A8P_R8G8B8A8P, c);
+			}
 		} else {
 			nr_svp_render (svp, NR_PIXBLOCK_PX (d), 4, d->rs,
-				       d->area.x0, d->area.y0, d->area.x1, d->area.y1,
-				       nr_svp_run_R8G8B8A8P_R8G8B8A8P, c);
+				d->area.x0, d->area.y0, d->area.x1, d->area.y1,
+				nr_svp_run_R8G8B8A8N_R8G8B8A8N, c);
 		}
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8N:
-		nr_svp_render (svp, NR_PIXBLOCK_PX (d), 4, d->rs,
-			       d->area.x0, d->area.y0, d->area.x1, d->area.y1,
-			       nr_svp_run_R8G8B8A8N_R8G8B8A8N, c);
-		break;
-	default:
-		break;
 	}
 }
 
@@ -147,30 +143,26 @@ nr_pixblock_render_svl_rgba (NRPixBlock *dpb, NRSVL *svl, NRULong rgba)
 	c[2] = NR_RGBA32_B (rgba);
 	c[3] = NR_RGBA32_A (rgba);
 
-	switch (dpb->mode) {
-	case NR_PIXBLOCK_MODE_R8G8B8:
+	if (dpb->n_channels == 3) {
 		nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 3, dpb->rs,
-			       dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
-			       nr_svp_run_R8G8B8, c);
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8P:
-		if (dpb->empty) {
-			nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 4, dpb->rs,
-				       dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
-				       nr_svp_run_R8G8B8A8P_EMPTY, c);
+			dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
+			nr_svp_run_R8G8B8, c);
+	} else if (dpb->n_channels == 4) {
+		if (dpb->premultiplied) {
+			if (dpb->empty) {
+				nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 4, dpb->rs,
+					dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
+					nr_svp_run_R8G8B8A8P_EMPTY, c);
+			} else {
+				nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 4, dpb->rs,
+					dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
+					nr_svp_run_R8G8B8A8P_R8G8B8A8P, c);
+			}
 		} else {
 			nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 4, dpb->rs,
-				       dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
-				       nr_svp_run_R8G8B8A8P_R8G8B8A8P, c);
+				dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
+				nr_svp_run_R8G8B8A8N_R8G8B8A8N, c);
 		}
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8N:
-		nr_svl_render (svl, NR_PIXBLOCK_PX (dpb), 4, dpb->rs,
-			       dpb->area.x0, dpb->area.y0, dpb->area.x1, dpb->area.y1,
-			       nr_svp_run_R8G8B8A8N_R8G8B8A8N, c);
-		break;
-	default:
-		break;
 	}
 }
 

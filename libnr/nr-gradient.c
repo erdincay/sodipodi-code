@@ -81,38 +81,18 @@ nr_lgradient_renderer_render (NRRenderer *renderer, NRPixBlock *dest, NRPixBlock
 	nr_lgradient_render_generic (lgr, dest);
 #else
 	if (dest->empty) {
-		switch (dest->mode) {
-		case NR_PIXBLOCK_MODE_G8:
-			nr_lgradient_render_generic (lgr, dest);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8:
-			nr_lgradient_render_generic (lgr, dest);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8A8N:
+		if ((dest->n_channels == 4) && !dest->premultiplied) {
 			nr_lgradient_render_R8G8B8A8N_EMPTY (lgr, NR_PIXBLOCK_PX (dest), dest->area.x0, dest->area.y0, width, height, dest->rs);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8A8P:
+		} else {
 			nr_lgradient_render_generic (lgr, dest);
-			break;
-		default:
-			break;
 		}
 	} else {
-		switch (dest->mode) {
-		case NR_PIXBLOCK_MODE_G8:
-			nr_lgradient_render_generic (lgr, dest);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8:
+		if (dest->n_channels == 3) {
 			nr_lgradient_render_R8G8B8 (lgr, NR_PIXBLOCK_PX (dest), dest->area.x0, dest->area.y0, width, height, dest->rs);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8A8N:
+		} else if ((dest->n_channels == 4) && !dest->premultiplied) {
 			nr_lgradient_render_R8G8B8A8N (lgr, NR_PIXBLOCK_PX (dest), dest->area.x0, dest->area.y0, width, height, dest->rs);
-			break;
-		case NR_PIXBLOCK_MODE_R8G8B8A8P:
+		} else {
 			nr_lgradient_render_generic (lgr, dest);
-			break;
-		default:
-			break;
 		}
 	}
 #endif
@@ -281,7 +261,7 @@ nr_lgradient_render_generic (NRLGradientRenderer *lgr, NRPixBlock *pb)
 				  (unsigned char *) lgr->vector,
 				  4 * NR_GRADIENT_VECTOR_LENGTH,
 				  0, 0);
-	bpp = NR_PIXBLOCK_BPP (pb);
+	bpp = pb->n_channels;
 
 	for (y = 0; y < height; y++) {
 		d = NR_PIXBLOCK_PX (pb) + y * rs;
@@ -478,7 +458,7 @@ nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 	dx = rgr->px2gs.c[0];
 	dy = rgr->px2gs.c[1];
 
-	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
+	if ((pb->n_channels == 4) && pb->premultiplied) {
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			float gx, gy;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
@@ -505,7 +485,7 @@ nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 				gy += dy;
 			}
 		}
-	} else if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
+	} else if ((pb->n_channels == 4) && !pb->premultiplied) {
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			float gx, gy;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
@@ -549,7 +529,7 @@ nr_rgradient_render_generic_symmetric (NRRGradientRenderer *rgr, NRPixBlock *pb)
 					  (unsigned char *) rgr->vector,
 					  4 * NR_GRADIENT_VECTOR_LENGTH,
 					  0, 0);
-		bpp = (pb->mode == NR_PIXBLOCK_MODE_G8) ? 1 : (pb->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+		bpp = pb->n_channels;
 
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			double gx, gy;
@@ -601,7 +581,7 @@ nr_rgradient_render_generic_optimized (NRRGradientRenderer *rgr, NRPixBlock *pb)
 				  (unsigned char *) rgr->vector,
 				  4 * NR_GRADIENT_VECTOR_LENGTH,
 				  0, 0);
-	bpp = (pb->mode == NR_PIXBLOCK_MODE_G8) ? 1 : (pb->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
+	bpp = pb->n_channels;
 
 	r = MAX (rgr->r, 1e-9);
 

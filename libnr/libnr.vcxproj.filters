@@ -170,9 +170,6 @@
     <ClInclude Include="nr-values.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pixblock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

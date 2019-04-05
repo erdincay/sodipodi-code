@@ -10,13 +10,14 @@
  * This code is in public domain
  */
 
-#define NR_PIXBLOCK(p) ((NRPixBlock *) (p))
 #define NR_TYPE_PIXBLOCK (nr_pixblock_get_type ())
 
 typedef struct _NRPixBlock NRPixBlock;
 typedef struct _NRPixBlockClass NRPixBlockClass;
 
 #include <assert.h>
+
+#include <az/class.h>
 
 #include <libnr/nr-types.h>
 #include <libnr/nr-forward.h>
@@ -25,52 +26,87 @@ typedef struct _NRPixBlockClass NRPixBlockClass;
 extern "C" {
 #endif
 
-#define NR_TINY_MAX 64
+/* Channel type */
+#define NR_PIXBLOCK_U8 0
+#define NR_PIXBLOCK_U16 1
+#define NR_PIXBLOCK_U32 2
+#define NR_PIXBLOCK_F32 3
 
-enum {
-	NR_PIXBLOCK_SIZE_TINY, /* Fits in pixblock data */
-	NR_PIXBLOCK_SIZE_4K, /* Pixelstore */
-	NR_PIXBLOCK_SIZE_16K, /* Pixelstore */
-	NR_PIXBLOCK_SIZE_64K, /* Pixelstore */
-	NR_PIXBLOCK_SIZE_BIG, /* Normally allocated */
-	NR_PIXBLOCK_SIZE_STATIC /* Externally managed */
-};
+/* Memory allocation profile */
+#define NR_PIXBLOCK_STANDARD 0
+#define NR_PIXBLOCK_TRANSIENT 1
+#define NR_PIXBLOCK_EXTERNAL 2
 
-enum {
-	NR_PIXBLOCK_MODE_G8, /* Grayscale or mask */
-	NR_PIXBLOCK_MODE_R8G8B8, /* 8 bit RGB */
-	NR_PIXBLOCK_MODE_R8G8B8A8N, /* Normal 8 bit RGBA */
-	NR_PIXBLOCK_MODE_R8G8B8A8P /* Premultiplied 8 bit RGBA */
-};
+/* Colorspace */
+#define NR_PIXBLOCK_LINEAR 0
+#define NR_PIXBLOCK_SRGBA 1
+
+/* Grayscale or mask */
+#define NR_PIXBLOCK_MODE_G8 0
+/* 8 bit RGB */
+#define NR_PIXBLOCK_MODE_R8G8B8 1
+/* Normal 8 bit RGBA */
+#define NR_PIXBLOCK_MODE_R8G8B8A8N 2
+/* Premultiplied 8 bit RGBA */
+#define NR_PIXBLOCK_MODE_R8G8B8A8P 3
 
 // Automatically allocated rowstride is aligned at 4 bytes
 
 struct _NRPixBlock {
-	unsigned int size : 3;
-	unsigned int mode : 2;
+	/* Pixel type */
+	unsigned int type : 2;
+	/* Number of channels (1..4) */
+	unsigned int n_channels : 3;
+	/* Color space */
+	unsigned int colorspace : 2;
+	/* Channels are premultiplied with alpha */
+	unsigned int premultiplied : 1;
+
+	/* Channel width in bytes */
+	unsigned int channel_width : 2;
+	/* Pixblock is empty (marker for faster pixel operations */
 	unsigned int empty : 1;
+	/* Pixel allocation_profile */
+	unsigned int storage : 2;
+
 	unsigned int rs;
-	NRRectS area;
-	union {
-		unsigned char *px;
-		unsigned char p[NR_TINY_MAX];
-	} data;
+	NRRectL area;
+	unsigned char *px;
+};
+
+struct _NRPixBlockClass {
+	AZClass klass;
 };
 
 unsigned int nr_pixblock_get_type (void);
 
-#define NR_PIXBLOCK_MODE_BPP(m) ((m == NR_PIXBLOCK_MODE_G8) ? 1 : (m == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
-#define NR_PIXBLOCK_BPP(pb) (((pb)->mode == NR_PIXBLOCK_MODE_G8) ? 1 : ((pb)->mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
-#define NR_PIXBLOCK_PX(pb) (((pb)->size == NR_PIXBLOCK_SIZE_TINY) ? (pb)->data.p : (pb)->data.px)
-#define NR_PIXBLOCK_ROW(pb,r) (NR_PIXBLOCK_PX (pb) + (r) * (pb)->rs)
+ARIKKEI_INLINE
+unsigned char *nr_pixblock_get_row (const NRPixBlock *pb, unsigned int r)
+{
+	return pb->px + r * pb->rs;
+}
 
+#define PB_MODE(pb) ((pb)->n_channels == 1) ? NR_PIXBLOCK_MODE_G8 : ((pb)->n_channels == 3) ? NR_PIXBLOCK_MODE_R8G8B8 : ((pb)->premultiplied) ? NR_PIXBLOCK_MODE_R8G8B8A8P : NR_PIXBLOCK_MODE_R8G8B8A8N
+
+#define NR_PIXBLOCK_MODE_BPP(m) ((m == NR_PIXBLOCK_MODE_G8) ? 1 : (m == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4)
+#define NR_PIXBLOCK_PX(pb) ((pb)->px)
+#define NR_PIXBLOCK_ROW(pb,r) nr_pixblock_get_row(pb, r)
+
+void nr_pixblock_setup_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1);
 void nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear);
-void nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear);
+void nr_pixblock_setup_transient_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1);
+void nr_pixblock_setup_transient (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear);
+void nr_pixblock_setup_extern_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1, unsigned char *px, int rs, int empty);
 void nr_pixblock_setup_extern (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, unsigned char *px, int rs, int empty, int clear);
 void nr_pixblock_release (NRPixBlock *pb);
 
-NRPixBlock *nr_pixblock_new (int mode, int x0, int y0, int x1, int y1, int clear);
-NRPixBlock *nr_pixblock_free (NRPixBlock *pb);
+/* Clone another pixblock with the same storage */
+void nr_pixblock_clone (NRPixBlock *dst, const NRPixBlock *src);
+/* Clone or duplicate pixblock ensuring 4-aligned row packing */
+void nr_pixblock_clone_packed (NRPixBlock *dst, const NRPixBlock *src);
+
+/* Fill pixblock storage with 0 */
+void nr_pixblock_clear (NRPixBlock *pb);
 
 /* Helpers */
 
@@ -81,15 +117,6 @@ unsigned int nr_pixblock_get_crc32 (const NRPixBlock *pb);
 unsigned long long nr_pixblock_get_crc64 (const NRPixBlock *pb);
 unsigned int nr_pixblock_get_hash (const NRPixBlock *pb);
 unsigned int nr_pixblock_is_equal (const NRPixBlock *a, const NRPixBlock *b);
-
-/* Memory management */
-
-unsigned char *nr_pixelstore_4K_new (int clear, unsigned char val);
-void nr_pixelstore_4K_free (unsigned char *px);
-unsigned char *nr_pixelstore_16K_new (int clear, unsigned char val);
-void nr_pixelstore_16K_free (unsigned char *px);
-unsigned char *nr_pixelstore_64K_new (int clear, unsigned char val);
-void nr_pixelstore_64K_free (unsigned char *px);
 
 #ifdef __cplusplus
 };

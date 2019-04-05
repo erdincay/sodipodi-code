@@ -12,14 +12,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <az/types.h>
-
 #include "nr-macros.h"
 #include "nr-pixblock.h"
 
-struct _NRPixBlockClass {
-	AZClass klass;
-};
+/* Memory management */
+
+unsigned char *nr_pixelstore_4K_new (int clear, unsigned char val);
+void nr_pixelstore_4K_free (unsigned char *px);
+unsigned char *nr_pixelstore_16K_new (int clear, unsigned char val);
+void nr_pixelstore_16K_free (unsigned char *px);
+unsigned char *nr_pixelstore_64K_new (int clear, unsigned char val);
+void nr_pixelstore_64K_free (unsigned char *px);
 
 static void nr_pixblock_class_init (NRPixBlockClass *klass);
 static void nr_pixblock_finalize (NRPixBlockClass *klass, NRPixBlock *pb);
@@ -29,13 +32,10 @@ nr_pixblock_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, AZ_TYPE_STRUCT,
-						(const unsigned char *) "NRPixBlock",
-						sizeof (NRPixBlockClass),
-						sizeof (NRPixBlock),
-						(void (*) (AZClass *)) nr_pixblock_class_init,
-						NULL,
-						(void (*) (AZImplementation *, void *)) nr_pixblock_finalize);
+		az_register_type (&type, (const unsigned char *) "NRPixBlock", AZ_TYPE_STRUCT, sizeof (NRPixBlockClass), sizeof (NRPixBlock), AZ_CLASS_ZERO_MEMORY,
+			(void (*) (AZClass *)) nr_pixblock_class_init,
+			NULL,
+			(void (*) (AZImplementation *, void *)) nr_pixblock_finalize);
 	}
 	return type;
 }
@@ -43,81 +43,145 @@ nr_pixblock_get_type (void)
 static void
 nr_pixblock_class_init (NRPixBlockClass *klass)
 {
-	((AZClass *) klass)->flags |= AZ_CLASS_ZERO_MEMORY;
 }
 
 static void
 nr_pixblock_finalize (NRPixBlockClass *klass, NRPixBlock *pb)
 {
-	nr_pixblock_release (pb);
+	if (pb->storage == NR_PIXBLOCK_STANDARD) {
+		if (pb->px) free (pb->px);
+	} else if (pb->storage == NR_PIXBLOCK_TRANSIENT) {
+		int size = (pb->area.x1 - pb->area.x0) * pb->rs;
+		if (size > 65536) {
+			free (pb->px);
+		} else if (size > 16384) {
+			nr_pixelstore_64K_free (pb->px);
+		} else if (size > 4096) {
+			nr_pixelstore_16K_free (pb->px);
+		} else if (size > 0) {
+			nr_pixelstore_4K_free (pb->px);
+		}
+	}
 }
 
+static const unsigned int ch_widths[] = { 1, 2, 4, 4 };
+
 void
-nr_pixblock_setup_fast (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear)
+nr_pixblock_setup_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1)
 {
-	int w, h, bpp, size;
+	unsigned int size;
 
-	w = x1 - x0;
-	h = y1 - y0;
-	bpp = NR_PIXBLOCK_MODE_BPP (mode);
+	az_instance_init (pb, NR_TYPE_PIXBLOCK);
 
-	pb->mode = mode;
+	pb->type = type;
+	pb->n_channels = n_channels;
+	pb->colorspace = colorspace;
+	pb->premultiplied = premultiplied;
+
+	pb->channel_width = ch_widths[pb->type];
+	pb->empty = 1;
+	pb->storage = NR_PIXBLOCK_STANDARD;
+
 	pb->area.x0 = x0;
 	pb->area.y0 = y0;
 	pb->area.x1 = x1;
 	pb->area.y1 = y1;
-	pb->rs = (bpp * w + 3) & 0xfffffffc;
-
-	size = h * pb->rs;
-
-	if (size <= NR_TINY_MAX) {
-		pb->size = NR_PIXBLOCK_SIZE_TINY;
-		if (clear && size) memset (pb->data.p, 0x0, size);
-	} else if (size <= 4096) {
-		pb->size = NR_PIXBLOCK_SIZE_4K;
-		pb->data.px = nr_pixelstore_4K_new (clear, 0x0);
-	} else if (size <= 16384) {
-		pb->size = NR_PIXBLOCK_SIZE_16K;
-		pb->data.px = nr_pixelstore_16K_new (clear, 0x0);
-	} else if (size <= 65536) {
-		pb->size = NR_PIXBLOCK_SIZE_64K;
-		pb->data.px = nr_pixelstore_64K_new (clear, 0x0);
-	} else {
-		pb->size = NR_PIXBLOCK_SIZE_BIG;
-		pb->data.px = nr_new (unsigned char, size);
-		if (clear) memset (pb->data.px, 0x0, size);
+	pb->rs = ((x1 - x0) * pb->n_channels * pb->channel_width + 3) & 0xfffffffc;
+	size = (x1 - x0) * pb->rs;
+	if (size) {
+		pb->px = nr_new (unsigned char, size);
 	}
+}
 
+void
+nr_pixblock_setup_transient_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1)
+{
+	unsigned int size;
+
+	az_instance_init (pb, NR_TYPE_PIXBLOCK);
+
+	pb->type = type;
+	pb->n_channels = n_channels;
+	pb->colorspace = colorspace;
+	pb->premultiplied = premultiplied;
+
+	pb->channel_width = ch_widths[pb->type];
 	pb->empty = 1;
+
+	pb->area.x0 = x0;
+	pb->area.y0 = y0;
+	pb->area.x1 = x1;
+	pb->area.y1 = y1;
+	pb->rs = ((x1 - x0) * pb->n_channels * pb->channel_width + 3) & 0xfffffffc;
+	size = (y1 - y0) * pb->rs;
+	if (size <= 4096) {
+		pb->storage = NR_PIXBLOCK_TRANSIENT;
+		pb->px = nr_pixelstore_4K_new (0, 0);
+	} else if (size <= 16384) {
+		pb->storage = NR_PIXBLOCK_TRANSIENT;
+		pb->px = nr_pixelstore_16K_new (0, 0);
+	} else if (size <= 65536) {
+		pb->storage = NR_PIXBLOCK_TRANSIENT;
+		pb->px = nr_pixelstore_64K_new (0, 0);
+	} else {
+		pb->storage = NR_PIXBLOCK_STANDARD;
+		pb->px = (unsigned char *) malloc (size);
+	}
+	size = (x1 - x0) * pb->rs;
+}
+
+void
+nr_pixblock_setup_extern_full (NRPixBlock *pb, unsigned int type, unsigned int n_channels, unsigned int colorspace, unsigned int premultiplied, int x0, int y0, int x1, int y1, unsigned char *px, int rs, int empty)
+{
+	az_instance_init (pb, NR_TYPE_PIXBLOCK);
+
+	pb->type = type;
+	pb->n_channels = n_channels;
+	pb->colorspace = colorspace;
+	pb->premultiplied = premultiplied;
+
+	pb->channel_width = ch_widths[pb->type];
+	pb->empty = empty;
+	pb->storage = NR_PIXBLOCK_EXTERNAL;
+
+	pb->area.x0 = x0;
+	pb->area.y0 = y0;
+	pb->area.x1 = x1;
+	pb->area.y1 = y1;
+	pb->rs = rs;
+	pb->px = px;
+}
+
+void
+nr_pixblock_clear (NRPixBlock *pb)
+{
+	if (pb->rs == (((pb->area.x1 - pb->area.x0) * pb->n_channels * pb->channel_width + 3) & 0xfffffffc)) {
+		/* Packed */
+		unsigned int size = (pb->area.y1 - pb->area.y0) * pb->rs;
+		memset (pb->px, 0x0, size);
+	} else {
+		/* Unpacked */
+		int y;
+		unsigned int size = (pb->area.x1 - pb->area.x0) * pb->n_channels * pb->channel_width;
+		for (y = pb->area.y0; y < pb->area.y1; y++) {
+			memset (pb->px + (y - pb->area.y0) * pb->rs, 0x0, size);
+		}
+	}
 }
 
 void
 nr_pixblock_setup (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear)
 {
-	int w, h, bpp, size;
+	nr_pixblock_setup_full (pb, NR_PIXBLOCK_U8, NR_PIXBLOCK_MODE_BPP (mode), NR_PIXBLOCK_LINEAR, (mode == NR_PIXBLOCK_MODE_R8G8B8A8P), x0, y0, x1, y1);
+	if (clear) nr_pixblock_clear (pb);
+	pb->empty = 1;
+}
 
-	w = x1 - x0;
-	h = y1 - y0;
-	bpp = NR_PIXBLOCK_MODE_BPP (mode);
-
-	pb->mode = mode;
-	pb->area.x0 = x0;
-	pb->area.y0 = y0;
-	pb->area.x1 = x1;
-	pb->area.y1 = y1;
-	pb->rs = (bpp * w + 3) & 0xfffffffc;
-
-	size = h * pb->rs;
-
-	if (size <= NR_TINY_MAX) {
-		pb->size = NR_PIXBLOCK_SIZE_TINY;
-		if (clear && size) memset (pb->data.p, 0x0, size);
-	} else {
-		pb->size = NR_PIXBLOCK_SIZE_BIG;
-		pb->data.px = nr_new (unsigned char, size);
-		if (clear) memset (pb->data.px, 0x0, size);
-	}
-
+void
+nr_pixblock_setup_transient (NRPixBlock *pb, int mode, int x0, int y0, int x1, int y1, int clear)
+{
+	nr_pixblock_setup_transient_full (pb, NR_PIXBLOCK_U8, NR_PIXBLOCK_MODE_BPP (mode), NR_PIXBLOCK_LINEAR, (mode == NR_PIXBLOCK_MODE_R8G8B8A8P), x0, y0, x1, y1);
+	if (clear) nr_pixblock_clear (pb);
 	pb->empty = 1;
 }
 
@@ -126,26 +190,31 @@ nr_pixblock_setup_extern (NRPixBlock *pb, int mode, int x0, int y0, int x1, int 
 {
 	int w, bpp;
 
+	az_instance_init (pb, NR_TYPE_PIXBLOCK);
+
 	w = x1 - x0;
 	bpp = (mode == NR_PIXBLOCK_MODE_G8) ? 1 : (mode == NR_PIXBLOCK_MODE_R8G8B8) ? 3 : 4;
 
-	pb->size = NR_PIXBLOCK_SIZE_STATIC;
-	pb->mode = mode;
+	pb->type = NR_PIXBLOCK_U8;
+	pb->channel_width = ch_widths[pb->type];
+	pb->n_channels = NR_PIXBLOCK_MODE_BPP (mode);
+	pb->premultiplied = (mode == NR_PIXBLOCK_MODE_R8G8B8A8P);
+	pb->storage = NR_PIXBLOCK_EXTERNAL;
 	pb->empty = empty;
 	pb->area.x0 = x0;
 	pb->area.y0 = y0;
 	pb->area.x1 = x1;
 	pb->area.y1 = y1;
-	pb->data.px = px;
+	pb->px = px;
 	pb->rs = rs;
 
 	if (clear) {
 		if (rs == bpp * w) {
-			memset (pb->data.px, 0x0, bpp * (y1 - y0) * w);
+			memset (pb->px, 0x0, bpp * (y1 - y0) * w);
 		} else {
 			int y;
 			for (y = y0; y < y1; y++) {
-				memset (pb->data.px + (y - y0) * rs, 0x0, bpp * w);
+				memset (pb->px + (y - y0) * rs, 0x0, bpp * w);
 			}
 		}
 	}
@@ -154,48 +223,29 @@ nr_pixblock_setup_extern (NRPixBlock *pb, int mode, int x0, int y0, int x1, int 
 void
 nr_pixblock_release (NRPixBlock *pb)
 {
-	switch (pb->size) {
-	case NR_PIXBLOCK_SIZE_TINY:
-		break;
-	case NR_PIXBLOCK_SIZE_4K:
-		nr_pixelstore_4K_free (pb->data.px);
-		break;
-	case NR_PIXBLOCK_SIZE_16K:
-		nr_pixelstore_16K_free (pb->data.px);
-		break;
-	case NR_PIXBLOCK_SIZE_64K:
-		nr_pixelstore_64K_free (pb->data.px);
-		break;
-	case NR_PIXBLOCK_SIZE_BIG:
-		nr_free (pb->data.px);
-		break;
-	case NR_PIXBLOCK_SIZE_STATIC:
-		break;
-	default:
-		break;
+	az_instance_finalize (pb, NR_TYPE_PIXBLOCK);
+}
+
+void
+nr_pixblock_clone (NRPixBlock *dst, const NRPixBlock *src)
+{
+	memcpy (dst, src, sizeof (NRPixBlock));
+	dst->storage = NR_PIXBLOCK_EXTERNAL;
+}
+
+void
+nr_pixblock_clone_packed (NRPixBlock *dst, const NRPixBlock *src)
+{
+	if (src->rs == (((src->area.x1 - src->area.x0) * src->n_channels * src->channel_width + 3) & 0xfffffffc)) {
+		nr_pixblock_setup_extern_full (dst, src->type, src->n_channels, src->colorspace, src->premultiplied, src->area.x0, src->area.y0, src->area.x1, src->area.y1, src->px, src->rs, src->empty);
+	} else {
+		int y;
+		unsigned int rowsize = (src->area.x1 - src->area.x0) * src->n_channels * src->channel_width;
+		nr_pixblock_setup_full (dst, src->type, src->n_channels, src->colorspace, src->premultiplied, src->area.x0, src->area.y0, src->area.x1, src->area.y1);
+		for (y = src->area.y0; y < src->area.y1; y++) {
+			memcpy (nr_pixblock_get_row (dst, y - src->area.y0), nr_pixblock_get_row (src, y - src->area.y0), rowsize);
+		}
 	}
-}
-
-NRPixBlock *
-nr_pixblock_new (int mode, int x0, int y0, int x1, int y1, int clear)
-{
-	NRPixBlock *pb;
-
-	pb = nr_new (NRPixBlock, 1);
-
-	nr_pixblock_setup (pb, mode, x0, y0, x1, y1, clear);
-
-	return pb;
-}
-
-NRPixBlock *
-nr_pixblock_free (NRPixBlock *pb)
-{
-	nr_pixblock_release (pb);
-
-	nr_free (pb);
-
-	return NULL;
 }
 
 /* Helpers */
@@ -203,17 +253,16 @@ nr_pixblock_free (NRPixBlock *pb)
 unsigned int
 nr_pixblock_has_alpha (const NRPixBlock *pb)
 {
-	if (!pb) return 0;
-	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) return 1;
-	if (pb->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) return 1;
-	return 0;
+	arikkei_return_val_if_fail (pb != NULL, 0);
+	/* LA and RGBA */
+	return pb->n_channels & 1;
 }
 
 void
 nr_pixblock_get_channel_limits (const NRPixBlock *pb, unsigned int minv[], unsigned int maxv[])
 {
 	int x, y, bpp, c;
-	bpp = NR_PIXBLOCK_BPP(pb);
+	bpp = pb->n_channels;
 	for (c = 0; c < bpp; c++) {
 		minv[c] = 255;
 		maxv[c] = 0;
@@ -235,7 +284,7 @@ void
 nr_pixblock_get_histogram (const NRPixBlock *pb, unsigned int histogram[][256])
 {
 	int x, y, bpp, c, v;
-	bpp = NR_PIXBLOCK_BPP(pb);
+	bpp = pb->n_channels;
 	for (c = 0; c < bpp; c++) {
 		for (v = 0; v < 256; v++) histogram[c][v] = 0;
 	}
@@ -258,7 +307,7 @@ nr_pixblock_get_crc32 (const NRPixBlock *pb)
 	unsigned int width, height, bpp, x, y, c, cnt;
 	width = pb->area.x1 - pb->area.x0;
 	height = pb->area.y1 - pb->area.y0;
-	bpp = NR_PIXBLOCK_BPP(pb);
+	bpp = pb->n_channels;
 	crc32 = 0;
 	acc = 0;
 	cnt = 0;
@@ -287,7 +336,7 @@ nr_pixblock_get_crc64 (const NRPixBlock *pb)
 	unsigned int width, height, bpp, x, y, c, cnt;
 	width = pb->area.x1 - pb->area.x0;
 	height = pb->area.y1 - pb->area.y0;
-	bpp = NR_PIXBLOCK_BPP(pb);
+	bpp = pb->n_channels;
 	crc64 = 0;
 	acc = 0;
 	carry = 0;
@@ -320,9 +369,11 @@ nr_pixblock_get_hash (const NRPixBlock *pb)
 	unsigned int width, height, bpp, x, y, c;
 	width = pb->area.x1 - pb->area.x0;
 	height = pb->area.y1 - pb->area.y0;
-	bpp = NR_PIXBLOCK_BPP(pb);
-	hval = pb->mode;
+	bpp = pb->n_channels;
+	hval = pb->type;
+	hval = (hval << 5) - hval + pb->n_channels;
 	hval = (hval << 5) - hval + pb->empty;
+	hval = (hval << 5) - hval + pb->premultiplied;
 	hval = (hval << 5) - hval + pb->area.x0;
 	hval = (hval << 5) - hval + pb->area.y0;
 	hval = (hval << 5) - hval + pb->area.x1;
@@ -343,7 +394,9 @@ nr_pixblock_is_equal (const NRPixBlock *a, const NRPixBlock *b)
 {
 	unsigned int width, height, bpp, x, y, c;
 	if (a == b) return 1;
-	if (a->mode != b->mode) return 0;
+	if (a->type != b->type) return 0;
+	if (a->n_channels != b->n_channels) return 0;
+	if (a->premultiplied != b->premultiplied) return 0;
 	if (a->empty != b->empty) return 0;
 	if (a->area.x0 - b->area.x0) return 0;
 	if (a->area.y0 - b->area.y0) return 0;
@@ -351,7 +404,7 @@ nr_pixblock_is_equal (const NRPixBlock *a, const NRPixBlock *b)
 	if (a->area.y1 - b->area.y1) return 0;
 	width = a->area.x1 - a->area.x0;
 	height = a->area.y1 - a->area.y0;
-	bpp = NR_PIXBLOCK_BPP(a);
+	bpp = a->n_channels;
 	for (y = 0; y < height; y++) {
 		const unsigned char *pa = NR_PIXBLOCK_ROW(a, y);
 		const unsigned char *pb = NR_PIXBLOCK_ROW(b, y);

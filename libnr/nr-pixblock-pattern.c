@@ -24,15 +24,15 @@ nr_pixblock_fill (NRPixBlock *pb, unsigned int rgba32)
 	unsigned int a = NR_RGBA32_R (rgba32);
 	int x, y;
 
-	switch (pb->mode) {
-	case NR_PIXBLOCK_MODE_G8:
+	switch (pb->n_channels) {
+	case 1:
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			unsigned char *d;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
 			memset (d, a, pb->area.x1 - pb->area.x0);
 		}
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8:
+	case 3:
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			unsigned char *d;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
@@ -44,8 +44,7 @@ nr_pixblock_fill (NRPixBlock *pb, unsigned int rgba32)
 			}
 		}
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8N:
-	case NR_PIXBLOCK_MODE_R8G8B8A8P:
+	case 4:
 		for (y = pb->area.y0; y < pb->area.y1; y++) {
 			unsigned char *d;
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
@@ -71,12 +70,12 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 	static unsigned char *noise = NULL;
 	static unsigned int seed = 0;
 	unsigned int v;
-	NRRectS clip;
+	NRRectL clip;
 	int x, y, bpp;
 
 	if (mask) {
 		if (mask->empty) return;
-		nr_rect_s_intersect (&clip, &pb->area, &mask->area);
+		nr_rect_l_intersect (&clip, &pb->area, &mask->area);
 		if (nr_rect_l_test_empty (&clip)) return;
 	} else {
 		clip = pb->area;
@@ -88,7 +87,7 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 		for (i = 0; i < NR_NOISE_SIZE; i++) noise[i] = (rand () / (RAND_MAX >> 8)) & 0xff;
 	}
 
-	bpp = NR_PIXBLOCK_BPP (pb);
+	bpp = pb->n_channels;
 
 	v = (rand () / (RAND_MAX >> 8)) & 0xff;
 
@@ -99,30 +98,31 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 			m = NR_PIXBLOCK_PX (mask) + (y - mask->area.y0) * pb->rs + (clip.x0 - mask->area.x0);
 			for (x = clip.x0; x < clip.x1; x++) {
 				v = v ^ noise[seed];
-				switch (pb->mode) {
-				case NR_PIXBLOCK_MODE_G8:
+				switch (pb->n_channels) {
+				case 1:
 					d[0] = (65025 - (255 - m[0]) * (255 - d[0]) + 127) / 255;
 					break;
-				case NR_PIXBLOCK_MODE_R8G8B8:
+				case 3:
 					d[0] = NR_COMPOSEN11 (v, m[0], d[0]);
 					d[1] = NR_COMPOSEN11 (v, m[0], d[1]);
 					d[2] = NR_COMPOSEN11 (v, m[0], d[2]);
 					break;
-				case NR_PIXBLOCK_MODE_R8G8B8A8N:
-					if (m[0] != 0) {
-						unsigned int ca;
-						ca = NR_A7 (m[0], d[3]);
-						d[0] = NR_COMPOSENNN_A7 (v, m[0], d[0], d[3], ca);
-						d[1] = NR_COMPOSENNN_A7 (v, m[0], d[1], d[3], ca);
-						d[2] = NR_COMPOSENNN_A7 (v, m[0], d[2], d[3], ca);
-						d[3] = (ca + 127) / 255;
+				case 4:
+					if (pb->premultiplied) {
+						d[0] = NR_COMPOSENPP (v, m[0], d[0], d[3]);
+						d[1] = NR_COMPOSENPP (v, m[0], d[1], d[3]);
+						d[2] = NR_COMPOSENPP (v, m[0], d[2], d[3]);
+						d[3] = (NR_A7 (d[3], m[0]) + 127) / 255;
+					} else {
+						if (m[0] != 0) {
+							unsigned int ca;
+							ca = NR_A7 (m[0], d[3]);
+							d[0] = NR_COMPOSENNN_A7 (v, m[0], d[0], d[3], ca);
+							d[1] = NR_COMPOSENNN_A7 (v, m[0], d[1], d[3], ca);
+							d[2] = NR_COMPOSENNN_A7 (v, m[0], d[2], d[3], ca);
+							d[3] = (ca + 127) / 255;
+						}
 					}
-					break;
-				case NR_PIXBLOCK_MODE_R8G8B8A8P:
-					d[0] = NR_COMPOSENPP (v, m[0], d[0], d[3]);
-					d[1] = NR_COMPOSENPP (v, m[0], d[1], d[3]);
-					d[2] = NR_COMPOSENPP (v, m[0], d[2], d[3]);
-					d[3] = (NR_A7 (d[3], m[0]) + 127) / 255;
 					break;
 				default:
 					break;
@@ -143,17 +143,16 @@ nr_pixblock_render_gray_noise (NRPixBlock *pb, NRPixBlock *mask)
 			d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs + (clip.x0 - pb->area.x0) * bpp;
 			for (x = clip.x0; x < clip.x1; x++) {
 				v = v ^ noise[seed];
-				switch (pb->mode) {
-				case NR_PIXBLOCK_MODE_G8:
+				switch (pb->n_channels) {
+				case 1:
 					d[0] = 255;
 					break;
-				case NR_PIXBLOCK_MODE_R8G8B8:
+				case 3:
 					d[0] = v;
 					d[1] = v;
 					d[2] = v;
 					break;
-				case NR_PIXBLOCK_MODE_R8G8B8A8N:
-				case NR_PIXBLOCK_MODE_R8G8B8A8P:
+				case 4:
 					d[0] = v;
 					d[1] = v;
 					d[2] = v;
@@ -184,7 +183,7 @@ nr_pixblock_render_checker (NRPixBlock *pb, unsigned int size, unsigned int xoff
 	int p;
 
 	size2 = 2 * size;
-	bpp = NR_PIXBLOCK_BPP (pb);
+	bpp = pb->n_channels;
 	if (bpp == 1) {
 		g[0] = (NR_RGBA32_R (rgb0) + NR_RGBA32_G (rgb0) + NR_RGBA32_B (rgb0) + 1) / 3;
 		g[1] = (NR_RGBA32_R (rgb1) + NR_RGBA32_G (rgb1) + NR_RGBA32_B (rgb1) + 1) / 3;
@@ -202,17 +201,16 @@ nr_pixblock_render_checker (NRPixBlock *pb, unsigned int size, unsigned int xoff
 		d = NR_PIXBLOCK_PX (pb) + (y - pb->area.y0) * pb->rs;
 		for (x = pb->area.x0; x < pb->area.x1; x++) {
 			p = (((x + xoffset) ^ (y + yoffset)) % size2) / size;
-			switch (pb->mode) {
-			case NR_PIXBLOCK_MODE_G8:
+			switch (pb->n_channels) {
+			case 1:
 				d[0] = g[p];
 				break;
-			case NR_PIXBLOCK_MODE_R8G8B8:
+			case 3:
 				d[0] = r[p];
 				d[1] = g[p];
 				d[2] = b[p];
 				break;
-			case NR_PIXBLOCK_MODE_R8G8B8A8N:
-			case NR_PIXBLOCK_MODE_R8G8B8A8P:
+			case 4:
 				d[0] = r[p];
 				d[1] = g[p];
 				d[2] = b[p];

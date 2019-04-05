@@ -31,15 +31,16 @@ nr_pixblock_compose (NRPixBlock *d, const NRPixBlock *s, unsigned int alpha, con
 	sw = s->area.x1 - s->area.x0;
 	sh = s->area.y1 - s->area.y0;
 	srs = s->rs;
-	if (s->mode != NR_PIXBLOCK_MODE_R8G8B8A8N) {
+	if (s->n_channels != 4) return;
+	if (d->n_channels != 4) return;
+	if (!s->premultiplied) {
 		/* fixme: This is not implemented yet (Lauris) */
-	} else if (d->mode == NR_PIXBLOCK_MODE_R8G8B8) {
-		/* fixme: This is not implemented yet (Lauris) */
-		/* nr_R8G8B8_R8G8B8_R8G8B8A8_N_TRANSFORM (dpx, dw, dh, drs, spx, sw, sh, srs, &d2s, Falpha, XSAMPLE, YSAMPLE); */
-	} else if (d->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
+	} else {
+		if (d->premultiplied) {
 		nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N_TRANSFORM (dpx, dw, dh, drs, spx, sw, sh, srs, d2s, alpha, XSAMPLE, YSAMPLE);
-	} else if (d->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-		nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N_TRANSFORM (dpx, dw, dh, drs, spx, sw, sh, srs, d2s, alpha, XSAMPLE, YSAMPLE);
+		} else {
+			nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N_TRANSFORM (dpx, dw, dh, drs, spx, sw, sh, srs, d2s, alpha, XSAMPLE, YSAMPLE);
+		}
 	}
 	d->empty = 0;
 }

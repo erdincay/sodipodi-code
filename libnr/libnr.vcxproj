@@ -142,7 +142,6 @@
     <ClInclude Include="nr-types.h" />
     <ClInclude Include="nr-uta.h" />
     <ClInclude Include="nr-values.h" />
-    <ClInclude Include="pixblock.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
