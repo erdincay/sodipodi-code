@@ -38,10 +38,7 @@ nr_typeface_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, AZ_TYPE_OBJECT,
-						"NRTypeFace",
-						sizeof (NRTypeFaceClass),
-						sizeof (NRTypeFace),
+		az_register_type (&type, "NRTypeFace", AZ_TYPE_OBJECT, sizeof (NRTypeFaceClass), sizeof (NRTypeFace), AZ_CLASS_IS_ABSTRACT,
 						(void (*) (AZClass *)) nr_typeface_class_init,
 						NULL,
 						(void (*) (AZImplementation *, void *)) nr_typeface_finalize);
@@ -189,10 +186,7 @@ nr_typeface_empty_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, NR_TYPE_TYPEFACE,
-						"NRTypeFaceEmpty",
-						sizeof (NRTypeFaceEmptyClass),
-						sizeof (NRTypeFaceEmpty),
+		az_register_type (&type, "NRTypeFaceEmpty", NR_TYPE_TYPEFACE, sizeof (NRTypeFaceEmptyClass), sizeof (NRTypeFaceEmpty), AZ_CLASS_IS_FINAL,
 						(void (*) (AZClass *)) nr_typeface_empty_class_init,
 						(void (*) (AZImplementation *, void *)) nr_typeface_empty_init,
 						NULL);
