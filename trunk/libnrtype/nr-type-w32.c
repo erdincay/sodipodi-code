@@ -69,10 +69,7 @@ nr_typeface_w32_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, NR_TYPE_TYPEFACE,
-						"NRTypeFaceW32",
-						sizeof (NRTypeFaceW32Class),
-						sizeof (NRTypeFaceW32),
+		az_register_type (&type, "NRTypeFaceW32", NR_TYPE_TYPEFACE, sizeof (NRTypeFaceW32Class), sizeof (NRTypeFaceW32), AZ_CLASS_IS_FINAL,
 						(void (*) (AZClass *)) nr_typeface_w32_class_init,
 						(void (*) (AZImplementation *, void *)) nr_typeface_w32_init,
 						(void (*) (AZImplementation *, void *)) nr_typeface_w32_finalize);

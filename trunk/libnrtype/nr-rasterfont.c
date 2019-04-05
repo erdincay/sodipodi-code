@@ -226,7 +226,7 @@ void
 nr_rasterfont_generic_glyph_mask_render (NRRasterFont *rf, unsigned int glyph, NRPixBlock *m, float x, float y)
 {
 	NRRFGlyphSlot *slot;
-	NRRectS area;
+	NRRectL area;
 	int sx, sy;
 	unsigned char *spx;
 	int srs;
@@ -271,9 +271,9 @@ nr_rasterfont_generic_glyph_mask_render (NRRasterFont *rf, unsigned int glyph, N
 	}
 
 	if (nr_rect_s_test_intersect (&area, &m->area)) {
-		NRRectS clip;
+		NRRectL clip;
 		int x, y;
-		nr_rect_s_intersect (&clip, &area, &m->area);
+		nr_rect_l_intersect (&clip, &area, &m->area);
 		for (y = clip.y0; y < clip.y1; y++) {
 			unsigned char *d, *s;
 			s = spx + (y - area.y0) * srs + (clip.x0 - area.x0);
