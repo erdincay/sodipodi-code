@@ -25,7 +25,9 @@ nr_pixblock_transform (NRPixBlock *dpx, const NRPixBlock *spx, const NRMatrixF *
 	unsigned char bg[4];
 	const unsigned char *s;
 	/* Can only transform between identical modes */
-	if (dpx->mode != spx->mode) return;
+	if (dpx->type != spx->type) return;
+	if (dpx->n_channels != spx->n_channels) return;
+	if (dpx->premultiplied != spx->premultiplied) return;
 	/* Test if source and target overlap */
 	darea.x0 = dpx->area.x0 + 0.5f;
 	darea.y0 = dpx->area.y0 + 0.5f;
@@ -37,7 +39,7 @@ nr_pixblock_transform (NRPixBlock *dpx, const NRPixBlock *spx, const NRMatrixF *
 	if (sarea.x0 >= spx->area.x1 - 0.5f) return;
 	if (sarea.y0 >= spx->area.y1 - 0.5f) return;
 	/* We can hope that areas overlap */
-	bpp = NR_PIXBLOCK_BPP (dpx);
+	bpp = dpx->n_channels;
 	/* Fill clear color */
 	for (c = 0; c < bpp; c++) bg[c] = (clearrgba >> (8 * (3 - c))) & 255;
 	s = NR_PIXBLOCK_PX (spx);

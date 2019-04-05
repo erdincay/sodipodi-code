@@ -29,29 +29,15 @@ nr_renderer_delete (NRRenderer *renderer)
 	free (renderer);
 }
 
-static void nr_paint_server_class_init (NRPaintServerClass *klass);
-
-static AZObjectClass *parent_class;
-
 unsigned int
 nr_paint_server_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, AZ_TYPE_OBJECT,
-						(const unsigned char *) "NRPaintServer",
-						sizeof (NRPaintServerClass),
-						sizeof (NRPaintServer),
-						(void (*) (AZClass *)) nr_paint_server_class_init,
-						NULL, NULL);
+		az_register_type (&type, (const unsigned char *) "NRPaintServer", AZ_TYPE_OBJECT, sizeof (NRPaintServerClass), sizeof (NRPaintServer), 0,
+						NULL, NULL, NULL);
 	}
 	return type;
-}
-
-static void
-nr_paint_server_class_init (NRPaintServerClass *klass)
-{
-	parent_class = (AZObjectClass *) ((AZClass *) klass)->parent;
 }
 
 NRRenderer *

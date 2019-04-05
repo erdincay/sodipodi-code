@@ -28,13 +28,11 @@ nr_image_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, AZ_TYPE_REFERENCE,
-						(const unsigned char *) "NRImage",
-						sizeof (NRImageClass),
-						sizeof (NRImage),
+		az_register_type (&type, (const unsigned char *) "NRImage", AZ_TYPE_REFERENCE, sizeof (NRImageClass), sizeof (NRImage), AZ_CLASS_ZERO_MEMORY,
 						(void (*) (AZClass *)) nr_image_class_init,
 						NULL,
 						(void (*) (AZImplementation *, void *)) nr_image_finalize);
+		image_class = (NRImageClass *) az_type_get_class (type);
 	}
 	return type;
 }
@@ -42,8 +40,6 @@ nr_image_get_type (void)
 static void
 nr_image_class_init (NRImageClass *klass)
 {
-	image_class = klass;
-	((AZClass *) klass)->flags |= AZ_CLASS_ZERO_MEMORY;
 }
 
 static void
@@ -56,7 +52,7 @@ NRImage *
 nr_image_new (void)
 {
 	NRImage *image = (NRImage *) az_instance_new (NR_TYPE_IMAGE);
-	nr_pixblock_setup_fast (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
+	nr_pixblock_setup (&image->pixels, NR_PIXBLOCK_MODE_R8G8B8A8N, 0, 0, 0, 0, 0);
 	return image;
 }
 
@@ -115,7 +111,7 @@ nr_image_get_scaled (NRImage *image, unsigned int width, unsigned int height)
 	}
 	dst = nr_image_new ();
 	nr_pixblock_release (&dst->pixels);
-	nr_pixblock_setup (&dst->pixels, image->pixels.mode, 0, 0, width, height, 0);
+	nr_pixblock_setup (&dst->pixels, PB_MODE(&image->pixels), 0, 0, width, height, 0);
 	if (image->pixels.empty) return dst;
 	if (width && height) {
 		nr_pixblock_scale (&dst->pixels, &image->pixels);
@@ -127,7 +123,7 @@ NRImage *
 nr_image_get_typed (NRImage *image, unsigned int mode)
 {
 	NRImage *dst;
-	if (mode == image->pixels.mode) {
+	if (mode == PB_MODE(&image->pixels)) {
 		nr_image_ref (image);
 		return image;
 	}

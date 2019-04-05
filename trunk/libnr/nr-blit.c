@@ -19,7 +19,7 @@
 void
 nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned int alpha)
 {
-	NRRectS clip;
+	NRRectL clip;
 	unsigned char *dpx;
 	const unsigned char *spx;
 	int dbpp, sbpp;
@@ -50,104 +50,112 @@ nr_blit_pixblock_pixblock_alpha (NRPixBlock *d, const NRPixBlock *s, unsigned in
 	 *
 	 */
 
-	nr_rect_s_intersect (&clip, &d->area, &s->area);
+	nr_rect_l_intersect (&clip, &d->area, &s->area);
 
-	if (nr_rect_s_test_empty (&clip)) return;
+	if (nr_rect_l_test_empty (&clip)) return;
 
 	/* Pointers */
-	dbpp = NR_PIXBLOCK_BPP (d);
+	dbpp = d->n_channels;
 	dpx = NR_PIXBLOCK_PX (d) + (clip.y0 - d->area.y0) * d->rs + dbpp * (clip.x0 - d->area.x0);
-	sbpp = NR_PIXBLOCK_BPP (s);
+	sbpp = s->n_channels;
 	spx = NR_PIXBLOCK_PX (s) + (clip.y0 - s->area.y0) * s->rs + sbpp * (clip.x0 - s->area.x0);
 	w = clip.x1 - clip.x0;
 	h = clip.y1 - clip.y0;
 
-	switch (d->mode) {
-	case NR_PIXBLOCK_MODE_G8:
+	switch (d->n_channels) {
+	case 1:
 		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+			if (s->n_channels == 1) {
 				nr_A8_EMPTY_A8 (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+			} else if (s->n_channels == 3) {
 				nr_A8_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				nr_A8_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				nr_A8_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->n_channels == 4) {
+				if (s->premultiplied) {
+					nr_A8_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else {
+					nr_A8_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+				}
 			}
 		} else {
 			/* fixme: Implement (Lauris) */
 		}
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8:
+	case 3:
 		if (d->empty) {
 			/* fixme: Implement (Lauris) */
 		} else {
-			if (s->mode == NR_PIXBLOCK_MODE_G8) {
+			if (s->n_channels == 1) {
 				/* fixme: Implement mask rendering (Lauris) */
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+			} else if (s->n_channels == 3) {
 				nr_R8G8B8_R8G8B8_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
-				nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+			} else if (s->n_channels == 4) {
+				if (s->premultiplied) {
+					nr_R8G8B8_R8G8B8_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else {
+					nr_R8G8B8_R8G8B8_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+				}
 			}
 		}
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8P:
-		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* Case 8 */
-				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				/* Case C */
-				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+	case 4:
+		if (d->premultiplied) {
+			if (d->empty) {
+				if (s->n_channels == 1) {
+					/* Case 8 */
+					nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else if (s->n_channels == 3) {
+					/* Case C */
+					nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else {
+					/* fixme: Implement mask and RGB rendering (Lauris) */
+				}
 			} else {
-				/* fixme: Implement mask and RGB rendering (Lauris) */
+				if (s->n_channels == 1) {
+					/* case A */
+					nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else if (s->n_channels == 3) {
+					/* case E */
+					nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else {
+					/* fixme: Implement mask and RGB rendering (Lauris) */
+				}
 			}
+			break;
 		} else {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* case A */
-				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				/* case E */
-				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
-				/* fixme: Implement mask and RGB rendering (Lauris) */
-			}
-		}
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8N:
-		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_G8) {
-				/* fixme: Implement (Lauris) */
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			}
-		} else {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* case B */
-				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				/* case F */
-				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
-			} else  if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
-				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+			if (d->empty) {
+				if (s->n_channels == 1) {
+					/* fixme: Implement (Lauris) */
+				} else if (s->n_channels == 3) {
+					nr_R8G8B8A8_N_EMPTY_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+					} else {
+						nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+					}
+				}
 			} else {
 				/* fixme: Implement mask rendering (Lauris) */
+				if (s->n_channels == 3) {
+					/* case B */
+					nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_P (dpx, w, h, d->rs, spx, s->rs, alpha);
+				} else if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8 (dpx, w, h, d->rs, spx, s->rs, alpha);
+					} else {
+						nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N (dpx, w, h, d->rs, spx, s->rs, alpha);
+					}
+				}
 			}
+			break;
 		}
-		break;
 	}
 }
 
 void
 nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixBlock *m)
 {
-	NRRectS clip;
+	NRRectL clip;
 	unsigned char *dpx;
 	const unsigned char *spx, *mpx;
 	int dbpp, sbpp;
@@ -177,71 +185,83 @@ nr_blit_pixblock_pixblock_mask (NRPixBlock *d, const NRPixBlock *s, const NRPixB
 	 *
 	 */
 
-	nr_rect_s_intersect (&clip, &d->area, &s->area);
-	nr_rect_s_intersect (&clip, &clip, &m->area);
+	nr_rect_l_intersect (&clip, &d->area, &s->area);
+	nr_rect_l_intersect (&clip, &clip, &m->area);
 
-	if (nr_rect_s_test_empty (&clip)) return;
+	if (nr_rect_l_test_empty (&clip)) return;
 
 	/* Pointers */
-	dbpp = NR_PIXBLOCK_BPP (d);
+	dbpp = d->n_channels;
 	dpx = NR_PIXBLOCK_PX (d) + (clip.y0 - d->area.y0) * d->rs + dbpp * (clip.x0 - d->area.x0);
-	sbpp = NR_PIXBLOCK_BPP (s);
+	sbpp = s->n_channels;
 	spx = NR_PIXBLOCK_PX (s) + (clip.y0 - s->area.y0) * s->rs + sbpp * (clip.x0 - s->area.x0);
 	mpx = NR_PIXBLOCK_PX (m) + (clip.y0 - m->area.y0) * m->rs + 1 * (clip.x0 - m->area.x0);
 	w = clip.x1 - clip.x0;
 	h = clip.y1 - clip.y0;
 
-	switch (d->mode) {
-	case NR_PIXBLOCK_MODE_G8:
+	switch (d->n_channels) {
+	case 1:
 		/* No rendering into alpha at moment */
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8:
-		if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-			nr_R8G8B8_R8G8B8_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-		} else {
-			nr_R8G8B8_R8G8B8_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-		}
-		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8P:
-		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* Case 8 */
-				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+	case 3:
+		if (s->n_channels == 4) {
+			if (s->premultiplied) {
+				nr_R8G8B8_R8G8B8_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
 			} else {
-				/* Case C */
-				nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-			}
-		} else {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* case A */
-				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-			} else {
-				/* case E */
-				nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+				nr_R8G8B8_R8G8B8_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
 			}
 		}
 		break;
-	case NR_PIXBLOCK_MODE_R8G8B8A8N:
-		if (d->empty) {
-			if (s->mode == NR_PIXBLOCK_MODE_G8) {
-				nr_R8G8B8A8_N_EMPTY_A8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8) {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
-			} else if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8N) {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+	case 4:
+		if (d->premultiplied) {
+			if (d->empty) {
+				if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						/* Case 8 */
+						nr_R8G8B8A8_P_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					} else {
+						/* Case C */
+						nr_R8G8B8A8_P_EMPTY_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					}
+				}
 			} else {
-				nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+				if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						/* case A */
+						nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					} else {
+						/* case E */
+						nr_R8G8B8A8_P_R8G8B8A8_P_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					}
+				}
 			}
+			break;
 		} else {
-			if (s->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				/* case B */
-				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+			if (d->empty) {
+				if (s->n_channels == 1) {
+					nr_R8G8B8A8_N_EMPTY_A8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+				} else if (s->n_channels == 3) {
+					nr_R8G8B8A8_N_EMPTY_R8G8B8_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+				} else if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						nr_R8G8B8A8_N_EMPTY_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					} else {
+						nr_R8G8B8A8_N_EMPTY_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					}
+				}
 			} else {
-				/* case F */
-				nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+				if (s->n_channels == 4) {
+					if (s->premultiplied) {
+						/* case B */
+						nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_P_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					} else {
+						/* case F */
+						nr_R8G8B8A8_N_R8G8B8A8_N_R8G8B8A8_N_A8 (dpx, w, h, d->rs, spx, s->rs, mpx, m->rs);
+					}
+				}
 			}
+			break;
 		}
-		break;
 	}
 }
 
@@ -251,39 +271,43 @@ nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, const NRPixBlock *m, unsigned long 
 	if (!(rgba & 0xff)) return;
 
 	if (m) {
-		NRRectS clip;
+		NRRectL clip;
 		unsigned char *dpx;
 		const unsigned char *mpx;
 		int w, h;
 
-		if (m->mode != NR_PIXBLOCK_MODE_G8) return;
+		if (m->n_channels != 1) return;
 
-		if (!nr_rect_s_test_intersect (&d->area, &m->area)) return;
+		if (!nr_rect_l_test_intersect (&d->area, &m->area)) return;
 
-		nr_rect_s_intersect (&clip, &d->area, &m->area);
+		nr_rect_l_intersect (&clip, &d->area, &m->area);
 
 		/* Pointers */
-		dpx = NR_PIXBLOCK_PX (d) + (clip.y0 - d->area.y0) * d->rs + NR_PIXBLOCK_BPP (d) * (clip.x0 - d->area.x0);
+		dpx = NR_PIXBLOCK_PX (d) + (clip.y0 - d->area.y0) * d->rs + d->n_channels * (clip.x0 - d->area.x0);
 		mpx = NR_PIXBLOCK_PX (m) + (clip.y0 - m->area.y0) * m->rs + (clip.x0 - m->area.x0);
 		w = clip.x1 - clip.x0;
 		h = clip.y1 - clip.y0;
 
 		if (d->empty) {
-			if (d->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+			if (d->n_channels == 3) {
 				nr_R8G8B8_R8G8B8_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
-			} else if (d->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				nr_R8G8B8A8_P_EMPTY_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
-			} else {
-				nr_R8G8B8A8_N_EMPTY_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+			} else if (d->n_channels == 4) {
+				if (d->premultiplied) {
+					nr_R8G8B8A8_P_EMPTY_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+				} else {
+					nr_R8G8B8A8_N_EMPTY_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+				}
 			}
 			d->empty = 0;
 		} else {
-			if (d->mode == NR_PIXBLOCK_MODE_R8G8B8) {
+			if (d->n_channels == 3) {
 				nr_R8G8B8_R8G8B8_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
-			} else if (d->mode == NR_PIXBLOCK_MODE_R8G8B8A8P) {
-				nr_R8G8B8A8_P_R8G8B8A8_P_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
-			} else {
-				nr_R8G8B8A8_N_R8G8B8A8_N_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+			} else if (d->n_channels == 4) {
+				if (d->premultiplied) {
+					nr_R8G8B8A8_P_R8G8B8A8_P_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+				} else {
+					nr_R8G8B8A8_N_R8G8B8A8_N_A8_RGBA32 (dpx, w, h, d->rs, mpx, m->rs, rgba);
+				}
 			}
 		}
 	} else {
@@ -298,30 +322,27 @@ nr_blit_pixblock_mask_rgba32 (NRPixBlock *d, const NRPixBlock *m, unsigned long 
 			p = NR_PIXBLOCK_PX (d) + (y - d->area.y0) * d->rs;
 			for (x = d->area.x0; x < d->area.x1; x++) {
 				unsigned int da;
-				switch (d->mode) {
-				case NR_PIXBLOCK_MODE_R8G8B8:
+				if (d->n_channels == 3) {
 					p[0] = NR_COMPOSEN11 (r, a, p[0]);
 					p[1] = NR_COMPOSEN11 (g, a, p[1]);
 					p[2] = NR_COMPOSEN11 (b, a, p[2]);
 					p += 3;
-					break;
-				case NR_PIXBLOCK_MODE_R8G8B8A8P:
-					p[0] = NR_COMPOSENPP (r, a, p[0], p[3]);
-					p[1] = NR_COMPOSENPP (g, a, p[1], p[3]);
-					p[2] = NR_COMPOSENPP (b, a, p[2], p[3]);
-					p[3] = (65025 - (255 - a) * (255 - p[3]) + 127) / 255;
-					p += 4;
-					break;
-				case NR_PIXBLOCK_MODE_R8G8B8A8N:
-					da = 65025 - (255 - a) * (255 - p[3]);
-					p[0] = NR_COMPOSENNN_A7 (r, a, p[0], p[3], da);
-					p[1] = NR_COMPOSENNN_A7 (g, a, p[1], p[3], da);
-					p[2] = NR_COMPOSENNN_A7 (b, a, p[2], p[3], da);
-					p[3] = (da + 127) / 255;
-					p += 4;
-					break;
-				default:
-					break;
+				} else if (d->n_channels == 4) {
+					if (d->premultiplied) {
+						p[0] = NR_COMPOSENPP (r, a, p[0], p[3]);
+						p[1] = NR_COMPOSENPP (g, a, p[1], p[3]);
+						p[2] = NR_COMPOSENPP (b, a, p[2], p[3]);
+						p[3] = (65025 - (255 - a) * (255 - p[3]) + 127) / 255;
+						p += 4;
+					} else {
+						da = 65025 - (255 - a) * (255 - p[3]);
+						p[0] = NR_COMPOSENNN_A7 (r, a, p[0], p[3], da);
+						p[1] = NR_COMPOSENNN_A7 (g, a, p[1], p[3], da);
+						p[2] = NR_COMPOSENNN_A7 (b, a, p[2], p[3], da);
+						p[3] = (da + 127) / 255;
+						p += 4;
+						break;
+					}
 				}
 			}
 		}
