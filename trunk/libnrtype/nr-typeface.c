@@ -41,7 +41,7 @@ nr_typeface_get_type (void)
 		az_register_type (&type, "NRTypeFace", AZ_TYPE_OBJECT, sizeof (NRTypeFaceClass), sizeof (NRTypeFace), AZ_CLASS_IS_ABSTRACT,
 						(void (*) (AZClass *)) nr_typeface_class_init,
 						NULL,
-						(void (*) (AZImplementation *, void *)) nr_typeface_finalize);
+						(void (*) (const AZImplementation *, void *)) nr_typeface_finalize);
 	}
 	return type;
 }
@@ -188,7 +188,7 @@ nr_typeface_empty_get_type (void)
 	if (!type) {
 		az_register_type (&type, "NRTypeFaceEmpty", NR_TYPE_TYPEFACE, sizeof (NRTypeFaceEmptyClass), sizeof (NRTypeFaceEmpty), AZ_CLASS_IS_FINAL,
 						(void (*) (AZClass *)) nr_typeface_empty_class_init,
-						(void (*) (AZImplementation *, void *)) nr_typeface_empty_init,
+						(void (*) (const AZImplementation *, void *)) nr_typeface_empty_init,
 						NULL);
 	}
 	return type;
