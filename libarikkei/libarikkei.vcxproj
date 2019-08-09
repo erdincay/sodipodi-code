@@ -13,16 +13,17 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F905F3AF-46E0-44D5-92F5-7616921E4521}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -101,6 +102,7 @@
     <ClCompile Include="arikkei-token.c" />
     <ClCompile Include="arikkei-url.c" />
     <ClCompile Include="arikkei-utils.c" />
+    <ClCompile Include="tinycthread.c" />
     <ClCompile Include="token.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +120,7 @@
     <ClInclude Include="arikkei-property.h" />
     <ClInclude Include="arikkei-reference.h" />
     <ClInclude Include="arikkei-strlib.h" />
+    <ClInclude Include="arikkei-threads.h" />
     <ClInclude Include="arikkei-token.h" />
     <ClInclude Include="arikkei-types.h" />
     <ClInclude Include="arikkei-url.h" />
@@ -126,6 +129,7 @@
     <ClInclude Include="arikkei-value.h" />
     <ClInclude Include="cache.h" />
     <ClInclude Include="dict.h" />
+    <ClInclude Include="tinycthread.h" />
     <ClInclude Include="token.h" />
     <ClInclude Include="utext.h" />
   </ItemGroup>

@@ -45,6 +45,9 @@
     <ClCompile Include="arikkei-utils.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tinycthread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arikkei-cache.h">
@@ -118,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="arikkei-function-object.h">
       <Filter>Types</Filter>
+    </ClInclude>
+    <ClInclude Include="arikkei-threads.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinycthread.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
