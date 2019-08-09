@@ -71,8 +71,8 @@ nr_typeface_w32_get_type (void)
 	if (!type) {
 		az_register_type (&type, "NRTypeFaceW32", NR_TYPE_TYPEFACE, sizeof (NRTypeFaceW32Class), sizeof (NRTypeFaceW32), AZ_CLASS_IS_FINAL,
 						(void (*) (AZClass *)) nr_typeface_w32_class_init,
-						(void (*) (AZImplementation *, void *)) nr_typeface_w32_init,
-						(void (*) (AZImplementation *, void *)) nr_typeface_w32_finalize);
+						(void (*) (const AZImplementation *, void *)) nr_typeface_w32_init,
+						(void (*) (const AZImplementation *, void *)) nr_typeface_w32_finalize);
 	}
 	return type;
 }
