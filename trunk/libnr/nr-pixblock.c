@@ -32,10 +32,10 @@ nr_pixblock_get_type (void)
 {
 	static unsigned int type = 0;
 	if (!type) {
-		az_register_type (&type, (const unsigned char *) "NRPixBlock", AZ_TYPE_STRUCT, sizeof (NRPixBlockClass), sizeof (NRPixBlock), AZ_CLASS_ZERO_MEMORY,
+		az_register_type (&type, (const unsigned char *) "NRPixBlock", AZ_TYPE_BLOCK, sizeof (NRPixBlockClass), sizeof (NRPixBlock), AZ_CLASS_ZERO_MEMORY,
 			(void (*) (AZClass *)) nr_pixblock_class_init,
 			NULL,
-			(void (*) (AZImplementation *, void *)) nr_pixblock_finalize);
+			(void (*) (const AZImplementation *, void *)) nr_pixblock_finalize);
 	}
 	return type;
 }
