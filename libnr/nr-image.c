@@ -31,7 +31,7 @@ nr_image_get_type (void)
 		az_register_type (&type, (const unsigned char *) "NRImage", AZ_TYPE_REFERENCE, sizeof (NRImageClass), sizeof (NRImage), AZ_CLASS_ZERO_MEMORY,
 						(void (*) (AZClass *)) nr_image_class_init,
 						NULL,
-						(void (*) (AZImplementation *, void *)) nr_image_finalize);
+						(void (*) (const AZImplementation *, void *)) nr_image_finalize);
 		image_class = (NRImageClass *) az_type_get_class (type);
 	}
 	return type;
@@ -67,7 +67,7 @@ nr_image_new_sized (unsigned int mode, int x0, int y0, int x1, int y1, unsigned 
 void
 nr_image_ref (NRImage *image)
 {
-	az_reference_ref (&image_class->reference_class, &image->reference);
+	az_reference_ref (&image->reference);
 }
 
 void
