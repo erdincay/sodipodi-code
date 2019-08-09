@@ -21,8 +21,10 @@
 /* Alignment */
 
 #ifdef _WIN32
+#define ARIKKEI_ALIGN_8 __declspec(align(8))
 #define ARIKKEI_ALIGN_16 __declspec(align(16))
 #else
+#define ARIKKEI_ALIGN_8 __attribute__ ((aligned (8)))
 #define ARIKKEI_ALIGN_16 __attribute__ ((aligned (16)))
 #endif
 
